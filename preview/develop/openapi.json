@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Example.com",
+    "termsOfService": "https://example.com/terms/",
+    "contact": {
+      "email": "contact@example.com",
+      "url": "http://example.com/contact"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "x-logo": {
+      "url": "https://apis.guru/openapi-template/logo.png"
+    },
+    "description": "This is an **example** API to demonstrate features of OpenAPI specification\n# Introduction\nThis specification is intended to to be a good starting point for describing your API in \n[OpenAPI/Swagger format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md).\nIt also demonstrates features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) tool and \n[ReDoc](https://github.com/Rebilly/ReDoc) documentation engine. So beyond the standard OpenAPI syntax we use a few \n[vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).\n\n# OpenAPI Specification\nThe goal of The OpenAPI Specification is to define a standard, language-agnostic interface to REST APIs which\nallows both humans and computers to discover and understand the capabilities of the service without access to source\ncode, documentation, or through network traffic inspection. When properly defined via OpenAPI, a consumer can \nunderstand and interact with the remote service with a minimal amount of implementation logic. Similar to what\ninterfaces have done for lower-level programming, OpenAPI removes the guesswork in calling the service.\n"
+  },
+  "externalDocs": {
+    "description": "Find out how to create Github repo for your OpenAPI spec.",
+    "url": "https://github.com/Rebilly/generator-openapi-repo"
+  },
+  "tags": [
+    {
+      "name": "Devices",
+      "description": "Device database"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1"
+    }
+  ],
+  "paths": {
+    "/devices": {
+      "parameters": [
+        {
+          "name": "category",
+          "in": "query",
+          "description": "Device category",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "subcategory",
+          "in": "query",
+          "description": "Device sub-category",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "summary": "Device database",
+        "description": "Retrieve device metadata",
+        "operationId": "devices",
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "basic_auth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "X-Expires-After": {
+                "$ref": "#/components/headers/ExpiresAfter"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "response": {
+                    "value": [
+                      {
+                        "description": "SwitchLinc Dimmer",
+                        "sku": "2476D",
+                        "category": 1,
+                        "subCategory": 1,
+                        "categoryDescription": "Dimmable Lighting Control",
+                        "groups": [
+                          {
+                            "description": "Main load",
+                            "number": 1,
+                            "role": "both"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": "API.v1.Devices devices = new API.v1.Devices();\necho.message = \"[{}]\");\nDevicesResponse response = device.get();\nif (response.statusCode == HttpStatusCode.Created)\n{\n  // Success\n}\nelse\n{\n  // Something wrong -- check response for errors\n  Console.WriteLine(response.getRawResponse());\n}"
+          },
+          {
+            "lang": "PHP",
+            "source": "$form = new \\API\\Entities\\Devices();\n$form->setMessage(\"[{}]\");\ntry {\n    $pet = $client->devices()->post($form);\n} catch (UnprocessableEntityException $e) {\n    var_dump($e->getErrors());\n}\n"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Device": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "description": "A description of the device",
+            "type": "string",
+            "example": "SwitchLinc Dimmer"
+          },
+          "category": {
+            "description": "The device's category",
+            "type": "number",
+            "example": 1
+          },
+          "subCategory": {
+            "description": "The device's sub-category",
+            "type": "number",
+            "example": 1
+          },
+          "categoryDescription": {
+            "description": "The description of the device's category",
+            "type": "string",
+            "example": "Dimmable Lighting Control"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceGroup"
+            }
+          }
+        }
+      },
+      "DeviceGroup": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "description": "A description of the group",
+            "type": "string",
+            "example": "Main load"
+          },
+          "number": {
+            "description": "The group number",
+            "type": "number",
+            "example": 1
+          },
+          "role": {
+            "description": "The role this group can play in a scene",
+            "type": "string",
+            "example": "both"
+          }
+        }
+      }
+    },
+    "headers": {
+      "ExpiresAfter": {
+        "description": "date in UTC when token expires",
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "api_key"
+      },
+      "basic_auth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "main_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://example.com/api/oauth/dialog",
+            "scopes": {
+              "read:users": "read users info",
+              "write:users": "modify or remove users"
+            }
+          }
+        }
+      }
+    }
+  }
+}
