@@ -1,0 +1,14 @@
+type: object
+properties:
+  description:
+    description: A description of the group
+    type: string
+    example: Main load
+  number:
+    description: The group number
+    type: number
+    example: 1
+  role:
+    description: The role this group can play in a scene
+    type: string
+    example: both

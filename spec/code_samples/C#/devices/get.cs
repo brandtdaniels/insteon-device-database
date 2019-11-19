@@ -1,6 +1,6 @@
-API.v1.Echo echo = new API.v1.Echo();
-echo.message = "Hello World!");
-EchoResponse response = echo.post();
+API.v1.Devices devices = new API.v1.Devices();
+echo.message = "[{}]");
+DevicesResponse response = device.get();
 if (response.statusCode == HttpStatusCode.Created)
 {
   // Success

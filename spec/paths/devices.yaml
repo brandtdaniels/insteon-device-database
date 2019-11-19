@@ -1,0 +1,47 @@
+parameters:
+  - name: category
+    in: query
+    description: Device category
+    schema:
+      type: number
+  - name: subcategory
+    in: query
+    description: Device sub-category
+    schema:
+      type: number
+get:
+  tags:
+    - Devices
+  summary: Device database
+  description: Retrieve device metadata
+  operationId: devices
+  security:
+    - api_key: []
+    - basic_auth: []
+  responses:
+    '200':
+      description: OK
+      headers:
+        X-Rate-Limit:
+          description: calls per hour allowed by the user
+          schema:
+            type: integer
+            format: int32
+        X-Expires-After:
+          $ref: '#/components/headers/ExpiresAfter'
+      content:
+        application/json:
+          schema:
+            type: string
+          examples:
+            response:
+              value:
+                - description: SwitchLinc Dimmer
+                  sku: 2476D
+                  category: 1
+                  subCategory: 1
+                  categoryDescription: Dimmable Lighting Control
+                  groups:
+                    - description: Main load
+                      number: 1
+                      role: both

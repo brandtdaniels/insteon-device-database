@@ -1,0 +1,22 @@
+type: object
+properties:
+  description:
+    description: A description of the device
+    type: string
+    example: SwitchLinc Dimmer
+  category:
+    description: The device's category
+    type: number
+    example: 1
+  subCategory:
+    description: The device's sub-category
+    type: number
+    example: 1
+  categoryDescription:
+    description: The description of the device's category
+    type: string
+    example: Dimmable Lighting Control
+  groups:
+    type: array
+    items:
+      $ref: '#/components/schemas/DeviceGroup'
