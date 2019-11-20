@@ -30,21 +30,29 @@ externalDocs:
   description: Find out how to create Github repo for your OpenAPI spec.
   url: 'https://github.com/Rebilly/generator-openapi-repo'
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
+  - name: Devices
+    description: Device database
 servers:
-  - url: 'http://example.com/api/v1'
-  - url: 'https://example.com/api/v1'
+  - url: 'http://localhost:8080/api/v1'
 paths:
-  /echo:
-    post:
+  /devices:
+    parameters:
+      - name: category
+        in: query
+        description: Device category
+        schema:
+          type: number
+      - name: subcategory
+        in: query
+        description: Device sub-category
+        schema:
+          type: number
+    get:
       tags:
-        - Echo
-      summary: Echo test
-      description: Receive the exact message you've sent
-      operationId: echo
+        - Devices
+      summary: Device database
+      description: Retrieve device metadata
+      operationId: devices
       security:
         - api_key: []
         - basic_auth: []
@@ -65,31 +73,22 @@ paths:
                 type: string
               examples:
                 response:
-                  value: Hello world!
-            application/xml:
-              schema:
-                type: string
-            text/csv:
-              schema:
-                type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-              example: Hello world!
-          application/xml:
-            schema:
-              type: string
-              example: Hello world!
-        description: Echo payload
-        required: true
+                  value:
+                    - description: SwitchLinc Dimmer
+                      sku: 2476D
+                      category: 1
+                      subCategory: 1
+                      categoryDescription: Dimmable Lighting Control
+                      groups:
+                        - description: Main load
+                          number: 1
+                          role: both
       x-code-samples:
         - lang: 'C#'
-          source: |
-            API.v1.Echo echo = new API.v1.Echo();
-            echo.message = "Hello World!");
-            EchoResponse response = echo.post();
+          source: |-
+            API.v1.Devices devices = new API.v1.Devices();
+            echo.message = "[{}]");
+            DevicesResponse response = device.get();
             if (response.statusCode == HttpStatusCode.Created)
             {
               // Success
@@ -101,118 +100,53 @@ paths:
             }
         - lang: PHP
           source: |
-            $form = new \API\Entities\Echo();
-            $form->setMessage("Hello World!");
+            $form = new \API\Entities\Devices();
+            $form->setMessage("[{}]");
             try {
-                $pet = $client->echo()->post($form);
+                $pet = $client->devices()->post($form);
             } catch (UnprocessableEntityException $e) {
                 var_dump($e->getErrors());
             }
-  '/users/{username}':
-    parameters:
-      - name: pretty_print
-        in: query
-        description: Pretty print response
-        schema:
-          type: boolean
-    get:
-      tags:
-        - User
-      summary: Get user by user name
-      description: |
-        Some description of the operation. 
-        You can use `markdown` here.
-      operationId: getUserByName
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be fetched
-          required: true
-          schema:
-            type: string
-        - name: with_email
-          in: query
-          description: Filter users without email
-          schema:
-            type: boolean
-      security:
-        - main_auth:
-            - 'read:users'
-        - api_key: []
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              example:
-                username: user1
-                email: user@example.com
-        '403':
-          description: Forbidden
-        '404':
-          description: User not found
-    put:
-      tags:
-        - User
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be updated
-          required: true
-          schema:
-            type: string
-      security:
-        - main_auth:
-            - 'write:users'
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Invalid user supplied
-        '404':
-          description: User not found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-        description: Updated user object
-        required: true
 components:
   schemas:
-    Email:
-      description: User email address
-      type: string
-      format: test
-      example: john.smith@example.com
-    User:
+    Device:
       type: object
       properties:
-        username:
-          description: User supplied username
+        description:
+          description: A description of the device
           type: string
-          minLength: 4
-          example: John78
-        firstName:
-          description: User first name
+          example: SwitchLinc Dimmer
+        category:
+          description: The device's category
+          type: number
+          example: 1
+        subCategory:
+          description: The device's sub-category
+          type: number
+          example: 1
+        categoryDescription:
+          description: The description of the device's category
           type: string
-          minLength: 1
-          example: John
-        lastName:
-          description: User last name
+          example: Dimmable Lighting Control
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroup'
+    DeviceGroup:
+      type: object
+      properties:
+        description:
+          description: A description of the group
           type: string
-          minLength: 1
-          example: Smith
-        email:
-          $ref: '#/components/schemas/Email'
+          example: Main load
+        number:
+          description: The group number
+          type: number
+          example: 1
+        role:
+          description: The role this group can play in a scene
+          type: string
+          example: both
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
