@@ -29,7 +29,7 @@
   ],
   "servers": [
     {
-      "url": "http://localhost:8080/api/v1"
+      "url": "https://insteon-device-database.firebaseapp.com/api/v1"
     }
   ],
   "paths": {
