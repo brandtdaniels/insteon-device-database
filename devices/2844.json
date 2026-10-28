@@ -42,6 +42,36 @@
       "number": "0x04",
       "name": "Heartbeat",
       "role": "controller"
+    },
+    {
+      "number": "0x05",
+      "name": "Motion stopped, alternate",
+      "role": "controller"
+    },
+    {
+      "number": "0x06",
+      "name": "Dawn, alternate",
+      "role": "controller"
+    },
+    {
+      "number": "0x07",
+      "name": "Hot",
+      "role": "controller"
+    },
+    {
+      "number": "0x08",
+      "name": "Cold",
+      "role": "controller"
+    },
+    {
+      "number": "0x09",
+      "name": "Not hot, alternate",
+      "role": "controller"
+    },
+    {
+      "number": "0x0A",
+      "name": "Not cold, alternate",
+      "role": "controller"
     }
   ],
   "capabilities": [
@@ -72,6 +102,46 @@
           "group": "0x03",
           "command1": "0x11",
           "event": "lowBattery"
+        },
+        {
+          "group": "0x05",
+          "command1": "0x11",
+          "event": "motionStopped"
+        },
+        {
+          "group": "0x06",
+          "command1": "0x11",
+          "event": "light"
+        },
+        {
+          "group": "0x07",
+          "command1": "0x11",
+          "event": "hot"
+        },
+        {
+          "group": "0x07",
+          "command1": "0x13",
+          "event": "notHot"
+        },
+        {
+          "group": "0x08",
+          "command1": "0x11",
+          "event": "cold"
+        },
+        {
+          "group": "0x08",
+          "command1": "0x13",
+          "event": "notCold"
+        },
+        {
+          "group": "0x09",
+          "command1": "0x11",
+          "event": "notHot"
+        },
+        {
+          "group": "0x0A",
+          "command1": "0x11",
+          "event": "notCold"
         }
       ]
     },
@@ -84,7 +154,8 @@
   "notes": [
     "Groups other than 1 are off by default.",
     "Its heartbeat's cmd1, 0x11 to 0x14, gives the battery level from fully charged to almost empty.",
-    "Optional groups report temperature and light levels."
+    "Optional groups report temperature and light levels.",
+    "Groups 5, 6, 9 and 10 report the end of motion, dawn, heat and cold as an on instead of an off to groups 1, 2, 7 and 8; the Motion Sensor III sends to them only when they have links. Groups 7 to 10 are the Motion Sensor III's."
   ],
   "sources": [
     "2844-x22 Motion Sensor II and III PRDs",
