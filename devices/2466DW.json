@@ -1,0 +1,25 @@
+{
+  "model": "2466DW",
+  "name": "ToggleLinc Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x17"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x1F"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "HouseLinc lists subcategory 0x1F for firmware 0x3A and later."
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

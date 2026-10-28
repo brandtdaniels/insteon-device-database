@@ -1,0 +1,43 @@
+{
+  "model": "2248",
+  "name": "I/O Module",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x0E",
+      "region": "US"
+    },
+    {
+      "category": "0x07",
+      "subcategory": "0x0F",
+      "region": "Europe"
+    },
+    {
+      "category": "0x07",
+      "subcategory": "0x10",
+      "region": "UK"
+    },
+    {
+      "category": "0x07",
+      "subcategory": "0x11",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Has one relay, with normally open, normally closed and common contacts, and two sense inputs.",
+    "The relay's momentary mode can be set from 1 second to 30 minutes.",
+    "An I/O Module Expander, which has no INSTEON radio of its own, adds four more zones."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "I/O Module PRD",
+    "I/O Module Expander PRD"
+  ]
+}
