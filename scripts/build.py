@@ -261,6 +261,48 @@ def presentation_problems(command_set):
         if any(low > high for low, high in ranges) or any(a[1] >= b[0] for a, b in zip(sorted(ranges), sorted(ranges)[1:])):
             problems.append(f"{label}'s state ranges are reversed or overlap")
 
+        for side, entries in group_type.get("linkData", {}).items():
+            numbers = [entry["byte"] for entry in entries]
+
+            if len(numbers) != len(set(numbers)):
+                problems.append(f"{label}'s {side} record data names a byte twice")
+
+            for entry in entries:
+                if entry.get("table") is not None and entry["table"] not in tables:
+                    problems.append(f"{label}'s {side} record data names the value table {entry['table']!r}, which doesn't exist")
+
+                bounds = entry.get("range")
+                what = f"{label}'s {side} record data {entry['name']}"
+
+                if not any(key in entry for key in ("value", "range", "table")) and not entry.get("perGroup"):
+                    problems.append(f"{what} gives no value, range, table or perGroup")
+
+                if entry.get("perGroup") and any(key in entry for key in ("value", "range", "table", "unit")):
+                    problems.append(f"{what} is perGroup but also gives a value, range, table or unit")
+
+                if "table" in entry and "unit" in entry:
+                    problems.append(f"{what} has both a table and a unit")
+
+                if "scale" in entry and "unit" not in entry:
+                    problems.append(f"{what} has a scale but no unit")
+
+                if bounds and int(bounds["from"], 16) > int(bounds["through"], 16):
+                    problems.append(f"{what}'s range is reversed")
+
+                if "value" in entry and bounds and not int(bounds["from"], 16) <= int(entry["value"], 16) <= int(bounds["through"], 16):
+                    problems.append(f"{what} is outside its range")
+
+                table = tables.get(entry.get("table"))
+
+                if table is not None:
+                    values = [int(v["value"], 16) for v in table["values"]]
+
+                    if "value" in entry and int(entry["value"], 16) not in values:
+                        problems.append(f"{what}'s value isn't in its table")
+
+                    if bounds and any(not int(bounds["from"], 16) <= v <= int(bounds["through"], 16) for v in values):
+                        problems.append(f"{what}'s table has values outside its range")
+
         names = [action["name"] for action in group_type.get("actions", [])]
 
         if len(names) != len(set(names)):

@@ -454,7 +454,38 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157,
+            "verification": {
+              "status": "inferred",
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from the KeypadLinc Line and LED Bulb Developer Notes."
+            }
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate",
+            "verification": {
+              "status": "inferred",
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from the KeypadLinc Line and LED Bulb Developer Notes."
+            }
+          }
+        ]
+      }
     }
   ],
   "notes": [

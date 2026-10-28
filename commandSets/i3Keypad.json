@@ -216,6 +216,20 @@
           "seconds": 0.1
         }
       ]
+    },
+    {
+      "name": "onOff",
+      "description": "Off and on, for a load or LED a record switches.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "Off"
+        },
+        {
+          "value": "0xFF",
+          "label": "On"
+        }
+      ]
     }
   ],
   "operatingFlags": [
@@ -1391,7 +1405,37 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate"
+          },
+          {
+            "byte": 3,
+            "name": "button",
+            "label": "Button",
+            "description": "The load's group, 0x01, or 0x09 when the load is detached.",
+            "perGroup": true
+          }
+        ]
+      }
     },
     {
       "name": "button",
@@ -1400,6 +1444,35 @@
       "state": {
         "command": "readLeds",
         "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "LED",
+            "description": "Whether the button's LED turns on (0xFF) or off (0x00) when its controller's On arrives.",
+            "table": "onOff",
+            "verification": {
+              "status": "inferred",
+              "note": "Read from the i3 Keypad (Insteon Developer Documentation, October 2025) records, whose Data 1 is the on-level, which for a button is its LED."
+            }
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate"
+          },
+          {
+            "byte": 3,
+            "name": "button",
+            "label": "Button",
+            "description": "The button whose LED the record controls, 0x01 to 0x04.",
+            "perGroup": true
+          }
+        ]
       }
     }
   ],
