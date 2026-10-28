@@ -1,7 +1,7 @@
 {
   "model": "2868-222",
   "name": "Siren",
-  "description": "A plug-in siren with a 115 dB siren and a 100 dB chime. Insteon sensors and controllers trigger it when it's armed, and keypads and remotes arm and disarm it, in home mode, away mode or both.",
+  "description": "A plug-in siren with a siren and a chime. Insteon sensors and controllers trigger it when it's armed, and keypads and remotes arm and disarm it, in home mode, away mode or both.",
   "identities": [
     {
       "category": "0x07",
@@ -15,8 +15,8 @@
       "category": "0x07",
       "subcategory": "0x1E",
       "verification": {
-        "status": "conflicting",
-        "note": "The Siren Module Developer Notes give 0x03 as its get engine version reply in their text and 0x02 in their table and example."
+        "status": "documented",
+        "note": "The Siren Module Developer Notes give 0x03 as its Get Insteon Engine Version reply in their text and 0x02 in their table and example."
       }
     }
   ],
@@ -96,10 +96,11 @@
   ],
   "notes": [
     "As a controller, group 1 is the alert: it broadcasts while the siren sounds.",
-    "The documented firmware is 0xE1.",
+    "The Siren Module Developer Notes document firmware 0xE1; their title gives 0xE2.",
     "The LED is green when the siren is armed and red when it's disarmed.",
-    "Holds 24 links.",
-    "The siren alert sounds for 2 minutes by default, unless the siren is disarmed.",
+    "The Siren 2868-222 Owner's Manual gives the siren as 115 dB and the chime as 100 dB at 1 meter; the Siren Module Developer Notes give the siren as 91 dB at 10 cm in one place and 120 dB in another.",
+    "The Siren 2868-222 Owner's Manual says it holds 24 links; the Siren Module Developer Notes' memory map allows 416.",
+    "The Siren 2868-222 Owner's Manual has the siren tone sound for 2 minutes unless the siren is disarmed, and the chime give two short beeps.",
     "The Siren Module Developer Notes' example broadcasts carry another product's category and subcategory."
   ],
   "sources": [
