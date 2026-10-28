@@ -29,12 +29,12 @@
   ],
   "commandSets": [
     {
-      "commandSet": "switchLincDimmerLegacy",
+      "commandSet": "switchLincRelayLegacy",
       "category": "0x02",
       "subcategory": "0x0D"
     },
     {
-      "commandSet": "switchLincDimmerLegacy",
+      "commandSet": "switchLincRelayLegacy",
       "category": "0x02",
       "subcategory": "0x1A"
     }
