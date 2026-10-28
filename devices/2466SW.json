@@ -20,12 +20,18 @@
     },
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x41",
-          "0xD5"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x1A",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xD5"
+            ]
+          }
+        }
+      ]
     }
   ],
   "notes": [

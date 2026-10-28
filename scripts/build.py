@@ -40,6 +40,17 @@ def load_profiles():
         if len(kinds) != len(set(kinds)):
             problems.append(f"{path.name}: a capability kind appears more than once")
 
+        identities = {(identity["category"], identity["subcategory"]) for identity in profile.get("identities", [])}
+
+        for capability in profile.get("capabilities", []):
+            scoped = [(scope["category"], scope["subcategory"]) for scope in capability.get("identities", [])]
+
+            if not set(scoped) <= identities:
+                problems.append(f"{path.name}: the {capability['kind']} capability names an identity the product doesn't have")
+
+            if len(scoped) != len(set(scoped)):
+                problems.append(f"{path.name}: the {capability['kind']} capability names an identity more than once")
+
         errors += problems
         profiles.append(profile)
 
@@ -169,12 +180,18 @@ CAPABILITY_LABELS = {
 }
 
 
-def firmware_note(selection):
-    """How the page describes a capability's firmware selection."""
-    if "only" in selection:
-        return "Firmware " + ", ".join(selection["only"])
+def scope_note(scope):
+    """How the page describes the identity and firmware versions a capability applies to."""
+    identity = f"{scope['category']}/{scope['subcategory']}"
+    selection = scope.get("firmware")
 
-    return "All firmware except " + ", ".join(selection["except"])
+    if selection is None:
+        return f"{identity}: every firmware version"
+
+    if "only" in selection:
+        return f"{identity}: firmware " + ", ".join(selection["only"])
+
+    return f"{identity}: every firmware version except " + ", ".join(selection["except"])
 
 
 def capability_descriptions():
@@ -203,7 +220,9 @@ def index_page(profiles):
             if "firmware" in identity:
                 notes.append(f"firmware {identity['firmware']['from']}–{identity['firmware']['through']}")
 
-            subcategories.append(identity["subcategory"] + (f" <small>{escape(', '.join(notes))}</small>" if notes else ""))
+            code = identity["subcategory"] if identity["category"] == category else f"{identity['category']}/{identity['subcategory']}"
+            subcategories.append(code + (f" <small>{escape(', '.join(notes))}</small>" if notes else ""))
+
         search = " ".join([profile["model"], profile["name"], *aliases, *(f"{i['category']}/{i['subcategory']}" for i in profile["identities"])]).lower()
         name = escape(profile["name"])
 
@@ -220,10 +239,9 @@ def index_page(profiles):
             title = descriptions.get(kind, "")
             label = escape(CAPABILITY_LABELS.get(kind, kind))
 
-            if "firmware" in capability:
-                note = firmware_note(capability["firmware"])
-                title += " " + note + "."
-                label += ' <span class="firmware">some firmware</span>'
+            if "identities" in capability:
+                title += " Applies to " + "; ".join(scope_note(scope) for scope in capability["identities"]) + "."
+                label += ' <span class="firmware">some versions</span>'
 
             chips += f'<span class="chip" title="{escape(title)}">{label}</span>'
 

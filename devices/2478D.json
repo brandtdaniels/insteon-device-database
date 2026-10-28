@@ -25,13 +25,19 @@
     },
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x41",
-          "0xBC",
-          "0xBD"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x01",
+          "subcategory": "0x31",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xBC",
+              "0xBD"
+            ]
+          }
+        }
+      ]
     }
   ],
   "notes": [

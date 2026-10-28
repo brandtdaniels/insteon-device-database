@@ -16,11 +16,17 @@
     },
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x41"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x2B",
+          "firmware": {
+            "only": [
+              "0x41"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

@@ -12,14 +12,20 @@
   "capabilities": [
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x37",
-          "0x94",
-          "0x95",
-          "0x96"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x00",
+          "subcategory": "0x10",
+          "firmware": {
+            "only": [
+              "0x37",
+              "0x94",
+              "0x95",
+              "0x96"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

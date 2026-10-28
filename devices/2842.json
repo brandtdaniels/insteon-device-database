@@ -21,17 +21,31 @@
   "capabilities": [
     {
       "kind": "i2cs",
-      "firmware": {
-        "except": [
-          "0x22",
-          "0x24",
-          "0x26",
-          "0x30",
-          "0x34",
-          "0x36",
-          "0x82"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x10",
+          "subcategory": "0x01",
+          "firmware": {
+            "except": [
+              "0x22",
+              "0x24",
+              "0x26",
+              "0x30",
+              "0x34",
+              "0x36",
+              "0x82"
+            ]
+          }
+        },
+        {
+          "category": "0x10",
+          "subcategory": "0x04"
+        },
+        {
+          "category": "0x10",
+          "subcategory": "0x05"
+        }
+      ]
     }
   ],
   "sources": [

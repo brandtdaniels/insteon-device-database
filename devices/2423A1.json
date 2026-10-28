@@ -13,11 +13,17 @@
   "capabilities": [
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x30"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x09",
+          "subcategory": "0x07",
+          "firmware": {
+            "only": [
+              "0x30"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [
