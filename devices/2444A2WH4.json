@@ -7,8 +7,11 @@
       "subcategory": "0x10"
     }
   ],
+  "radio": "rf",
+  "role": "controller",
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon device database (SQLite, InsteonDevices.db)"
   ]
 }
