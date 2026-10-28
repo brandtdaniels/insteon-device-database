@@ -7,7 +7,7 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 
 - **Identities:** the category and subcategory the product reports when asked to identify
   itself, and the firmware versions they cover where those matter.
-- **Radio and role:** how it communicates (powerline, RF or both), and whether it can be an
+- **Radio and role:** where a source states them, how it communicates (powerline, RF or both), and whether it can be an
   ALL-Link controller, a responder, or both.
 - **Groups:** its ALL-Link groups, and whether software must link a group.
 - **Capabilities:** what it can do, chosen from a fixed set: `onOff`, `dimmable`, `modem`,

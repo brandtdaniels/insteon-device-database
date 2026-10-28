@@ -1,0 +1,33 @@
+{
+  "model": "2475DA2",
+  "name": "In-LineLinc 0-10V Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x25"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "HouseLinc names it INSTEON Ballast Dimmer.",
+    "Drives a 0-10 V output and two relayed loads; on cmd1 0x11 or 0x13, cmd2 0x01 selects load 1, 0x02 load 2 and 0x03 both.",
+    "Turns on at 100% at power-up."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2475DA2 In-LineLinc 0-10V Dimmer-Switch PRD"
+  ]
+}
