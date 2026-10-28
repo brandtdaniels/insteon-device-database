@@ -1,6 +1,9 @@
 {
   "model": "2474DWH",
-  "name": "SwitchLinc 2-Wire Dimmer",
+  "name": "2-Wire Dimmer Switch",
+  "aliases": [
+    "SwitchLinc 2-Wire Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -19,6 +22,9 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs"
     }
   ],
   "notes": [

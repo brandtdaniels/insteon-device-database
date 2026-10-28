@@ -1,6 +1,9 @@
 {
   "model": "2423A5",
-  "name": "SynchroLinc",
+  "name": "Appliance Status Sensor",
+  "aliases": [
+    "SynchroLinc"
+  ],
   "identities": [
     {
       "category": "0x07",

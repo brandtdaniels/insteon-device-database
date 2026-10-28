@@ -52,17 +52,16 @@
   th[aria-sort=descending] button::after { content: " ↓"; opacity: 1; }
   .model { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
   .aliases { color: var(--muted); font-size: 0.85rem; }
+  .alias { color: var(--text); font-weight: 500; }
   .description { margin: 0.25rem 0 0; font-size: 0.9rem; }
   .ids { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; }
   .ids span { display: block; white-space: nowrap; }
   .ids small { font-family: system-ui, sans-serif; color: var(--muted); }
   .chip { display: inline-block; margin: 0 0.25rem 0.25rem 0; padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--chip); font-size: 0.8rem; white-space: nowrap; }
-  .legend dt { font-weight: 600; }
-  .legend dd { margin: 0 0 0.75rem; color: var(--muted); }
+  .chip .firmware { color: var(--muted); font-size: 0.75rem; }
   .jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0 0 1rem; font-size: 0.9rem; }
   section.category { margin-top: 2rem; }
   section.category h3 { margin: 0; font-size: 1.2rem; }
-  section.category h3 code { color: var(--muted); font-size: 0.85em; font-weight: 400; margin-left: 0.4rem; }
   .category-description { margin: 0.25rem 0 0.25rem; color: var(--muted); max-width: 46rem; }
   .category-count { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.85rem; }
   [hidden] { display: none !important; }
@@ -102,10 +101,6 @@ firmware version a device reports. Software downloads the catalog and looks devi
 <p class="count" id="count">$count products</p>
 <nav class="jump" aria-label="Categories">$jump_links</nav>
 $sections
-<h2>Capabilities</h2>
-<dl class="legend">
-$legend
-</dl>
 </main>
 <script>
 (() => {
@@ -144,7 +139,7 @@ $legend
       }
 
       section.hidden = sectionShown === 0;
-      section.querySelector(".category-count").textContent =
+      section.querySelector(".category-count .products").textContent =
         sectionShown === sectionRows.length ? sectionRows.length + " products" : sectionShown + " of " + sectionRows.length + " products";
       document.querySelector('.jump a[href="#' + section.id + '"]').hidden = sectionShown === 0;
       shown += sectionShown;

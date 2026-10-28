@@ -1,6 +1,9 @@
 {
   "model": "2414U",
-  "name": "PowerLinc USB",
+  "name": "USB Controller",
+  "aliases": [
+    "PowerLinc USB"
+  ],
   "identities": [
     {
       "category": "0x03",

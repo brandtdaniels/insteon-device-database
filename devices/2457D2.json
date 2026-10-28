@@ -23,6 +23,27 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0x42",
+          "0x43",
+          "0xCB",
+          "0xCC",
+          "0xCD",
+          "0xCF",
+          "0xD0",
+          "0xD1",
+          "0xD2",
+          "0xD3",
+          "0xD4",
+          "0xD5",
+          "0xD6"
+        ]
+      }
     }
   ],
   "notes": [

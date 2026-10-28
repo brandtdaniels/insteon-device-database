@@ -7,7 +7,18 @@
       "subcategory": "0x0E"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x95",
+          "0xD3",
+          "0xD4"
+        ]
+      }
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

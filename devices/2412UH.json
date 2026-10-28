@@ -1,6 +1,9 @@
 {
   "model": "2412UH",
-  "name": "PowerLinc USB Modem",
+  "name": "USB Modem",
+  "aliases": [
+    "PowerLinc USB Modem"
+  ],
   "identities": [
     {
       "category": "0x03",

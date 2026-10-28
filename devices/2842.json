@@ -18,7 +18,22 @@
       "region": "Australia and New Zealand"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "except": [
+          "0x22",
+          "0x24",
+          "0x26",
+          "0x30",
+          "0x34",
+          "0x36",
+          "0x82"
+        ]
+      }
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ],

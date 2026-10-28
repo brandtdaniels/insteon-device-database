@@ -21,7 +21,11 @@
   "radio": "rf",
   "role": "both",
   "batteryPowered": true,
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs"
+    }
+  ],
   "notes": [
     "It's asleep most of the time, so it may take a few seconds to answer a command."
   ],

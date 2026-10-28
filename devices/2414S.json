@@ -1,6 +1,9 @@
 {
   "model": "2414S",
-  "name": "PowerLinc Serial",
+  "name": "Serial Controller",
+  "aliases": [
+    "PowerLinc Serial"
+  ],
   "identities": [
     {
       "category": "0x03",

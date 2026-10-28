@@ -40,6 +40,9 @@
     {
       "kind": "hub",
       "port": 25105
+    },
+    {
+      "kind": "i2cs"
     }
   ],
   "sources": [

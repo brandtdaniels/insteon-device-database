@@ -1,6 +1,9 @@
 {
   "model": "2476D",
-  "name": "SwitchLinc Dimmer",
+  "name": "Dimmer Switch",
+  "aliases": [
+    "SwitchLinc Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -18,6 +21,32 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xB7",
+          "0xB8",
+          "0xB9",
+          "0xBA",
+          "0xBB",
+          "0xBC",
+          "0xBE",
+          "0xBF",
+          "0xCC",
+          "0xCD",
+          "0xCE",
+          "0xCF",
+          "0xD2",
+          "0xD3",
+          "0xD4",
+          "0xD5",
+          "0xD6",
+          "0xD7"
+        ]
+      }
     }
   ],
   "sources": [

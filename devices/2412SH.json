@@ -1,6 +1,9 @@
 {
   "model": "2412SH",
-  "name": "PowerLinc Serial Modem",
+  "name": "Serial Modem",
+  "aliases": [
+    "PowerLinc Serial Modem"
+  ],
   "identities": [
     {
       "category": "0x03",

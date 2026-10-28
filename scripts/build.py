@@ -165,7 +165,16 @@ CAPABILITY_LABELS = {
     "thermostat": "Thermostat",
     "groupEvents": "Group events",
     "heartbeat": "Heartbeat",
+    "i2cs": "i2CS checksums",
 }
+
+
+def firmware_note(selection):
+    """How the page describes a capability's firmware selection."""
+    if "only" in selection:
+        return "Firmware " + ", ".join(selection["only"])
+
+    return "All firmware except " + ", ".join(selection["except"])
 
 
 def capability_descriptions():
@@ -186,20 +195,38 @@ def index_page(profiles):
         category = profile["identities"][0]["category"]
         kinds = [capability["kind"] for capability in profile["capabilities"]]
         aliases = profile.get("aliases", [])
-        identities = [
-            f"{identity['category']}/{identity['subcategory']}" + (f" <small>{escape(identity['region'])}</small>" if "region" in identity else "")
-            for identity in profile["identities"]
-        ]
+        subcategories = []
+
+        for identity in profile["identities"]:
+            notes = [identity["region"]] if "region" in identity else []
+
+            if "firmware" in identity:
+                notes.append(f"firmware {identity['firmware']['from']}–{identity['firmware']['through']}")
+
+            subcategories.append(identity["subcategory"] + (f" <small>{escape(', '.join(notes))}</small>" if notes else ""))
         search = " ".join([profile["model"], profile["name"], *aliases, *(f"{i['category']}/{i['subcategory']}" for i in profile["identities"])]).lower()
         name = escape(profile["name"])
 
         if aliases:
-            name += f'<div class="aliases">Also {escape(", ".join(aliases))}</div>'
+            name += '<div class="aliases">Also known as ' + ", ".join(f'<span class="alias">{escape(alias)}</span>' for alias in aliases) + "</div>"
 
         if "description" in profile:
             name += f'<p class="description">{escape(profile["description"])}</p>'
 
-        chips = "".join(f'<span class="chip" title="{escape(descriptions.get(kind, ""))}">{escape(CAPABILITY_LABELS.get(kind, kind))}</span>' for kind in kinds)
+        chips = ""
+
+        for capability in profile["capabilities"]:
+            kind = capability["kind"]
+            title = descriptions.get(kind, "")
+            label = escape(CAPABILITY_LABELS.get(kind, kind))
+
+            if "firmware" in capability:
+                note = firmware_note(capability["firmware"])
+                title += " " + note + "."
+                label += ' <span class="firmware">some firmware</span>'
+
+            chips += f'<span class="chip" title="{escape(title)}">{label}</span>'
+
         attributes = {
             "search": search,
             "model": profile["model"],
@@ -213,7 +240,7 @@ def index_page(profiles):
             f"<tr {data}>"
             f'<td class="model">{escape(profile["model"])}</td>'
             f"<td>{name}</td>"
-            f'<td class="ids">{"".join(f"<span>{identity}</span>" for identity in identities)}</td>'
+            f'<td class="ids">{"".join(f"<span>{subcategory}</span>" for subcategory in subcategories)}</td>'
             f"<td>{chips}</td>"
             "</tr>"
         )
@@ -231,11 +258,11 @@ def index_page(profiles):
         description = CATEGORY_DESCRIPTIONS.get(category)
         sections.append(
             f'<section class="category" id="category-{category}" data-category="{category}">'
-            f"<h3>{name}<code>{category}</code></h3>"
+            f"<h3>{name}</h3>"
             + (f'<p class="category-description">{escape(description)}</p>' if description else "")
-            + f'<p class="category-count">{len(by_category[category])} products</p>'
+            + f'<p class="category-count"><span class="products">{len(by_category[category])} products</span> · reported as category {category}</p>'
             '<div class="table-wrap"><table>'
-            "<thead><tr><th>Model</th><th>Name</th><th>Identities</th><th>Capabilities</th></tr></thead>"
+            "<thead><tr><th>Model</th><th>Name</th><th>Subcategory</th><th>Capabilities</th></tr></thead>"
             f"<tbody>{''.join(by_category[category])}</tbody>"
             "</table></div></section>"
         )
@@ -250,7 +277,6 @@ def index_page(profiles):
         jump_links="".join(f'<a href="#category-{c}">{escape(CATEGORY_NAMES.get(c, c))}</a>' for c in categories),
         category_options="".join(f'<option value="{c}">{escape(CATEGORY_NAMES.get(c, c))}</option>' for c in categories),
         capability_options="".join(f'<option value="{k}">{escape(CAPABILITY_LABELS.get(k, k))}</option>' for k in kinds),
-        legend="\n".join(f"<dt>{escape(CAPABILITY_LABELS.get(kind, kind))}</dt><dd>{escape(text)}</dd>" for kind, text in descriptions.items()),
     )
 
 
