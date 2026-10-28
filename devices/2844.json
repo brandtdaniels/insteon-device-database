@@ -151,6 +151,118 @@
       "intervalMinutes": 1428
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the battery tab to power the Motion Sensor.",
+          "action": "pullTab"
+        },
+        {
+          "text": "Place it on a tabletop with the flat battery cover on, mount it in a corner with the two adhesive strips, or slide off the flat back and screw the flexible mount bracket to a solid surface.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "It runs on a CR123A battery (6 to 18 months, depending on use) or on a right-angled Micro USB cable 2822-222 and a USB power adapter.",
+        "Clean the wall before using the adhesive strips; the sensor must be unmounted to replace the battery.",
+        "Installing the sensitivity jumper across both pins reduces the range by about 10 feet (from 30 feet)."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the LED blinks green.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        }
+      ],
+      "notes": [
+        "The first device put into linking mode becomes the controller and the second the responder. Linking mode ends after a link is made or after four minutes without one.",
+        "To control a device: turn it on to the level you want, then press and hold its SET button until it double-beeps (for Insteon bulbs, remove power and restore it). Test by tapping the Motion Sensor's SET button to simulate motion.",
+        "To add it to a Hub, when the app prompts, press and hold the SET button until it beeps, then tap the SET button.",
+        "Don't use local programming if a Hub or other central controller manages the sensor."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the LED blinks green.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Adjust each device to its scene state and, one at a time, press and hold its SET button until it double-beeps.",
+          "action": "other"
+        },
+        {
+          "text": "Tap the SET button to leave multi-link mode.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Multi-link mode lasts four minutes, restarting after each successful link."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the LED blinks green.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the LED blinks red.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        }
+      ],
+      "notes": [
+        "Then press and hold the controlled device's SET button until it double-beeps. Unlinking mode ends after one unlink or four minutes.",
+        "For several devices, tap the SET button after the LED blinks red (it double-blinks red), press and hold each device's SET button until it double-beeps, then tap the SET button to leave multi-unlink mode."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Slide off the battery cover and remove the battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Press and hold the SET button while reinstalling the battery.",
+          "action": "insertBatteries",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button until the Motion Sensor stops beeping.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep when the reset is complete"
+        }
+      ],
+      "notes": [
+        "Erases all links and customized properties."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "Groups other than 1 are off by default.",
     "Its heartbeat's cmd1, 0x11 to 0x14, gives the battery level from fully charged to almost empty.",
@@ -159,6 +271,8 @@
     "Its heartbeat is about once a day, plus or minus 10 percent."
   ],
   "sources": [
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Motion Sensor II 2844 Owner's Manual",
+    "Motion Sensor II 2844 Quick Start Guide"
   ]
 }

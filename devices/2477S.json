@@ -39,9 +39,182 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the electrical panel, turn off the circuit breaker or remove the fuse feeding the wall box, and verify that the power is off.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the wallplate, unscrew the old switch and gently pull it out.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the switch; if they cannot be unscrewed, cut them where they enter the switch and strip 1/2 in. of insulation off the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the power, use a voltage meter to identify the line and load wires, identify the neutral and ground wires, then turn off the power.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the switch's black wire to line, red wire to the load, white wire to neutral and bare copper wire to ground, with firm connections and no exposed wire. A neutral connection is required.",
+          "action": "wire"
+        },
+        {
+          "text": "With the LEDs on the left, gently place the switch into the wall box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn on the power.",
+          "action": "powerOn",
+          "control": "breaker",
+          "expect": "Switch and its connected load turn on"
+        },
+        {
+          "text": "Verify the switch works by tapping it on and off.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "Switch and its connected load turn on and off"
+        },
+        {
+          "text": "Reinstall the wallplate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "If the box lacks neutral wires, stop and contact support.",
+        "For a circuit with two or more switches, every switch must be replaced by an Insteon device: in the line box the switch's black wire joins line and one traveler and its red wire is capped; in the load box the black wire joins that traveler and the red wire connects to the load; then add all the switches to a group. The On/Off Switch 2477S Owner's Manual gives the full multi-way wiring.",
+        "Pull the SET button out to open the air gap and remove power from the switch and its load."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green; the switch stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: put the switch in linking mode first, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the switch's LED stops blinking.",
+        "As a responder: press and hold the controller button until it beeps, tap the switch on (or off), then press and hold the switch's SET button until it double-beeps; the controller's LED stops blinking.",
+        "With the Insteon app, press and hold the SET button until the switch double-beeps when the app prompts you.",
+        "The 3-second hold time and four-minute timeout come from the Developer Notes; software can use the Remote Enter Linking Mode command."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
+          "action": "hold",
+          "control": "responder SET button",
+          "expect": "Switch double-beeps"
+        },
+        {
+          "text": "After adding all responders, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED stops blinking"
+        },
+        {
+          "text": "Test by tapping the switch on and off a couple of times.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "All the added responders respond"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the switch beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red; the switch is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "As a controller: after entering unlinking mode, press and hold the responder's SET button until it double-beeps or its LED blinks; the switch double-beeps and its LED stops blinking.",
+        "As a responder: put the controller in unlinking mode first (hold its SET button until it beeps, then again until it beeps again), then press and hold the switch's SET button until it double-beeps.",
+        "To remove several responders at once, tap the SET button after entering unlinking mode (LED double-blinks red), press and hold each responder's SET button until it beeps or its LED flashes, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull out the SET button to open the air gap.",
+          "action": "powerOff",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Switch emits a long beep"
+        },
+        {
+          "text": "Keep holding the SET button until the beeping stops, then release it.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the switch double-beeps, the load turns on and the LED returns to default brightness"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the switch as a responder from every controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Remove every responder link from the switch, one responder at a time or with the multiple-responder unlinking steps.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The On/Off Switch 2477S Owner's Manual says that before uninstalling the switch you must remove all of its responder links, otherwise controllers keep retrying commands and create network delays."
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "2477S Developer Notes"
+    "2477S Developer Notes",
+    "On/Off Switch 2477S Owner's Manual",
+    "On/Off Switch 2477S Quick Start Guide",
+    "SwitchLinc On/Off Dual-Band Developer Notes"
   ]
 }

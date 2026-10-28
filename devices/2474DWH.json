@@ -38,6 +38,174 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the electrical panel, turn off the circuit breakers feeding the wall box and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the wall plate, unscrew the switch you are replacing and gently pull it out.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the switch.",
+          "action": "other"
+        },
+        {
+          "text": "Making sure the wires are not touching, turn the breaker back on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the line, load and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the breaker back off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Using the included wire nuts, connect the bare copper switch wire to ground, the red wire to the light (load) and the black wire to line.",
+          "action": "wire"
+        },
+        {
+          "text": "With the LED bar on the left, gently place the switch into the wall box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the breaker on.",
+          "action": "powerOn",
+          "expect": "The light turns on and the LED shows its brightness."
+        },
+        {
+          "text": "Toggle the light on and off to check that the switch works.",
+          "action": "tap",
+          "control": "paddle"
+        },
+        {
+          "text": "Reinstall the wall plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "No neutral wire is required: the switch connects to line, load and ground only.",
+        "The switch controls incandescent loads between 25W and 600W."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: after the switch beeps, adjust the responder to the desired brightness or state and press and hold its SET button until it double-beeps. The switch's LED stops blinking and it double-beeps.",
+        "As a responder: press and hold the controller button until it beeps, adjust the switch to the desired brightness (or off), then press and hold the switch's SET button until it double-beeps.",
+        "A link is one way. To keep two devices in sync (a group, such as a virtual 3-way circuit), link them in both directions.",
+        "If either LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again."
+      ]
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene brightness or state, then press and hold its SET button until it double-beeps.",
+          "action": "other",
+          "expect": "double beep"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The switch beeps and its LED stops blinking."
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
+          "action": "other",
+          "expect": "The switch double-beeps and its LED stops blinking."
+        }
+      ],
+      "notes": [
+        "To remove the switch as a responder: press and hold the controller button until it beeps, press and hold it again until it beeps, then press and hold the switch's SET button until it double-beeps.",
+        "To remove several responders at once: hold the SET button until it beeps, hold it again until it beeps, then tap it (LED double-blinks red); hold each responder's SET button until it double-beeps; tap the switch's SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull out the SET button to create an air gap, which removes power from the switch.",
+          "action": "other",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold in the SET button. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the switch double-beeps, turns on and its LED turns white."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the switch as a controller of each of its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the switch's responder links from all controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Uninstall the switch.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers retry commands repeatedly, creating network delays."
+      ]
+    }
+  },
   "notes": [
     "Needs no neutral wire.",
     "Repeats RF but not powerline.",
@@ -48,6 +216,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "SwitchLinc 2-Wire Dimmer Developer Notes"
+    "SwitchLinc 2-Wire Dimmer Developer Notes",
+    "2-Wire Dimmer Switch 2474DWH Owner's Manual"
   ]
 }

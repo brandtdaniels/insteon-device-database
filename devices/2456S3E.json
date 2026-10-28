@@ -36,7 +36,115 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the appliance or device (the load) you want to control into the module's outlet, with the load's own switch in the on position.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched outdoor wall outlet protected by a ground fault circuit interrupter (GFCI).",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid green"
+        },
+        {
+          "text": "If the load does not turn on, tap the SET button.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Let the module hang down from the outlet so it faces down.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "Use a 3-prong outlet with GFCI protection, or one protected by a GFCI device upstream; do not plug into a switched outlet, a filtered power strip or an AC line filter.",
+        "After installation the load's own switch no longer controls it unless load sensing is enabled."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Use the SET button to set the module to the state you want the controller to activate (on or off).",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "With the controller in linking mode, press and hold the module's SET button until it double-beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Double beep; Status LED turns solid green if the load is on or solid red if it is off"
+        }
+      ],
+      "notes": [
+        "The module links as a responder: set the controller to linking mode first (for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds), then press and hold this module's SET button.",
+        "Pressing and holding the SET button for 3 seconds on its own puts the module in linking mode (Status LED blinks green) for four minutes; the manual uses this to assign an X10 address.",
+        "Tap the SET button to leave a setup mode; a long beep means the module timed out of setup mode."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode, press and hold the module's SET button until it double-beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED turns solid green if the load is on or solid red if it is off"
+        }
+      ],
+      "notes": [
+        "To unlink, set the controller to unlinking mode first (for most controllers, press and hold an On or scene button for 10 seconds twice or the SET button for 3 seconds twice), then press and hold this module's SET button for 3 seconds.",
+        "Pressing and holding the SET button for 3 seconds twice puts the module itself in unlinking mode (Status LED blinks red)."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the module from any controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the module for about 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug the module back in without letting go of the button.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "Module beeps and the Status LED turns solid green"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes red and then turns solid green; after a few seconds the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the module from every controller it is linked to.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The manual says to unlink the module from all controllers before you stop using it; otherwise the controllers keep retrying commands and slow the system.",
+        "If an X10 primary address was assigned, remove it as well."
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Outdoor On/Off Module 2456S3E Owner's Manual"
   ]
 }

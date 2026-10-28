@@ -58,6 +58,118 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn on your lamp and plug its power cord into the bottom of the dimmer module.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the dimmer module into an unswitched wall outlet.",
+          "action": "plugIn"
+        }
+      ],
+      "notes": [
+        "Leave the lamp's own switch on; if it is off, the module can't control the lamp.",
+        "Only connect lamps with dimmable bulbs."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Linking is directional: the first device put into linking mode becomes the controller and the second the responder. The module leaves linking mode once a link is made or after four minutes without one.",
+        "As a responder: on the controller, press and hold the SET button (on a multi-button controller, tap the button first) until it beeps; make sure the module is on, then press and hold its SET button until it double-beeps.",
+        "To have two devices control each other, cross-link them: link once in each direction.",
+        "When using the Hub or another central controller, let it manage links instead of linking manually."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "When adding the module to the Hub, the Dimmer Plug 2457D2 Owner's Manual says to hold the SET button until the module double-beeps; the 2016 quick start guide says until it beeps."
+      }
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Tap the SET button to move to multi-linking mode.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button on each responder until it double-beeps.",
+          "action": "other",
+          "expect": "double beep"
+        },
+        {
+          "text": "Tap the SET button to finish.",
+          "action": "tap",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "The module stays in multi-linking mode for 4 minutes or until its SET button is tapped."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the local programming flowchart (press and hold to move right, tap to move down) and the multi-linking description; the manual has no step-by-step multi-linking procedure for the module itself."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode, press and hold the SET button until the module double-beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first: press and hold its SET button until it beeps (on a multi-button controller, tap the button first), then press and hold it again until it beeps.",
+        "In its own unlinking mode the module leaves the mode once a link is removed or after four minutes."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the dimmer module from its outlet.",
+          "action": "unplug"
+        },
+        {
+          "text": "Press and hold the SET button while plugging the module back in.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button until the module stops beeping.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beeping stops"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "double beep when the reset is complete"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "Linking and unlinking modes time out after 4 minutes.",
     "Setting the on-level to 0 turns on resume dim.",
@@ -67,6 +179,7 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Dimmer Module 2457D2 Owner's Manual"
+    "Dimmer Plug 2457D2 Owner's Manual",
+    "Dimmer Plug 2457D2 Quick Start Guide"
   ]
 }

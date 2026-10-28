@@ -11,7 +11,121 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Tabletop Controller into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "White status LED turns on steadily"
+        }
+      ],
+      "notes": [
+        "Don't plug it into an outlet controlled by a switch, a filtered power strip or an AC line filter.",
+        "The manual asks for at least two RF Signal Enhancers 2442 to be installed first for best network performance."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Choose the ON/OFF button pair (channel 1 to 5) that will control the device.",
+          "action": "other",
+          "control": "ON/OFF button pair"
+        },
+        {
+          "text": "Press and hold the ON button of that pair for 10 seconds, until the status LED starts blinking slowly.",
+          "action": "hold",
+          "control": "ON button",
+          "seconds": 10,
+          "expect": "Status LED blinks slowly"
+        }
+      ],
+      "notes": [
+        "Within about 4 minutes, put the other device in linking mode (on most devices, press and hold its SET button for 3 seconds). When linked, the Tabletop Controller beeps and its status LED stays on steadily.",
+        "Tap any ON or OFF button to leave linking mode."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the ON button of the pair for 10 seconds, then tap the same ON button again.",
+          "action": "hold",
+          "control": "ON button",
+          "seconds": 10,
+          "expect": "Status LED blinks slowly"
+        },
+        {
+          "text": "Link each device in turn using its own linking method (on most devices, press and hold its SET button for 3 seconds).",
+          "action": "other",
+          "expect": "Beep; status LED keeps blinking slowly"
+        },
+        {
+          "text": "When finished, press the ON button to end scene setup.",
+          "action": "press",
+          "control": "ON button",
+          "expect": "Status LED stops blinking and stays on"
+        }
+      ],
+      "notes": [
+        "Scene setup mode times out after about 4 minutes of inactivity."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the OFF button of the pair the device is linked to for 10 seconds, until the status LED starts blinking slowly.",
+          "action": "hold",
+          "control": "OFF button",
+          "seconds": 10,
+          "expect": "Status LED blinks slowly"
+        }
+      ],
+      "notes": [
+        "Then use the other device's linking method (on most devices, press and hold its SET button for 3 seconds). When unlinked, the Tabletop Controller beeps and its status LED stays on steadily.",
+        "Unlink devices you no longer use; otherwise the Tabletop Controller retries commands to them and slows the system."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the Tabletop Controller for at least 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the BRIGHT button, plug it back in.",
+          "action": "plugIn",
+          "control": "BRIGHT button",
+          "expect": "Beep; status LED blinks, then lights brightly"
+        },
+        {
+          "text": "Keep holding the BRIGHT button for 3 seconds.",
+          "action": "hold",
+          "control": "BRIGHT button",
+          "seconds": 3,
+          "expect": "Two beeps; status LED blinks off, then lights steadily at normal brightness"
+        },
+        {
+          "text": "Release the BRIGHT button.",
+          "action": "release",
+          "control": "BRIGHT button",
+          "expect": "Status LED blinks off once"
+        }
+      ],
+      "notes": [
+        "Clears all Insteon links and any programmed X10 addresses.",
+        "Devices linked to the Tabletop Controller still hold their links to it, so they keep answering ALL ON, ALL OFF, BRIGHT and DIM; unlink them one by one.",
+        "To clear the links of one ON/OFF button pair only: unplug for at least 10 seconds, hold that pair's OFF button while plugging back in (beep, status LED blinks twice, then steady), and release the OFF button (status LED blinks off once)."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Tabletop Controller 2430 Owner's Manual"
   ]
 }

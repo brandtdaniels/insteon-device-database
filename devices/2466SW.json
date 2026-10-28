@@ -44,10 +44,189 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying power to the switch.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the faceplate from the existing switch, unscrew the switch and pull it out of the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the old switch and make sure you have 1/2 in. of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Identify the line, load, neutral and ground wires: turn the power back on, test with a voltage meter, then turn the breaker off again.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the switch's black line wire to line, its red load wire to the load, its white neutral wire to the box's neutral bundle and its bare copper ground wire to ground. A neutral connection is required.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all wire connectors are firmly attached and no copper is exposed except the ground wire.",
+          "action": "other"
+        },
+        {
+          "text": "Orient the switch with the LED bar at the bottom, place it in the junction box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the power back on at the circuit breaker or fuse panel.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Test the switch by turning the light on and off.",
+          "action": "tap",
+          "control": "toggle",
+          "expect": "Light turns on and off"
+        },
+        {
+          "text": "Reinstall the faceplate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "If there is no neutral wire in the box, consult an electrician.",
+        "In a virtual multi-way circuit only the primary switch connects to the load; secondaries connect to line, neutral and ground and their red load wire is capped. The Toggle On/Off Switch 2466SW Owner's Manual gives the full multi-way wiring.",
+        "Pull the SET button out about 1/8 in. to open the air gap and remove all power from the switch and its load; push it back in flush to restore power."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps (about 3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks; the switch stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: put the switch in linking mode first, set the responder to the desired state, then press and hold the responder's SET button for 3 seconds; the switch double-beeps and its LED stops blinking.",
+        "As a responder: put the controller in linking mode first, set the load with the toggle, then press and hold the switch's SET button until it double-beeps (about 3 seconds); the status LED flashes."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Toggle On/Off Switch 2466SW Quick Start Guide says the status LED blinks green; the Toggle On/Off Switch 2466SW Owner's Manual specifies a white status LED and does not name a color."
+      }
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Status LED double-blinks; the switch stays in multi-linking mode for four minutes"
+        },
+        {
+          "text": "For each responder, set it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
+          "action": "hold",
+          "control": "responder SET button",
+          "expect": "Switch double-beeps"
+        },
+        {
+          "text": "After adding all responders, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED stops blinking"
+        },
+        {
+          "text": "Test by tapping the switch on and off a couple of times.",
+          "action": "tap",
+          "control": "toggle",
+          "expect": "All the added responders respond"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps (about 3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button until the switch beeps again (about 3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED keeps blinking; the switch stays in unlinking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: after entering unlinking mode, press and hold the responder's SET button for 3 seconds; the switch double-beeps and its LED stops blinking.",
+        "As a responder: put the controller in unlinking mode first, then press and hold the switch's SET button until it double-beeps.",
+        "To remove several responders in one session, tap the SET button after entering unlinking mode (LED double-blinks), press and hold each responder's SET button until it beeps, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull out the SET button to open the air gap.",
+          "action": "powerOff",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push in the SET button and hold it; do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Switch emits a long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the switch double-beeps, the LEDs return to normal brightness and the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the switch from every controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Unlink every responder the switch controls.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The Toggle On/Off Switch 2466SW Owner's Manual says to unlink the switch from all controllers before disabling or removing it, and to unlink responders before they are removed, otherwise devices keep retrying commands and delay the network."
+      ]
+    }
+  },
   "notes": [
     "HouseLinc lists subcategory 0x1A for firmware 0x3A and later."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Toggle On/Off Switch 2466SW Owner's Manual",
+    "Toggle On/Off Switch 2466SW Quick Start Guide"
   ]
 }

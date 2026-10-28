@@ -44,6 +44,171 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off power to the outlet at the electrical service panel.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the old outlet and disconnect the wires, leaving 1/2 in. (12 mm) of bare wire.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on power at the circuit breaker and use a voltage detector to identify the line wire; line will be energized.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off power at the circuit breaker, then connect the outlet's wires to the line, neutral and ground wires in the junction box per the installation diagram for an end-of-run, middle-of-run or switched outlet. Verify that the wire nuts are secure and no copper is exposed.",
+          "action": "wire"
+        },
+        {
+          "text": "Mount the outlet into the junction box.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn power on to the outlet at the circuit breaker panel.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Test the outlet by tapping one of the SET buttons to turn it on and off.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The outlet turns on and off"
+        },
+        {
+          "text": "Reattach the wall plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "Replacing a switched outlet requires removing the wall switch from the circuit; the switch can be replaced by an Insteon switch or keypad if control is still wanted.",
+        "The upper SET button controls the upper outlet and the lower SET button the lower outlet."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button of the outlet you want to link (upper or lower) until it beeps.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks green; the outlet stays in linking mode until a link is made"
+        }
+      ],
+      "notes": [
+        "The first device put into linking mode becomes the controller and the second becomes the responder.",
+        "Each outlet has its own SET button and links separately.",
+        "With the Hub, follow the app's instructions and press and hold one of the SET buttons when prompted.",
+        "Software can use the Remote Enter Linking Mode command (Developer Notes)."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Dual On/Off Outlet 2663-222 Owner's Manual says to hold a SET button until the outlet beeps when adding it to the Hub; the Dual On/Off Outlet 2663-222 Quick Start Guide says until it double-beeps."
+      }
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet beeps.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "upper or lower SET button",
+          "expect": "Status LED double-blinks green; multi-linking mode lasts four minutes or until the SET button is tapped"
+        },
+        {
+          "text": "Link each responder in turn.",
+          "action": "other"
+        },
+        {
+          "text": "Tap the SET button to exit.",
+          "action": "tap",
+          "control": "upper or lower SET button"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet beeps.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks red; the outlet stays in unlinking mode until a link is removed"
+        }
+      ],
+      "notes": [
+        "For multi-unlinking, tap the SET button after entering unlinking mode (Status LED double-blinks red); the outlet stays in multi-unlinking mode for four minutes or until the SET button is tapped."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet enters linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again to enter unlinking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks red"
+        },
+        {
+          "text": "Quickly tap the SET button twice.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2,
+          "expect": "Soft factory reset is selected"
+        },
+        {
+          "text": "Press and hold the SET button to reset, or tap it to exit.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "The soft factory reset uses the upper and lower SET buttons and erases all device settings, including links made with the top and bottom outlets. If the outlet does not respond, use the alternate procedure.",
+        "Alternate procedure (an assistant is required): press and hold the upper SET button, have the assistant turn off power to the outlet at the service panel and then turn it back on while you keep holding; wait for the long beep, release the SET button when it ends, and the outlet double-beeps."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The soft factory reset is read from the Dual On/Off Outlet 2663-222 Owner's Manual's flow chart, which labels the SET buttons as upper and lower but does not say which one to use at each step."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the outlet's links from every controller that controls it, using the unlinking steps or software.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The Dual On/Off Outlet 2663-222 Owner's Manual's troubleshooting says that links to devices removed from the network must be removed from their controllers; otherwise the controllers keep repeating commands and slow the network."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Taken from the Dual On/Off Outlet 2663-222 Owner's Manual's troubleshooting section, not a removal procedure."
+      }
+    }
+  },
   "notes": [
     "Both outlets are switched, each by its own group.",
     "An August 2014 owner's manual prints subcategory 0x29, the 2476ST's; the December 2014 manual gives 0x39."
@@ -52,6 +217,8 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "On/Off Outlet Developer Notes",
-    "On/Off Outlet 2663-222 Owner's Manual"
+    "Dual On/Off Outlet 2663-222 Owner's Manual",
+    "Dual On/Off Outlet 2663-222 Quick Start Guide",
+    "On/Off Outlet 2663-222 Developer Notes"
   ]
 }

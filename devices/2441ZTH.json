@@ -124,12 +124,145 @@
       ]
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Choose a spot out of direct sun and away from HVAC vents and fans.",
+          "action": "other"
+        },
+        {
+          "text": "Insert 2 AA batteries; high-quality alkaline batteries are recommended.",
+          "action": "insertBatteries"
+        },
+        {
+          "text": "Close the cover.",
+          "action": "other",
+          "expect": "After a few seconds the display shows temperature and humidity, mode Off, a full battery and 12:00PM"
+        },
+        {
+          "text": "Snap the Wireless Zone Thermostat into the tabletop stand or mount it on a wall.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "It does not control the HVAC system itself; it talks over RF to a Thermostat 2441TH wired to the HVAC system. Up to two can be added to one Thermostat.",
+        "Optionally connect a 5.0V, 200mA AC/DC adapter (no more than 5.5V) to the two left screws of the terminal block, observing polarity; on external power it stays awake all the time and supports Day Mode.",
+        "It needs at least one dual-band Insteon device to reach powerline devices."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Wireless Zone Thermostat beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks green"
+        },
+        {
+          "text": "Tap the Up or Down arrow to choose the group to link: 1 cooling (default), 2 heating, 3 dehumidification, 4 humidification.",
+          "action": "tap",
+          "control": "Up or Down arrow"
+        }
+      ],
+      "notes": [
+        "Then adjust the responder to the state you want and press and hold its SET button until it double-beeps or its LED flashes. The Wireless Zone Thermostat double-beeps and its LED turns off.",
+        "To add it to a wired Thermostat 2441TH: press and hold its SET button until it beeps (SET LED blinks green), then press and hold the wired Thermostat's SET button until it double-beeps; the Wireless Zone Thermostat double-beeps too.",
+        "When linked to a wired Thermostat, its group commands to other responders don't work."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Wireless Zone Thermostat beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "SET LED blinks red"
+        },
+        {
+          "text": "Tap the Up or Down arrow to choose the group to remove (cooling is the default).",
+          "action": "tap",
+          "control": "Up or Down arrow"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button; the Wireless Zone Thermostat double-beeps and its LED turns off.",
+        "The manual recommends software for managing scene memberships whenever possible."
+      ]
+    },
+    "waking": {
+      "steps": [
+        {
+          "text": "Press the Program or Time/Sensor button to wake the Wireless Zone Thermostat from its battery-saving mode.",
+          "action": "press",
+          "control": "Program or Time/Sensor button"
+        },
+        {
+          "text": "To keep it awake for programming, send the stay-awake command (cmd1 0x20, cmd2 0x06, extended); it stays awake for 4 minutes.",
+          "action": "send",
+          "command": "Stay Awake"
+        }
+      ],
+      "notes": [
+        "The Wireless Zone Thermostat 2441ZTH Owner's Manual says the Program and Time/Sensor buttons wake it to retrieve updates from the wired Thermostat. The Wireless Thermostat Developer Notes list the stay-awake command (4 minutes) and a sleep command (cmd2 0x07) that puts it to sleep in 3 seconds.",
+        "On an external 5V power supply it stays awake all the time."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The button step comes from the Wireless Zone Thermostat 2441ZTH Owner's Manual and the command from the Wireless Thermostat Developer Notes; neither document combines them into one procedure."
+      }
+    },
+    "awakeSeconds": 240,
+    "reset": {
+      "steps": [
+        {
+          "text": "Open the Wireless Zone Thermostat and remove one battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While pressing and holding the SET button, reinsert the battery; don't let go of the SET button.",
+          "action": "insertBatteries",
+          "control": "SET button",
+          "expect": "All segments blink and a long beep sounds for about 10 seconds"
+        },
+        {
+          "text": "When the blinking and beeping stop, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Self tests for about 10 seconds, then the display returns to normal"
+        }
+      ],
+      "notes": [
+        "Clears all scene memberships, sets the time to 12:00PM, and returns schedules, temperatures and other settings to their defaults; the temperature and humidity offsets are kept.",
+        "Alternative: press and hold the SET button until it beeps (LED blinks green), again until it beeps (LED blinks red), double-tap the SET button, then press and hold it until the blinking and long beep stop, and release.",
+        "If it shows a two-digit error code afterward, remove the batteries, wait a few seconds and reinstall them.",
+        "Before resetting, remove it from every controller's scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "Subcategories 0x11 and 0x12 are the European and Australian and New Zealand versions, the 2732-432 and 2732-532.",
-    "The owner's manual gives subcategory 0x0A to the 2441ZTH, 0x11 to the 2732-432 and 0x12 to the 2732-532."
+    "The Wireless Zone Thermostat 2441ZTH Owner's Manual gives subcategory 0x0A to the 2441ZTH, 0x11 to the 2732-432 and 0x12 to the 2732-532."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Wireless Thermostat 2441ZTH Owner's Manual"
+    "Wireless Zone Thermostat 2441ZTH Owner's Manual",
+    "Wireless Zone Thermostat 2441ZTH Quick Start Guide",
+    "Wireless Thermostat Developer Notes"
   ]
 }

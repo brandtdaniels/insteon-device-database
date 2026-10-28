@@ -43,11 +43,169 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Fully charge the Mini Remote with a Type A to Micro-B USB cable before programming; the red charging LED turns off when the battery is fully charged.",
+          "action": "other",
+          "control": "Micro-USB charging jack",
+          "seconds": 3600,
+          "expect": "Charging LED turns off"
+        },
+        {
+          "text": "Slide the power switch to the on position (right).",
+          "action": "powerOn",
+          "control": "power switch"
+        }
+      ],
+      "notes": [
+        "Charging takes about one hour.",
+        "The Mini Remote needs an Insteon dual-band or RF device nearby to talk to the rest of the Insteon network.",
+        "The Mini Remote beeps quietly during setup, so program it in a quiet area."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Tap the top or bottom of the paddle; in two-scene mode, tap the top for scene 1 or the bottom for scene 2.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button until the Mini Remote beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "To make a Mini Remote button a scene controller: put the Mini Remote in linking mode, adjust the responder to the state you want, then press and hold the responder's SET button until it beeps or its LED flashes. The Mini Remote double-beeps and its LED stops blinking.",
+        "Test the link by tapping the button on and off; the responder toggles between the scene on-level and off."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The owner's manual says setup mode times out after more than 3 minutes with a long beep; the RemoteLinc 2 Developer Notes say the LED blinks green for 4 minutes or until linked."
+      }
+    },
+    "linkingTimeoutSeconds": 180,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Tap the top or bottom of the paddle; in two-scene mode, tap the top for scene 1 or the bottom for scene 2.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds, until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the state you want, then press and hold its SET button until the Mini Remote double-beeps.",
+          "action": "other",
+          "expect": "Double beep; LED keeps double-blinking green"
+        },
+        {
+          "text": "When all responders are added, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Double beep; LED turns off"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Tap the top or bottom of the paddle; in two-scene mode, tap the top for scene 1 or the bottom for scene 2.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button until the Mini Remote beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
+          "action": "hold",
+          "control": "responder's SET button",
+          "expect": "Mini Remote double-beeps and its LED stops blinking"
+        }
+      ],
+      "notes": [
+        "Remove responders you no longer use; otherwise the Mini Remote retries every scene command, which causes delays and shortens battery life.",
+        "To unlink several responders in one session, tap the SET button after the LED starts blinking red (it double-blinks red), press and hold each responder's SET button until the Mini Remote double-beeps, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, unlink all scene responders first.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the Mini Remote off by sliding the power switch to the left.",
+          "action": "powerOff",
+          "control": "power switch"
+        },
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "While still holding the SET button, turn the Mini Remote back on by sliding the power switch to the right.",
+          "action": "powerOn",
+          "control": "power switch",
+          "expect": "Beep, LED stays solid green, then a long beep"
+        },
+        {
+          "text": "Keep holding the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED turns solid red"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Double beep; LED turns off"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "It sends group 1 as one on/off pair by default, and can be set to two scenes."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Mini Remote 2342 Owner's Manual"
+    "Mini Remote 2342 Owner's Manual",
+    "Mini Remote - Switch 2444A3 Owner's Manual",
+    "RemoteLinc 2 Developer Notes"
   ]
 }

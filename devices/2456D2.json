@@ -22,7 +22,54 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the lamp or device you want to control (the load) into the outlet on the bottom of the module.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "The status LED and the load turn on."
+        },
+        {
+          "text": "If the load doesn't turn on, turn it on with its own switch.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The pass-through outlet on the front can be used as an ordinary uncontrolled outlet, but don't plug another home automation product into it.",
+        "For incandescent lamps up to 300W."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Lamp Dimmer Module 2456D2 Quick Start Guide for the LampLinc 2456D, which does not say whether it covers the 2-pin 2456D2."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice."
+        }
+      ],
+      "notes": [
+        "The documents describe linking the module only as a responder. Put the controller in linking mode first; for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds. Setup modes time out after 4 minutes."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Lamp Dimmer Module 2456D2 Quick Start Guide for the LampLinc 2456D, which does not say whether it covers the 2-pin 2456D2."
+      }
+    },
+    "linkingTimeoutSeconds": 240
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Lamp Dimmer Module 2456D2 Quick Start Guide"
   ]
 }

@@ -117,6 +117,174 @@
       ]
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "If you have air conditioning, turn off the A/C breaker and confirm the compressor and fan don't come on.",
+          "action": "powerOff",
+          "control": "A/C breaker"
+        },
+        {
+          "text": "Turn off the breaker or fuse for the furnace and confirm the heat no longer runs.",
+          "action": "powerOff",
+          "control": "furnace breaker"
+        },
+        {
+          "text": "Remove the cover of the existing thermostat, photograph the wiring if needed, and label each wire, starting with the C wire.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires and remove the existing thermostat's back plate from the wall.",
+          "action": "other"
+        },
+        {
+          "text": "Strip 3 inches of the outer jacket from the cable to expose the individual wires, keeping the labels on.",
+          "action": "wire"
+        },
+        {
+          "text": "Slide the wires through the large hole in the back of the thermostat and mount it to the wall.",
+          "action": "mount"
+        },
+        {
+          "text": "Slide the wires through the black grommet (draft shield), peel off its backing and press it in place.",
+          "action": "other"
+        },
+        {
+          "text": "Connect each wire to the matching terminal: common 24V to 24V COM, 24V power to RH, reversing valve to O/B, auxiliary heat to AUX, fan to G, compressor stage 1 to Y1, compressor stage 2 to Y2.",
+          "action": "wire"
+        },
+        {
+          "text": "Close the front of the thermostat onto the back plate, pressing firmly until the pins seat and the door clicks.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the breakers back on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Wait 10 seconds for the thermostat to start; it is working when the screen shows the current temperature.",
+          "action": "wait",
+          "seconds": 10,
+          "expect": "Display shows the current temperature"
+        }
+      ],
+      "notes": [
+        "Requires a 24V system with at least 5 wires; it is not for 120/240V electric radiant heat or millivolt systems. A 4-wire system needs the Add-A-Wire adapter.",
+        "Wire colors vary; match the wires to the labels printed on the thermostat.",
+        "The reversing valve defaults to O mode (energized for cooling). If the system heats when set to cool, or the reverse, change the O/B setting as the Thermostat 2441TH Owner's Manual describes.",
+        "Emergency or supplemental heat: in Heat mode, press the Up and Down buttons together for two seconds (three beeps, HEAT blinks); press Mode once to leave it."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the thermostat beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks green"
+        },
+        {
+          "text": "Tap the Up or Down arrow to choose the group to link: 1 cooling (default), 2 heating, 3 dehumidification, 4 humidification.",
+          "action": "tap",
+          "control": "Up or Down arrow"
+        }
+      ],
+      "notes": [
+        "As controller: after these steps, adjust the responder to the state you want and press and hold its SET button until it double-beeps or its LED flashes. The thermostat double-beeps and its LED returns to its previous state.",
+        "As responder: set the thermostat to the state you want (mode, setpoint, fan, energy button), put the controller in linking mode, then press and hold the thermostat's SET button (SET LED blinks green, beep, then double beep). To link it to a controller's off command instead, press and hold the SET button and the Down arrow together.",
+        "Group 0xEF (any change) is for linked software controllers and is set up with software."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the thermostat 2441TH owner's manual, which covers this heat pump model."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the thermostat beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks red"
+        },
+        {
+          "text": "Tap the Up or Down arrow to choose the group to remove (cooling is the default).",
+          "action": "tap",
+          "control": "Up or Down arrow"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button; the thermostat double-beeps when done.",
+        "To remove the thermostat as a responder: press and hold the controller's scene button until it beeps, press and hold it again until it beeps again, then press and hold the thermostat's SET button (or the SET button and the Down arrow together for an off-command link).",
+        "The manual recommends using software to manage scene memberships whenever possible."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the thermostat beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; SET LED blinks red"
+        },
+        {
+          "text": "Double-tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Press and hold the SET button again for about 10 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 10,
+          "expect": "Long beep; display blinks all segments"
+        },
+        {
+          "text": "When the blinking and beeping stop, release the SET button and wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10,
+          "expect": "Self tests run, then the display returns to normal"
+        }
+      ],
+      "notes": [
+        "Clears all scene memberships, sets the day and time to 12:00 AM Monday, and returns schedules, temperatures and other settings to their defaults. The temperature and humidity offsets are kept.",
+        "Before resetting, remove the thermostat from every controller's scenes; otherwise the controllers keep retrying commands."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the thermostat 2441TH owner's manual, which covers this heat pump model."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the thermostat's scene memberships from every responder it controls and from every controller that controls it.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers retry commands repeatedly and slow the network."
+      ]
+    }
+  },
   "notes": [
     "The 2441TH's hardware with heat pump firmware, which works like the 2441TH.",
     "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532; the Thermostat 2441TH Owner's Manual calls them 2732-242, 2732-442 and 2732-542.",
@@ -125,6 +293,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Insteon Device Categories (January 2014)",
-    "Thermostat 2441TH Owner's Manual"
+    "Thermostat 2441TH Owner's Manual",
+    "Thermostat for Heat Pump 2732 Quick Start Guide"
   ]
 }

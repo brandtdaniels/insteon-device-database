@@ -116,6 +116,59 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off your lamp or light fixture and install the bulb.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Turn the lamp or light fixture on and leave it on.",
+          "action": "powerOn"
+        }
+      ],
+      "notes": [
+        "Don't connect the bulb to a dimmer; link it to Insteon remotes and switches to dim it.",
+        "If the switch or fixture is off, the bulb can't be controlled. If a wall switch controls the fixture, consider wiring it always on, for example by replacing it with an Insteon dimmer switch with its red load wire capped, then linking that switch to the bulb."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode and the fixture on, screw in the bulb, or unscrew it for a moment and reinsert it.",
+          "action": "powerOn",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "The bulb has no SET button and links only as a responder: it goes into linking mode each time it is powered up. Put the controller in linking mode first (press and hold its SET button until it beeps; on a multi-button controller, tap the button first).",
+        "Linking on power-up can be turned off with software (Disable Linking on Power-up); it is on by default.",
+        "For a scene, put the controller in multi-linking mode (hold its SET button until it beeps, then tap it), screw in each bulb one at a time, then tap the controller's SET button to finish."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb A19 2672 Owner's Manual says the bulb double-beeps when linked or unlinked, but the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment and reinsert it.",
+          "action": "powerOn",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first: press and hold its SET button until it beeps (on a multi-button controller, tap the button first), then press and hold it again until it beeps."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb A19 2672 Owner's Manual says the bulb double-beeps when linked or unlinked, but the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper."
+      }
+    },
+    "linkingTimeoutSeconds": 5
+  },
   "notes": [
     "Has no buttons or LED.",
     "Powers up on by default, and can be set to power up to its last state instead.",
@@ -123,7 +176,8 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "LED Bulb 2672 Owner's Manual",
-    "LED Bulb Developer Notes"
+    "LED Bulb A19 2672 Owner's Manual",
+    "LED Bulb Developer Notes",
+    "LED Bulb A19 2672 Quick Start Guide"
   ]
 }

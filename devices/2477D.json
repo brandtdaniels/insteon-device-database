@@ -32,12 +32,173 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off power to the switch at the electrical service panel.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the old switch and disconnect the wires. If the box lacks neutral wires, stop and contact support.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on power at the circuit breaker.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage detector or multimeter to identify line and load. Line will be energized.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off power at the circuit breaker.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Connect the switch's line, load, neutral and ground wires to the identified wires in the junction box. Make sure the wire nuts are secure and no copper is exposed except the bare ground wire.",
+          "action": "wire"
+        },
+        {
+          "text": "Mount the switch into the junction box with the LED bar on the left.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn power on to the switch at the circuit breaker panel.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Test the switch by tapping the paddle to turn it on and off. Press and hold to dim or brighten.",
+          "action": "tap",
+          "control": "paddle"
+        },
+        {
+          "text": "Reattach the wall plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required.",
+        "In three-way and four-way circuits one switch controls the load and the others are secondaries; the diagrams leave the traveler unused at the load switch."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep"
+        }
+      ],
+      "notes": [
+        "Linking is directional: the first device put into linking mode becomes the controller and the second the responder. The switch leaves linking mode on its own once a link is made.",
+        "To make the switch a responder, put the controller in linking mode, set the switch to the state the link should recall (on, off or a brightness level), then press and hold its SET button until it double-beeps.",
+        "To have two switches control each other, cross-link them: link once in each direction."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "When adding the switch to the Hub, the Dimmer Switch 2477D Owner's Manual says to hold the SET button until the device beeps, while the Dimmer Switch 2477D Quick Start Guide says until you hear a double-beep."
+      }
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Set each device in the scene to the state it should take: on, off or a brightness level.",
+          "action": "other"
+        },
+        {
+          "text": "One at a time, press and hold the SET button on each device in the scene until it double-beeps.",
+          "action": "other"
+        },
+        {
+          "text": "Tap the SET button on the switch to finish building the scene.",
+          "action": "tap",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "The switch stays in multi-linking mode for 4 minutes or until its SET button is tapped."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep"
+        },
+        {
+          "text": "Press and hold the SET button again until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep"
+        },
+        {
+          "text": "Press and hold the SET button on the controlled device until it double-beeps; on a multi-button device, tap the button first.",
+          "action": "other",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "The switch leaves unlinking mode on its own once a link is removed.",
+        "To remove several links (multi-unlinking): press and hold the SET button until the switch beeps, press and hold it again, then tap it; hold the SET button on each device until it double-beeps; tap the switch's SET button to exit. The switch stays in this mode for 4 minutes or until its SET button is tapped."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull the SET button out from the switch until the status LEDs turn off.",
+          "action": "other",
+          "control": "SET button",
+          "expect": "status LEDs turn off"
+        },
+        {
+          "text": "Wait about ten seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push in and hold the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "On older switches that don't give a long beep, press and hold the SET button for 10 seconds."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "The 2015 owner's manual for the 2477S, 2477D and 2477DH prints subcategory 0x00, a template value; Insteon Device Categories (January 2014) gives the 2477D 0x01/0x20."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Wall Switch 2477D Owner's Manual"
+    "Dimmer Switch 2477D Owner's Manual",
+    "Dimmer Switch 2477D Quick Start Guide"
   ]
 }

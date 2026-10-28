@@ -95,6 +95,198 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off the circuit breakers feeding the switch junction box, or remove the fuses, and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the trim plate from the switch, unscrew the switch and gently pull it out from the wall.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the switch.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the breaker on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Using a voltage tester, identify the line and load wires connected to the switch, and identify the neutral and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the breaker off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Connect the keypad's bare copper wire to ground, white to neutral, red to load and black to line. Make sure the connections are firm with no exposed wire.",
+          "action": "wire"
+        },
+        {
+          "text": "With the button labels right side up, gently place the keypad into the junction box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the breaker on.",
+          "action": "powerOn",
+          "expect": "The keypad's LEDs light."
+        },
+        {
+          "text": "Turn the light on and off to check that the keypad works.",
+          "action": "tap"
+        },
+        {
+          "text": "Reinstall the trim plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required. 100 to 277VAC, 50/60Hz, on a circuit protected by a 20A or smaller breaker or fuse.",
+        "In a multi-gang box the dimmer is derated by 200W for each immediately adjacent dimmer.",
+        "In 3-way and multi-way circuits every switch must be replaced by a keypad or SwitchLinc. Connect line and one traveler to the first keypad's black wire and cap its red wire; at the load box connect the same traveler to black and the load to red; at middle boxes join the two black travelers to black and cap the red wire; cap all unused travelers. Then cross-link the keypads so they all control the load."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Tap the keypad button that will control the scene. On a 6-button keypad, use ON for the main scene.",
+          "action": "tap"
+        },
+        {
+          "text": "Press and hold the SET button until the keypad beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "scene button LED blinks; SET button LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: after the keypad beeps, set the responder to the state the scene should recall and press and hold its SET button until it double-beeps or its LED or load flashes. The keypad double-beeps and its LEDs stop blinking.",
+        "As a responder: press and hold the controller's scene button until it beeps, tap the keypad button that should respond until its LED is in the desired state (press and hold to add the main scene at a dimmed level), then press and hold the keypad's SET button until it double-beeps.",
+        "To have another button on the same keypad control the load, press and hold that scene button until it beeps, then press and hold the responding keypad button until it beeps.",
+        "If either LED keeps blinking, the addition failed; tap that device's SET button until the LED stops blinking and try again."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Dimmer Keypad 2334 Owner's Manual does not describe adding the keypad to the Hub; the 2016 quick start guide says to hold the SET button until you hear a double-beep, while the manual's own controller steps end at a single beep."
+      }
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Tap the scene button on the keypad.",
+          "action": "tap"
+        },
+        {
+          "text": "Press and hold the SET button until the keypad beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "scene button LED blinks; SET button LED blinks green; lit LEDs brighten to 100%"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LEDs keep blinking"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene state (on a keypad, tap the button at least once), then press and hold its SET button until it beeps or its LED flashes.",
+          "action": "other",
+          "expect": "The keypad double-beeps."
+        },
+        {
+          "text": "After adding all responders, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LEDs stop blinking and return to normal brightness"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Tap the scene button on the keypad.",
+          "action": "tap"
+        },
+        {
+          "text": "Press and hold the SET button until the keypad beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "scene button LED blinks; SET button LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "SET button LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
+          "action": "other",
+          "expect": "The keypad double-beeps and its LEDs stop blinking."
+        }
+      ],
+      "notes": [
+        "To remove a keypad button as a responder: press and hold the controller's SET button until it beeps, press and hold it again until it beeps again, tap the keypad button to remove, then press and hold the keypad's SET button until it double-beeps.",
+        "To remove several responders at once: tap the scene button, hold the SET button until it beeps, hold it again until it beeps again, then tap it (LEDs blink red); tap each keypad button or hold each responder's SET button until it beeps or its LED flashes; tap the keypad's SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "With a small screwdriver or your fingernail, pull out the SET button to create an air gap.",
+          "action": "other",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push in the SET button and hold it. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a couple of seconds the keypad double-beeps, its LEDs return to normal brightness and the load turns on."
+        }
+      ],
+      "notes": [
+        "Devices that were linked to the keypad still respond to its buttons after a factory reset unless they were unlinked first."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the keypad's buttons as controllers of each responder.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the keypad from all of its scene controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Stop using the keypad.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers resend commands, causing delays, error blinks and possible error reports."
+      ]
+    }
+  },
   "notes": [
     "Subcategory 0x41 is the 8-button version and 0x42 the 6-button version. In the 8-button layout groups 1 to 8 are buttons A to H; in the 6-button layout group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D. Software can set either layout.",
     "When software detaches the load from the buttons, the load responds to group 9, which is linked with the SET button, and group 1 controls only the LEDs.",
@@ -103,6 +295,8 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "KeypadLinc Line Developer Notes"
+    "KeypadLinc Line Developer Notes",
+    "Dimmer Keypad 2334 Owner's Manual",
+    "Dimmer Keypad 2334 Quick Start Guide"
   ]
 }

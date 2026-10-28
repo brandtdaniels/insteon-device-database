@@ -57,9 +57,82 @@
       "port": 25105
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Connect the Hub to the internet and to a power outlet using the Ethernet and power cables provided. Avoid switched outlets and filtered power strips.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Optionally, mount the Hub on a wall: use the template page to drill the mounting holes, then hang the Hub on two screws by aligning its hanger slots and sliding it down.",
+          "action": "mount"
+        },
+        {
+          "text": "From your mobile device, download and install the Insteon for Hub app, launch it and follow the on-screen instructions to create an account and set up the Hub.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "For the wall mount, the manual gives screw heads about 5/16 inch (8 mm) in diameter."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Disconnect power from the Hub.",
+          "action": "unplug"
+        },
+        {
+          "text": "Press and hold the SET button while reconnecting power.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Hub emits a long beep"
+        },
+        {
+          "text": "When the long beep ends, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Hub double-beeps, and after 30 seconds beeps again"
+        },
+        {
+          "text": "Unplug the Hub and then reconnect it to power.",
+          "action": "powerOn"
+        }
+      ],
+      "notes": [
+        "Before a factory reset, delete all devices and scenes from the app (or factory reset all of your devices) and delete your user account.",
+        "A Network Reset restores only the default network configuration: tap the SET button three times; the Hub triple-beeps, and after a few seconds it single-beeps."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Delete all devices and scenes from the app, or factory reset all of your devices.",
+          "action": "other"
+        },
+        {
+          "text": "From Settings, tap Account, then tap Delete Account. This cannot be undone and erases your home from Insteon's cloud service.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect power from the Hub and factory reset it.",
+          "action": "unplug"
+        }
+      ],
+      "notes": [
+        "The manual strongly recommends deleting all devices before deleting the account; otherwise network performance degrades. Factory resetting the devices after deleting the account is the alternative."
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Hub 2245 Owner's Manual"
+    "Hub 2245 Owner's Manual",
+    "Hub 2245 Quick Start Guide"
   ]
 }

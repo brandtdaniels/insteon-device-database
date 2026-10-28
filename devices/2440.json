@@ -46,7 +46,143 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the battery compartment door from the back of the Remote Control.",
+          "action": "other",
+          "control": "battery compartment door"
+        },
+        {
+          "text": "Install four AAA batteries, observing the polarity markings.",
+          "action": "insertBatteries"
+        },
+        {
+          "text": "Replace the battery compartment door.",
+          "action": "other",
+          "control": "battery compartment door"
+        }
+      ],
+      "notes": [
+        "As an RF-only device it needs at least one Access Point 2443 or other dual-band Insteon device; the manual recommends at least two.",
+        "Use alkaline or high-quality rechargeable batteries; a fresh alkaline set gives about 1,500 to 2,000 button taps."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Choose the On/Off button pair (scene A to F) to use.",
+          "action": "other",
+          "control": "On/Off button pair"
+        },
+        {
+          "text": "Press and hold the On button of that pair until the Remote Control beeps, about 10 seconds.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED blinks"
+        }
+      ],
+      "notes": [
+        "Set the responder to the state you want first, then, after putting the Remote Control in linking mode, press and hold the responder's SET button for 3 seconds. The Remote Control beeps and its status LED stops blinking and turns off.",
+        "Any accidental button press ends linking mode early."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the On button of the pair for 10 seconds to enter linking mode.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED blinks"
+        },
+        {
+          "text": "Tap the same On button.",
+          "action": "tap",
+          "control": "On button",
+          "count": 1
+        },
+        {
+          "text": "One at a time, press and hold each responder's SET button for 3 seconds.",
+          "action": "other"
+        },
+        {
+          "text": "When done, tap the same On button to leave multi-linking mode.",
+          "action": "tap",
+          "control": "On button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Multi-linking mode times out after 4 minutes of inactivity.",
+        "The manual gives these steps for controllers in general (\"if the controller does not have a SET button, tap the same On or Scene button\") and does not list the Remote Control's beeps or LED for this mode."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the manual's generic multi-linking steps for controllers without a SET button."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the On button of the pair to unlink until the Remote Control beeps, about 10 seconds.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED blinks"
+        },
+        {
+          "text": "Press and hold the same On button again until it beeps, about 10 seconds.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED keeps blinking"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds within 4 minutes. The Remote Control beeps and its status LED stops blinking and turns off.",
+        "Unlink responders you no longer use; otherwise the Remote Control keeps retrying commands and slows the system."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink any devices the Remote Control controls.",
+          "action": "other"
+        },
+        {
+          "text": "Remove one battery for at least 10 seconds.",
+          "action": "removeBatteries",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the Bright button, reinsert the battery.",
+          "action": "insertBatteries",
+          "control": "Bright button",
+          "expect": "Beep; status LED turns on solid"
+        },
+        {
+          "text": "Keep holding the Bright button for about 10 seconds, then release it.",
+          "action": "hold",
+          "control": "Bright button",
+          "seconds": 10,
+          "expect": "Continuous beep while held; double beep and status LED turns off on release"
+        }
+      ],
+      "notes": [
+        "The factory reset clears all Insteon links."
+      ]
+    },
+    "resetErases": [
+      "links"
+    ]
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Remote Control 2440 Owner's Manual",
+    "Remote Control 2440 Quick Start Guide"
   ]
 }

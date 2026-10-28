@@ -19,11 +19,109 @@
       "kind": "modem"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Make sure the modem is not plugged into your computer.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the modem into an unfiltered AC outlet.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the clear end of the included DB-9 serial cable into the modem's interface port and the black end into an available serial port on your computer.",
+          "action": "other",
+          "control": "Interface port"
+        }
+      ],
+      "notes": [
+        "HouseLinc adds the modem as its computer interface: in HouseLinc's Options window click Start, select the modem and click Activate."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for more than three seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks continuously, half a second on and half a second off"
+        },
+        {
+          "text": "Alternatively, have software send the Start ALL-Linking command, choosing whether the modem links as controller, as responder, or as controller when it starts the session and responder otherwise, and the ALL-Link group.",
+          "action": "send",
+          "command": "Start ALL-Linking",
+          "expect": "LED blinks continuously, half a second on and half a second off"
+        }
+      ],
+      "notes": [
+        "Then press and hold the SET button on the device you want to link to the modem; the modem reports ALL-Linking Completed with the other device's ID.",
+        "When linking is started with the SET button, the modem decides the controller or responder role and assigns the ALL-Link group automatically.",
+        "Software can end linking mode with Cancel ALL-Linking, and can turn off SET button linking by setting bit 7 of the modem's configuration flags.",
+        "The Developer Notes give 4 minutes for linking mode started with Start ALL-Linking."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Have software send the Start ALL-Linking command with link code 0xFF and the ALL-Link group to unlink.",
+          "action": "send",
+          "command": "Start ALL-Linking",
+          "expect": "The modem enters unlinking mode for 4 minutes"
+        },
+        {
+          "text": "Press and hold the SET button on the device to unlink.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "ALL-Linking Completed reports link code 0xFF, meaning the link was deleted"
+        }
+      ],
+      "notes": [
+        "The Developer Notes give no SET button sequence for the modem's own unlinking mode."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Taken from the Developer Notes' command example; no owner's document describes unlinking the modem."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Remove power from the modem.",
+          "action": "unplug"
+        },
+        {
+          "text": "Press and hold the SET button while applying power, and keep holding it for 10 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 10,
+          "expect": "LED stays off during the reset, then turns on steadily (or blinks six times if the modem has no external EEPROM)"
+        },
+        {
+          "text": "Alternatively, have software send the Reset the IM command.",
+          "action": "send",
+          "command": "Reset the IM"
+        }
+      ],
+      "notes": [
+        "After a SET button reset the modem sends User Reset Detected."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "Insteon Device Categories (January 2014) lists 0x03/0x1E as a version without EEPROM and without RF."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Device Categories (January 2014)"
+    "Insteon Device Categories (January 2014)",
+    "HouseLinc Owner's Manual",
+    "Insteon Modem Developer's Guide"
   ]
 }

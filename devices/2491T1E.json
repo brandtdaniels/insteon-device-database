@@ -35,9 +35,116 @@
       "humidity": false
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Install the thermostat by following the enclosed Venstar documentation.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "It is powered through the thermostat wiring; no batteries needed.",
+        "It is not compatible with Venstar accessories that connect through the phone-style jack on the bottom of Venstar products."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "To link as a controller, choose the mode to report: for A/C tap the Mode button until only the cool setpoint shows, for heat until only the heat setpoint shows, or for fan open the door and tap the Fan button until \"Fan On\" shows.",
+          "action": "tap",
+          "control": "Mode button"
+        },
+        {
+          "text": "Press and hold the SET button until the display flashes.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Display flashes; Insteon LED blinks green"
+        }
+      ],
+      "notes": [
+        "Then adjust the responder to the scene state and press and hold its SET button until it beeps or its LED flashes. The Thermostat double-beeps and its LED stops blinking.",
+        "As responder: put the controller in linking mode, adjust the mode and setpoints to the scene settings, double-tap the SET button first if linking to the controller's off command, then press and hold the SET button until it double-beeps. The display flashes all characters twice and the Insteon LED flashes once and returns to green. Link scene on and scene off separately.",
+        "To enable change reports to an automation controller, set the mode to off, press and hold the SET button for 3 seconds (LED blinks green), then press and hold the controller's SET button for 3 seconds. Reports go only to the last device linked this way."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Choose the same controller mode (cool, heat or Fan On) as when linking.",
+          "action": "tap",
+          "control": "Mode button"
+        },
+        {
+          "text": "Press and hold the SET button until the display flashes.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Insteon LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the display flashes a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Insteon LED keeps blinking green"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button until it beeps or its LED flashes; the Insteon LED stops blinking.",
+        "To remove the Thermostat as a responder: press and hold the controller's scene button until it beeps, again until it beeps again, then press and hold the Thermostat's SET button until it double-beeps (about 3 seconds). Removing either the on or the off membership erases both."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove all scene memberships first.",
+          "action": "other"
+        },
+        {
+          "text": "Carefully remove the thermostat from its wall-mount bracket.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While pressing and holding the SET button, remount the thermostat on the bracket.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 5 seconds, then release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "Insteon LED turns on after about 20 seconds; display flashes all characters three times; LED flickers, then turns solid"
+        }
+      ],
+      "notes": [
+        "Clears all settings, including Insteon scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the Thermostat from every scene it belongs to, as responder and as controller.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers keep retrying commands and responders keep broken scene memberships."
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Developer's Guide (2009)"
+    "Insteon Developer's Guide (2009)",
+    "Integrated Remote Control Thermostat 2491T1E Owner's Manual"
   ],
   "notes": [
     "A Venstar thermostat with the 2441V's board built in, so it uses the same commands."

@@ -49,10 +49,184 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying power to the switch.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the faceplate from the existing switch, then unscrew the switch and pull it out from the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the old switch and make sure there is 1/2 inch of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the power back on, use a line voltage meter to identify the line, load, neutral and ground wires, then turn the breaker off again.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the switch's wires to the line, load, neutral and ground wires. Make sure all wire connectors are firmly attached and no copper is exposed except the ground wire.",
+          "action": "wire"
+        },
+        {
+          "text": "With the LED bar at the bottom, gently place the switch into the junction box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn power to the switch back on at the circuit breaker or fuse panel.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use the toggle to turn the light on and off to check that the switch works.",
+          "action": "tap",
+          "control": "toggle"
+        },
+        {
+          "text": "Reinstall the faceplate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "A neutral connection is required; the switch will not work without one. The switch being replaced usually has no neutral connected, but neutral wires are usually available in the back of the box.",
+        "In a virtual multi-way circuit only the primary switch is wired to the load. The secondaries connect to line, neutral and ground with their red load wire capped, the black traveler is converted to a line wire and the red traveler is capped at both ends. Then link the switches to each other as a group."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "beep; status LED blinks"
+        }
+      ],
+      "notes": [
+        "As a controller: after the switch beeps, set the responder to the state to recall (for a multi-scene device such as a KeypadLinc, tap the scene button) and press and hold the responder's SET button for 3 seconds. The switch double-beeps and its LED stops blinking.",
+        "As a responder: press and hold the controller's SET or scene button until it beeps or its LED blinks, use the switch to set its load to the state to recall, then press and hold the switch's SET button until it double-beeps, about 3 seconds. The status LED flashes.",
+        "For a group, such as a 2-switch circuit, link the switch as a controller of the other device and the other device as a controller of the switch."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "status LED starts blinking"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "status LED double-blinks"
+        },
+        {
+          "text": "For each responder, adjust it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
+          "action": "other",
+          "expect": "The switch double-beeps."
+        },
+        {
+          "text": "After adding all responders, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "status LED stops blinking"
+        }
+      ],
+      "notes": [
+        "The switch stays in multi-linking mode for 4 minutes."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "status LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button again until the switch beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "status LED keeps blinking"
+        },
+        {
+          "text": "Press and hold the responder's SET button for 3 seconds.",
+          "action": "other",
+          "seconds": 3,
+          "expect": "The switch double-beeps and its LED stops blinking."
+        }
+      ],
+      "notes": [
+        "The switch stays in unlinking mode for 4 minutes.",
+        "To remove the switch as a responder: press and hold the controller's SET or scene button until it beeps or its LED blinks, do it again, then press and hold the switch's SET button until it double-beeps.",
+        "To remove several responders at once: hold the SET button until it beeps, hold it again until it beeps, then tap it (status LED double-blinks); on each responder, tap the responding button if it has several, then hold its SET button until it beeps or its LED flashes; tap the switch's SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull out the SET button to create an air gap.",
+          "action": "other",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push in the SET button and hold it. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the switch double-beeps, the LEDs return to normal brightness and the load turns on."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink each responder that the switch controls.",
+          "action": "other"
+        },
+        {
+          "text": "Unlink the switch from all of its controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Disable or remove the switch.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise the switch and its controllers keep retrying commands, causing delays in the Insteon network."
+      ]
+    }
+  },
   "notes": [
     "HouseLinc lists subcategory 0x1F for firmware 0x3A and later."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Toggle Dimmer Switch 2466DW Owner's Manual",
+    "Toggle Dimmer Switch 2466DW Quick Start Guide"
   ]
 }

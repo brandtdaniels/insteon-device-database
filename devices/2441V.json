@@ -56,12 +56,138 @@
       "humidity": false
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Make sure a compatible Totaline/Venstar thermostat is installed.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the Thermostat Adapter into the jack on the bottom of the thermostat.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid green"
+        }
+      ],
+      "notes": [
+        "Compatible with Totaline/Venstar T1700, T1800 and T1900 thermostats (Venstar 30410A, 30411A and 30412A); the location's wiring should have 5 wires.",
+        "Powered by the thermostat; no batteries needed.",
+        "As an RF-only device it needs at least one dual-band device such as an Access Point 2443; at least two are recommended."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Set the thermostat to the mode, setpoint and fan setting you want.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks; thermostat display flashes all characters once"
+        }
+      ],
+      "notes": [
+        "As controller (reporting A/C, heat or fan on and off): set the thermostat to A/C, Heat or FanOn (for FanOn also set the thermostat to Off mode), do these steps, then press and hold the responder's SET button for 3 seconds. The status LED stops blinking and the display flashes once.",
+        "As responder: set the thermostat to the state to recall, put the controller in linking mode, then tap the SET button once (for the controller's on command) or twice (for its off command) and press and hold the SET button for 3 seconds. The display flashes all characters twice. Link the on and off buttons separately.",
+        "To enable change reports to home automation software, set the thermostat to Off mode, press and hold the SET button for 3 seconds, then press and hold the interface's SET button for 3 seconds. Reports go only to the last device linked this way."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks; thermostat display flashes all characters once"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds again.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED keeps blinking; display flashes all characters once"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds; the status LED stops blinking and the display flashes once.",
+        "To unlink the Thermostat Adapter from a controller, put the controller in unlinking mode, tap the Thermostat Adapter's SET button, then press and hold it for 3 seconds (display flashes twice). This erases all commands linked to that controller, even those on other buttons; re-link the ones you want to keep.",
+        "With the thermostat in Off mode, the same unlinking steps followed by the interface's SET button disable change reports."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The 4-minute timeout is stated for the controller's linking and unlinking modes when the Thermostat Adapter is the responder; the manual gives no timeout for the Thermostat Adapter's own linking mode."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the Thermostat Adapter from its controllers and unlink its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Open the thermostat cover and, while pressing the small round button on the bottom center of the thermostat, gently pull the Thermostat Adapter down.",
+          "action": "unplug",
+          "expect": "Status LED turns off"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While pressing and holding the SET button, plug the Thermostat Adapter back into the thermostat.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED stays off about 20 seconds, the display flashes all characters three times, then the LED flickers and turns on solid"
+        }
+      ],
+      "notes": [
+        "Clears all Insteon links, setpoints and other settings."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the Thermostat Adapter from every controller it is linked to.",
+          "action": "other"
+        },
+        {
+          "text": "Open the front cover of the thermostat by gently pulling its right edge toward you.",
+          "action": "other"
+        },
+        {
+          "text": "While pressing firmly on the small round button on the bottom center of the thermostat, gently pull the Thermostat Adapter down.",
+          "action": "unplug",
+          "expect": "Status LED turns off"
+        }
+      ],
+      "notes": [
+        "If it isn't unlinked, controllers keep retrying commands and slow the system."
+      ]
+    }
+  },
   "notes": [
     "It links to group 1 while cooling, group 2 while heating and group 3 while its fan runs; devices linked to group 0xEF get its status reports."
   ],
   "sources": [
     "HouseLinc device catalog",
     "Insteon Developer's Guide (2009)",
-    "Thermostat Adapter 2441V Owner's Manual"
+    "Thermostat Adapter 2441V Owner's Manual",
+    "Thermostat Adapter 2441V Quick Start Guide"
   ]
 }

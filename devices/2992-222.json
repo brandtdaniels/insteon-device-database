@@ -10,11 +10,49 @@
   "radio": "dual",
   "role": "responder",
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Range Extender into an unswitched wall outlet, near the Insteon RF devices whose reach it extends.",
+          "action": "plugIn"
+        },
+        {
+          "text": "To bridge the two legs of the electrical supply, quickly tap the SET button four times to start phase detection.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 4,
+          "expect": "Range Extender beeps"
+        },
+        {
+          "text": "Plug a second Range Extender into an outlet on the other side of the home.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Check the status LED of the second Range Extender or any dual-band Insteon device. If it is solid, the phases are not bridged; try a different outlet.",
+          "action": "other"
+        },
+        {
+          "text": "Tap the SET button on the first Range Extender to leave phase detection.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Bridging the electrical legs is optional.",
+        "Avoid switched outlets, power strips, surge suppressors, backup batteries and AC line filters.",
+        "The manual shows the LED patterns for phase detection only as pictures; its text says only that a solid LED on the second device means the phases are not bridged."
+      ]
+    }
+  },
   "notes": [
     "Repeats Insteon messages between powerline and RF, and bridges the two powerline phases.",
     "Answers status requests and beeps; it has no load to control."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Range Extender 2992-222 Owner's Manual",
+    "Range Extender 2992-222 Quick Start Guide"
   ]
 }

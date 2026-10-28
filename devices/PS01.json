@@ -39,11 +39,88 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Connect the white wire to neutral, the black wire to line, the green wire to ground and the red wire to the load.",
+          "action": "wire"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required.",
+        "To choose relay or dimmer mode, hold the On button (dimmer) or the Off button (relay) while the switch is power-cycled."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The developer notes give only the wire functions; they have no installation procedure."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Software can do the same by sending Enter Link Mode (cmd1 0x09) with the group number in cmd2.",
+        "Pressing and holding any button, including the SET button, broadcasts Button Held (Link Mode), which completes manual linking and identifies the device to controllers."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No owner's manual or quick start guide was found; these steps are read from the developer notes, which describe the SET button only briefly."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button twice in a row to enter unlinking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "count": 2
+        }
+      ],
+      "notes": [
+        "Software can do the same by sending Enter Unlink Mode (cmd1 0x0A) with the group number in cmd2."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No owner's manual or quick start guide was found; these steps are read from the developer notes, which describe the SET button only briefly."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Power-cycle the switch.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Long-press the SET button after power is restored.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Software can do the same by sending the Factory Reset extended command, which works only if its data carries the device's category and subcategory.",
+        "The developer notes say a factory reset returns the switch's properties to their defaults; they don't say whether links are erased."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The developer notes say only that a factory reset is the same as long-pressing the SET button after a power cycle; they give no durations or confirmation."
+      }
+    },
+    "resetErases": [
+      "settings"
+    ]
+  },
   "notes": [
     "The documented firmware is 0x54.",
     "It replies 0x02 to Get Insteon Engine Version (cmd1 0x0D), as i2CS devices do, and broadcasts Button Held (cmd1 0x01), with its hardware version in cmd2, when any button is held, even with programming locked."
   ],
   "sources": [
-    "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)"
+    "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)",
+    "i3 Paddle and i3 Dial Developer Notes"
   ]
 }

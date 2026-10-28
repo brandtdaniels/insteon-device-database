@@ -23,7 +23,129 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Disconnect power at the service panel.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the trim plate and the existing switch or dimmer.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the timer's copper wire to ground with a wire nut (or screw as appropriate).",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the timer's white wire to neutral with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the timer's black wire to the hot wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the timer's red wire to the switch leg with a wire nut; control of a local load is optional.",
+          "action": "wire"
+        },
+        {
+          "text": "Carefully screw the timer into the electrical box and replace the trim plate.",
+          "action": "mount"
+        },
+        {
+          "text": "Restore power at the service panel.",
+          "action": "powerOn",
+          "control": "breaker",
+          "expect": "The timer returns to its last on or off state"
+        },
+        {
+          "text": "Test the timer by pressing the 2 min button.",
+          "action": "press",
+          "control": "2 min button",
+          "expect": "Lights turn on, flash after 1 minute and turn off after 2 minutes"
+        }
+      ],
+      "notes": [
+        "Identify all the wires before beginning.",
+        "After a power outage, pull the SET button out, wait 15 seconds, then push it back in."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide for the KeypadLinc Countdown Timer 2484D (the dimming version); no document for the 2484SWH8 itself was found."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold any timer button until its LED begins blinking.",
+          "action": "hold",
+          "control": "timer button",
+          "expect": "The button's LED blinks"
+        }
+      ],
+      "notes": [
+        "As a controller: with a timer button's LED blinking, press and hold the responder's SET button until its LED flashes (on a multi-button responder, press and hold the button of choice). Linked devices turn on when the timer turns on and off when it expires.",
+        "As a responder: put the controller in linking mode first, then press and hold the timer button for the time the lights should stay on when turned on from that controller, until the lights flash; the controller's LED stops blinking."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide for the KeypadLinc Countdown Timer 2484D (the dimming version); no document for the 2484SWH8 itself was found."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the timer button until its LED begins blinking.",
+          "action": "hold",
+          "control": "timer button",
+          "expect": "The button's LED blinks"
+        },
+        {
+          "text": "Press and hold the same button again for 15 seconds.",
+          "action": "hold",
+          "control": "timer button",
+          "seconds": 15
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button (or, on a multi-button responder, the button of choice) until its LED or load flashes."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide for the KeypadLinc Countdown Timer 2484D (the dimming version); no document for the 2484SWH8 itself was found."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull the SET button out and wait 15 seconds.",
+          "action": "powerOff",
+          "control": "SET button",
+          "seconds": 15
+        },
+        {
+          "text": "Push the SET button in and hold it in for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "Lights turn on after 3 seconds; all programmed links are removed and features return to factory defaults"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide for the KeypadLinc Countdown Timer 2484D (the dimming version); no document for the 2484SWH8 itself was found."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide"
   ]
 }

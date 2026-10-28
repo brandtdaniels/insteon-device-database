@@ -42,11 +42,129 @@
       "kind": "modem"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Make sure the modem is not plugged into your computer.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the modem into an AC wall outlet, not a power strip or AC line filter.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the clear end of the included DB-9 serial cable into the modem's interface port.",
+          "action": "other",
+          "control": "Interface port"
+        },
+        {
+          "text": "Plug the black end of the cable into an available serial port on your computer.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Use a cable no longer than 10 feet (6 feet or less recommended), use only one modem per computer, and keep the modem away from large metal objects such as refrigerators or TVs.",
+        "Computers and their accessories can absorb the modem's powerline signals; use a filter on the computer's power strip.",
+        "HouseLinc adds the modem as its computer interface: in HouseLinc's Options window click Start, select the modem and click Activate."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the 2413S documents; no document names the 2413SH."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for more than three seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks continuously, half a second on and half a second off"
+        },
+        {
+          "text": "Alternatively, have software send the Start ALL-Linking command, choosing whether the modem links as controller, as responder, or as controller when it starts the session and responder otherwise, and the ALL-Link group.",
+          "action": "send",
+          "command": "Start ALL-Linking",
+          "expect": "LED blinks continuously, half a second on and half a second off"
+        }
+      ],
+      "notes": [
+        "Then press and hold the SET button on the device you want to link to the modem; the modem reports ALL-Linking Completed with the other device's ID.",
+        "When linking is started with the SET button, the modem decides the controller or responder role and assigns the ALL-Link group automatically.",
+        "Software can end linking mode with Cancel ALL-Linking, and can turn off SET button linking by setting bit 7 of the modem's configuration flags.",
+        "The Developer Notes give 4 minutes for linking mode started with Start ALL-Linking."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the 2413S documents; no document names the 2413SH."
+      }
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Have software send the Start ALL-Linking command with link code 0xFF and the ALL-Link group to unlink.",
+          "action": "send",
+          "command": "Start ALL-Linking",
+          "expect": "The modem enters unlinking mode for 4 minutes"
+        },
+        {
+          "text": "Press and hold the SET button on the device to unlink.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "ALL-Linking Completed reports link code 0xFF, meaning the link was deleted"
+        }
+      ],
+      "notes": [
+        "The Developer Notes give no SET button sequence for the modem's own unlinking mode."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Taken from the Developer Notes' command example; no owner's document describes unlinking the modem."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the modem from the wall outlet and wait 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "Press and hold the SET button and, while continuing to hold it, plug the modem back in.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "A long beep sounds"
+        },
+        {
+          "text": "Continue holding the SET button until the beep stops, then release it.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After several seconds the status LED turns on to show the reset is complete"
+        }
+      ],
+      "notes": [
+        "The Developer Notes describe holding the SET button for 10 seconds while applying power; software can also send the Reset the IM command. The modem then sends User Reset Detected."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the 2413S documents; no document names the 2413SH."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "The 2413S made for HouseLinc; Insteon Device Categories (January 2014) calls it the PowerLinc Serial Modem for HL(Dual Band)."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Device Categories (January 2014)"
+    "Insteon Device Categories (January 2014)",
+    "Serial Modem 2413S Quick Start Guide",
+    "HouseLinc Owner's Manual",
+    "Insteon Modem Developer's Guide"
   ]
 }

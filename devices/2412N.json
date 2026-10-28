@@ -29,7 +29,134 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the included Ethernet cable into an open LAN port on your router.",
+          "action": "other",
+          "control": "Ethernet cable"
+        },
+        {
+          "text": "Plug the other end of the Ethernet cable into SmartLinc's Ethernet jack.",
+          "action": "other",
+          "control": "Ethernet jack"
+        },
+        {
+          "text": "Plug SmartLinc into an unswitched AC outlet.",
+          "action": "plugIn",
+          "expect": "Status LED turns on dim, solid white"
+        },
+        {
+          "text": "Verify the connection between SmartLinc and the router.",
+          "action": "other",
+          "expect": "The router port's LED turns on and SmartLinc's Ethernet jack LED turns on green"
+        },
+        {
+          "text": "If you use the Insteon app, launch it on your smartphone or tablet and follow the on-screen instructions to configure SmartLinc; otherwise set it up with its web-based interface.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Don't plug SmartLinc into a switched outlet, a filtered power strip or an AC line filter, and don't plug Insteon modules into one another."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "In SmartLinc's web interface, click the room of the responder you want to control, then click the scene you want to add it to.",
+          "action": "other"
+        },
+        {
+          "text": "Next to Scene Devices, click Add.",
+          "action": "other",
+          "expect": "The Add/Remove Status box displays Waiting..."
+        },
+        {
+          "text": "Press and hold the responder's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "The Add/Remove Status box displays Done"
+        },
+        {
+          "text": "Test the link by clicking the On and Off buttons next to Test Scene.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The Central Controller 2412N Owner's Manual links SmartLinc only as a controller of other Insteon devices, from its web interface or the Insteon app."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "In SmartLinc's web interface, click the room of the responder you want to remove, then click the scene it is in.",
+          "action": "other"
+        },
+        {
+          "text": "Next to Scene Devices, click Remove.",
+          "action": "other",
+          "expect": "The Add/Remove Status box displays Waiting..."
+        },
+        {
+          "text": "Press and hold the responder's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "The Add/Remove Status box displays Done"
+        },
+        {
+          "text": "Confirm the link was removed by clicking the On and Off buttons next to Test Scene.",
+          "action": "other"
+        }
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink all devices from SmartLinc.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug SmartLinc and wait about 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "Press and hold SmartLinc's SET button and, while holding it, plug SmartLinc back in.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "SmartLinc emits a long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Status LED turns off, then turns back on solid"
+        }
+      ],
+      "notes": [
+        "If you don't remove all links first, previously linked responders retry communications and cause network delays.",
+        "A Connection Reset (press and hold the SET button for 5 seconds until the status LED blinks, then tap it five times until the LED turns on solid) re-enables DHCP, resets the port and disables authentication while keeping links and names."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink all devices from SmartLinc, then factory reset it.",
+          "action": "other"
+        }
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Central Controller 2412N Owner's Manual",
+    "Central Controller 2412N Quick Start Guide"
   ]
 }

@@ -20,10 +20,54 @@
       "kind": "modem"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Make sure at least one Access Point 2443 or other dual-band Insteon product is installed; the USB Adapter is RF-only.",
+          "action": "other"
+        },
+        {
+          "text": "Make sure the USB Adapter is not connected to your computer.",
+          "action": "other"
+        },
+        {
+          "text": "Download the FTDI virtual COM port (VCP) driver for your operating system, then save, extract and run it. On a Mac, mount the disk image, run the installer package for your OS version and reboot.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the USB Adapter into an available USB port on your computer.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid green and stays on while plugged in"
+        },
+        {
+          "text": "Start your Insteon-compatible software and follow its instructions to add and use the USB Adapter.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "For the best network performance, install at least two dual-band Insteon products.",
+        "The USB Adapter communicates with the computer as long as it is connected, which may wake the computer from sleep."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Have the controlling software send the Start ALL-Linking command to the USB Adapter.",
+          "action": "send",
+          "command": "Start ALL-Linking"
+        }
+      ],
+      "notes": [
+        "The USB Adapter has no SET button, so linking mode must be started from software."
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "USB Stick 2448A7 Quick Start Guide",
-    "USB Adapter Developer Notes"
+    "USB Adapter 2448A7 Quick Start Guide",
+    "USB Adapter Developer Notes",
+    "USB Adapter 2448A7 Developer Notes"
   ],
   "notes": [
     "Has no SET button: start linking from software with Start ALL-Linking (0x64).",

@@ -23,7 +23,149 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the IR emitter plug into IRLinc's emitter jack. Don't cut off either emitter, or the other one will stop working.",
+          "action": "other",
+          "control": "IR emitter jack"
+        },
+        {
+          "text": "Plug IRLinc into a convenient, unswitched wall outlet near your IR equipment. You need access to the bottom of IRLinc during setup, so you may want to use an extension cord temporarily.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid blue"
+        },
+        {
+          "text": "Locate the IR sensor on the device you want to control and hold the emitter where you intend to mount it.",
+          "action": "other"
+        },
+        {
+          "text": "Double-tap the SET button on IRLinc.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2,
+          "expect": "IRLinc double-beeps and its status LED begins blinking"
+        },
+        {
+          "text": "Point your IR remote at the bottom of IRLinc, within a couple of inches of its IR sensor, and tap the button to be learned.",
+          "action": "other",
+          "control": "IR sensor",
+          "expect": "IRLinc double-beeps and its status LED turns on solid; if it beeps eight times, remount the emitter and start over"
+        },
+        {
+          "text": "Test the learned code by tapping the SET button on IRLinc.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "IRLinc beeps and the IR-controlled device responds"
+        },
+        {
+          "text": "Remove the peel-off backing from the first IR emitter and mount it over the device's IR sensor.",
+          "action": "mount",
+          "control": "IR emitter"
+        },
+        {
+          "text": "Repeat the learning and mounting steps for the second IR emitter.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "To create a macro (one Insteon command sending several IR commands), learn another code and link again.",
+        "Avoid using the pass-through outlet for stacking Insteon devices or for other heat-generating power supplies.",
+        "Don't plug IRLinc into a switched outlet or a filtered power strip."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button on IRLinc until it double-beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "IRLinc double-beeps, and after a few seconds double-beeps again"
+        },
+        {
+          "text": "Don't proceed until you hear two sets of double-beeps.",
+          "action": "wait"
+        },
+        {
+          "text": "Optionally, to have the IR code respond to an off command instead of on, send an off command from the controller within 30 seconds.",
+          "action": "other",
+          "seconds": 30,
+          "expect": "IRLinc double-beeps"
+        },
+        {
+          "text": "Confirm the link by tapping the button you just linked on the controller.",
+          "action": "tap",
+          "expect": "IRLinc responds"
+        }
+      ],
+      "notes": [
+        "IRLinc Transmitter links as a responder. Put the controller in linking mode first (for most controllers, press and hold an On or scene button for 10 seconds, or the SET button for 3 seconds); you then have 4 minutes to put IRLinc in linking mode.",
+        "IRLinc responds only to Insteon on and off commands; the IR commands for on and off are independent."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button on IRLinc until it double-beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "IRLinc double-beeps, and after a few seconds double-beeps again"
+        },
+        {
+          "text": "Tap the button you unlinked on the controller to confirm.",
+          "action": "tap",
+          "expect": "IRLinc no longer responds"
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first (for most controllers, press and hold an On or scene button for 10 seconds twice, or the SET button for 3 seconds twice); you then have 4 minutes."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If a controller controls IRLinc, unlink IRLinc from it.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug IRLinc from the outlet for 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug IRLinc back in, making sure not to let go of the SET button.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Continue to hold down the SET button for 3 seconds and then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "A few seconds after release, IRLinc beeps and the status LED turns on solid"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink IRLinc from every controller linked to it; otherwise the controllers retry their commands and slow down the system.",
+          "action": "other"
+        }
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Infrared Transmitter 2411T Owner's Manual",
+    "Infrared Transmitter 2411T Quick Start Guide"
   ]
 }

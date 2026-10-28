@@ -25,7 +25,123 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Lock Controller into an unswitched wall outlet within five feet of the door lock; an extension cord may be used.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid (if not, tap the SET button)"
+        },
+        {
+          "text": "Remove the cover plate from the door lock with a screwdriver and tap the lock's SET button (labeled S).",
+          "action": "tap",
+          "control": "door lock SET button",
+          "count": 1,
+          "expect": "Door lock beeps"
+        },
+        {
+          "text": "Tap the Lock Controller's SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Door lock double-beeps; status LED turns off"
+        },
+        {
+          "text": "Repeat the last two steps for each additional door lock.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Controls up to 15 Morning Industry RF deadbolts and door locks, each within 30 feet. After installation the Lock Controller can move to another outlet up to 30 feet from the lock.",
+        "Don't plug it into a filtered power strip or AC line filter. At least one dual-band device such as an Access Point 2443 is needed.",
+        "Tap the SET button to toggle the lock; the status LED is on when locked and off when unlocked."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Tap the SET button to put the lock in the state the controller's button should give.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        },
+        {
+          "text": "After putting the controller in linking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes once, then is on if locked or off if unlocked"
+        }
+      ],
+      "notes": [
+        "The Lock Controller is a responder only. Put the controller in linking mode first (most controllers: hold the SET button 3 seconds or an on/scene button 10 seconds), then do the second step within 4 minutes.",
+        "To link to a controller's off button instead, double-tap the SET button and wait 3 seconds before pressing and holding it for 3 seconds.",
+        "Lock and unlock must be linked to separate buttons unless the controller supports toggle mode."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "After putting the controller in unlinking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes once, then is on if locked or off if unlocked"
+        }
+      ],
+      "notes": [
+        "Unlinking from one button of an on/off pair erases all commands linked to that controller; re-link the ones you want to keep.",
+        "Unlink the Lock Controller from every controller before you stop using it; otherwise controllers keep retrying commands."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the Lock Controller from any controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the Lock Controller for about 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug it back in.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "Status LED turns on solid"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "After a few seconds, the status LED flashes once and turns on solid"
+        }
+      ],
+      "notes": [
+        "Clears all Insteon links. To use the lock again afterward, repeat installation from tapping the Lock Controller's SET button with the lock in setup."
+      ]
+    },
+    "resetErases": [
+      "links"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the Lock Controller from every controller it is linked to.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers keep retrying commands and slow the system."
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Morning Industry Lock Controller 2458A1 Owner's Manual"
   ]
 }

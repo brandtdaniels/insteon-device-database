@@ -45,8 +45,195 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the Insteon ID and the fixture where the module is being installed.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the circuit breaker or fuse supplying power to the fixture, and check that the power is off by switching the load on and off from its local switch.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the wallplate from the fixture, unscrew it and remove it from the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the fixture; if they cannot be unscrewed, cut them and strip 1/2 in. of insulation off the ends. Make sure the wires are not touching anything.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the circuit breaker, identify the line, load, neutral and ground wires with a voltage meter, then turn off the circuit breaker again.",
+          "action": "other"
+        },
+        {
+          "text": "With the included wire nuts, connect the fixture's line, load, neutral, ground and (if used) sense wires to the module's corresponding wires: line black, load red, neutral white, ground bare copper, sense yellow. A neutral connection is required.",
+          "action": "wire"
+        },
+        {
+          "text": "Turn the power back on at the circuit breaker or fuse panel.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Test the installation with the module's On and Off buttons.",
+          "action": "tap",
+          "control": "On and Off buttons",
+          "expect": "Load turns on and off"
+        },
+        {
+          "text": "Link the module to an Insteon controller (or, with the sense wire, to its responders) before finishing the installation.",
+          "action": "other"
+        },
+        {
+          "text": "Gently place the module into the junction box, making sure nothing could accidentally press the buttons on its face.",
+          "action": "mount"
+        },
+        {
+          "text": "Reinstall the fixture.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "The sense wire is enabled by default; if you do not use it, disable it before completing installation: press and hold the SET button until it beeps (3 seconds), then double-tap the SET button.",
+        "Use a non-conductive probe to press the SET button.",
+        "Pulling the SET button all the way out opens the air gap; push it back in until it is flush with the trim frame."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks; the module stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: put the module in linking mode first, set the responder to the desired state, then press and hold the responder's SET button for about 3 seconds; the module double-beeps and its status LED stops blinking and turns on solid.",
+        "As a responder: put the controller in linking mode first (for most controllers, press and hold the SET button for 3 seconds or an On or scene button for 10 seconds), then press and hold the module's SET button until it double-beeps (3 seconds); the status LED flashes once, then turns on if the load is off or off if the load is on.",
+        "Link the module before finishing installation."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The In-Line On/Off Module with Sense 2475S2 Owner's Manual's linking section says to hold the SET button until the module beeps; its X10 section says to hold it until it double-beeps to enter linking mode."
+      }
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Adjust each responder to the desired state.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks"
+        },
+        {
+          "text": "Tap the SET button until the module beeps again.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Multi-linking mode starts and lasts four minutes"
+        },
+        {
+          "text": "One at a time, press and hold each responder's SET button for about 3 seconds.",
+          "action": "hold",
+          "control": "responder SET button",
+          "seconds": 3
+        },
+        {
+          "text": "After linking all responders, tap the SET button.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Test by tapping the module's On and Off buttons.",
+          "action": "tap",
+          "control": "On and Off buttons",
+          "expect": "All the linked responders respond"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED keeps blinking; the module stays in unlinking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: after entering unlinking mode, press and hold the responder's SET button for about 3 seconds; the module double-beeps and its status LED stops blinking.",
+        "As a responder: put the controller in unlinking mode first (for most controllers, press and hold the SET button for 3 seconds twice or an On or scene button for 10 seconds twice), then press and hold the module's SET button until it double-beeps.",
+        "To unlink several responders at once, tap the SET button after entering unlinking mode, press and hold each responder's SET button for about 3 seconds, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Make sure the module is unlinked from all controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker supplying power to the module's fixture.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push in the SET button and hold it; while you keep holding it, have a partner turn on the circuit breaker.",
+          "action": "powerOn",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the module double-beeps and the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the module from every controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Unlink every responder the module controls.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The In-Line On/Off Module with Sense 2475S2 Owner's Manual says to unlink a module you no longer use from its controllers, and to unlink all responders from it, otherwise devices keep retrying commands and cause network delays."
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "In-LineLinc Relay 2475S2 Owner's Manual"
+    "In-Line On/Off Module with Sense 2475S2 Owner's Manual",
+    "In-Line On/Off Module with Sense 2475S2 Quick Start Guide"
   ]
 }

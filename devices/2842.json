@@ -84,8 +84,131 @@
       "intervalMinutes": 1428
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the screw and cover from the battery compartment on the back with a small Phillips screwdriver.",
+          "action": "other"
+        },
+        {
+          "text": "Attach the included 9V battery; leave the cover off for now.",
+          "action": "insertBatteries"
+        },
+        {
+          "text": "Wait 5 minutes for the circuit to stabilize.",
+          "action": "wait",
+          "seconds": 300
+        },
+        {
+          "text": "Tap the SET button a couple of times while watching the front of the sensor.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Red LED behind the lens flashes on each tap"
+        },
+        {
+          "text": "Secure the swivel mounting bracket with the two included screws.",
+          "action": "mount"
+        },
+        {
+          "text": "Slide the Motion Sensor onto the bracket (toward the right) until it clicks, and aim it at the area to watch.",
+          "action": "mount"
+        },
+        {
+          "text": "Test by walking through the area.",
+          "action": "other",
+          "expect": "Responders turn on with motion and off 30 seconds after the last motion (default)"
+        }
+      ],
+      "notes": [
+        "To control powerline-only devices, at least one Access Point 2443 or other dual-band device is needed.",
+        "Avoid aiming at mirrors, windows or direct sunlight; avoid air ducts, steam, oil, fireplaces and large obstructions; keep the lens free of dirt, snow and ice; and for pet rejection, keep climbable furniture over 3 ft more than 6 ft from the sensor.",
+        "Jumpers set sensitivity (1), LED off (2), night-only (3), on-only (4) and software management (5); after changing one, tap the SET button once, wait 10 seconds and trigger motion. The left dial sets the off countdown (30 seconds to 2 hours) and the right dial sets the day/night threshold.",
+        "The 2014 quick start says to install jumper 5 to configure night-only mode and light sensitivity from the Hub."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED behind the lens blinks red"
+        }
+      ],
+      "notes": [
+        "Then turn the responder on (or set it to any state, such as 50% or off) and press and hold its SET button until it double-beeps; the Motion Sensor's LED stops blinking. Test by tapping the Motion Sensor's SET button.",
+        "Repeat for each responder; the documents give limits of 30 and of 32 responders.",
+        "When adding it to a Hub, the 2014 quick start says to remove the back cover, press and hold the SET button until the status LED blinks, then tap the SET button (the LED double-blinks)."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The older quick start says the sensor sends ON to up to 30 linked responders in one place and allows up to 32 responders in another."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button for 5 seconds again.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED keeps blinking red"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button until it beeps; the Motion Sensor's LED stops blinking."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove the Motion Sensor as a controller of all its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait 15 seconds.",
+          "action": "wait",
+          "seconds": 15
+        },
+        {
+          "text": "While pressing the SET button, reattach the battery.",
+          "action": "insertBatteries",
+          "control": "SET button",
+          "expect": "LED turns on after about 2 seconds"
+        },
+        {
+          "text": "Keep pressing the SET button for 5 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED turns off after about 2 seconds"
+        }
+      ],
+      "notes": [
+        "Responders that were not unlinked keep responding to the Motion Sensor after the reset."
+      ]
+    },
+    "resetErases": [
+      "links"
+    ]
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Motion Sensor 2842 Owner's Manual",
+    "Motion Sensor 2842 Quick Start Guide"
   ],
   "notes": [
     "HouseLinc also lists its US identity under the 2420M.",

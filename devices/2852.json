@@ -90,6 +90,112 @@
       "intervalMinutes": 1428
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Place the Leak Sensor flat on the floor where a leak may occur.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "It runs on one AA battery (included).",
+        "To test alerts from a Hub, set the sensor on a wet sponge or in water no more than 1/8 inch deep; after the alert, tap the SET button to reset it and put it back."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green"
+        }
+      ],
+      "notes": [
+        "Then place the sensor in its location, adjust the responder to the state you want and press and hold the responder's SET button until it double-beeps; the Leak Sensor's LED stops blinking. Test by tapping the Leak Sensor's SET button; the responder turns on.",
+        "To add it to a Hub, when the app prompts, press and hold the SET button.",
+        "The Leak Sensor is a controller only and doesn't turn responders off when the leak dries."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the status LED starts blinking.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the blink pattern changes.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED keeps blinking in a new pattern"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button until it double-beeps; the Leak Sensor's LED stops blinking."
+      ]
+    },
+    "waking": {
+      "steps": [
+        {
+          "text": "While the sensor is awake, send the Stay Awake command (extended, cmd1 0x2E, cmd2 0x00, data 2 0x04, data 3 the number of seconds to stay awake).",
+          "action": "send",
+          "command": "Stay Awake"
+        }
+      ],
+      "notes": [
+        "The Leak Sensor Developer Notes say the sensor must be awake to send or receive messages. Their example asks for 0xF0 seconds, about 4 minutes; the maximum is 0xFF.",
+        "The documents don't say how to wake the sensor before sending the command."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Only the Leak Sensor Developer Notes cover staying awake, and they give no button step to wake the sensor first."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Carefully open the bottom case with a small flat-blade screwdriver.",
+          "action": "other"
+        },
+        {
+          "text": "Pull out the battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait 5 seconds.",
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "text": "Press and hold the SET button and don't let go.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Reinstall the battery while still holding the SET button.",
+          "action": "insertBatteries",
+          "control": "SET button",
+          "expect": "LED turns solid green for a few seconds, then off"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Erases all settings and scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "Its heartbeat sends on when dry and off when wet.",
     "Once wet, it ignores further changes until its SET button is pressed.",
@@ -99,6 +205,8 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Leak Sensor Developer Notes"
+    "Leak Sensor Developer Notes",
+    "Leak Sensor 2852 Owner's Manual",
+    "Leak Sensor 2852 Quick Start Guide"
   ]
 }

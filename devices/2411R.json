@@ -23,7 +23,201 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Mount the IR sensor where it will be in the line of sight of the IR remote you plan to use, within 6 feet of an outlet unless you will power IRLinc from an extension cord.",
+          "action": "mount",
+          "control": "IR sensor"
+        },
+        {
+          "text": "Plug IRLinc into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid"
+        },
+        {
+          "text": "Plug the IR sensor's mini-plug into the jack on the bottom of IRLinc.",
+          "action": "other",
+          "control": "IR sensor jack"
+        },
+        {
+          "text": "If you are using the included credit card remote, remove its battery isolation tab.",
+          "action": "pullTab",
+          "control": "Credit card remote"
+        },
+        {
+          "text": "If you are using a universal remote, choose a mode on it that you don't use, set that mode to one of the NEC three- or four-digit codes, point the remote at IRLinc from at least 6 inches away and tap its Power button. If the green talk-back LED flashes, the code is compatible; if not, start over with another code.",
+          "action": "other",
+          "expect": "Green talk-back LED flashes"
+        }
+      ],
+      "notes": [
+        "You can use the pass-through outlet like an ordinary uncontrolled outlet, but don't plug another home automation product into it.",
+        "Don't plug IRLinc into a switched outlet or a filtered power strip, and don't stack it with other Insteon devices."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button on IRLinc for 3 seconds, or press and hold the credit card remote's To Scene button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Blue status LED flashes once"
+        },
+        {
+          "text": "Point the universal or credit card remote at IRLinc from 6 inches or more away and tap the button you want it to learn.",
+          "action": "tap",
+          "control": "Remote button",
+          "expect": "Blue status LED begins blinking"
+        },
+        {
+          "text": "For a button that toggles on and off, skip this step. For a discrete on command, tap the SET button on IRLinc; for a discrete off command, double-tap it.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the responder's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Blue status LED stops blinking and turns on solid"
+        },
+        {
+          "text": "Confirm the link by tapping the button you just linked on the remote.",
+          "action": "tap",
+          "control": "Remote button",
+          "expect": "The responder responds"
+        }
+      ],
+      "notes": [
+        "IRLinc Receiver links as a controller; each learned remote button controls the linked responders.",
+        "You have 4 minutes to finish before linking mode times out.",
+        "The credit card remote's scene control buttons are pre-paired: a device linked to the Up arrow is also controlled by the Down arrow."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Set each responder to the state you want the scene to activate.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds to put IRLinc in linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Tap the SET button to enter multi-linking mode.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "One at a time, press and hold each responder's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "When all responders are linked, tap the SET button to exit multi-linking mode.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Test the scene by tapping the button you just linked.",
+          "action": "tap"
+        }
+      ],
+      "notes": [
+        "Multi-linking mode times out after 4 minutes of inactivity.",
+        "The manual gives these steps for most Insteon controllers in general, not for IRLinc specifically."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Generic multi-linking steps from the IRLinc Receiver manual; it does not say where the remote button to learn is chosen in this mode."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "If the responder is a multi-scene device, tap the scene button you want to remove until its LED turns on.",
+          "action": "tap"
+        },
+        {
+          "text": "Put IRLinc in unlinking mode: press and hold its SET button for 3 seconds, or press and hold the credit card remote's From Scene button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Blue status LED flashes once"
+        },
+        {
+          "text": "Point the remote at IRLinc from more than 6 inches away and tap the button you want it to unlearn.",
+          "action": "tap",
+          "control": "Remote button",
+          "expect": "Blue status LED begins blinking"
+        },
+        {
+          "text": "Press and hold the responder's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Blue status LED stops blinking and turns on solid"
+        },
+        {
+          "text": "Tap the button you just unlinked on the remote to confirm.",
+          "action": "tap",
+          "control": "Remote button",
+          "expect": "The responder no longer responds"
+        }
+      ],
+      "notes": [
+        "You have 4 minutes before unlinking mode times out.",
+        "Unlink responders you no longer use; otherwise IRLinc retries commands to them and slows the system."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The unlinking section says to hold the SET button for 3 seconds, the same as for linking, while the X10 section enters unlinking mode by holding the SET button for 3 seconds twice."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink any Insteon devices that IRLinc controls.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug IRLinc for 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug IRLinc back in, making sure not to let go of the SET button.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Continue to hold down the SET button for 3 seconds and then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "About 20 seconds after release, the blue status LED flashes twice"
+        }
+      ],
+      "notes": [
+        "The blue status LED may or may not be on during the reset."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Infrared Receiver 2411R Owner's Manual",
+    "Infrared Receiver 2411R Quick Start Guide"
   ]
 }

@@ -18,8 +18,118 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the device to monitor (the load) into the outlet on the Appliance Status Sensor.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the Appliance Status Sensor into an unswitched outlet.",
+          "action": "plugIn",
+          "expect": "Beep; status LED solid green or red; after 20 seconds a double beep and calibration mode"
+        },
+        {
+          "text": "Make sure the load is off or in standby, wait at least 10 seconds, then tap the SET button to record the low energy state.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Beep"
+        },
+        {
+          "text": "Turn the load on or to its high energy state, wait at least 10 seconds, then tap the SET button to record the high energy state.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Double beep; status LED solid green in the high state, red in the low state"
+        }
+      ],
+      "notes": [
+        "Calibration mode lasts 4 minutes; after that, taps are ignored. To calibrate again, unplug the Appliance Status Sensor and reinstall it.",
+        "Monitors loads from 7 W to 1800 W (15 A at 120 V).",
+        "Don't plug it into a switched outlet, a filtered power strip or an AC filter.",
+        "If using home automation software, add it to the software after the double beep, once it is in calibration mode.",
+        "The trigger point is set 25% above the low state if the low state is recorded first, or 25% below the high state if the high state is recorded first."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Appliance Status Sensor beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; status LED blinks green"
+        }
+      ],
+      "notes": [
+        "Set the responder to the state for the load's high energy state first; after these steps press and hold the responder's SET button for 3 seconds. The Appliance Status Sensor double-beeps and its status LED shows the load state.",
+        "This links scene 1 (load reaches its high energy state). Without scene 2, linked responders turn off when the load reaches its low state.",
+        "To link scene 2 (low energy state): press and hold the SET button until it beeps (LED blinks green), again until it beeps (LED blinks red), and a third time until it beeps (LED blinks green), then press and hold the responder's SET button for 3 seconds.",
+        "Calibrate the load's energy states before linking."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Appliance Status Sensor beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; status LED blinks red"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds within 4 minutes; the Appliance Status Sensor double-beeps.",
+        "To unlink from scene 2, press and hold the SET button four times, each until it beeps (LED blinks green, red, green, then red), before pressing the responder's SET button.",
+        "Unlink responders you no longer use; otherwise it keeps retrying commands and slows the system."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink any devices the Appliance Status Sensor controls.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the Appliance Status Sensor for about 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug it back in.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "Beep; status LED solid green or red"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "After a few seconds, a double beep and the status LED changes color"
+        }
+      ],
+      "notes": [
+        "Clears all Insteon links. The calibrated high and low energy states are kept; recalibrate to change them."
+      ]
+    },
+    "resetErases": [
+      "links"
+    ]
+  },
   "sources": [
     "HouseLinc device catalog",
-    "SynchroLinc Developer Notes"
+    "SynchroLinc Developer Notes",
+    "Appliance Status Sensor 2423A5 Owner's Manual"
   ]
 }

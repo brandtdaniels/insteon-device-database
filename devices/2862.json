@@ -16,8 +16,68 @@
   ],
   "radio": "powerline",
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Lock Controller in within five feet of the door lock; use an extension cord if necessary.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Open the door lock cover and tap its S button.",
+          "action": "tap",
+          "control": "door lock S button",
+          "count": 1
+        },
+        {
+          "text": "Tap the SET button on the Lock Controller.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Door lock double-beeps; status LED turns red"
+        },
+        {
+          "text": "After setup, place the Lock Controller up to 30 feet from the door lock.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "It converts Insteon commands to the MiLock's one-way RF, so an Insteon system can't confirm that the lock received a command.",
+        "Tap the SET button to toggle the lock."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the status LED starts blinking.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks"
+        }
+      ],
+      "notes": [
+        "This is the step the manual gives when adding the Lock Controller to a Hub 2245.",
+        "Manual linking as a responder: tap the SET button to set the lock to locked or unlocked, press and hold the controller's SET button until it beeps, then press and hold the Lock Controller's SET button until it double-beeps.",
+        "The manual advises against manual linking when a central controller such as a Hub is used."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "After putting the controller in unlinking mode, press and hold the SET button until the Lock Controller double-beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep"
+        }
+      ],
+      "notes": [
+        "Unlinking mode on most controllers: press and hold the controller's SET button until it beeps, then again until it beeps and its status LED blinks red."
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "Lock Controller 2862 Owner's Manual"
+    "Lock Controller 2862 Owner's Manual",
+    "Lock Controller 2862 Quick Start Guide"
   ]
 }

@@ -39,10 +39,132 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn on the lamp or appliance.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the appliance into the bottom of the module.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched wall outlet.",
+          "action": "plugIn"
+        }
+      ],
+      "notes": [
+        "Leave the appliance's own switch on; if it is off, the module cannot turn the appliance on."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks green; the module stays in linking mode until a link is made or four minutes pass"
+        }
+      ],
+      "notes": [
+        "The first device put into linking mode becomes the controller and the second becomes the responder.",
+        "As a responder: put the controller in linking mode (press and hold its SET button until it beeps; on a multi-button controller, tap the desired button first), make sure the module is on, then press and hold the module's SET button until it double-beeps.",
+        "With the Hub, select Plug-In Module in the app and, when prompted, press and hold the SET button until the module double-beeps.",
+        "The 3-second hold time comes from the On/Off Module, Dual-Band Developer Notes; software can use the Remote Enter Linking Mode command."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The On/Off Plug 2635-222 Owner's Manual says to hold the SET button until the module double-beeps when adding it to the Hub; the On/Off Plug 2635-222 Quick Start Guide says until it beeps."
+      }
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Status LED double-blinks green; multi-linking mode lasts four minutes or until the SET button is tapped"
+        },
+        {
+          "text": "Adjust each responder to its desired state, then one at a time press and hold each responder's SET button until it double-beeps.",
+          "action": "hold",
+          "control": "responder SET button"
+        },
+        {
+          "text": "Tap the SET button to finish.",
+          "action": "tap",
+          "control": "SET button"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks red; the module stays in unlinking mode until a link is removed or four minutes pass"
+        }
+      ],
+      "notes": [
+        "To remove the module from a controller, put the controller in unlinking mode first (on a multi-button controller, tap the desired button first), then press and hold the module's SET button until it double-beeps.",
+        "For multi-unlinking, tap the SET button after entering unlinking mode (Status LED double-blinks red), press and hold each scene member's SET button until it double-beeps, then tap the SET button to exit."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Follow the Factory Reset branch of the programming wheel in the On/Off Plug 2635-222 Owner's Manual: press and hold the SET button to move right through the modes and tap it to move down; at Factory Reset, press and hold the SET button to reset or tap it to cancel.",
+          "action": "other",
+          "control": "SET button"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The On/Off Plug 2635-222 Owner's Manual gives the factory reset only as a flow chart whose layout does not survive text extraction, so the exact number of presses and taps is not given here."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module's links from every controller that controls it, using the unlinking steps or software.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The On/Off Plug 2635-222 Owner's Manual's troubleshooting says that links to devices removed from the network must be removed from their controllers; otherwise the controllers keep repeating commands and slow the network."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Taken from the On/Off Plug 2635-222 Owner's Manual's troubleshooting section, not a removal procedure."
+      }
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "On/Off Module, Dual-Band Developer Notes",
-    "On/Off Module 2635-222 Owner's Manual"
+    "On/Off Plug 2635-222 Owner's Manual",
+    "On/Off Plug 2635-222 Quick Start Guide"
   ]
 }

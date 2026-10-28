@@ -8,7 +8,37 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Diagnostics Keypad into an outlet at the test location.",
+          "action": "plugIn"
+        }
+      ],
+      "notes": [
+        "It is a powerline-only tabletop unit; move it to other outlets as needed during tests."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Tap the UNLINK button to remove the link from the unit under test.",
+          "action": "tap",
+          "control": "UNLINK button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Unlink the unit under test when testing is done; otherwise it keeps a responder link to the Diagnostics Keypad.",
+        "UNLINK, RELINK and LOCK/UNLOCK work only with devices that have i2CS firmware (shipped spring 2012 or later).",
+        "A device can be unlinked this way only if it was the last device linked; otherwise remove the link with home automation software or a factory reset of that device.",
+        "Tap the RELINK button to link the last unit under test again."
+      ]
+    }
+  },
   "sources": [
-    "Insteon Device Categories (January 2014)"
+    "Insteon Device Categories (January 2014)",
+    "Diagnostics Keypad 2993-222 Owner's Manual"
   ]
 }

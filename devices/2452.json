@@ -70,6 +70,193 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off the breaker or fuse and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Disconnect the wires from the light fixture and strip them to 5/16 inch (8 mm) of bare wire.",
+          "action": "other"
+        },
+        {
+          "text": "Making sure the wires are not touching, turn on the breaker or fuse.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the fixture's line, load and neutral wires, then turn off the breaker or fuse again.",
+          "action": "other"
+        },
+        {
+          "text": "Write down the Insteon ID on the side of the module and the load it controls.",
+          "action": "other"
+        },
+        {
+          "text": "Snap the module onto the DIN rail. Next to another module, leave 3/4 inch (2 cm) between them for heat dissipation.",
+          "action": "mount"
+        },
+        {
+          "text": "Connect the line, load, neutral and sense wires per the diagram for your installation.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure the wires are firmly connected with no exposed wire, then turn on the breaker or fuse.",
+          "action": "powerOn",
+          "expect": "After a few seconds the load turns on and the LED turns green."
+        },
+        {
+          "text": "Tap the module's paddle top and bottom to test it.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "The load turns on and off; LED green when on, red when off."
+        },
+        {
+          "text": "For a single or dual momentary wall switch, set the switch operation mode: press and hold the SET button until it beeps three times in turn (LED blinks green, red, then green), slowly tap it four times for single momentary or five times for dual momentary, then press and hold it until it double-beeps.",
+          "action": "other",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Neutral is required. The module ships set for a latching wall switch; tap six times instead to switch back to latching."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: after the module beeps, set the responder to the state to recall and press and hold its SET button until it double-beeps. The module double-beeps and its LED stops blinking.",
+        "As a responder: press and hold the controller button until it beeps, press and hold the module's paddle top or bottom to set the load to the level to recall (or off), then press and hold the module's SET button until it double-beeps.",
+        "A link is one way. For a group such as a virtual 3-way circuit, link both directions."
+      ]
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene brightness or state, then press and hold its SET button until it double-beeps.",
+          "action": "other",
+          "expect": "double beep"
+        },
+        {
+          "text": "Tap On, Off or the SET button once to exit multi-linking.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED stops blinking"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
+          "action": "other",
+          "expect": "The module double-beeps and its LED stops blinking."
+        }
+      ],
+      "notes": [
+        "To remove the module as a responder: press and hold the controller button until it beeps, press and hold it again until it beeps a second time, then press and hold the module's SET button until it double-beeps."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Remove the module's scene memberships from all controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a third time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button 3 times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button and don't let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "Release the SET button after the beeping stops.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the module double-beeps, turns on and its LED turns green."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module as a controller of each of its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove all of the module's responder links from its controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Uninstall the module.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers retry commands repeatedly, creating network delays."
+      ]
+    }
+  },
   "notes": [
     "HouseLinc also lists its identity under 2252-222."
   ],
@@ -77,6 +264,7 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Global Line Developer Notes",
-    "DIN Rail Dimmer 2452 Owner's Manual"
+    "Dimmer DIN Rail Module 2452 Owner's Manual",
+    "Dimmer DIN Rail Module 2452 Quick Start Guide"
   ]
 }

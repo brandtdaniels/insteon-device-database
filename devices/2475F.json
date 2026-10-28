@@ -50,12 +50,171 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the module's Insteon ID for reference.",
+          "action": "other"
+        },
+        {
+          "text": "Using the fan's pull chains, set the fan to its highest speed and turn the light on.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker or remove the fuse supplying power to the fan.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the ceiling fan from the electrical box.",
+          "action": "other"
+        },
+        {
+          "text": "Identify the line and neutral wires and the load wires for the fan and the light separately.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the ceiling fan and light.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the module's white wire and the fixture's neutral wire to the house neutral with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the module's red wire to the fixture's fan wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the module's blue wire to the fixture's light wire. If the fixture has no light, cap the blue wire.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the module's black wire to line with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all connections are secure with no exposed copper.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the breaker back on.",
+          "action": "powerOn",
+          "expect": "Light LED turns green and fan LED turns red."
+        },
+        {
+          "text": "If you will set up scenes with the SET buttons rather than software, do it now.",
+          "action": "other"
+        },
+        {
+          "text": "Carefully remount the cowling with the module inside, or put it in the electrical box. Secure it to the fan bracket with the cable tie aligned with the notch on the case so the tie and wires stay clear of moving parts.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "For ceiling fans only. Neutral is required. Loads: up to 300W incandescent light and 1A fan, 120VAC.",
+        "Once installed, the module controls all fan and light functions, so leave the pull chains at highest speed and light on.",
+        "Optionally cover the LEDs with black electrical tape to avoid a visible glow through the cowling at night."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "To link the light, tap the light SET button until the ceiling fan light is on; to link the fan, tap the fan SET button until the beeper and fan LED show the speed the scene should recall.",
+          "action": "tap",
+          "control": "light SET button"
+        },
+        {
+          "text": "With the controller in linking mode, press and hold the light (or fan) SET button until the module double-beeps.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "The documents describe linking the module only as a responder. Put the controller in linking mode first by pressing and holding its button until it beeps.",
+        "Fan speed set by tapping the fan SET button: 1st tap low (single beep, LED blinks green slowly), 2nd medium (double beep, blinks green medium), 3rd high (fast double beep, blinks green fast), 4th off (no beep, LED red). The fan does not spin while you tap the fan SET button.",
+        "A 3-second beep means the module returned to ready mode after a setup timeout or a SET button tap."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Use the pull chain to turn the fan motor off.",
+          "action": "other"
+        },
+        {
+          "text": "With the controller in unlinking mode, press and hold the fan (or light) SET button until the module double-beeps.",
+          "action": "hold",
+          "control": "fan SET button",
+          "expect": "double beep"
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first: tap its scene button, press and hold its SET button until it beeps, then press and hold it again until it beeps.",
+        "If the module has both fan and light links to a controller, removing one also removes the other; re-create the one you want to keep."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove all links first.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the light SET button until the module beeps.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the light SET button until it beeps again.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Quickly double-tap, release, then press and hold the light SET button.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "beep; LEDs and light turn off, then the module beeps for 5 seconds"
+        },
+        {
+          "text": "Release after the beeping stops.",
+          "action": "release",
+          "control": "light SET button",
+          "expect": "The light LED turns green, then off; the module double-beeps, the light LED turns green and the fan's light turns on."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module's scene memberships from all controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the module from use.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers retry commands repeatedly, creating network delays."
+      ]
+    }
+  },
   "notes": [
     "It takes a standard On for the light, and an extended On with 0x02 in D1 for the fan."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "FanLinc Developer Notes"
+    "FanLinc Developer Notes",
+    "Ceiling Fan and Light Control Module 2475F Owner's Manual",
+    "Ceiling Fan and Light Control Module 2475F Quick Start Guide"
   ]
 }

@@ -16,7 +16,56 @@
       "kind": "modem"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Make sure at least one Access Point 2443 or other dual-band Insteon product is installed; the USB Adapter is RF-only.",
+          "action": "other"
+        },
+        {
+          "text": "Make sure the USB Adapter is not connected to your computer.",
+          "action": "other"
+        },
+        {
+          "text": "Download the FTDI virtual COM port (VCP) driver for your operating system, then save, extract and run it.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the USB Adapter into an available USB port on your computer.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid green and stays on while plugged in"
+        },
+        {
+          "text": "Start your Insteon-compatible software and follow its instructions to add and use the USB Adapter.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the USB Adapter 2448A7 Quick Start Guide; no document names the 2448A7H."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Have the controlling software send the Start ALL-Linking command to the USB Adapter.",
+          "action": "send",
+          "command": "Start ALL-Linking"
+        }
+      ],
+      "notes": [
+        "The 2448A7 has no SET button, so linking mode must be started from software."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the USB Adapter 2448A7 Developer Notes; no document names the 2448A7H."
+      }
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "USB Adapter 2448A7 Quick Start Guide",
+    "USB Adapter 2448A7 Developer Notes"
   ]
 }

@@ -70,6 +70,183 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the Insteon ID found on the back of the unit.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker or fuse and verify that the power is off.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Disconnect the wires from the existing switch, fixture or outlet and strip 3/16 in. (5 mm) of bare wire on the ends of all wires to be connected to the module.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the line, neutral and load wires per the diagram for your installation; the module requires a neutral wire. With a latching or single momentary switch, connect line and the yellow sense wire to the switch; with a dual momentary switch, connect line and both the yellow and purple sense wires to the switch. When using the module without a switch, cap the two sense wires.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure the wires are firmly connected and no bare wire is exposed, then turn on the breaker or fuse.",
+          "action": "powerOn",
+          "control": "breaker",
+          "expect": "After a few seconds the load turns on (if wired into a switch or fixture) and the LED turns green"
+        },
+        {
+          "text": "Test by tapping the module's on/off buttons.",
+          "action": "tap",
+          "control": "on/off buttons",
+          "expect": "Load turns on and off; LED is green when the load is on and red when it is off"
+        },
+        {
+          "text": "If wired to a single or dual momentary switch, set the switch operation mode: press and hold the SET button until it beeps three times in a row (LED blinking green, red, then green), slowly tap the SET button four times for single momentary or five times for dual momentary, then press and hold the SET button until it double-beeps.",
+          "action": "other",
+          "control": "SET button",
+          "expect": "LED stops blinking and shows green if the load is on or red if it is off"
+        }
+      ],
+      "notes": [
+        "The module defaults to latching switch mode; tapping the SET button reports the current mode (one beep single momentary, double beep dual momentary, triple beep latching).",
+        "Perform linking before reinstalling the wall switch, outlet or fixture if you will use the SET button."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green; the module stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "To link, press and hold the controller's SET button until it beeps, adjust the responder's load to the desired state, then press and hold the responder's SET button until it double-beeps; the controller double-beeps and its LED stops blinking.",
+        "As a responder, the module answers by pressing and holding its SET button until it double-beeps while the controller is in linking mode.",
+        "Alternatively, after installation, quickly tap the switch connected to the module exactly five times in less than four seconds (alternating up and down on a latching or dual momentary switch) and wait two seconds; the module beeps to enter linking mode, or double-beeps when it joins a controller that is already in linking mode.",
+        "The 3-second hold time comes from the Global Line Developer Notes; software can send the Enter Linking Mode command for the same result.",
+        "If either device's LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene state, then press and hold its SET button until it double-beeps.",
+          "action": "hold",
+          "control": "responder SET button",
+          "expect": "Responder double-beeps"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Module beeps and the LED stops blinking"
+        },
+        {
+          "text": "Test by tapping the switch wired into the module on and off.",
+          "action": "tap",
+          "expect": "All the responders turn on and off"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red; the module is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "To remove a link, put the controller in unlinking mode first, then press and hold the responder's SET button until it double-beeps.",
+        "To unlink several responders in one session, tap the SET button after entering unlinking mode (LED double-blinks red), press and hold each responder's SET button until it double-beeps, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps a third time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button three times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button and do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Module emits a long beep"
+        },
+        {
+          "text": "After the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the LED flashes white, the module double-beeps and the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "For each responder the module controls, put the module in unlinking mode and press and hold the responder's SET button until it double-beeps.",
+          "action": "other"
+        },
+        {
+          "text": "For each controller that controls the module, put the controller in unlinking mode, then press and hold the module's SET button until it double-beeps.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The owner's manual says to remove all of the module's responder links before uninstalling it; otherwise controllers keep retrying commands and create network delays."
+      ]
+    }
+  },
   "notes": [
     "HouseLinc lists the regional versions as the 2443-222, 2443-422 and 2443-522."
   ],
@@ -77,6 +254,8 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Global Line Developer Notes",
-    "Micro On/Off 2443 Owner's Manual"
+    "Micro On/Off 2443 Owner's Manual",
+    "Micro On/Off Switch Module 2443-222 Owner's Manual",
+    "Micro On/Off Switch Module 2443-222 Quick Start Guide"
   ]
 }

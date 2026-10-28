@@ -70,6 +70,183 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the Insteon ID on the back of the module.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker or fuse and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Disconnect the wires from the existing switch, fixture or outlet and prepare all wires to be connected to the module with 3/16 inch (5 mm) of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the module's line, load and neutral wires per the diagram for your installation. With a latching or single momentary switch, connect line and the yellow sense wire to the switch; with a dual momentary switch, connect line and both the yellow and purple sense wires; with no switch, cap both sense wires.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure the wires are firmly connected with no exposed wire, then turn on the breaker or fuse.",
+          "action": "powerOn",
+          "expect": "After a few seconds the load turns on and the module's LED turns green."
+        },
+        {
+          "text": "Tap the module's on and off buttons to test it.",
+          "action": "tap",
+          "control": "On button",
+          "expect": "The load turns on and off; LED green when on, red when off."
+        },
+        {
+          "text": "For a single or dual momentary switch, set the switch operation mode: press and hold the SET button until it beeps three times in turn (LED blinks green, red, then green), slowly tap it four times for single momentary or five times for dual momentary, then press and hold it until it double-beeps.",
+          "action": "other",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required. The module installs behind an existing wall switch or in a fixture box; 100 to 240VAC, 50/60Hz.",
+        "The module ships set for a latching switch. To check the mode, tap the SET button: one beep is single momentary, a double beep is dual momentary and a triple beep is latching.",
+        "Link the module with its SET button before reinstalling the wall switch or fixture; afterward, use the switch method (five quick taps)."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "After installation, you can instead quickly tap the connected switch exactly five times in less than four seconds (alternating up and down on a latching or dual momentary switch), then wait two seconds; the module beeps to show it is in linking mode.",
+        "As a controller: after the module beeps, adjust the responder to the desired state and press and hold its SET button until it double-beeps. The module double-beeps and its LED stops blinking.",
+        "As a responder: press and hold the controller's SET button until it beeps, adjust the module's load to the desired level (even off), then press and hold the module's SET button until it double-beeps, or tap the connected switch five times as above.",
+        "A link is one way; to control the other way, add a link the other way. For a group such as a virtual 3-way circuit, link both directions.",
+        "If either LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene brightness or state, then press and hold its SET button until it double-beeps.",
+          "action": "other",
+          "expect": "double beep"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The module beeps and its LED stops blinking."
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
+          "action": "other",
+          "expect": "The module double-beeps and its LED stops blinking."
+        }
+      ],
+      "notes": [
+        "To remove the module as a responder: press and hold the controller button until it beeps, press and hold it again until it beeps a second time, then press and hold the module's SET button until it double-beeps.",
+        "To remove several responders at once: hold the SET button until it beeps, hold it again until it beeps a second time, then tap it (LED double-blinks red); hold each responder's SET button until it double-beeps; tap the module's SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a third time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button 3 times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "After the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the LED flashes white, the module double-beeps and the load turns on."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module as a controller of each of its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove all of the module's responder links from its controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Uninstall the module.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers repeatedly retry commands, creating network delays."
+      ]
+    }
+  },
   "notes": [
     "HouseLinc lists the regional versions as the 2442-222, 2442-422 and 2442-522."
   ],
@@ -77,6 +254,8 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Global Line Developer Notes",
-    "Micro Dimmer 2442 Owner's Manual"
+    "Micro Dimmer 2442 Owner's Manual",
+    "Micro Dimmer Switch Module 2442-222 Owner's Manual",
+    "Micro Dimmer Switch Module 2442-222 Quick Start Guide"
   ]
 }

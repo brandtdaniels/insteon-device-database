@@ -86,6 +86,161 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn on the lamp.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the lamp and plug it into the dimmer module's receptacle.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the dimmer module into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "The lamp turns on and the module's LED turns green."
+        }
+      ],
+      "notes": [
+        "100 to 240VAC, 50/60Hz. The module uses a leading-edge TRIAC dimmer; don't connect lamps that need a trailing-edge dimmer or capacitive loads."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: after the module beeps, adjust the responder to the desired state and press and hold its SET button until it double-beeps. The module double-beeps and its LED stops blinking.",
+        "As a responder: press and hold the controller's SET button until it beeps, turn on the lamp connected to the module and adjust it to the desired brightness (or off), then press and hold the module's SET button until it double-beeps.",
+        "A link is one way; to keep two devices in sync, add a link the other way (a group).",
+        "If either LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene brightness or state, then press and hold its SET button until it double-beeps.",
+          "action": "other",
+          "expect": "double beep"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The module beeps and its LED stops blinking."
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
+          "action": "other",
+          "expect": "The module double-beeps and its LED stops blinking."
+        }
+      ],
+      "notes": [
+        "To remove the module as a responder: press and hold the controller button until it beeps, press and hold it again until it beeps a second time, then press and hold the module's SET button until it double-beeps.",
+        "To remove several responders at once: hold the SET button until it beeps, hold it again until it beeps a second time, then tap it (LED double-blinks red); hold each responder's SET button until it double-beeps; tap the module's SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a third time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button three times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "long beep"
+        },
+        {
+          "text": "After the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the module double-beeps."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module as a controller of each of its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove all of the module's responder links from its controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Uninstall the module.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers repeatedly retry commands, creating network delays."
+      ]
+    }
+  },
   "notes": [
     "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base; the Global Line Developer Notes list it as the French 2632-422, with the same commands as the others.",
     "The 2632-452, sold in Chile, reports 0x01/0x50."
@@ -93,6 +248,8 @@
   "sources": [
     "HouseLinc device catalog",
     "Global Line Developer Notes",
-    "Dimmer Module 2632-452 Owner's Manual"
+    "Dimmer Module 2632-452 Owner's Manual",
+    "Dimmer Module 2632 Owner's Manual",
+    "Dimmer Module 2632 Quick Start Guide"
   ]
 }

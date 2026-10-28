@@ -49,12 +49,128 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the I/O Module into an unswitched outlet near the sensor.",
+          "action": "plugIn",
+          "expect": "White status LED turns on"
+        },
+        {
+          "text": "If using a sensor, connect one of its leads to the Ground terminal and the other to the Sense terminal, or use the 3.5 mm sensor jack.",
+          "action": "wire",
+          "control": "Ground and Sense terminals",
+          "expect": "Green sensor status LED turns on and off as the sensor closes and opens"
+        },
+        {
+          "text": "If using the output relay, set up the relay mode and links before connecting the device to the relay terminals (N/C, N/O, COM).",
+          "action": "wire",
+          "control": "relay terminals"
+        }
+      ],
+      "notes": [
+        "Sensor wire of 16 to 28 gauge fits; 20 to 22 gauge is recommended.",
+        "The 5V terminal supplies 5 V at 10 mA if needed. Applying more than 5 V can damage the sensor input.",
+        "Normally Closed and Common are connected when the relay is closed; Normally Open and Common are connected when it is open.",
+        "Don't plug it into a switched outlet, a filtered power strip or an AC filter, and don't stack Insteon devices in each other's pass-through outlets."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Put the sensor in the state that should send an on command.",
+          "action": "other",
+          "expect": "Sensor status LED on if the sensor is closed, off if open"
+        },
+        {
+          "text": "Press and hold the SET button until the I/O Module beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; status LED blinks"
+        }
+      ],
+      "notes": [
+        "As controller (sensor input): after these steps press and hold the responder's SET button for 3 seconds; the I/O Module's status LED stops blinking and stays on. The opposite sensor state sends off. Tapping the SET button also triggers the linked responders.",
+        "As responder (output relay, latching mode): tap the SET button to set the relay to the state an on command should give (LED dim when open, bright when closed), put the controller in linking mode, then press and hold the I/O Module's SET button until it beeps (3 seconds). Momentary modes A, B and C have their own variations in the I/O Module 2450 Owner's Manual.",
+        "The linking steps for the relay assume the default latching mode; set the relay mode after linking."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the I/O Module beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; status LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps, about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; status LED keeps blinking"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds within 4 minutes; the status LED stops blinking and stays on.",
+        "To unlink the I/O Module from a controller, put the controller in unlinking mode and press and hold the I/O Module's SET button until it beeps (3 seconds); the status LED turns off for about 1 second and back on."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the I/O Module from any controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the I/O Module for about 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug it back in.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes once and turns off for a few seconds, then beeps as the LED turns back on"
+        }
+      ],
+      "notes": [
+        "Clears all Insteon links and X10 addresses, disables sensor control of the relay, returns the relay to latching mode and sets the momentary duration back to 2 seconds."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the I/O Module from every controller it is linked to.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers keep retrying commands and slow the system."
+      ]
+    }
+  },
   "notes": [
     "0x07/0x0D is the version that detects 50 or 60 Hz power; Insteon Device Categories (January 2014) lists it as model 2450, and HouseLinc as 2450-50-60."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Insteon Device Categories (January 2014)"
+    "Insteon Device Categories (January 2014)",
+    "I/O Module 2450 Owner's Manual"
   ]
 }

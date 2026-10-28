@@ -40,7 +40,108 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the lamp or device you want to control (the load) into the outlet on the bottom of the module.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "The status LED and the load turn on."
+        },
+        {
+          "text": "If the load doesn't turn on, turn it on with its own switch.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The pass-through outlet on the front can be used as an ordinary uncontrolled outlet, but don't plug another home automation product into it.",
+        "For incandescent lamps up to 300W.",
+        "Don't plug the module into a switched outlet, a filtered power strip or an AC line filter, and don't stack modules by plugging them into one another.",
+        "Turn the lamp's own switch on, and any built-in dimmer to full. After installation the lamp's switch controls the load only if load sensing is enabled (it is by default)."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice."
+        }
+      ],
+      "notes": [
+        "The documents describe linking the module only as a responder. Put the controller in linking mode first; for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds. Setup modes time out after 4 minutes.",
+        "Holding the SET button for 3 seconds on its own puts the module in linking mode: the status LED blinks and the load flashes once. Linking mode times out after 4 minutes of inactivity."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice."
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first; for most controllers, press and hold an On or scene button for 10 seconds twice or the SET button for 3 seconds twice."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If a controller controls the module, unlink it from the controller first.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the module for about 10 seconds.",
+          "action": "unplug",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug the module back in. Don't let go of the SET button.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes once and turns off; after a few seconds the status LED and the load turn on."
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the module from every controller it is linked to.",
+          "action": "other"
+        },
+        {
+          "text": "Stop using the module.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise the controllers keep retrying commands, slowing down the system."
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Dimmer Module 2456D3 Owner's Manual",
+    "Dimmer Module 2456D3 Quick Start Guide"
   ]
 }

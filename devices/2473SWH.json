@@ -44,7 +44,143 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the power to the outlet.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the existing outlet and wallplate.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the old outlet and make sure you have 1/2 in. of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Identify the line, neutral and ground wires: turn the power back on, find the line wire with a voltage meter, then turn the breaker off again.",
+          "action": "other"
+        },
+        {
+          "text": "With the included wire nuts, connect the outlet's bare copper ground wire to ground, its white wire to neutral and its black wire to line. A neutral connection is required.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all wire connectors are firmly attached and no copper is exposed except the ground wire.",
+          "action": "other"
+        },
+        {
+          "text": "Carefully install the outlet into the electrical box and replace the wallplate.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the power back on at the circuit breaker or fuse panel.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Plug the lamp or appliance you want to control into the top (controlled) outlet, with the appliance switched on.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Test the outlet by tapping the SET button a few times.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Load toggles on and off"
+        }
+      ],
+      "notes": [
+        "The top outlet is Insteon-controlled; the bottom outlet is always on.",
+        "If the junction box has no neutral wire, consult an electrician."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode, press and hold the outlet's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes once and turns on solid; the load flashes once"
+        }
+      ],
+      "notes": [
+        "The outlet links as a responder: set the controller to linking mode first (for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds), then press and hold the outlet's SET button.",
+        "Pressing and holding the SET button for 3 seconds on its own puts the outlet in linking mode (Status LED blinks) for four minutes; the manual uses this to assign an X10 address.",
+        "With the Hub, follow the app's instructions and press and hold the outlet's SET button when prompted."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode, press and hold the outlet's SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes once and turns on solid; the load turns on"
+        }
+      ],
+      "notes": [
+        "Set the controller to unlinking mode first (for most controllers, press and hold an On or scene button for 10 seconds twice or the SET button for 3 seconds twice)."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the outlet from any controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button as you turn off the power at the circuit breaker.",
+          "action": "powerOff",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Press and hold the SET button while you restore power at the circuit breaker.",
+          "action": "powerOn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED turns on bright and solid, then off; after a few seconds it turns on solid"
+        }
+      ],
+      "notes": [
+        "You may need someone to help with the breaker.",
+        "If the breaker method is too difficult: tap the SET button until the load is on, press and hold the SET button for 3 seconds (Status LED blinks), wait 3 seconds and quickly tap the SET button five times (Status LED and load turn off), then immediately press and hold the SET button for 3 seconds and release (Status LED flashes once and turns off, then turns on solid a few seconds later)."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the outlet from every controller it is linked to.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The manual says to unlink the outlet from all controllers before you stop using it; otherwise the controllers keep retrying commands and slow the system."
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "On/Off Outlet 2473SWH Owner's Manual",
+    "On/Off Outlet 2473SWH Quick Start Guide"
   ]
 }

@@ -86,6 +86,156 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn on the lamp or appliance.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the lamp or appliance and plug it into the module's receptacle.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "Load turns on and the LED turns green"
+        }
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green; the module stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "To link, press and hold the controller's SET button until it beeps, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the controller double-beeps and its LED stops blinking.",
+        "As a responder, the module answers by pressing and holding its SET button until it double-beeps while the controller is in linking mode.",
+        "If either device's LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again.",
+        "The 3-second hold time comes from the Global Line Developer Notes; software can send the Enter Linking Mode command for the same result."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired scene state, then press and hold its SET button until it double-beeps.",
+          "action": "hold",
+          "control": "responder SET button"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "Module beeps and the LED stops blinking"
+        },
+        {
+          "text": "Test by tapping the paddle on and off.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "All the responders turn on and off"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red; the module is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "To remove a link, put the controller in unlinking mode first, then press and hold the responder's SET button until it double-beeps.",
+        "To unlink several responders in one session, tap the SET button after entering unlinking mode (LED double-blinks red), press and hold each responder's SET button until it double-beeps, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps a third time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button three times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button and do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Module emits a long beep"
+        },
+        {
+          "text": "After the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the module double-beeps"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "For each responder the module controls, put the module in unlinking mode and press and hold the responder's SET button until it double-beeps.",
+          "action": "other"
+        },
+        {
+          "text": "For each controller that controls the module, put the controller in unlinking mode, then press and hold the module's SET button until it double-beeps.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The On/Off Module 2633 Owner's Manual says to remove all of the module's responder links before uninstalling it; otherwise controllers keep retrying commands and create network delays."
+      ]
+    }
+  },
   "notes": [
     "The 2633-452, sold in Chile on 915 MHz, reports 0x02/0x3A."
   ],

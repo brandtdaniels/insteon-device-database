@@ -39,6 +39,113 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the appliance or device (the load) you want to control into the module's outlet, with the load's own switch in the on position.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched, weather-protected wall outlet with ground fault circuit interrupter (GFCI) protection.",
+          "action": "plugIn",
+          "expect": "Status LED turns solid green and the load turns on"
+        },
+        {
+          "text": "If the load does not turn on, tap the SET button.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Let the module hang down from the outlet.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "Use a 3-prong outlet with GFCI protection, or one protected by a GFCI device upstream; do not plug into a switched outlet, a filtered power strip or an AC line filter.",
+        "After installation the load's own switch no longer controls it unless load sensing is enabled."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: put the module in linking mode first, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the module's LED stops blinking.",
+        "As a responder: press and hold the controller's SET button until it beeps, use the module's SET button to set the load on or off, then press and hold the module's SET button until it double-beeps; the controller double-beeps and its LED stops blinking.",
+        "With the Hub, follow the app's instructions and, with the connected fixture on, press and hold the module's SET button when prompted."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red; the module is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "As a controller: then press and hold the responder's SET button until it double-beeps; the module double-beeps and its LED stops blinking.",
+        "As a responder: put the controller in unlinking mode first, then press and hold the module's SET button until it double-beeps."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the module from any controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the module.",
+          "action": "unplug"
+        },
+        {
+          "text": "While pressing and holding the SET button, plug the module back in; do not let go of the button.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "Module emits a long beep and the Status LED turns green"
+        },
+        {
+          "text": "When the long beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Status LED flashes red and then turns green; after a few seconds the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "For each controller that controls the module, put the controller in unlinking mode, then press and hold the module's SET button until it double-beeps.",
+          "action": "other"
+        },
+        {
+          "text": "For each responder the module controls, put the module in unlinking mode and press and hold the responder's SET button until it double-beeps.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The Outdoor On/Off Plug 2634-222 Owner's Manual says to remove all of the module's responder links before uninstalling it, otherwise controllers keep retrying commands and create network delays, and to remove each responder link when removing the module from the network."
+      ]
+    }
+  },
   "notes": [
     "Has no X10.",
     "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672.",
@@ -48,6 +155,7 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Outdoor ApplianceLinc with RF Developer Notes",
-    "Outdoor On/Off Module 2634-222 Owner's Manual"
+    "Outdoor On/Off Plug 2634-222 Owner's Manual",
+    "Outdoor On/Off Plug 2634-222 Quick Start Guide"
   ]
 }

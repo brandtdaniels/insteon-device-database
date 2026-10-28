@@ -12,6 +12,48 @@
   ],
   "radio": "dual",
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the first Access Point into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "LED turns on dim green"
+        },
+        {
+          "text": "Tap the SET button four times rapidly to start phase detection (setup) mode.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 4,
+          "expect": "Continuous beep, once per second; LED turns on bright green"
+        },
+        {
+          "text": "Plug the second Access Point into an unswitched outlet, preferably on the other side of the home.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Watch the LED on the second Access Point. If it blinks green, the two are on opposite phases; if it blinks red and green or is solid red or green, they are on the same phase, so unplug the second Access Point and try another outlet.",
+          "action": "other",
+          "expect": "Second Access Point LED blinks green"
+        },
+        {
+          "text": "Tap the SET button on the first Access Point to leave setup mode.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "First Access Point stops beeping; both LEDs turn dim green"
+        }
+      ],
+      "notes": [
+        "The first Access Point stays in setup mode for about 9 minutes; if it times out, start setup mode again.",
+        "Install at least two Access Points or other dual-band devices before setting up other Insteon devices; add one for every 750 to 1,000 square feet in larger homes.",
+        "Don't use an outlet controlled by a switch, a filtered power strip, an AC line filter, a UPS or another module's pass-through outlet, and keep it away from large metal objects.",
+        "To add more Access Points, put the first one in setup mode and check each new one the same way.",
+        "With one Access Point only, check RF coverage by tapping an RF-only device's SET button (or holding a scene button) where it will be used and watching the Access Point's LED.",
+        "Access Points below revision 2.0 have a white LED instead of the red and green LED; the Access Point 2443 Owner's Manual has a table of how mixed revisions behave."
+      ]
+    }
+  },
   "notes": [
     "Insteon later reused the model number 2443 for the Micro On/Off Module, whose identities are its own.",
     "It doesn't relay X10."
@@ -19,6 +61,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Insteon Developer's Guide (2009)",
-    "Access Point 2443 Owner's Manual"
+    "Access Point 2443 Owner's Manual",
+    "Access Point 2443 Quick Start Guide"
   ]
 }

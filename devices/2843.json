@@ -117,6 +117,180 @@
       "intervalMinutes": 1428
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the sensor cover by prying up at \"open\".",
+          "action": "other"
+        },
+        {
+          "text": "Install the included AA battery; don't replace the cover yet.",
+          "action": "insertBatteries"
+        },
+        {
+          "text": "Peel the backing off the tape on the sensor and press it onto the door or window frame, with the SET button between the door or window edge and the battery (about 3 inches from the top on a door), so the door or window just clears it.",
+          "action": "mount"
+        },
+        {
+          "text": "Press and hold the sensor's SET button for 5 seconds, until the LED starts blinking.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED blinks"
+        },
+        {
+          "text": "In the US, press and hold the SET button on the nearest Range Extender (formerly Access Point) until it beeps. If the sensor's LED keeps blinking, it is out of range: move the Range Extender closer and try again.",
+          "action": "hold",
+          "control": "Range Extender SET button"
+        },
+        {
+          "text": "Peel the backing off the magnet's tape and mount the magnet within 1/2 inch of the sensor, lined up with the arrows on the sensor.",
+          "action": "mount"
+        },
+        {
+          "text": "Test by opening and closing the door or window.",
+          "action": "other",
+          "expect": "LED blinks once on each open and close"
+        }
+      ],
+      "notes": [
+        "The sensor is closed when the magnet is within 1/2 inch and open when it is farther.",
+        "An external contact-closure sensor (20 gauge or heavier wire) can be connected to the external sensor terminals; the sensor reads closed when either the terminals or the reed switch are closed."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green"
+        }
+      ],
+      "notes": [
+        "Then turn the responder on (or set it to any state) and press and hold its SET button for 3 seconds; the sensor's LED turns solid green. By default the sensor turns responders on when it opens and off when it closes.",
+        "When adding it to a Hub, the quick start says to press and hold the SET button until the LED blinks and then tap the SET button (the LED double-blinks).",
+        "The Open/Close Sensor is a controller only.",
+        "Older sensors with a jumper have a multi-scene mode (jumper removed): link scene 1 with the sensor open and scene 2 with it closed. Remove and reinsert the battery after changing the jumper."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Open/Close Sensor 2843 Owner's Manual holds the SET button 3 seconds to link responders but 5 seconds during installation."
+      }
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, set it to the scene state and press and hold its SET button for 3 seconds.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds to finish.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED stops blinking"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED keeps blinking green"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds; the sensor's LED stops blinking and turns solid."
+      ]
+    },
+    "waking": {
+      "steps": [
+        {
+          "text": "While the sensor is awake, send the Stay Awake command (extended, cmd1 0x2E, cmd2 0x00, data 2 0x04, data 3 the number of seconds to stay awake).",
+          "action": "send",
+          "command": "Stay Awake"
+        }
+      ],
+      "notes": [
+        "The Open/Close Sensor Developer Notes say the sensor sleeps quickly to save battery and must be awake to send or receive messages. Their example asks for 0xF0 seconds, about 4 minutes; the maximum is 0xFF.",
+        "The documents don't say how to wake the sensor before sending the command."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Only the Open/Close Sensor Developer Notes cover staying awake, and they give the command but no button step to wake the sensor first."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink any responders from the sensor.",
+          "action": "other"
+        },
+        {
+          "text": "Gently remove the sensor's case with a small screwdriver.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the battery and wait at least 15 seconds.",
+          "action": "removeBatteries",
+          "seconds": 15
+        },
+        {
+          "text": "Press and hold the SET button while reinstalling the battery.",
+          "action": "insertBatteries",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button when the status LED turns on.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED stays on about 4 seconds, then turns off"
+        }
+      ],
+      "notes": [
+        "Erases all settings and scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the sensor as a controller from each of its responders.",
+          "action": "other"
+        }
+      ]
+    }
+  },
   "notes": [
     "HouseLinc lists subcategory 0x09 as the Door Sensor 2843-232.",
     "Its heartbeat's cmd1 is 0x11 while it's open and 0x13 while it's closed.",
@@ -127,6 +301,7 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Open/Close Sensor Developer Notes",
-    "Open/Close Sensor 2843 Owner's Manual"
+    "Open/Close Sensor 2843 Owner's Manual",
+    "Open/Close Sensor 2843 Quick Start Guide"
   ]
 }

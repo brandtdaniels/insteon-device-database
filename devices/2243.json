@@ -51,6 +51,72 @@
       "port": 80
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Connect the Hub to the internet and to a power outlet using the cables provided. Avoid switched outlets and filtered power strips.",
+          "action": "plugIn"
+        },
+        {
+          "text": "On an iPhone or iPod touch with iCloud Keychain turned on, download Insteon+ from the App Store, allow it access to your HomeKit accessory data, and create an account or sign in.",
+          "action": "other"
+        },
+        {
+          "text": "Navigate to your home, tap the Add button in the upper right corner and tap Add a Device.",
+          "action": "other"
+        },
+        {
+          "text": "Tap Hub Pro at the bottom of the screen. It may take several minutes after connecting the Hub to power before it appears.",
+          "action": "wait"
+        },
+        {
+          "text": "Enter the 8-digit Accessory Setup Code found on the bottom of the Hub, then give the Hub a name and pick an icon.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Insteon+ requires a properly configured iCloud Keychain; if it is off or pending, the app cannot complete basic tasks like adding a device."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the Hub from power.",
+          "action": "unplug"
+        },
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "While holding the SET button, reconnect the Hub to power.",
+          "action": "plugIn",
+          "expect": "Hub beeps"
+        },
+        {
+          "text": "Continue holding the SET button until the Hub stops beeping, then release it.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Hub double-beeps"
+        },
+        {
+          "text": "Wait about three minutes.",
+          "action": "wait",
+          "seconds": 180,
+          "expect": "Hub double-beeps again; it has been restored to factory settings"
+        }
+      ],
+      "notes": [
+        "A factory reset also resets the HomeKit pairing, so the Hub can be added to a different HomeKit house."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "HouseLinc names it Central Controller.",
     "Sold as a HomeKit bridge, which current versions of HomeKit no longer support.",

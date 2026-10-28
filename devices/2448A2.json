@@ -58,13 +58,169 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Make sure at least one dual-band Insteon device and an Insteon meter device, such as the Power Meter 2423A1, are installed.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the battery compartment door from the rear of Energy Display.",
+          "action": "other",
+          "control": "Battery compartment door"
+        },
+        {
+          "text": "Observing the polarity markings, install two AAA batteries, then replace the battery compartment door.",
+          "action": "insertBatteries",
+          "expect": "The screen turns on with all LCD segments lit, and after a few seconds goes to Display Mode"
+        }
+      ],
+      "notes": [
+        "Two AAA batteries last approximately one year."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Tap the 1-2-3/Down button until the meter position you want (Meter 1, 2 or 3) is blinking.",
+          "action": "tap",
+          "control": "1-2-3/Down button"
+        },
+        {
+          "text": "Press and hold the SET button until Energy Display beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Within 4 minutes, press and hold the meter device's SET button until it beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Energy Display double-beeps, its status LED turns off, and a few moments later the screen shows the meter's information"
+        }
+      ],
+      "notes": [
+        "Energy Display goes first and controls the meter position; each position holds one device, and linking a second device to a position replaces the first.",
+        "The Developer Notes also allow a PowerLinc Modem in groups 1 to 3, and in group 4 for temperature broadcasts."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Use the 1-2-3/Down button to select the meter device you want to unlink.",
+          "action": "tap",
+          "control": "1-2-3/Down button"
+        },
+        {
+          "text": "Press and hold the SET button until Energy Display beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks red"
+        },
+        {
+          "text": "Within 4 minutes, press and hold the meter device's SET button until it beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Confirm on the screen that the meter's information is no longer displayed.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Unlink meter devices you no longer use; otherwise Energy Display keeps trying to reach them, slowing the system and shortening battery life."
+      ]
+    },
+    "waking": {
+      "steps": [
+        {
+          "text": "Press the Synchronize button so Energy Display requests status from its linked meters.",
+          "action": "press",
+          "control": "Synchronize button",
+          "expect": "After the last meter responds, Energy Display stays awake for 3 seconds before sleeping"
+        },
+        {
+          "text": "Within those 3 seconds, send the Stayawake On command (0x20 with command 2 set to 0x06) to keep it awake for 4 minutes so settings and links can be programmed.",
+          "action": "send",
+          "command": "Stayawake On",
+          "seconds": 3
+        }
+      ],
+      "notes": [
+        "Stayawake Off (0x20 with command 2 set to 0x07) ends the awake period early."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "From the Developer Notes, which name a Synchronize button; the Energy Display 2448A2 Owner's Manual names a Refresh button that retrieves data, which is likely the same button."
+      }
+    },
+    "awakeSeconds": 240,
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink any meter devices from Energy Display.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the battery compartment cover on the back of Energy Display.",
+          "action": "other",
+          "control": "Battery compartment door"
+        },
+        {
+          "text": "Remove one battery for at least 10 seconds.",
+          "action": "removeBatteries",
+          "seconds": 10,
+          "expect": "The screen turns off"
+        },
+        {
+          "text": "While holding down the SET button, reinsert the battery, making sure not to let go of the SET button.",
+          "action": "insertBatteries",
+          "control": "SET button",
+          "expect": "The screen turns on with all LCD segments lit"
+        },
+        {
+          "text": "Continue to hold the SET button until the screen goes blank (10 seconds), then release it.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 10,
+          "expect": "Energy Display beeps; after a few more seconds it beeps again and, after a few flashes, the screen returns to Display Mode"
+        },
+        {
+          "text": "Replace the battery compartment cover.",
+          "action": "other",
+          "control": "Battery compartment door"
+        }
+      ],
+      "notes": [
+        "A factory reset does not reset the meter devices linked to Energy Display."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ]
+  },
   "notes": [
     "Linking a second meter in a group replaces the first.",
     "Runs on two AAA batteries."
   ],
   "sources": [
     "Energy Display Developer Notes",
-    "Energy Display 2448A2 Owner's Manual"
+    "Energy Display 2448A2 Owner's Manual",
+    "Energy Display 2448A2 Developer Notes"
   ],
   "verification": {
     "status": "inferred",
