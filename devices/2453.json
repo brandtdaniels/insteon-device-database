@@ -1,0 +1,29 @@
+{
+  "model": "2453",
+  "name": "DIN Rail On/Off",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x2E",
+      "region": "US"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x33",
+      "region": "Europe"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x34",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

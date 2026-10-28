@@ -1,0 +1,18 @@
+{
+  "model": "2456S3T",
+  "name": "TimerLinc",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x07"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

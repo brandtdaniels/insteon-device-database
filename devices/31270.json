@@ -1,0 +1,14 @@
+{
+  "model": "31270",
+  "name": "Compacta EZRain Sprinkler Controller",
+  "identities": [
+    {
+      "category": "0x04",
+      "subcategory": "0x00"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

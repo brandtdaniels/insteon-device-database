@@ -1,0 +1,18 @@
+{
+  "model": "4711",
+  "name": "Wall Dimmer - 1000W",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x2B"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

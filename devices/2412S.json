@@ -1,0 +1,18 @@
+{
+  "model": "2412S",
+  "name": "PowerLinc Serial Modem",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x05"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

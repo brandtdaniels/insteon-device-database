@@ -1,0 +1,18 @@
+{
+  "model": "2472DWH",
+  "name": "OutletLinc Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x21"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

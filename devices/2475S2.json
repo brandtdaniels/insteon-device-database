@@ -1,0 +1,18 @@
+{
+  "model": "2475S2",
+  "name": "In-LineLinc Relay with Sense",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x14"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

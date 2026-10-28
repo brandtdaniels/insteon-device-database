@@ -1,0 +1,14 @@
+{
+  "model": "2862",
+  "name": "Lock Controller",
+  "identities": [
+    {
+      "category": "0x0F",
+      "subcategory": "0x0A"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

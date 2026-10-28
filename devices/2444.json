@@ -1,0 +1,25 @@
+{
+  "model": "2444",
+  "name": "Micro Open/Close",
+  "identities": [
+    {
+      "category": "0x0E",
+      "subcategory": "0x01",
+      "region": "US"
+    },
+    {
+      "category": "0x0E",
+      "subcategory": "0x02",
+      "region": "Europe"
+    },
+    {
+      "category": "0x0E",
+      "subcategory": "0x03",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

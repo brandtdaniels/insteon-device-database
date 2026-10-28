@@ -1,0 +1,18 @@
+{
+  "model": "4707",
+  "name": "Outlet Switch",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x21"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

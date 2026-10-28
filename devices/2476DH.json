@@ -1,0 +1,22 @@
+{
+  "model": "2476DH",
+  "name": "SwitchLinc Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x04"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x1D"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

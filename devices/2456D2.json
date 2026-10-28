@@ -1,0 +1,18 @@
+{
+  "model": "2456D2",
+  "name": "LampLinc",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x06"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

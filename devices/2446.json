@@ -1,0 +1,24 @@
+{
+  "model": "2446",
+  "name": "Ballast Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x3D",
+      "region": "Europe"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x3E",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

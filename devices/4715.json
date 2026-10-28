@@ -1,0 +1,14 @@
+{
+  "model": "4715",
+  "name": "7 Day Thermostat",
+  "identities": [
+    {
+      "category": "0x05",
+      "subcategory": "0x09"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "model": "2443-222",
+  "name": "Micro On/Off",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x2F",
+      "region": "US"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x31",
+      "region": "Europe"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x32",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "HouseLinc lists the regional versions as the 2443-222, 2443-422 and 2443-522."
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

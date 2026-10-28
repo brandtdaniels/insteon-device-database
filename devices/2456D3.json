@@ -1,0 +1,18 @@
+{
+  "model": "2456D3",
+  "name": "LampLinc Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x00"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}
