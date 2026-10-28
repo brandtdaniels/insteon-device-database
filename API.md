@@ -42,6 +42,8 @@ Bytes are strings of `0x` and two uppercase hexadecimal digits, as INSTEON docum
 {
   "model": "2852",
   "name": "Leak Sensor",
+  "aliases": ["Water Leak Sensor"],
+  "description": "Battery-powered sensor that reports when it detects water.",
   "identities": [{ "category": "0x10", "subcategory": "0x08" }],
   "radio": "rf",
   "role": "controller",
@@ -64,6 +66,9 @@ Bytes are strings of `0x` and two uppercase hexadecimal digits, as INSTEON docum
   "sources": ["HouseLinc device catalog", "Insteon command workbook, HeartBeat Status sheet"]
 }
 ```
+
+`aliases` and `description` are optional, for showing and searching products: other names a
+product is known by, and what it is.
 
 An identity can also carry a `firmware` range, `{ "from": "0x40", "through": "0xFF" }`, when a
 product reports the same category and subcategory with different behavior across firmware
