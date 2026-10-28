@@ -1,7 +1,7 @@
 {
   "model": "2448A2",
   "name": "Energy Display",
-  "description": "A battery-powered tabletop display that shows the power, monthly cost and monthly energy of up to three iMeters, and the room temperature.",
+  "description": "A battery-powered display that shows the power, monthly cost and monthly energy of up to three iMeters, and the room temperature.",
   "identities": [
     {
       "category": "0x09",
@@ -16,40 +16,45 @@
     }
   ],
   "radio": "rf",
-  "role": "both",
+  "role": "controller",
   "batteryPowered": true,
   "groups": [
     {
       "number": "0x01",
       "name": "Meter 1",
-      "role": "both",
+      "role": "controller",
       "verification": {
         "status": "inferred",
-        "note": "The Energy Display Developer Notes give each of groups 1 to 3 one meter or modem, which the display reads; they don't say which side of the link the display is."
+        "note": "Read from the Energy Display 2448A2 Owner's Manual, which has the display's SET button held before the meter's, and from the display reading the meter in each group."
       }
     },
     {
       "number": "0x02",
       "name": "Meter 2",
-      "role": "both",
+      "role": "controller",
       "verification": {
         "status": "inferred",
-        "note": "The Energy Display Developer Notes give each of groups 1 to 3 one meter or modem, which the display reads; they don't say which side of the link the display is."
+        "note": "Read from the Energy Display 2448A2 Owner's Manual, which has the display's SET button held before the meter's, and from the display reading the meter in each group."
       }
     },
     {
       "number": "0x03",
       "name": "Meter 3",
-      "role": "both",
+      "role": "controller",
       "verification": {
         "status": "inferred",
-        "note": "The Energy Display Developer Notes give each of groups 1 to 3 one meter or modem, which the display reads; they don't say which side of the link the display is."
+        "note": "Read from the Energy Display 2448A2 Owner's Manual, which has the display's SET button held before the meter's, and from the display reading the meter in each group."
       }
     },
     {
       "number": "0x04",
       "name": "Temperature",
-      "role": "controller"
+      "role": "controller",
+      "linkable": "software",
+      "verification": {
+        "status": "inferred",
+        "note": "The Energy Display 2448A2 Owner's Manual only lets the SET button link meters 1 to 3; the Energy Display Developer Notes link group 4 to a modem."
+      }
     }
   ],
   "capabilities": [],
@@ -60,5 +65,9 @@
   "sources": [
     "Energy Display Developer Notes",
     "Energy Display 2448A2 Owner's Manual"
-  ]
+  ],
+  "verification": {
+    "status": "inferred",
+    "note": "The display controls group 4 and reads the meters in groups 1 to 3; no document says it responds to a group."
+  }
 }

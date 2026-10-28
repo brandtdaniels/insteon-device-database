@@ -67,7 +67,11 @@
       "query": "0x00",
       "bit": "0x08",
       "on": "0x05",
-      "off": "0x04"
+      "off": "0x04",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Energy Display Developer Notes give every bit as clear by default, so Celsius; the Energy Display 2448A2 Owner's Manual gives Fahrenheit as the default. The flag's meaning is the same either way."
+      }
     }
   ],
   "flagCommands": [
@@ -135,7 +139,7 @@
           },
           {
             "name": "temperatureCalibration",
-            "description": "The offset added to the temperature reading.",
+            "description": "The temperature calibration, from -199 to 199. The Energy Display Developer Notes don't give its unit or how it's applied.",
             "bytes": [
               8,
               9
@@ -270,7 +274,7 @@
     },
     {
       "name": "writeTemperatureCalibration",
-      "description": "Sets the offset added to the temperature reading.",
+      "description": "Sets the temperature calibration.",
       "command1": "0x2E",
       "command2": "0x00",
       "fixed": [
@@ -282,7 +286,7 @@
       "parameters": [
         {
           "name": "calibration",
-          "description": "The offset.",
+          "description": "The calibration, from -199 to 199. The Energy Display Developer Notes don't give its unit or how it's applied.",
           "bytes": [
             3,
             4
@@ -297,7 +301,7 @@
     },
     {
       "name": "restartAverageCost",
-      "description": "Restarts the average cost of the chosen meter groups.",
+      "description": "Restarts the averages, of cost and of energy, of the chosen meter groups.",
       "command1": "0x2E",
       "command2": "0x00",
       "fixed": [
@@ -377,6 +381,10 @@
             }
           }
         ]
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "The Energy Display Developer Notes don't print the reply's cmd1 and cmd2; they're read from the request and the other replies, which echo them."
       }
     },
     {
@@ -445,16 +453,22 @@
             5
           ]
         }
-      ]
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Energy Display Developer Notes' command table puts D2 0x02 and the ID in D3 to D5, as used here; their modem example writes 2F 01 01 followed by the ID, with no D2 0x02."
+      }
     }
   ],
   "notes": [
-    "When its Synchronize button is pressed, the display sends Get iMeter Status (cmd1 0x82, cmd2 0x00) to each linked meter or modem, then stays awake for 3 seconds. Programming it needs stay awake on (cmd2 0x06) within those 3 seconds. A modem answers with the iMeter's reply, CRC included.",
-    "Every 3 minutes the display checks the temperature; when it has changed by more than 1 degree Celsius, it broadcasts cmd1 0x6E to group 4 (flags 0x8F, To 00 00 04) with the temperature in half degrees Celsius in cmd2.",
+    "When its Synchronize button, the owner's manual's Refresh/OK button, is pressed, the display sends Get iMeter Status (cmd1 0x82, cmd2 0x00) to each linked meter or modem, then stays awake for 3 seconds. Programming it needs stay awake on (cmd2 0x06) within those 3 seconds. A modem answers with the iMeter's reply, CRC included.",
+    "Every 3 minutes the display checks the temperature; when it has changed by more than 1 degree Celsius, it broadcasts cmd1 0x6E to group 4 (flags 0x8F, To 00 00 04) with the temperature in half degrees Celsius in cmd2. The Energy Display Developer Notes' example frame ends with one more byte, 0x1A, which they don't explain.",
     "Here cmd1 0x2F with cmd2 0x01 reads and writes the meter in each group, not the ALL-Link database.",
-    "The Energy Display Developer Notes don't say whether the extended Sets carry a checksum."
+    "The Energy Display Developer Notes don't say whether the extended Sets carry a checksum.",
+    "The Energy Display 2448A2 Owner's Manual gives 10 cents a kilowatt-hour as the default cost."
   ],
   "sources": [
-    "Energy Display Developer Notes"
+    "Energy Display Developer Notes",
+    "Energy Display 2448A2 Owner's Manual"
   ]
 }

@@ -43,8 +43,8 @@
   ],
   "notes": [
     "Software that stands in for a meter, such as a modem feeding an Energy Display, sends the same reply with the CRC in D13 and D14.",
-    "After an ID Request (cmd1 0x10) the meter broadcasts its identity with cmd1 0x02, where holding the SET button broadcasts it with cmd1 0x01; cmd2 is the hardware revision in both.",
-    "Loads over 1,000 W can take up to 10 seconds to read."
+    "The meter broadcasts its identity with cmd1 0x01 when its SET button is held and with cmd1 0x02 after an ID Request (cmd1 0x10) or when it's unlinking; cmd2 is the hardware revision in each.",
+    "For loads over 1,000 W, the reading can take up to 10 seconds to settle after a large change in power."
   ],
   "sources": [
     "iMeter Developer Notes",

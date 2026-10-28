@@ -23,7 +23,7 @@
       },
       "verification": {
         "status": "conflicting",
-        "note": "The iMeter Developer Notes describe the meter as i2CS but give 0x01, i2, as its Get Insteon Engine Version reply; the HouseLinc device catalog gives i2CS for firmware 0x30."
+        "note": "The iMeter Developer Notes describe the meter as i2CS but give 0x01, i2, as its Get Insteon Engine Version reply; the HouseLinc device catalog gives i2CS for firmware 0x30, which the catalog uses."
       }
     }
   ],
