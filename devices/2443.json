@@ -7,8 +7,10 @@
       "subcategory": "0x0B"
     }
   ],
+  "radio": "dual",
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon device database (SQLite, InsteonDevices.db)"
   ]
 }
