@@ -708,7 +708,7 @@
             "scale": 0.392157,
             "verification": {
               "status": "inferred",
-              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from other dimmers' Developer Notes."
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from the KeypadLinc Line and LED Bulb Developer Notes."
             }
           },
           {
@@ -719,7 +719,7 @@
             "table": "rampRate",
             "verification": {
               "status": "inferred",
-              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from other dimmers' Developer Notes."
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from the KeypadLinc Line and LED Bulb Developer Notes."
             }
           }
         ]
@@ -752,11 +752,11 @@
             "name": "onLevel",
             "label": "On or off",
             "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
+            "table": "onOff",
             "verification": {
               "status": "inferred",
-              "note": "Read from other on/off products' Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
-            },
-            "table": "onOff"
+              "note": "Read from the On/Off Outlet and On/Off Module, Dual-Band Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
+            }
           }
         ]
       }

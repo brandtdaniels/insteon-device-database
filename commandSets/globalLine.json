@@ -799,11 +799,11 @@
             "name": "onLevel",
             "label": "On or off",
             "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
+            "table": "onOff",
             "verification": {
               "status": "conflicting",
-              "note": "The Global Line Developer Notes list Data 1 to 3 as not used; other on/off products' Developer Notes give Data 1 as the on-level, as used here."
-            },
-            "table": "onOff"
+              "note": "The Global Line Developer Notes list Data 1 to 3 as not used; the On/Off Outlet Developer Notes give Data 1 as the on-level, as used here."
+            }
           }
         ]
       }

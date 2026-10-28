@@ -216,11 +216,11 @@
             "name": "onLevel",
             "label": "On or off",
             "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
+            "table": "onOff",
             "verification": {
               "status": "inferred",
-              "note": "Read from other on/off products' Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
-            },
-            "table": "onOff"
+              "note": "Read from the On/Off Outlet and On/Off Module, Dual-Band Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
+            }
           }
         ]
       }

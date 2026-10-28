@@ -274,7 +274,7 @@ def presentation_problems(command_set):
                 bounds = entry.get("range")
                 what = f"{label}'s {side} record data {entry['name']}"
 
-                if not any(key in entry for key in ("value", "range", "table", "perGroup")):
+                if not any(key in entry for key in ("value", "range", "table")) and not entry.get("perGroup"):
                     problems.append(f"{what} gives no value, range, table or perGroup")
 
                 if entry.get("perGroup") and any(key in entry for key in ("value", "range", "table", "unit")):

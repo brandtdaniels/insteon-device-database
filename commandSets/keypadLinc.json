@@ -1007,11 +1007,11 @@
             "byte": 3,
             "name": "button",
             "label": "Button",
-            "description": "The button the record is for, 0x01 to 0x08.",
+            "description": "The button the record is for: 0x01, or 0x09 for the detached load.",
             "perGroup": true,
             "verification": {
-              "status": "documented",
-              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; the detached load's group 9 is written as 0x09, which no document describes."
+              "status": "inferred",
+              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; 0x09 for the detached load, group 9, is read from the group's number, as no document describes it."
             }
           }
         ]
@@ -1057,11 +1057,11 @@
             "byte": 3,
             "name": "button",
             "label": "Button",
-            "description": "The button the record is for, 0x01 to 0x08.",
+            "description": "The button the record is for: 0x01, or 0x09 for the detached load.",
             "perGroup": true,
             "verification": {
-              "status": "documented",
-              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; the detached load's group 9 is written as 0x09, which no document describes."
+              "status": "inferred",
+              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; 0x09 for the detached load, group 9, is read from the group's number, as no document describes it."
             }
           }
         ]
@@ -1082,21 +1082,21 @@
             "name": "onLevel",
             "label": "LED",
             "description": "Whether the button's LED turns on (0xFF) or off (0x00) when its controller's On arrives.",
+            "table": "onOff",
             "verification": {
               "status": "inferred",
               "note": "Read from the KeypadLinc Line Developer Notes' records, whose Data 1 is the on-level, which for a button is its LED."
-            },
-            "table": "onOff"
+            }
           },
           {
             "byte": 3,
             "name": "button",
             "label": "Button",
-            "description": "The button the record is for, 0x01 to 0x08.",
+            "description": "The button the record is for, 0x02 to 0x08.",
             "perGroup": true,
             "verification": {
               "status": "documented",
-              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; the detached load's group 9 is written as 0x09, which no document describes."
+              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08."
             }
           }
         ]

@@ -1255,7 +1255,8 @@
           {
             "byte": 3,
             "name": "group",
-            "description": "The internal group, always 0x01.",
+            "label": "Group",
+            "description": "The device's single group, always 0x01.",
             "value": "0x01"
           }
         ]

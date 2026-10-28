@@ -387,7 +387,7 @@
             "table": "onOff",
             "verification": {
               "status": "inferred",
-              "note": "The On/Off Outlet Developer Notes give Data 1 as the on-level and Data 2 as the ramp rate but don't say how a record picks the top or bottom outlet."
+              "note": "Data 1 and 2 are read from the On/Off Outlet Developer Notes; they don't say how a record picks the top or bottom outlet, so the records here are the same for both and the outlet a record switches may follow the controller's group."
             }
           },
           {
@@ -401,7 +401,7 @@
             },
             "verification": {
               "status": "inferred",
-              "note": "The On/Off Outlet Developer Notes give Data 1 as the on-level and Data 2 as the ramp rate but don't say how a record picks the top or bottom outlet."
+              "note": "Data 1 and 2 are read from the On/Off Outlet Developer Notes; they don't say how a record picks the top or bottom outlet, so the records here are the same for both and the outlet a record switches may follow the controller's group."
             }
           }
         ]
@@ -434,11 +434,11 @@
             "name": "onLevel",
             "label": "On or off",
             "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
+            "table": "onOff",
             "verification": {
               "status": "inferred",
-              "note": "The On/Off Outlet Developer Notes give Data 1 as the on-level and Data 2 as the ramp rate but don't say how a record picks the top or bottom outlet."
-            },
-            "table": "onOff"
+              "note": "Data 1 and 2 are read from the On/Off Outlet Developer Notes; they don't say how a record picks the top or bottom outlet, so the records here are the same for both and the outlet a record switches may follow the controller's group."
+            }
           },
           {
             "byte": 2,
@@ -451,7 +451,7 @@
             },
             "verification": {
               "status": "inferred",
-              "note": "The On/Off Outlet Developer Notes give Data 1 as the on-level and Data 2 as the ramp rate but don't say how a record picks the top or bottom outlet."
+              "note": "Data 1 and 2 are read from the On/Off Outlet Developer Notes; they don't say how a record picks the top or bottom outlet, so the records here are the same for both and the outlet a record switches may follow the controller's group."
             }
           }
         ]

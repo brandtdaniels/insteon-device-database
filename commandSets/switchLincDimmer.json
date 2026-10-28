@@ -606,7 +606,7 @@
             "scale": 0.392157,
             "verification": {
               "status": "conflicting",
-              "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list Data 1 to 3 as not used; the Insteon Developer's Guide gives Data 1 as the on-level and Data 2 as the ramp rate, as examples, and other dimmers' Developer Notes agree, as used here."
+              "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list Data 1 to 3 as not used; the Insteon Developer's Guide gives Data 1 as the on-level and Data 2 as the ramp rate, as examples, and the KeypadLinc Line and LED Bulb Developer Notes agree, as used here."
             }
           },
           {
@@ -617,7 +617,7 @@
             "table": "rampRate",
             "verification": {
               "status": "conflicting",
-              "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list Data 2 as not used; other dimmers use it for the ramp rate, as here."
+              "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list Data 2 as not used; the KeypadLinc Line and LED Bulb Developer Notes use it for the ramp rate, as here."
             }
           }
         ]

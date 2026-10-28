@@ -578,6 +578,7 @@
           {
             "byte": 3,
             "name": "button",
+            "label": "Button",
             "description": "The light's button number.",
             "value": "0x01",
             "verification": {
@@ -665,6 +666,7 @@
           {
             "byte": 3,
             "name": "button",
+            "label": "Button",
             "description": "The fan's button number.",
             "value": "0x02",
             "verification": {

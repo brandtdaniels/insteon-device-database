@@ -202,12 +202,14 @@
           {
             "byte": 1,
             "name": "onLevel",
+            "label": "On-level",
             "description": "The on-level; the Outdoor ApplianceLinc with RF Developer Notes say to set it to 0xFE.",
             "value": "0xFE"
           },
           {
             "byte": 2,
             "name": "rampRate",
+            "label": "Ramp rate",
             "description": "The ramp rate; the Outdoor ApplianceLinc with RF Developer Notes say to set it to 0x1F.",
             "value": "0x1F"
           }
