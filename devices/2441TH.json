@@ -20,6 +20,26 @@
     {
       "category": "0x09",
       "subcategory": "0x0D"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x17",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x18",
+      "region": "Australia and New Zealand"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x0F",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x10",
+      "region": "Australia and New Zealand"
     }
   ],
   "radio": "rf",
@@ -105,11 +125,14 @@
     }
   ],
   "notes": [
-    "Subcategory 0x16 is the Thermostat 2.0 firmware, given its own subcategory so software can tell its features apart; HouseLinc lists it as a heat pump thermostat."
+    "Subcategory 0x16 is the Thermostat 2.0 firmware, given its own subcategory so software can tell its features apart; HouseLinc lists it as a heat pump thermostat.",
+    "Subcategories 0x0F and 0x10 are the European and Australian and New Zealand versions, the 2732-422 and 2732-522, and 0x17 and 0x18 are their Thermostat 2.0 firmware."
   ],
   "sources": [
     "HouseLinc device catalog",
     "TempLinc specification rev 020 and product requirements v025",
-    "Thermostat 2.0 PRD"
+    "Thermostat 2.0 PRD",
+    "Insteon SKU list",
+    "Insteon for Hub app"
   ]
 }

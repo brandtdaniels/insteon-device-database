@@ -21,8 +21,19 @@
       }
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "thermostat",
+      "modeValues": "commandTable",
+      "humidity": false
+    }
+  ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon Developer's Guide (2009)",
+    "Insteon command workbook"
+  ],
+  "notes": [
+    "A Venstar thermostat with the 2441V's board built in, so it uses the same commands."
   ]
 }
