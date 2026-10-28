@@ -168,6 +168,20 @@
           "seconds": 0.1
         }
       ]
+    },
+    {
+      "name": "onOff",
+      "description": "Off and on, for a load or LED a record switches.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "Off"
+        },
+        {
+          "value": "0xFF",
+          "label": "On"
+        }
+      ]
     }
   ],
   "operatingFlags": [
@@ -526,7 +540,7 @@
             "scale": 0.392157,
             "verification": {
               "status": "inferred",
-              "note": "Read from the Insteon Developer's Guide gives Data 1 as the on-level and Data 2 as the ramp rate, as examples, and from other dimmers' Developer Notes."
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from other dimmers' Developer Notes."
             }
           },
           {
@@ -537,7 +551,7 @@
             "table": "rampRate",
             "verification": {
               "status": "inferred",
-              "note": "Read from the Insteon Developer's Guide gives Data 1 as the on-level and Data 2 as the ramp rate, as examples, and from other dimmers' Developer Notes."
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from other dimmers' Developer Notes."
             }
           }
         ]
@@ -569,15 +583,12 @@
             "byte": 1,
             "name": "onLevel",
             "label": "On or off",
-            "description": "0x00 turns the load off when the controller's On arrives; any other value turns it on.",
-            "range": {
-              "from": "0x00",
-              "through": "0xFF"
-            },
+            "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
             "verification": {
               "status": "inferred",
               "note": "Read from other on/off products' Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
-            }
+            },
+            "table": "onOff"
           }
         ]
       }

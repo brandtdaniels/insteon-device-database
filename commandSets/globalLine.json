@@ -216,6 +216,20 @@
           "seconds": 0.1
         }
       ]
+    },
+    {
+      "name": "onOff",
+      "description": "Off and on, for a load or LED a record switches.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "Off"
+        },
+        {
+          "value": "0xFF",
+          "label": "On"
+        }
+      ]
     }
   ],
   "operatingFlags": [
@@ -752,7 +766,7 @@
             "table": "rampRate",
             "verification": {
               "status": "conflicting",
-              "note": "The Global Line Developer Notes list Data 2 as not used."
+              "note": "The Global Line Developer Notes list Data 2 as not used; the Insteon Developer's Guide gives it as the ramp rate, as used here."
             }
           }
         ]
@@ -784,15 +798,12 @@
             "byte": 1,
             "name": "onLevel",
             "label": "On or off",
-            "description": "0x00 turns the load off when the controller's On arrives; any other value turns it on.",
-            "range": {
-              "from": "0x00",
-              "through": "0xFF"
-            },
+            "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
             "verification": {
               "status": "conflicting",
-              "note": "The Global Line Developer Notes list Data 1 to 3 as not used; other on/off products' Developer Notes give Data 1 as the on-level."
-            }
+              "note": "The Global Line Developer Notes list Data 1 to 3 as not used; other on/off products' Developer Notes give Data 1 as the on-level, as used here."
+            },
+            "table": "onOff"
           }
         ]
       }

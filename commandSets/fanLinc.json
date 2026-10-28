@@ -579,7 +579,11 @@
             "byte": 3,
             "name": "button",
             "description": "The light's button number.",
-            "value": "0x01"
+            "value": "0x01",
+            "verification": {
+              "status": "inferred",
+              "note": "The FanLinc Developer Notes give Data 3 as the button number, 0x01 to 0x02, and group 1 as the light and group 2 as the fan; that the light's records hold 0x01 and the fan's 0x02 is read from that."
+            }
           }
         ]
       }
@@ -652,10 +656,21 @@
             }
           },
           {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "The ramp rate, which the FanLinc Developer Notes list for every record.",
+            "table": "rampRate"
+          },
+          {
             "byte": 3,
             "name": "button",
             "description": "The fan's button number.",
-            "value": "0x02"
+            "value": "0x02",
+            "verification": {
+              "status": "inferred",
+              "note": "The FanLinc Developer Notes give Data 3 as the button number, 0x01 to 0x02, and group 1 as the light and group 2 as the fan; that the light's records hold 0x01 and the fan's 0x02 is read from that."
+            }
           }
         ]
       }

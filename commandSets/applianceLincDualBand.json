@@ -366,10 +366,17 @@
             "byte": 1,
             "name": "onLevel",
             "label": "On or off",
-            "description": "0x00 turns the load off when the controller's On arrives; any other value turns it on.",
+            "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
+            "table": "onOff"
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "The ramp rate; the module switches at once.",
             "range": {
               "from": "0x00",
-              "through": "0xFF"
+              "through": "0x1F"
             }
           }
         ]
@@ -382,5 +389,21 @@
   ],
   "sources": [
     "On/Off Module, Dual-Band Developer Notes"
+  ],
+  "valueTables": [
+    {
+      "name": "onOff",
+      "description": "Off and on, for a load or LED a record switches.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "Off"
+        },
+        {
+          "value": "0xFF",
+          "label": "On"
+        }
+      ]
+    }
   ]
 }

@@ -630,16 +630,14 @@
             "byte": 1,
             "name": "onLevel",
             "label": "On-level",
-            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "description": "In dimmer mode, the on-level, 0x00 (off) to 0xFF (full). In relay mode, the relays to close: bit 0 relay 1, bit 1 relay 2.",
             "range": {
               "from": "0x00",
               "through": "0xFF"
             },
-            "unit": "percent",
-            "scale": 0.392157,
             "verification": {
               "status": "inferred",
-              "note": "The In-Line 0-10VDC Dimmer Developer Notes describe records only in relay mode, where Data 1 is a mask of the relays to close, bit 0 relay 1 and bit 1 relay 2; in dimmer mode Data 1 is read as the on-level, as on other dimmers."
+              "note": "The In-Line 0-10VDC Dimmer Developer Notes describe records only in relay mode, as a mask of the relays; the dimmer-mode on-level is read from other dimmers."
             }
           }
         ]

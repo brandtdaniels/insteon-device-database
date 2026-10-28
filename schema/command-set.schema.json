@@ -1024,16 +1024,19 @@
               "items": {
                 "$ref": "#/$defs/linkDataByte"
               },
-              "maxItems": 3
+              "maxItems": 3,
+              "minItems": 1
             },
             "controller": {
               "type": "array",
               "items": {
                 "$ref": "#/$defs/linkDataByte"
               },
-              "maxItems": 3
+              "maxItems": 3,
+              "minItems": 1
             }
-          }
+          },
+          "minProperties": 1
         },
         "verification": {
           "$ref": "#/$defs/verification"
@@ -1068,7 +1071,7 @@
         },
         "value": {
           "$ref": "#/$defs/byte",
-          "description": "The value to write, when it's fixed, such as the button a keypad record is for or a byte the device doesn't use."
+          "description": "The value to write, when it's fixed, such as the FanLinc fan's button number."
         },
         "range": {
           "type": "object",
@@ -1101,12 +1104,12 @@
           "exclusiveMinimum": 0
         },
         "table": {
-          "description": "The value table that names each value, such as the ramp rate's.",
+          "description": "The value table that names each value, such as the ramp rate's or on and off.",
           "type": "string",
           "pattern": "^[a-z][A-Za-z0-9]*$"
         },
         "perGroup": {
-          "description": "Whether the value is the record's group, or the button or part of the device the group is, rather than a fixed value.",
+          "description": "Whether the byte is the responder's own group: the button or part of the device the record is for, as the profile group with this type numbers it. It isn't the record's Group field, which holds the controller's group.",
           "type": "boolean",
           "default": false
         },

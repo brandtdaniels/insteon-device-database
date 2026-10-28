@@ -216,6 +216,20 @@
           "seconds": 0.1
         }
       ]
+    },
+    {
+      "name": "onOff",
+      "description": "Off and on, for a load or LED a record switches.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "Off"
+        },
+        {
+          "value": "0xFF",
+          "label": "On"
+        }
+      ]
     }
   ],
   "operatingFlags": [
@@ -994,7 +1008,11 @@
             "name": "button",
             "label": "Button",
             "description": "The button the record is for, 0x01 to 0x08.",
-            "perGroup": true
+            "perGroup": true,
+            "verification": {
+              "status": "documented",
+              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; the detached load's group 9 is written as 0x09, which no document describes."
+            }
           }
         ]
       }
@@ -1025,22 +1043,26 @@
             "byte": 1,
             "name": "onLevel",
             "label": "On or off",
-            "description": "0x00 turns the load off when the controller's On arrives; any other value turns it on.",
-            "range": {
-              "from": "0x00",
-              "through": "0xFF"
-            },
-            "verification": {
-              "status": "inferred",
-              "note": "Read from other on/off products' Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
-            }
+            "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
+            "table": "onOff"
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "The ramp rate; an on/off keypad switches at once.",
+            "table": "rampRate"
           },
           {
             "byte": 3,
             "name": "button",
             "label": "Button",
             "description": "The button the record is for, 0x01 to 0x08.",
-            "perGroup": true
+            "perGroup": true,
+            "verification": {
+              "status": "documented",
+              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; the detached load's group 9 is written as 0x09, which no document describes."
+            }
           }
         ]
       }
@@ -1058,25 +1080,24 @@
           {
             "byte": 1,
             "name": "onLevel",
-            "label": "On-level",
-            "description": "Whether the button's LED turns on (any value but 0x00) or off when its controller's On arrives.",
-            "range": {
-              "from": "0x00",
-              "through": "0xFF"
-            },
-            "unit": "percent",
-            "scale": 0.392157,
+            "label": "LED",
+            "description": "Whether the button's LED turns on (0xFF) or off (0x00) when its controller's On arrives.",
             "verification": {
               "status": "inferred",
-              "note": "Read from the KeypadLinc's records, where the on-level of a button's record turns its LED on or off."
-            }
+              "note": "Read from the KeypadLinc Line Developer Notes' records, whose Data 1 is the on-level, which for a button is its LED."
+            },
+            "table": "onOff"
           },
           {
             "byte": 3,
             "name": "button",
             "label": "Button",
             "description": "The button the record is for, 0x01 to 0x08.",
-            "perGroup": true
+            "perGroup": true,
+            "verification": {
+              "status": "documented",
+              "note": "The KeypadLinc Line Developer Notes give buttons 0x01 to 0x08; the detached load's group 9 is written as 0x09, which no document describes."
+            }
           }
         ]
       }

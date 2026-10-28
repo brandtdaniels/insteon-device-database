@@ -23,7 +23,7 @@ with a plain `GET` over HTTPS.
   "catalog": "catalog.json",
   "devices": 140,
   "sha256": "8d824948278c3c03ffc12ccc994c3f78981de410ebaa3650b174e030de77cfe6",
-  "version": "0.2.3"
+  "version": "0.4.0"
 }
 ```
 
@@ -217,19 +217,23 @@ database records for the group, so an app adding it to a scene writes the right 
 
 ```json
 "linkData": { "responder": [
-  { "byte": 1, "name": "onLevel", "label": "On-level", "unit": "percent", "scale": 0.392157,
-    "range": { "from": "0x00", "through": "0xFF" } },
-  { "byte": 2, "name": "rampRate", "label": "Ramp rate", "table": "rampRate" },
-  { "byte": 3, "name": "button", "label": "Button", "perGroup": true } ] }
+  { "byte": 1, "name": "onLevel", "label": "On-level", "description": "The level the load goes to.",
+    "unit": "percent", "scale": 0.392157, "range": { "from": "0x00", "through": "0xFF" } },
+  { "byte": 2, "name": "rampRate", "label": "Ramp rate", "description": "How fast it gets there.",
+    "table": "rampRate" },
+  { "byte": 3, "name": "button", "label": "Button", "description": "The button the record is for.",
+    "perGroup": true } ] }
 ```
 
 - `responder` describes the record in the responder: the state the group goes to when its
   controller's group command arrives. `controller` describes the controller's record, where a
   product documents one; otherwise its data bytes don't matter.
-- Each byte can carry a `range`, a `unit` and `scale` or a `table`, as settings do, or a fixed
-  `value` to write. With `perGroup`, the byte is the group, or the button or part of the device
-  the group is.
-- A byte a list leaves out isn't used; write `0x00`.
+- Each byte carries a `range`, a `unit` and `scale` or a `table`, as settings do, a fixed `value`
+  to write, or `perGroup`. With `perGroup`, the byte is the responder's own group: the button or
+  part of the device the record is for, as the profile numbers it. It isn't the record's Group
+  field, which holds the controller's group.
+- Relays and button LEDs use the `onOff` table: `0x00` off, `0xFF` on.
+- A byte a list leaves out has no documented use for the group; write `0x00`.
 - A device linked with its SET button keeps its present state as the record's data, so a light
   should be at the level wanted when it's linked.
 
