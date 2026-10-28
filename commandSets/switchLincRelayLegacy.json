@@ -1,0 +1,138 @@
+{
+  "id": "switchLincRelayLegacy",
+  "name": "SwitchLinc Relay (legacy)",
+  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the older SwitchLinc relays.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "ledOff",
+      "description": "The status LED is off.",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "loadSense",
+      "description": "Load sense is on: the device turns its load on when it senses the attached lamp or appliance being switched on.",
+      "query": "0x00",
+      "bit": "0x20",
+      "on": "0x06",
+      "off": "0x07"
+    },
+    {
+      "name": "cleanupReport",
+      "description": "The device sends a success report after the cleanup messages that follow a group command. Only dealer firmware has this setting.",
+      "query": "0x00",
+      "bit": "0x40"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "cleanupReportOff",
+      "description": "Turns cleanup success reports off.",
+      "command2": "0x0A"
+    },
+    {
+      "name": "cleanupReportOn",
+      "description": "Turns cleanup success reports on.",
+      "command2": "0x0B"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "ledDimming",
+        "description": "How much the status LED is dimmed: 0x00 is no dimming (brightest), 0x01 the most dimming and 0xFF the least.",
+        "byte": 3,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "signalToNoiseCount",
+        "description": "The signal-to-noise count.",
+        "byte": 12
+      },
+      {
+        "name": "signalToNoiseLastFailure",
+        "description": "The signal-to-noise value of the last failure.",
+        "byte": 13
+      }
+    ],
+    "writes": [
+      {
+        "name": "ledDimming",
+        "description": "Sets how much the status LED is dimmed. Only SwitchLinc and ToggleLinc models with a beeper have this setting.",
+        "selector": "0x03",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "ledDimming"
+          }
+        ]
+      },
+      {
+        "name": "x10Address",
+        "description": "Sets the X10 address.",
+        "selector": "0x04",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10HouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10UnitCode"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
+    "Insteon's 2009 Developer's Guide lists 0x0A and above as unused on this code base; the later command sheets add the cleanup report commands 0x0A and 0x0B.",
+    "Insteon's earlier command sheets give the LED setting in D3 and selector 0x03 as a brightness from 0x11 to 0x7F.",
+    "Insteon's earlier command sheets give D12 as the signal-to-noise ratio and D13 as a count of messages with CRC errors."
+  ],
+  "sources": [
+    "Insteon command workbook",
+    "Insteon Developer's Guide (2009)"
+  ]
+}

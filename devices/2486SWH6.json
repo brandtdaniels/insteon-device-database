@@ -32,6 +32,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x02",
+      "subcategory": "0x0F"
+    }
+  ],
   "role": "both",
   "capabilities": [
     {

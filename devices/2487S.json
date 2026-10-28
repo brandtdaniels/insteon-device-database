@@ -54,6 +54,18 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x02",
+      "subcategory": "0x1E"
+    },
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x02",
+      "subcategory": "0x2C"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

@@ -11,6 +11,18 @@
       "subcategory": "0x16"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x0B"
+    },
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x16"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

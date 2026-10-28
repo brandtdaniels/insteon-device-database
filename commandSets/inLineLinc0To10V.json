@@ -1,0 +1,248 @@
+{
+  "id": "inLineLinc0To10V",
+  "name": "In-LineLinc 0-10 V Ballast Dimmer",
+  "description": "The In-LineLinc 0-10 V ballast dimmer, which runs the KeypadLinc code base. Its two input lines trigger groups 1 through 4, which use the on masks, on-levels and ramp rates of groups 2 through 5.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "resumeDim",
+      "description": "Turning the load on at the device restores its last level instead of the on-level.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x04",
+      "off": "0x05"
+    },
+    {
+      "name": "ledOff",
+      "description": "The status LEDs and button backlights are off.",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "keyBeep",
+      "description": "The device beeps when a button is pressed.",
+      "query": "0x00",
+      "bit": "0x20",
+      "on": "0x0A",
+      "off": "0x0B"
+    },
+    {
+      "name": "radioOff",
+      "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
+      "query": "0x00",
+      "bit": "0x40",
+      "on": "0x0C",
+      "off": "0x0D"
+    },
+    {
+      "name": "powerLineOff",
+      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "query": "0x00",
+      "bit": "0x80",
+      "on": "0x0E",
+      "off": "0x0F"
+    },
+    {
+      "name": "applicationRetries",
+      "description": "The device retries application messages as many times as its link database says, and reports cleanup errors.",
+      "query": "0x05",
+      "bit": "0x01",
+      "on": "0x10",
+      "off": "0x11"
+    },
+    {
+      "name": "x10Off",
+      "description": "X10 sending and receiving are off.",
+      "query": "0x05",
+      "bit": "0x02",
+      "on": "0x12",
+      "off": "0x13"
+    },
+    {
+      "name": "errorBlink",
+      "description": "The status LED blinks when a communication error occurs.",
+      "query": "0x05",
+      "bit": "0x04",
+      "on": "0x15",
+      "off": "0x14"
+    },
+    {
+      "name": "cleanupReport",
+      "description": "The device sends a success report after the cleanup messages that follow a group command.",
+      "query": "0x05",
+      "bit": "0x08",
+      "on": "0x17",
+      "off": "0x16"
+    },
+    {
+      "name": "checksumRequired",
+      "description": "Extended Set and link database write messages must carry a checksum in D14.",
+      "query": "0x05",
+      "bit": "0x10",
+      "on": "0x19",
+      "off": "0x18"
+    },
+    {
+      "name": "relayMode",
+      "description": "The dimmer works as a relay rather than a 0-10 V dimmer.",
+      "query": "0x05",
+      "bit": "0x80",
+      "on": "0x1F",
+      "off": "0x1E"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    },
+    {
+      "name": "crcErrorCount",
+      "description": "The number of messages received with a CRC error.",
+      "query": "0x02"
+    },
+    {
+      "name": "signalToNoiseFailureCount",
+      "description": "The number of signal-to-noise failures.",
+      "query": "0x03"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "smartHopsOn",
+      "description": "Starts each message with the hop count of the last acknowledgment received (smart hops).",
+      "command2": "0x1C"
+    },
+    {
+      "name": "smartHopsOff",
+      "description": "Starts each message with one hop.",
+      "command2": "0x1D"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": true,
+    "values": [
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "rampRate",
+        "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x1F"
+        }
+      },
+      {
+        "name": "onLevel",
+        "description": "The level the load turns on to, from 0x00 (off) to 0xFF (full).",
+        "byte": 8,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "ledBrightness",
+        "description": "The brightness of the status LEDs, from 0x11 (dimmest) to 0x7F (brightest).",
+        "byte": 9,
+        "range": {
+          "from": "0x11",
+          "through": "0x7F"
+        }
+      }
+    ],
+    "writes": [
+      {
+        "name": "inputEnabled",
+        "description": "Enables (0x01) or disables (0x00) group D1, one of the groups 2 through 5 that the input lines use.",
+        "selector": "0x02",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "inputEnabled"
+          }
+        ]
+      },
+      {
+        "name": "rampRate",
+        "description": "Sets the ramp rate of group D1.",
+        "selector": "0x05",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "rampRate"
+          }
+        ]
+      },
+      {
+        "name": "onLevel",
+        "description": "Sets the on-level of group D1.",
+        "selector": "0x06",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onLevel"
+          }
+        ]
+      },
+      {
+        "name": "dacRange",
+        "description": "Sets the range of the 0-10 V output: D3 points to the start of the DAC table (the minimum) and D4 to its end (the maximum).",
+        "selector": "0x0D",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "dacMinimum"
+          },
+          {
+            "position": 4,
+            "value": "dacMaximum"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
+    "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
+    "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
+    "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
+    "Insteon's earlier command sheet describes selector 0x02 as a mask whose bits 0 and 1 disable relays 1 and 2."
+  ],
+  "sources": [
+    "Insteon command workbook",
+    "Insteon Developer's Guide (2009)",
+    "Insteon for Hub app"
+  ]
+}

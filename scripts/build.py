@@ -40,7 +40,8 @@ def load_profiles():
         if len(kinds) != len(set(kinds)):
             problems.append(f"{path.name}: a capability kind appears more than once")
 
-        problems += [f"{path.name}: {problem}" for problem in engine_problems(profile)]
+        problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "engines", "engine")]
+        problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "commandSets", "command set")]
 
         errors += problems
         profiles.append(profile)
@@ -61,26 +62,95 @@ def selected_firmware(selection):
     return set(range(0x100)) - {int(version, 16) for version in selection["except"]}
 
 
-def engine_problems(profile):
-    """Reports engine entries for identities the product doesn't have, and firmware versions
-    two entries give an engine for under the same identity."""
+def scoped_entry_problems(profile, field, label):
+    """Reports entries of a field such as engines for identities the product doesn't have, and
+    firmware versions two entries cover under the same identity."""
     identities = {(identity["category"], identity["subcategory"]) for identity in profile.get("identities", [])}
     claimed = {}
     problems = []
 
-    for entry in profile.get("engines", []):
+    for entry in profile.get(field, []):
         key = (entry["category"], entry["subcategory"])
 
         if key not in identities:
-            problems.append(f"an engine entry names {key[0]}/{key[1]}, which the product doesn't report")
+            problems.append(f"an {label} entry names {key[0]}/{key[1]}, which the product doesn't report")
             continue
 
         versions = selected_firmware(entry.get("firmware"))
 
         if versions & claimed.get(key, set()):
-            problems.append(f"two engine entries cover the same firmware under {key[0]}/{key[1]}")
+            problems.append(f"two {label} entries cover the same firmware under {key[0]}/{key[1]}")
 
         claimed[key] = claimed.get(key, set()) | versions
+
+    return problems
+
+
+def load_command_sets(profiles):
+    """Loads the command sets, and reports those that don't match the schema and profiles that
+    name a command set that doesn't exist."""
+    schema = json.loads((ROOT / "schema" / "command-set.schema.json").read_text())
+    validator = jsonschema.Draft202012Validator(schema)
+    command_sets = []
+    errors = []
+
+    for path in sorted((ROOT / "commandSets").glob("*.json")):
+        command_set = json.loads(path.read_text())
+        errors += [f"{path.name}: {error.json_path}: {error.message}" for error in validator.iter_errors(command_set)]
+
+        if path.stem != command_set.get("id"):
+            errors.append(f"{path.name}: the file name must be the id, {command_set.get('id')!r}")
+
+        errors += [f"{path.name}: {problem}" for problem in command_set_problems(command_set)]
+        command_sets.append(command_set)
+
+    ids = {command_set.get("id") for command_set in command_sets}
+
+    for profile in profiles:
+        for entry in profile.get("commandSets", []):
+            if entry["commandSet"] not in ids:
+                errors.append(f"{profile['model']}.json: it names the command set {entry['commandSet']!r}, which doesn't exist")
+
+    return command_sets, errors
+
+
+def command_set_problems(command_set):
+    """Reports names used twice, flags sharing a bit or a command, and writes of values that
+    don't exist or of the same byte twice."""
+    problems = []
+    flags = command_set.get("operatingFlags", [])
+    flag_commands = command_set.get("flagCommands", [])
+    settings = command_set.get("extendedSettings", {})
+    values = settings.get("values", [])
+    writes = settings.get("writes", [])
+
+    for kind, items in [("flag", flags + command_set.get("readings", []) + flag_commands), ("value", values), ("write", writes)]:
+        names = [item["name"] for item in items]
+
+        if len(names) != len(set(names)):
+            problems.append(f"a {kind} name appears more than once")
+
+    bits = [(flag["query"], flag["bit"]) for flag in flags]
+
+    if len(bits) != len(set(bits)):
+        problems.append("two operating flags share a bit")
+
+    commands = [flag[key] for flag in flags for key in ("on", "off") if key in flag] + [command["command2"] for command in flag_commands]
+
+    if len(commands) != len(set(commands)):
+        problems.append("two Set Operating Flags commands share a cmd2")
+
+    if len({value["byte"] for value in values}) != len(values):
+        problems.append("two values share a byte")
+
+    if len({write["selector"] for write in writes}) != len(writes):
+        problems.append("two writes share a selector")
+
+    for write in writes:
+        positions = [byte["position"] for byte in write["bytes"]]
+
+        if len(positions) != len(set(positions)):
+            problems.append(f"the {write['name']} write fills a byte twice")
 
     return problems
 
@@ -119,6 +189,8 @@ def main():
     arguments = parser.parse_args()
 
     profiles, errors = load_profiles()
+    command_sets, command_set_errors = load_command_sets(profiles)
+    errors += command_set_errors
 
     for error in errors:
         print(error, file=sys.stderr)
@@ -126,12 +198,12 @@ def main():
     if errors:
         sys.exit(1)
 
-    print(f"{len(profiles)} profiles are valid")
+    print(f"{len(profiles)} profiles and {len(command_sets)} command sets are valid")
 
     if arguments.output is None:
         return
 
-    catalog = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    catalog = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles, "commandSets": command_sets}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
         "devices": len(profiles),
@@ -144,7 +216,8 @@ def main():
     (directory / "catalog.json").write_text(catalog)
     (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     (directory / "device-profile.schema.json").write_text((ROOT / "schema" / "device-profile.schema.json").read_text())
-    (arguments.output / "index.html").write_text(index_page(profiles))
+    (directory / "command-set.schema.json").write_text((ROOT / "schema" / "command-set.schema.json").read_text())
+    (arguments.output / "index.html").write_text(index_page(profiles, command_sets))
 
 
 # The category names the Insteon Developer's Guide gives.
@@ -229,11 +302,12 @@ def capability_descriptions():
     return {option["properties"]["kind"]["const"]: option["description"] for option in schema["$defs"]["capability"]["oneOf"]}
 
 
-def index_page(profiles):
+def index_page(profiles, command_sets):
     """The landing page: what the catalog is, its files, and a table of the profiles to search,
     sort and filter."""
     escape = html.escape
     descriptions = capability_descriptions()
+    names = {command_set["id"]: command_set for command_set in command_sets}
     rows = []
 
     for profile in profiles:
@@ -250,6 +324,11 @@ def index_page(profiles):
 
             code = identity["subcategory"] if identity["category"] == category else f"{identity['category']}/{identity['subcategory']}"
             engines = ""
+
+            for entry in profile.get("commandSets", []):
+                if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):
+                    command_set = names[entry["commandSet"]]
+                    engines += f' <small class="engine" title="{escape(command_set["description"])}">{escape(command_set["name"])} settings</small>'
 
             for entry in profile.get("engines", []):
                 if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):

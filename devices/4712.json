@@ -7,6 +7,13 @@
       "subcategory": "0x2C"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "lampLinc",
+      "category": "0x01",
+      "subcategory": "0x2C"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

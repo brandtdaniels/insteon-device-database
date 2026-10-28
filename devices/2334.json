@@ -29,6 +29,18 @@
       "subcategory": "0x42"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x01",
+      "subcategory": "0x41"
+    },
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x01",
+      "subcategory": "0x42"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

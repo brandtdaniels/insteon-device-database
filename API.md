@@ -11,8 +11,9 @@ with a plain `GET` over HTTPS.
 | File | Contents |
 | --- | --- |
 | `manifest.json` | The schema version, the number of profiles, the catalog's file name and its SHA-256 |
-| `catalog.json` | The schema version and every profile, sorted by model |
+| `catalog.json` | The schema version, every profile sorted by model, and every command set |
 | `device-profile.schema.json` | The JSON Schema every profile follows |
+| `command-set.schema.json` | The JSON Schema every command set follows |
 
 `manifest.json`:
 
@@ -29,6 +30,7 @@ with a plain `GET` over HTTPS.
 
 ```json
 {
+  "commandSets": [ { "id": "keypadLinc", "name": "KeypadLinc", "…": "…" }, "…" ],
   "devices": [ { "model": "2242", "name": "Hub", "…": "…" }, "…" ],
   "schemaVersion": 1
 }
@@ -86,6 +88,34 @@ catalog doesn't know; the build makes sure no two entries cover the same one.
 The device itself is the surest source: it reports its engine in reply to a get engine version
 command (cmd1 `0x0D`). The catalog's entries are for deciding before asking, or for a device
 that doesn't answer.
+
+## Command sets
+
+Many products share the same settings, so the catalog describes them once, as command sets, and
+a profile's `commandSets` entries name the one each identity uses:
+
+```json
+"commandSets": [{ "commandSet": "switchLincDimmer", "category": "0x01", "subcategory": "0x20" }]
+```
+
+Like an engine entry, a command set entry can carry a `firmware` selection when only some
+versions use it. A command set describes three kinds of setting:
+
+- **Operating flags**: bits of the reply to Get Operating Flags (cmd1 `0x1F`), each with the
+  `query` that cmd2 asks for and the `bit` that holds it, and the Set Operating Flags (cmd1
+  `0x20`) cmd2 values `on` and `off` that set it to 1 and 0. `readings` are queries whose whole
+  reply is a value, such as the link database's delta, and `flagCommands` are Set Operating
+  Flags values with no documented bit to read back.
+- **Extended settings**: the `values` in the reply to an extended Get (cmd1 `0x2E`, D2 `0x00`),
+  which arrives with `0x01` in D2, each at a `byte` from D3 to D14, and the `writes` that set
+  them: an extended Set with the write's `selector` in D2 and its `bytes` from D3. When
+  `perButton` is true, D1 chooses the button or group; otherwise D1 is `0x01`.
+- **Notes** on where Insteon's documents disagree, and the `sources` the values come from.
+
+For example, the reply to Get Operating Flags with cmd2 `0x00` from a device using
+`switchLincDimmer` has bit `0x20` set when its key beep is on, and Set Operating Flags with cmd2
+`0x0B` turns the beep off. An i2CS device expects these as extended messages with a checksum in
+D14.
 
 ## Keeping a copy up to date
 

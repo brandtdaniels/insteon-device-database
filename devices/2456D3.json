@@ -28,6 +28,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "lampLinc",
+      "category": "0x01",
+      "subcategory": "0x00"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

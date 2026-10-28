@@ -1,0 +1,159 @@
+{
+  "id": "switchLincRelayCountdownTimer",
+  "name": "SwitchLinc Relay Countdown Timer",
+  "description": "The SwitchLinc relay with a countdown timer that turns its load off after a set time.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "timerOff",
+      "description": "The countdown timer is off, and the switch works as an ordinary switch.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x04",
+      "off": "0x05"
+    },
+    {
+      "name": "triggerGroupOff",
+      "description": "The trigger group is off.",
+      "query": "0x00",
+      "bit": "0x08",
+      "on": "0x06",
+      "off": "0x07"
+    },
+    {
+      "name": "ledOff",
+      "description": "The status LED is off.",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "noLocalWarning",
+      "description": "The switch gives no local warning before its countdown ends.",
+      "query": "0x00",
+      "bit": "0x20",
+      "on": "0x0A",
+      "off": "0x0B"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "ledLevel",
+        "description": "The status LED's brightness.",
+        "byte": 3
+      },
+      {
+        "name": "defaultOnTime",
+        "description": "How long, in minutes, a single press keeps the load on.",
+        "byte": 4
+      },
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "timerHours",
+        "description": "The hours of the countdown.",
+        "byte": 7
+      },
+      {
+        "name": "timerMinutes",
+        "description": "The minutes of the countdown.",
+        "byte": 8
+      },
+      {
+        "name": "signalToNoiseCount",
+        "description": "The signal-to-noise count.",
+        "byte": 12
+      },
+      {
+        "name": "signalToNoiseLastFailure",
+        "description": "The signal-to-noise value of the last failure.",
+        "byte": 13
+      }
+    ],
+    "writes": [
+      {
+        "name": "x10Address",
+        "description": "Sets the X10 address.",
+        "selector": "0x04",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10HouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10UnitCode"
+          }
+        ]
+      },
+      {
+        "name": "onTime",
+        "description": "Sets the countdown's hours (D3) and minutes (D4).",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "timerHours"
+          },
+          {
+            "position": 4,
+            "value": "timerMinutes"
+          }
+        ]
+      },
+      {
+        "name": "defaultOnTime",
+        "description": "Sets how long, in minutes from 0x01 to 0xFF, a single press keeps the load on. 0x00 leaves it unchanged.",
+        "selector": "0x06",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 5,
+            "value": "defaultOnTime"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Insteon's command sheets call the local warning 1 minute in the Set Operating Flags table and 2 minutes in the Get Operating Flags table."
+  ],
+  "sources": [
+    "Insteon command workbook"
+  ]
+}

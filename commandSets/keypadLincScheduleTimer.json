@@ -1,0 +1,429 @@
+{
+  "id": "keypadLincScheduleTimer",
+  "name": "KeypadLinc Schedule Timer",
+  "description": "The schedule timer keypads, a KeypadLinc variant that turns its groups on and off at set times of day. Its Get Operating Flags bits differ from the KeypadLinc's.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02"
+    },
+    {
+      "name": "resumeDim",
+      "description": "Turning the load on at the device restores its last level instead of the on-level.",
+      "query": "0x00",
+      "bit": "0x04"
+    },
+    {
+      "name": "eightButtons",
+      "description": "The keypad has the 8-button layout. When the bit is 0, it has the 6-button layout.",
+      "query": "0x00",
+      "bit": "0x10"
+    },
+    {
+      "name": "ledOff",
+      "description": "The status LEDs and button backlights are off.",
+      "query": "0x00",
+      "bit": "0x20"
+    },
+    {
+      "name": "errorBlink",
+      "description": "The status LED blinks when a communication error occurs.",
+      "query": "0x00",
+      "bit": "0x40"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "programmingLockOn",
+      "description": "Turns the programming lock on: linking and programming from the keypad are locked out.",
+      "command2": "0x00"
+    },
+    {
+      "name": "programmingLockOff",
+      "description": "Turns the programming lock off.",
+      "command2": "0x01"
+    },
+    {
+      "name": "ledOnTransmitOn",
+      "description": "The status LED blinks when the keypad sends an Insteon message.",
+      "command2": "0x02"
+    },
+    {
+      "name": "ledOnTransmitOff",
+      "description": "The status LED doesn't blink when the keypad sends an Insteon message.",
+      "command2": "0x03"
+    },
+    {
+      "name": "resumeDimOn",
+      "description": "Turning the load on at the keypad restores its last level instead of the on-level.",
+      "command2": "0x04"
+    },
+    {
+      "name": "resumeDimOff",
+      "description": "Turning the load on at the keypad goes to the on-level.",
+      "command2": "0x05"
+    },
+    {
+      "name": "eightButtonLayout",
+      "description": "Sets the 8-button layout.",
+      "command2": "0x06"
+    },
+    {
+      "name": "sixButtonLayout",
+      "description": "Sets the 6-button layout.",
+      "command2": "0x07"
+    },
+    {
+      "name": "backlightOff",
+      "description": "Turns the status LEDs and button backlights off.",
+      "command2": "0x08"
+    },
+    {
+      "name": "backlightOn",
+      "description": "Turns the status LEDs and button backlights on.",
+      "command2": "0x09"
+    },
+    {
+      "name": "keyBeepOn",
+      "description": "The keypad beeps when a button is pressed.",
+      "command2": "0x0A"
+    },
+    {
+      "name": "keyBeepOff",
+      "description": "The keypad doesn't beep when a button is pressed.",
+      "command2": "0x0B"
+    },
+    {
+      "name": "errorBlinkOff",
+      "description": "The status LED doesn't blink when a communication error occurs.",
+      "command2": "0x14"
+    },
+    {
+      "name": "errorBlinkOn",
+      "description": "The status LED blinks when a communication error occurs.",
+      "command2": "0x15"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": true,
+    "values": [
+      {
+        "name": "onMask",
+        "description": "The buttons that turn on with this button.",
+        "byte": 3,
+        "kind": "buttons"
+      },
+      {
+        "name": "offMask",
+        "description": "The buttons that turn off when this button is pressed.",
+        "byte": 4,
+        "kind": "buttons"
+      },
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "rampRate",
+        "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x1F"
+        }
+      },
+      {
+        "name": "onLevel",
+        "description": "The level the load turns on to, from 0x00 (off) to 0xFF (full).",
+        "byte": 8,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "ledBrightness",
+        "description": "The brightness of the status LEDs, from 0x11 (dimmest) to 0x7F (brightest).",
+        "byte": 9,
+        "range": {
+          "from": "0x11",
+          "through": "0x7F"
+        }
+      },
+      {
+        "name": "nonToggleMask",
+        "description": "The non-toggle buttons, which send the same command on every press.",
+        "byte": 10,
+        "kind": "buttons"
+      },
+      {
+        "name": "ledMask",
+        "description": "The buttons whose LEDs are on.",
+        "byte": 11,
+        "kind": "buttons"
+      },
+      {
+        "name": "x10AllMask",
+        "description": "The buttons that send X10 All On or All Off instead of On or Off.",
+        "byte": 12,
+        "kind": "buttons"
+      },
+      {
+        "name": "nonToggleOnMask",
+        "description": "The non-toggle buttons that send On. The others send Off.",
+        "byte": 13,
+        "kind": "buttons"
+      },
+      {
+        "name": "groupMask",
+        "description": "The buttons in a radio group with this button. The group only works when the off mask holds them too.",
+        "byte": 14,
+        "kind": "buttons"
+      }
+    ],
+    "writes": [
+      {
+        "name": "onMask",
+        "description": "Sets the on mask of button D1.",
+        "selector": "0x02",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onMask"
+          }
+        ]
+      },
+      {
+        "name": "offMask",
+        "description": "Sets the off mask (D3) and radio group (D4) of button D1. The radio group only works when the off mask holds it too.",
+        "selector": "0x03",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "offMask"
+          },
+          {
+            "position": 4,
+            "value": "groupMask"
+          }
+        ]
+      },
+      {
+        "name": "x10Address",
+        "description": "Sets the X10 address of button D1.",
+        "selector": "0x04",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10HouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10UnitCode"
+          }
+        ]
+      },
+      {
+        "name": "rampRate",
+        "description": "Sets the ramp rate of button D1. With the load detached, bit 6 makes buttons 2 through 8 control only their LEDs, and bit 7 the load and LED.",
+        "selector": "0x05",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "rampRate"
+          }
+        ]
+      },
+      {
+        "name": "onLevel",
+        "description": "Sets the on-level of button D1.",
+        "selector": "0x06",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onLevel"
+          }
+        ]
+      },
+      {
+        "name": "ledBrightness",
+        "description": "Sets the brightness of the status LEDs.",
+        "selector": "0x07",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "ledBrightness"
+          }
+        ]
+      },
+      {
+        "name": "nonToggleMask",
+        "description": "Sets which buttons are non-toggle.",
+        "selector": "0x08",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "nonToggleMask"
+          }
+        ]
+      },
+      {
+        "name": "ledMask",
+        "description": "Turns the button LEDs on and off.",
+        "selector": "0x09",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "ledMask"
+          }
+        ]
+      },
+      {
+        "name": "x10AllMask",
+        "description": "Sets which buttons send X10 All On or All Off.",
+        "selector": "0x0A",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10AllMask"
+          }
+        ]
+      },
+      {
+        "name": "nonToggleOnMask",
+        "description": "Sets which non-toggle buttons send On.",
+        "selector": "0x0B",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "nonToggleOnMask"
+          }
+        ]
+      },
+      {
+        "name": "triggerMask",
+        "description": "Sets which buttons are trigger buttons.",
+        "selector": "0x0C",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "triggerMask"
+          }
+        ]
+      },
+      {
+        "name": "maxRetries",
+        "description": "Sets how many times the device retries a message, from 0x01 to 0xFF. 0x00 restores the factory default of 5.",
+        "selector": "0x0F",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "maxRetries"
+          }
+        ]
+      },
+      {
+        "name": "groupTimer",
+        "description": "Sets the on time (D3 through D6) and off time (D7 through D10) of group D1, as hours and minutes with one decimal digit per byte.",
+        "selector": "0x0D",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onHoursTens"
+          },
+          {
+            "position": 4,
+            "value": "onHoursOnes"
+          },
+          {
+            "position": 5,
+            "value": "onMinutesTens"
+          },
+          {
+            "position": 6,
+            "value": "onMinutesOnes"
+          },
+          {
+            "position": 7,
+            "value": "offHoursTens"
+          },
+          {
+            "position": 8,
+            "value": "offHoursOnes"
+          },
+          {
+            "position": 9,
+            "value": "offMinutesTens"
+          },
+          {
+            "position": 10,
+            "value": "offMinutesOnes"
+          }
+        ]
+      },
+      {
+        "name": "timeOfDay",
+        "description": "Sets the time of day as hours and minutes, one decimal digit per byte.",
+        "selector": "0x0E",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "hoursTens"
+          },
+          {
+            "position": 4,
+            "value": "hoursOnes"
+          },
+          {
+            "position": 5,
+            "value": "minutesTens"
+          },
+          {
+            "position": 6,
+            "value": "minutesOnes"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Insteon's documents don't say which Get Operating Flags bit each Set Operating Flags command changes on this keypad.",
+    "A Get with 0x01 in D3 returns the on and off times of group D1 in D3 through D10, and a Get with 0x02 in D3 returns the time of day in D3 through D6, in the layout the Sets use.",
+    "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
+    "Insteon's earlier command sheets and 2009 Developer's Guide give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
+    "Insteon's 2009 Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask."
+  ],
+  "sources": [
+    "Insteon command workbook",
+    "Insteon Developer's Guide (2009)",
+    "Insteon for Hub app"
+  ]
+}

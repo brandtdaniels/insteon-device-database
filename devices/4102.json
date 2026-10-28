@@ -7,6 +7,13 @@
       "subcategory": "0x24"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x02",
+      "subcategory": "0x24"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"
