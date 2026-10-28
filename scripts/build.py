@@ -110,7 +110,7 @@ def main():
     (arguments.output / "index.html").write_text(index_page(profiles))
 
 
-# The category names the INSTEON Developer's Guide gives.
+# The category names the Insteon Developer's Guide gives.
 CATEGORY_NAMES = {
     "0x00": "Generalized Controllers",
     "0x01": "Dimmable Lighting Control",

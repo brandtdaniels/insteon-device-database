@@ -1,6 +1,10 @@
 {
   "model": "2477DH",
-  "name": "SwitchLinc Dimmer 1000W",
+  "name": "Dimmer Switch (High Wattage)",
+  "aliases": [
+    "SwitchLinc Dimmer 1000W"
+  ],
+  "description": "A higher-capacity version of the Insteon wall dimmer switch, rated for up to 250 W of dimmable LED or 1,000 W of incandescent or halogen lighting. It can be controlled locally or remotely over Insteon.",
   "identities": [
     {
       "category": "0x01",
@@ -23,6 +27,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2477DH SwitchLinc Dimmer 1000W PRD"
+    "2477DH SwitchLinc Dimmer 1000W PRD",
+    "insteon.com product catalog"
   ]
 }

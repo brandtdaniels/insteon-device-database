@@ -11,7 +11,7 @@
   "role": "responder",
   "capabilities": [],
   "notes": [
-    "Repeats INSTEON messages between powerline and RF, and bridges the two powerline phases.",
+    "Repeats Insteon messages between powerline and RF, and bridges the two powerline phases.",
     "Answers status requests and beeps; it has no load to control."
   ],
   "sources": [

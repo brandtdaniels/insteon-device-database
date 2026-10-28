@@ -1,6 +1,10 @@
 {
   "model": "2342",
-  "name": "Mini Remote",
+  "name": "Mini Remote Control",
+  "aliases": [
+    "Mini Remote"
+  ],
+  "description": "A small rechargeable, battery-powered wireless remote that controls Insteon devices or groups of devices. Insteon sells it in 4-scene, 8-scene, and 1-scene switch versions, and it can be wall-mounted without wiring.",
   "identities": [
     {
       "category": "0x00",
@@ -58,6 +62,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Mini Remote II PRD"
+    "Mini Remote II PRD",
+    "insteon.com product catalog"
   ]
 }

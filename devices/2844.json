@@ -1,6 +1,7 @@
 {
   "model": "2844",
   "name": "Motion Sensor II",
+  "description": "A wireless, battery-powered motion sensor that can turn Insteon-controlled lights on when someone enters a room and off after they leave.",
   "identities": [
     {
       "category": "0x10",
@@ -86,6 +87,7 @@
     "Optional groups report temperature and light levels."
   ],
   "sources": [
-    "2844-x22 Motion Sensor II and III PRDs"
+    "2844-x22 Motion Sensor II and III PRDs",
+    "insteon.com product catalog"
   ]
 }

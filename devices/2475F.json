@@ -1,6 +1,10 @@
 {
   "model": "2475F",
-  "name": "FanLinc",
+  "name": "Ceiling Fan and Light Control Module",
+  "aliases": [
+    "FanLinc"
+  ],
+  "description": "A module installed inside a ceiling fan's canopy that controls the fan speed (low, medium, high) and the fan's light kit. It can be controlled by other Insteon devices or the Hub.",
   "identities": [
     {
       "category": "0x01",
@@ -13,6 +17,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

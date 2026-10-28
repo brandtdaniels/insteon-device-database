@@ -1,6 +1,10 @@
 {
   "model": "2457D2",
-  "name": "LampLinc Dimmer",
+  "name": "Dimmer Plug",
+  "aliases": [
+    "LampLinc Dimmer"
+  ],
+  "description": "A plug-in module that lets a dimmable lamp be turned on and off and dimmed remotely. The lamp plugs into the module, which plugs into a wall outlet.",
   "identities": [
     {
       "category": "0x01",
@@ -27,6 +31,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "LampLinc QA operational verification tests"
+    "LampLinc QA operational verification tests",
+    "insteon.com product catalog"
   ]
 }

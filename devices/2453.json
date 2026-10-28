@@ -1,6 +1,10 @@
 {
   "model": "2453",
-  "name": "DIN Rail On/Off",
+  "name": "On/Off DIN Rail Module",
+  "aliases": [
+    "DIN Rail On/Off"
+  ],
+  "description": "A relay module that mounts on a DIN rail in an electrical panel to switch lighting circuits on and off remotely over Insteon.",
   "identities": [
     {
       "category": "0x02",
@@ -24,6 +28,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

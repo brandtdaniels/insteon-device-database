@@ -33,7 +33,7 @@
   "notes": [
     "Has one relay, with normally open, normally closed and common contacts, and two sense inputs.",
     "The relay's momentary mode can be set from 1 second to 30 minutes.",
-    "An I/O Module Expander, which has no INSTEON radio of its own, adds four more zones."
+    "An I/O Module Expander, which has no Insteon radio of its own, adds four more zones."
   ],
   "sources": [
     "HouseLinc device catalog",
