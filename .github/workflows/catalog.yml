@@ -26,8 +26,9 @@ jobs:
         run: python3 -I scripts/check_version.py ${{ github.event.pull_request.base.sha }}
       - name: Build
         run: |
-          patch=$(git rev-list --count "$(git log -1 --format=%H -- VERSION)..HEAD")
-          python3 -I scripts/build.py --output site --patch "$patch" --built "$(git log -1 --format=%cI)"
+          # PATCH counts the commits since VERSION last changed that changed the data.
+          patch=$(git rev-list --count "$(git log -1 --format=%H -- VERSION)..HEAD" -- devices commandSets)
+          python3 -I scripts/build.py --output site --patch "$patch" --built "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
       - uses: actions/upload-pages-artifact@v3.0.1
         if: github.event_name != 'pull_request'
         with:
