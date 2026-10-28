@@ -1,0 +1,15 @@
+{
+  "model": "2886D",
+  "name": "ICON In-Wall Controller",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x0A"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "Insteon Device Categories (January 2014)",
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "model": "2856S3",
+  "name": "ICON Appliance Module",
+  "aliases": [
+    "ICON Appliance Adapter"
+  ],
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x0C"
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "applianceLinc",
+      "category": "0x02",
+      "subcategory": "0x0C"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Insteon Device Categories and Product Keys (October 2008) names it the Icon Appliance Adapter."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)",
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

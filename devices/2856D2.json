@@ -22,10 +22,12 @@
       "kind": "dimmable"
     }
   ],
-  "sources": [
-    "HouseLinc device catalog"
-  ],
   "notes": [
-    "HouseLinc also lists its identity under 2856D2B."
+    "HouseLinc also lists its identity under 2856D2B.",
+    "Insteon Device Categories (January 2014) also lists 0x01/0x07 as model 2856D2B."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)"
   ]
 }

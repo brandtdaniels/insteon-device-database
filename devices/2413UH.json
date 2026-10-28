@@ -1,0 +1,45 @@
+{
+  "model": "2413UH",
+  "name": "USB Modem",
+  "aliases": [
+    "PowerLinc USB Modem for HouseLinc"
+  ],
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x1A"
+    }
+  ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x1A",
+      "firmware": {
+        "only": [
+          "0x9A",
+          "0x9B",
+          "0xEB",
+          "0xEC",
+          "0xED",
+          "0xEE",
+          "0xEF"
+        ]
+      }
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "notes": [
+    "The version of the modem sold with HouseLinc."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)"
+  ]
+}

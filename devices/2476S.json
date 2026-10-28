@@ -11,24 +11,10 @@
     },
     {
       "category": "0x02",
-      "subcategory": "0x15"
-    },
-    {
-      "category": "0x02",
       "subcategory": "0x1C"
     }
   ],
   "engines": [
-    {
-      "engine": "i2cs",
-      "category": "0x02",
-      "subcategory": "0x15",
-      "firmware": {
-        "only": [
-          "0x41"
-        ]
-      }
-    },
     {
       "engine": "i2cs",
       "category": "0x02",
@@ -56,11 +42,6 @@
       "commandSet": "switchLincRelayLegacy",
       "category": "0x02",
       "subcategory": "0x0A"
-    },
-    {
-      "commandSet": "switchLincRelayLegacy",
-      "category": "0x02",
-      "subcategory": "0x15"
     },
     {
       "commandSet": "switchLincRelayLegacy",

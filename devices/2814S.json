@@ -1,0 +1,15 @@
+{
+  "model": "2814S",
+  "name": "ICON PowerLinc Serial",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x03"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "Insteon Device Categories (January 2014)",
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

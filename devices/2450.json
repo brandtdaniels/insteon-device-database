@@ -9,6 +9,10 @@
     {
       "category": "0x07",
       "subcategory": "0x00"
+    },
+    {
+      "category": "0x07",
+      "subcategory": "0x0D"
     }
   ],
   "engines": [
@@ -30,6 +34,11 @@
           "0xA8"
         ]
       }
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x0D"
     }
   ],
   "commandSets": [
@@ -40,8 +49,12 @@
     }
   ],
   "capabilities": [],
+  "notes": [
+    "0x07/0x0D is the version that detects 50 or 60 Hz power; Insteon Device Categories (January 2014) lists it as model 2450, and HouseLinc as 2450-50-60."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Insteon Device Categories (January 2014)"
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "model": "2457D2EZ",
+  "name": "LampLinc Dual-Band EZ",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x23"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "Insteon Device Categories (January 2014)"
+  ]
+}

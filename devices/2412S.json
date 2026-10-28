@@ -8,6 +8,10 @@
     {
       "category": "0x03",
       "subcategory": "0x05"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x1E"
     }
   ],
   "capabilities": [
@@ -15,7 +19,11 @@
       "kind": "modem"
     }
   ],
+  "notes": [
+    "Insteon Device Categories (January 2014) lists 0x03/0x1E as a version without EEPROM and without RF."
+  ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)"
   ]
 }
