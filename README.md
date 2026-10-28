@@ -76,7 +76,7 @@ message, a `verification` with a `status` and a `note`:
 | `documented` | An Insteon document gives the value, as when `verification` is omitted. | What more there is to know about the source. |
 | `inferred` | No document states it. | What it's read from: an example, a similar product, or how the product behaves. |
 | `conflicting` | Insteon's documents disagree. | What each document gives, and which value the catalog uses. |
-| `observed` | Confirmed on a device. | What was seen. List the firmware versions in `firmware`. |
+| `observed` | Seen on a device. | What was seen. List the firmware versions the device was running in `firmware`. |
 
 ```json
 "verification": {
@@ -86,4 +86,4 @@ message, a `verification` with a `status` and a `note`:
 ```
 
 An app can warn before it sends a command, or trusts a reading, whose status is `conflicting`
-or `inferred`. When a device confirms a value, change its status to `observed`.
+or `inferred`. When a device shows a value, change its status to `observed`.
