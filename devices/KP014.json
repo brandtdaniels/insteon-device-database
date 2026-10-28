@@ -1,0 +1,67 @@
+{
+  "model": "KP014",
+  "name": "i3 Keypad",
+  "aliases": [
+    "Insteon i3 Keypad"
+  ],
+  "description": "An in-wall dimmer with four buttons, each with an LED. Button 1, at the top, controls the load by default; the others control nothing until linked, and any of them can be set to control the load.",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x59"
+    }
+  ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x59"
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "i3Keypad",
+      "category": "0x01",
+      "subcategory": "0x59"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Button 1",
+      "role": "both"
+    },
+    {
+      "number": "0x02",
+      "name": "Button 2",
+      "role": "both"
+    },
+    {
+      "number": "0x03",
+      "name": "Button 3",
+      "role": "both"
+    },
+    {
+      "number": "0x04",
+      "name": "Button 4",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    },
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "The documented firmware is 0x58.",
+    "It replies 0x02 to a get engine version command (cmd1 0x0D), as i2CS devices do, and sends the SET button broadcast (cmd1 0x01), with its hardware version in cmd2, when any button is held, even with programming locked."
+  ],
+  "sources": [
+    "Insteon i3 Keypad Developer Documentation (October 2025)"
+  ]
+}
