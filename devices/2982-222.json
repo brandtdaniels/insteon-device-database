@@ -95,7 +95,7 @@
   ],
   "notes": [
     "HouseLinc names it Smoke Detector.",
-    "It sends INSTEON messages over powerline only; its radio only listens for the smoke alarms it's paired with.",
+    "It sends Insteon messages over powerline only; its radio only listens for the smoke alarms it's paired with.",
     "Tapping its SET button sends each group's command as a test, ending with the all-clear.",
     "It sends a heartbeat to group 0x0A, which software can turn off; its interval isn't documented."
   ],
