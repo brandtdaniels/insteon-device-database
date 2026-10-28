@@ -1,0 +1,17 @@
+{
+  "model": "2448A2",
+  "name": "Energy Display",
+  "identities": [
+    {
+      "category": "0x09",
+      "subcategory": "0x0D"
+    }
+  ],
+  "radio": "rf",
+  "role": "responder",
+  "capabilities": [],
+  "sources": [
+    "Insteon SKU list",
+    "Insteon for Hub app"
+  ]
+}

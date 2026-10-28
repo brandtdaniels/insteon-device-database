@@ -9,12 +9,12 @@
     {
       "category": "0x00",
       "subcategory": "0x1A",
-      "region": "US, 4 scene"
+      "region": "US, 8 scene"
     },
     {
       "category": "0x00",
       "subcategory": "0x1B",
-      "region": "US, 8 scene"
+      "region": "US, 4 scene"
     },
     {
       "category": "0x00",
@@ -110,6 +110,8 @@
   "sources": [
     "HouseLinc device catalog",
     "Mini Remote II PRD",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Insteon SKU list",
+    "Insteon for Hub app"
   ]
 }

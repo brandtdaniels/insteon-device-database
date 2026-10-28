@@ -32,6 +32,16 @@
       "number": "0x02",
       "name": "Closed",
       "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Low battery",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Heartbeat",
+      "role": "controller"
     }
   ],
   "capabilities": [
@@ -52,17 +62,29 @@
           "group": "0x02",
           "command1": "0x11",
           "event": "closed"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "lowBattery"
         }
       ]
+    },
+    {
+      "kind": "heartbeat",
+      "group": "0x04",
+      "intervalMinutes": 1280
     }
   ],
   "notes": [
     "Sends closed to group 2 only when set to.",
-    "Sends a heartbeat at most every 24 hours; its PRD leaves the group undecided."
+    "Sends a heartbeat to group 4 every 1 to 256 times 5 minutes, which software sets; 256 times, about 21 hours, by default.",
+    "Sends low battery to group 3 when its battery falls below a level software sets."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2845-222 Door Sensor II PRD",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Insteon command workbook"
   ]
 }

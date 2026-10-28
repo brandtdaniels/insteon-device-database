@@ -148,17 +148,19 @@
     {
       "kind": "heartbeat",
       "group": "0x04",
-      "intervalMinutes": 1440
+      "intervalMinutes": 1428
     }
   ],
   "notes": [
     "Groups other than 1 are off by default.",
     "Its heartbeat's cmd1, 0x11 to 0x14, gives the battery level from fully charged to almost empty.",
     "Optional groups report temperature and light levels.",
-    "Groups 5, 6, 9 and 10 report the end of motion, dawn, heat and cold as an on instead of an off to groups 1, 2, 7 and 8; the Motion Sensor III sends to them only when they have links. Groups 7 to 10 are the Motion Sensor III's."
+    "Groups 5, 6, 9 and 10 report the end of motion, dawn, heat and cold as an on instead of an off to groups 1, 2, 7 and 8; the Motion Sensor III sends to them only when they have links. Groups 7 to 10 are the Motion Sensor III's.",
+    "Its PRDs give the heartbeat as once a day, plus or minus 10 percent; Insteon's command workbook gives 23.8 hours."
   ],
   "sources": [
     "2844-x22 Motion Sensor II and III PRDs",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Insteon command workbook"
   ]
 }
