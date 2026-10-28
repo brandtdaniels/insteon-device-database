@@ -99,7 +99,7 @@ a profile's `commandSets` entries name the one each identity uses:
 ```
 
 Like an engine entry, a command set entry can carry a `firmware` selection when only some
-versions use it. A command set describes three kinds of setting:
+versions use it. A command set is organized by Insteon's own message types:
 
 - **Operating flags**: bits of the reply to Get Operating Flags (cmd1 `0x1F`), each with the
   `query` that cmd2 asks for and the `bit` that holds it, and the Set Operating Flags (cmd1
@@ -110,12 +110,52 @@ versions use it. A command set describes three kinds of setting:
   which arrives with `0x01` in D2, each at a `byte` from D3 to D14, and the `writes` that set
   them: an extended Set with the write's `selector` in D2 and its `bytes` from D3. When
   `perButton` is true, D1 chooses the button or group; otherwise D1 is `0x01`.
+- **Standard commands**: other standard direct commands, each a `command1` with a fixed
+  `command2`, a `parameter` the caller puts in cmd2, or neither for `0x00`. A `reply` is the
+  value the acknowledgement carries in cmd2, and `followUps` counts the further direct messages
+  with the same cmd1 that carry more. While the operating flag `extendedWhen` names is set, the
+  command goes as an extended message with cmd1 and cmd2 again in D1 and D2.
+- **Extended commands**: other extended direct commands, such as a Get with a cmd2 other than
+  `0x00`. Each gives its `command1` and `command2`, its `fixed` user data bytes, the
+  `parameters` the caller fills in, its `integrity`, and the extended `reply` that answers it,
+  which its `match` bytes tell apart, with the `values` it carries.
+- **Direct messages**: standard direct messages the device sends on its own, such as a
+  thermostat's reports, each a `command1` with a `value` in cmd2.
 - **Notes** on where Insteon's documents disagree, and the `sources` the values come from.
+
+ALL-Link broadcasts aren't in command sets: a profile's `groupEvents` capability says what each
+group's commands mean.
+
+A value in a message names where it is: cmd2 in a standard message, or the user data `byte`, or
+`bytes` most significant first, in an extended one. Its `mask`, if any, picks out its bits, and
+it reads as:
+
+| `kind` | Meaning |
+| --- | --- |
+| `number` (the default) | A number, two's complement if `signed`, times `scale`, in `unit` |
+| `buttons` | One bit per button, button 1 in bit 0 |
+| `enumeration` | A name from the command set's `enumerations` entry that `enumeration` names |
+| `flags` | The named `bits` |
+| `boolean` | True when nonzero |
+
+A `range` gives the values a parameter can take, in its unit. The unit `displayDegrees` means
+degrees in the scale the device displays: the command set's `displayScale` names the flag,
+value or bit that is true when it displays Celsius. Without one, or before it's been read,
+they're Fahrenheit.
+
+`integrity` says how an extended message's user data is protected: `none`, a `checksum` in D14
+(the two's complement of the sum of cmd1, cmd2 and D1 through D13), or a `crc`, a 16-bit CRC
+over cmd1, cmd2 and D1 through D12 in D13 and D14.
 
 For example, the reply to Get Operating Flags with cmd2 `0x00` from a device using
 `switchLincDimmer` has bit `0x20` set when its key beep is on, and Set Operating Flags with cmd2
 `0x0B` turns the beep off. An i2CS device expects these as extended messages with a checksum in
 D14.
+
+And a TempLinc Thermostat, which uses `tempLinc`, reports a new temperature with a direct
+message whose cmd1 is `0x6E` and whose cmd2 is the temperature in half degrees of the scale it
+displays. Its `readStatus` extended command asks for its status, and the reply carries the
+temperature in D9 and D10, in tenths of a degree Celsius whatever the display shows.
 
 ## Keeping a copy up to date
 

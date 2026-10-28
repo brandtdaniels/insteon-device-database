@@ -21,6 +21,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "thermostatAdapter",
+      "category": "0x05",
+      "subcategory": "0x0E"
+    }
+  ],
   "capabilities": [
     {
       "kind": "thermostat",
