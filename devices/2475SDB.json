@@ -27,9 +27,16 @@
   ],
   "commandSets": [
     {
-      "commandSet": "inLineLinc",
+      "commandSet": "inLineLincRelay",
       "category": "0x02",
       "subcategory": "0x1F"
+    }
+  ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
     }
   ],
   "capabilities": [
@@ -38,6 +45,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "2475SDB In-LineLinc Relay Developer's Guide"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "id": "fanLinc",
   "name": "FanLinc",
-  "description": "The FanLinc fan and light controller, which runs the KeypadLinc code base. Group 1 is the light and group 2 the fan.",
+  "description": "The FanLinc fan and light controller, which runs the KeypadLinc code base. Group 1 is the light, controlled as a KeypadLinc dimmer's load, and group 2 the fan. Fan commands are extended, with 0x02 in D1.",
   "operatingFlags": [
     {
       "name": "programmingLock",
@@ -129,15 +129,171 @@
       "command2": "0x1D"
     }
   ],
+  "extendedSettings": {
+    "perButton": true,
+    "values": [
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "rampRate",
+        "description": "The light's ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x1F"
+        }
+      },
+      {
+        "name": "onLevel",
+        "description": "The light's on-level, from 0x00 (off) to 0xFF (full).",
+        "byte": 8,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "ledState",
+        "description": "The LED state.",
+        "byte": 11
+      }
+    ],
+    "writes": [
+      {
+        "name": "x10Address",
+        "description": "Sets the X10 address of the light (D1 0x01) or the fan (D1 0x02).",
+        "selector": "0x04",
+        "perButton": true,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10HouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10UnitCode"
+          }
+        ]
+      },
+      {
+        "name": "rampRate",
+        "description": "Sets the light's ramp rate.",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "rampRate"
+          }
+        ]
+      },
+      {
+        "name": "onLevel",
+        "description": "Sets the light's on-level.",
+        "selector": "0x06",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onLevel"
+          }
+        ]
+      }
+    ]
+  },
+  "standardCommands": [
+    {
+      "name": "readStatus",
+      "description": "Reads the light's level. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The light's level, from 0x00 (off) to 0xFF (full)."
+      }
+    },
+    {
+      "name": "readFanSpeed",
+      "description": "Reads the fan speed. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x03",
+      "reply": {
+        "name": "fanSpeed",
+        "description": "The fan speed: 0x00 is off, 0x01 through 0x7F low, 0x80 through 0xFE medium and 0xFF high."
+      }
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "fanLow",
+      "description": "Turns the fan on low. Any cmd2 from 0x01 through 0x7F sets low.",
+      "command1": "0x11",
+      "command2": "0x01",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x02"
+        }
+      ]
+    },
+    {
+      "name": "fanMedium",
+      "description": "Turns the fan on medium. Any cmd2 from 0x80 through 0xFE sets medium.",
+      "command1": "0x11",
+      "command2": "0x80",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x02"
+        }
+      ]
+    },
+    {
+      "name": "fanHigh",
+      "description": "Turns the fan on high.",
+      "command1": "0x11",
+      "command2": "0xFF",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x02"
+        }
+      ]
+    },
+    {
+      "name": "fanOff",
+      "description": "Turns the fan off.",
+      "command1": "0x13",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x02"
+        }
+      ]
+    }
+  ],
   "notes": [
     "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
     "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
     "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
-    "Insteon's documents don't give this product's extended Get and Set layout."
+    "The FanLinc developer's guide gives the ramp rate Set's range as 0x00 through 0x1F, 0.1 second to 2 seconds, but its own ramp rate table runs from 0x01 (8 minutes) to 0x1F (0.1 second), with 0x00 at 2 seconds.",
+    "The FanLinc developer's guide fills the rest of its fan commands and extended Sets with 0x00 and doesn't mention a checksum in D14.",
+    "The FanLinc developer's guide says that its fan off command also turns the light off on the firmware it describes.",
+    "The FanLinc developer's guide marks bit 0 of the 0x05 reply reserved and doesn't list Set Operating Flags 0x10, 0x11 or 0x14 through 0x19; the command workbook gives them for the KeypadLinc code base."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app"
+    "Insteon for Hub app",
+    "2475F FanLinc Developer's Guide"
   ]
 }

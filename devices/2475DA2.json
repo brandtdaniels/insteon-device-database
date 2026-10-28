@@ -35,17 +35,17 @@
     },
     {
       "number": "0x02",
-      "name": "Input 1 high",
+      "name": "Input 1 Open",
       "role": "controller"
     },
     {
       "number": "0x03",
-      "name": "Input 2 low",
+      "name": "Input 2 Closed",
       "role": "controller"
     },
     {
       "number": "0x04",
-      "name": "Input 2 high",
+      "name": "Input 2 Open",
       "role": "controller"
     }
   ],
@@ -58,14 +58,15 @@
     "HouseLinc names it Insteon Ballast Dimmer.",
     "Drives a 0-10 V output and two relayed loads; on cmd1 0x11 or 0x13, cmd2 0x01 selects load 1, 0x02 load 2 and 0x03 both.",
     "Turns on at 100% at power-up.",
-    "Each input line is normally high. Input 1 sends on to group 1 when it goes low and to group 2 when it goes high; input 2 sends on to group 3 when it goes low and to group 4 when it goes high.",
     "A change on an input can also change the load, using the on mask, on level and ramp rate stored for groups 2 to 5, one for each of the four transitions.",
-    "Its PRD lists one controller group and gives the inputs as a firmware update, so some versions may not send to groups 2 to 4."
+    "Its PRD lists one controller group and gives the inputs as a firmware update, so some versions may not send to groups 2 to 4.",
+    "Closing input 1 sends group 1, opening it group 2, closing input 2 group 3 and opening it group 4."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2475DA2 In-LineLinc 0-10V Dimmer-Switch PRD",
     "insteon.com product catalog",
-    "Insteon command workbook, 0-10v sheet"
+    "Insteon command workbook, 0-10v sheet",
+    "2475DA2 In-LineLinc 0-10V Dimmer Developer's Guide"
   ]
 }

@@ -20,17 +20,18 @@
   ],
   "commandSets": [
     {
-      "commandSet": "applianceLinc",
+      "commandSet": "outdoorApplianceLinc",
       "category": "0x02",
       "subcategory": "0x38"
     }
   ],
   "radio": "dual",
+  "role": "responder",
   "groups": [
     {
       "number": "0x01",
       "name": "Load",
-      "role": "both"
+      "role": "responder"
     }
   ],
   "capabilities": [
@@ -39,11 +40,13 @@
     }
   ],
   "notes": [
-    "Has no X10."
+    "Has no X10.",
+    "Its developer's guide gives its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2634-222 On/Off Outdoor Module II PRD",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "2634-222 Outdoor ApplianceLinc Developer's Guide"
   ]
 }

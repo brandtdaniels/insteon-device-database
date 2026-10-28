@@ -22,21 +22,45 @@
       "region": "Australia and New Zealand"
     }
   ],
-  "commandSets": [
+  "engines": [
     {
-      "commandSet": "microModule",
+      "engine": "i2cs",
       "category": "0x02",
       "subcategory": "0x2F"
     },
     {
-      "commandSet": "microModule",
+      "engine": "i2cs",
       "category": "0x02",
       "subcategory": "0x31"
     },
     {
-      "commandSet": "microModule",
+      "engine": "i2cs",
       "category": "0x02",
       "subcategory": "0x32"
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "globalLine",
+      "category": "0x02",
+      "subcategory": "0x2F"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x02",
+      "subcategory": "0x31"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x02",
+      "subcategory": "0x32"
+    }
+  ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
     }
   ],
   "capabilities": [
@@ -49,6 +73,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "2442, 2443, 2452, 2453, 2632 and 2633 Global Line Developer's Guide"
   ]
 }

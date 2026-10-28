@@ -1,0 +1,304 @@
+{
+  "id": "applianceLincDualBand",
+  "name": "ApplianceLinc Dual-Band",
+  "description": "The dual-band plug-in on/off module, which runs the KeypadLinc code base without resume dim, a ramp rate or an on-level.",
+  "enumerations": [
+    {
+      "name": "triggerLevel",
+      "description": "Which level a triggered group sets the local load to.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "localOnLevel",
+          "description": "The local load's own on-level."
+        },
+        {
+          "value": "0x01",
+          "name": "givenLevel",
+          "description": "The level in D3."
+        }
+      ]
+    },
+    {
+      "name": "triggerRampRate",
+      "description": "How fast a triggered group changes the local load.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "localRampRate",
+          "description": "At the local load's ramp rate."
+        },
+        {
+          "value": "0x01",
+          "name": "instant",
+          "description": "Instantly."
+        }
+      ]
+    }
+  ],
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "ledOff",
+      "description": "The status LED is off.",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "keyBeep",
+      "description": "The device beeps when a button is pressed.",
+      "query": "0x00",
+      "bit": "0x20",
+      "on": "0x0A",
+      "off": "0x0B"
+    },
+    {
+      "name": "radioOff",
+      "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
+      "query": "0x00",
+      "bit": "0x40",
+      "on": "0x0C",
+      "off": "0x0D"
+    },
+    {
+      "name": "powerLineOff",
+      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "query": "0x00",
+      "bit": "0x80",
+      "on": "0x0E",
+      "off": "0x0F"
+    },
+    {
+      "name": "applicationRetries",
+      "description": "The device retries application messages as many times as its link database says, and reports cleanup errors.",
+      "query": "0x05",
+      "bit": "0x01",
+      "on": "0x10",
+      "off": "0x11"
+    },
+    {
+      "name": "x10Off",
+      "description": "X10 sending and receiving are off.",
+      "query": "0x05",
+      "bit": "0x02",
+      "on": "0x12",
+      "off": "0x13"
+    },
+    {
+      "name": "errorBlink",
+      "description": "The status LED blinks when a communication error occurs.",
+      "query": "0x05",
+      "bit": "0x04",
+      "on": "0x15",
+      "off": "0x14"
+    },
+    {
+      "name": "cleanupReport",
+      "description": "The device sends a success report after the cleanup messages that follow a group command.",
+      "query": "0x05",
+      "bit": "0x08",
+      "on": "0x17",
+      "off": "0x16"
+    },
+    {
+      "name": "smartHops",
+      "description": "Each message starts with the hop count of the last acknowledgment received (smart hops). When the bit is 0, each message starts with one hop.",
+      "query": "0x05",
+      "bit": "0x40",
+      "on": "0x1C",
+      "off": "0x1D"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    },
+    {
+      "name": "crcErrorCount",
+      "description": "The number of messages received with a CRC error.",
+      "query": "0x02"
+    },
+    {
+      "name": "signalToNoiseFailureCount",
+      "description": "The number of signal-to-noise failures.",
+      "query": "0x03"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "ledBrightness",
+        "description": "The brightness of the status LED, from 0x11 (dimmest) to 0x7F (brightest).",
+        "byte": 9,
+        "range": {
+          "from": "0x11",
+          "through": "0x7F"
+        }
+      }
+    ],
+    "writes": [
+      {
+        "name": "x10Address",
+        "description": "Sets the X10 address.",
+        "selector": "0x04",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10HouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10UnitCode"
+          }
+        ]
+      },
+      {
+        "name": "ledBrightness",
+        "description": "Sets the brightness of the status LED.",
+        "selector": "0x07",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "ledBrightness"
+          }
+        ]
+      }
+    ]
+  },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOnFast",
+      "description": "Turns the load on to the level in cmd2 instantly.",
+      "command1": "0x12",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off at the saved ramp rate. The device ignores cmd2.",
+      "command1": "0x13"
+    },
+    {
+      "name": "lightOffFast",
+      "description": "Turns the load off instantly. The device ignores cmd2.",
+      "command1": "0x14"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's on-level."
+      }
+    },
+    {
+      "name": "beep",
+      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "command1": "0x30"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "triggerGroup",
+      "description": "Sends group D1's command to the group as if its button were pressed, and sets the local load as D2 through D6 say. The device doesn't parse the command it sends, so to turn the local load off, put 0x01 in D2 and 0x00 in D3.",
+      "command1": "0x30",
+      "command2": "0x00",
+      "perButton": true,
+      "parameters": [
+        {
+          "name": "levelSource",
+          "description": "Which level the local load goes to.",
+          "byte": 2,
+          "kind": "enumeration",
+          "enumeration": "triggerLevel"
+        },
+        {
+          "name": "onLevel",
+          "description": "The level the local load goes to when D2 is 0x01.",
+          "byte": 3,
+          "range": {
+            "from": 0,
+            "through": 255
+          }
+        },
+        {
+          "name": "groupCommand1",
+          "description": "The cmd1 to send to the group.",
+          "byte": 4
+        },
+        {
+          "name": "groupCommand2",
+          "description": "The cmd2 to send to the group.",
+          "byte": 5
+        },
+        {
+          "name": "rampRate",
+          "description": "How fast the local load changes.",
+          "byte": 6,
+          "kind": "enumeration",
+          "enumeration": "triggerRampRate"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "The 2635-222 guide sends Set Operating Flags as an extended message with a checksum in D14.",
+    "The 2635-222 guide marks bits 2 and 3 of the 0x00 reply and bits 4, 5 and 7 of the 0x05 reply N/A."
+  ],
+  "sources": [
+    "2635-222 On/Off Module, Dual-Band Developer's Guide"
+  ]
+}

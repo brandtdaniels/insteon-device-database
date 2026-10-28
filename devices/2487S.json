@@ -93,6 +93,11 @@
       "number": "0x06",
       "name": "Button D",
       "role": "both"
+    },
+    {
+      "number": "0x09",
+      "name": "Detached load",
+      "role": "responder"
     }
   ],
   "capabilities": [
@@ -102,12 +107,14 @@
   ],
   "notes": [
     "HouseLinc also lists its identity under 2487S-50.",
-    "Group 1 is the On and Off buttons, which control the load. In the 8-button layout, which software can set, groups 1 to 8 are buttons A to H."
+    "Group 1 is the On and Off buttons, which control the load. In the 8-button layout, which software can set, groups 1 to 8 are buttons A to H.",
+    "Group 9 controls the load only while it's detached from group 1."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Insteon for Hub app",
-    "Insteon SKU list"
+    "Insteon SKU list",
+    "2334 and 2486 KeypadLinc Developer's Guide"
   ]
 }

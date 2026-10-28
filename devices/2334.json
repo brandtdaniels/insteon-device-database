@@ -97,13 +97,15 @@
   ],
   "notes": [
     "Subcategory 0x41 is the 8-button version and 0x42 the 6-button version. In the 8-button layout groups 1 to 8 are buttons A to H; in the 6-button layout group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D. Software can set either layout.",
-    "When software detaches the load from the buttons, the load responds to group 9, which is linked with the Set button, and group 1 controls only the LEDs."
+    "When software detaches the load from the buttons, the load responds to group 9, which is linked with the Set button, and group 1 controls only the LEDs.",
+    "Group 9 controls the load only while it's detached from group 1."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Insteon for Hub app",
     "Insteon SKU list",
-    "Insteon command workbook, Detached Load sheet"
+    "Insteon command workbook, Detached Load sheet",
+    "2334 and 2486 KeypadLinc Developer's Guide"
   ]
 }
