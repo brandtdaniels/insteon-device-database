@@ -1,0 +1,25 @@
+{
+  "model": "2466SW",
+  "name": "ToggleLinc On/Off",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x0D"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x1A"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "HouseLinc lists subcategory 0x1A for firmware 0x3A and later."
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "model": "2342",
+  "name": "Mini Remote",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x1A",
+      "region": "US, 4 scene"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x1B",
+      "region": "US, 8 scene"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x1C",
+      "region": "US, switch"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x16",
+      "region": "Europe, 8 scene"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x14",
+      "region": "Europe, 4 scene"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x15",
+      "region": "Europe, switch"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x18",
+      "region": "Australia and New Zealand, 8 scene"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x17",
+      "region": "Australia and New Zealand, 4 scene"
+    },
+    {
+      "category": "0x00",
+      "subcategory": "0x19",
+      "region": "Australia and New Zealand, switch"
+    }
+  ],
+  "radio": "rf",
+  "role": "controller",
+  "batteryPowered": true,
+  "capabilities": [],
+  "notes": [
+    "Comes as a 4-scene remote, an 8-scene remote, and a single on/off switch.",
+    "Runs on a rechargeable battery and doesn't repeat messages."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Mini Remote II PRD"
+  ]
+}
