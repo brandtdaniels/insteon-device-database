@@ -40,7 +40,7 @@ Bytes are strings of `0x` and two uppercase hexadecimal digits, as INSTEON docum
 
 ```json
 {
-  "model": "2852-222",
+  "model": "2852",
   "name": "Leak Sensor",
   "identities": [{ "category": "0x10", "subcategory": "0x08" }],
   "radio": "rf",
@@ -89,7 +89,7 @@ Ship a copy with the software, so it works offline and fetching is optional.
 3. With no match, fall back on what the category alone implies, such as dimming for category
    `0x01` and switching for `0x02`.
 
-Example: a device replies with category `0x10`, subcategory `0x08`. That's the 2852-222 Leak
+Example: a device replies with category `0x10`, subcategory `0x08`. That's the 2852 Leak
 Sensor above, so an ALL-Link broadcast from it with cmd1 `0x11` to group `0x02` means `wet`, and
 not hearing from it for longer than its 1428-minute heartbeat interval means it may have stopped
 working.

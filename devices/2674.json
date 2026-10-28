@@ -1,0 +1,45 @@
+{
+  "model": "2674",
+  "name": "LED Bulb PAR38",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x49",
+      "region": "US"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x4A",
+      "region": "Europe, E27"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x4E",
+      "region": "Europe, B22"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x4B",
+      "region": "Australia and New Zealand, E27"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x4F",
+      "region": "Australia and New Zealand, B22"
+    }
+  ],
+  "radio": "dual",
+  "role": "responder",
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "Has no buttons or LED."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2672 and 2674 LED Bulbs PRD"
+  ]
+}
