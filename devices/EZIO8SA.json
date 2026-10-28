@@ -1,0 +1,209 @@
+{
+  "model": "EZIO8SA",
+  "name": "EZIO8SA",
+  "description": "An 8-output, 7-input Insteon/X10 controller with Form C relays. It connects to Insteon through a PowerLinc Modem plugged into its PLM port; its inputs are 4 opto-isolated, 2 analog and one 1-Wire input.",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x04",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x04 to the Compacta EZIO8SA I/O Module; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x04, the model's own entry."
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "ezio",
+      "category": "0x07",
+      "subcategory": "0x04",
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details cover the whole EZIOxx line, from inputs-only to outputs-only models, and warn that a model may not support every command."
+      }
+    }
+  ],
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Input 1 and output 1",
+      "role": "both",
+      "type": "output1",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x02",
+      "name": "Input 2 and output 2",
+      "role": "both",
+      "type": "output2",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x03",
+      "name": "Input 3 and output 3",
+      "role": "both",
+      "type": "output3",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x04",
+      "name": "Input 4 and output 4",
+      "role": "both",
+      "type": "output4",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x05",
+      "name": "Input 5 and output 5",
+      "role": "both",
+      "type": "output5",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x06",
+      "name": "Input 6 and output 6",
+      "role": "both",
+      "type": "output6",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x07",
+      "name": "Input 7 and output 7",
+      "role": "both",
+      "type": "output7",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x08",
+      "name": "Output 8",
+      "role": "responder",
+      "type": "output8",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZIO8SA links output N by tapping the SET button N times; numbering the outputs as groups follows that."
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    },
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x05",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x05",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x06",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x06",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x07",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x07",
+          "command1": "0x13",
+          "event": "inputOff"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Neither Quick Start Guide gives a model number; the profile is named for the product.",
+    "Outputs 7 and 8 are swapped: to control output 8, address output 7, and the other way around.",
+    "It needs an Insteon PowerLinc Modem, dual-band recommended, connected to its PLM port with a straight-through CAT5 patch cable, and a 9 to 18 V DC adapter, center positive. The EZIO8SA & PLM Combo comes with the modem and a 12 V DC adapter. An EZIComm 5010K connected this way doesn't power the EZIO8SA.",
+    "Each relay is Form C (SPDT), rated 3 A at 24 V DC or 120 V AC, with CM, NC and NO terminals. Output timers run from 1 to 255 seconds or minutes.",
+    "Inputs 1 to 4 (DI1 to DI4) are opto-isolated and need 3 to 30 V DC; a dry contact can use the 12 V DC terminal. Inputs 5 and 6 (Anl1, Anl2) are digital by default, on at 0 to 1 V DC and off at 2 to 3 V DC, or analog for 0 to 3 V DC sensors with trip points from 0 to 1023; ground them if unused, or they send constant Insteon traffic. Input 7 is 1-Wire, for a DS18B20 temperature sensor.",
+    "To link an input as a controller: hold the SET button on the modem 10 to 12 seconds and release it (the LED goes out); tap it once per input number, then hold it 3 to 5 seconds (the LED blinks); press the SET button of each responder. Linking mode times out after 4 minutes; holding the SET button 3 to 5 seconds ends it.",
+    "To link an output as a responder: put the controller in linking mode, hold the SET button on the EZIO8SA's modem 3 to 5 seconds (the LED goes out), tap it once per output number, then hold it 3 to 5 seconds. Skip the taps to link a snapshot of all the relays as they are. A controller's button can be linked to only one output; a later link from it replaces the earlier one.",
+    "X10: relays 1 to 8 answer units 1 to 8 of any house code. To enable X10, hold the SET button on the modem 3 to 5 seconds (the LED blinks) and send an X10 On 3 times; an Off disables it.",
+    "Factory reset: unplug the modem for at least 10 seconds, then hold its SET button while plugging it back in, for 3 to 5 seconds, and release it when the buzzer stops. The LED goes out for a second and comes back on when the reset is done.",
+    "An EZEye light sensor on an analog input reads 1023 counts at about 3 V."
+  ],
+  "sources": [
+    "Quick Start Guide - EZIO8SA",
+    "Quick Start Guide - EZIO8SA & PLM Combo",
+    "EZIOxx Advanced Details",
+    "Quick Start Guide - EZIComm Model #5010K",
+    "Product Guide EZEye Ambient Light Sensor—Model #1011A",
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

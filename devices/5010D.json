@@ -1,0 +1,139 @@
+{
+  "model": "5010D",
+  "name": "EZIO2X4",
+  "description": "A plug-in 2-relay, 4-input controller. Its relays switch small AC or DC loads on Insteon or X10 commands, and its inputs, two opto-isolated and two that can also measure voltages, send Insteon group commands when they change.",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x03",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x03 to the Compacta EZIO2X4 #5010D; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x03, the model's own entry."
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "ezio",
+      "category": "0x07",
+      "subcategory": "0x03",
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details cover the whole EZIOxx line, from inputs-only to outputs-only models, and warn that a model may not support every command."
+      }
+    }
+  ],
+  "radio": "powerline",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Input 1 and relay 1",
+      "role": "both",
+      "type": "output1",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x02",
+      "name": "Input 2 and relay 2",
+      "role": "both",
+      "type": "output2",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x03",
+      "name": "Input 3",
+      "role": "controller",
+      "type": "input",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    },
+    {
+      "number": "0x04",
+      "name": "Input 4",
+      "role": "controller",
+      "type": "input",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    },
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x13",
+          "event": "inputOff"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Each relay is a switch rated 0.5 A at 30 V DC or 120 V AC, between terminals Rx_A and Rx_B. Timers can pulse a relay from 1 second to 255 minutes.",
+    "Inputs I1 and I2 are opto-isolated and need 3 to 30 V DC between their + and - terminals; for a dry contact, wire + to the +5 V terminal and the contact between - and GND. I3 and I4 are digital by default, on at 0 to 1 V DC and off at 3 to 5 V DC, and need a voltage, not a dry contact (a pull-up resistor to +5 V will do); software can set them to measure 0 to 5 V DC as a count from 0 to 1023 and alarm at set levels. The +5 V terminal supplies at most 20 mA.",
+    "Its ALL-Link database holds up to 30 links.",
+    "To link an input as a controller: hold the SET button 10 to 12 seconds and release it (the LED turns off); tap it once per input number, then hold it 3 to 4 seconds (the LED flashes about once a second); hold the SET button of each responder 3 to 4 seconds; end by holding the EZIO2X4's SET button 3 to 4 seconds.",
+    "To unlink a responder from an input: hold the SET button 10 to 12 seconds, tap it once per input number, then hold it 18 to 20 seconds; hold the responder's SET button 3 to 4 seconds. The LED turns on solidly when it's done.",
+    "To link the relays as a responder: put the controller in linking mode, then hold the EZIO2X4's SET button 3 to 4 seconds (the LED turns off); hold it 3 to 4 seconds again to link a snapshot of both relays, or tap it once per relay number and then hold it 3 to 4 seconds to link one relay. To unlink, put the controller in unlinking mode and hold the EZIO2X4's SET button 3 to 4 seconds.",
+    "To trigger an input from another controller: put the controller in linking mode, hold the EZIO2X4's SET button 3 to 4 seconds, tap it once per input number, then hold it 10 to 12 seconds.",
+    "Factory reset: unplug it for about 10 seconds, then plug it back in while holding the SET button for about 10 seconds. The Quick-Start Guide names the EZIO8T in this step.",
+    "X10: relays 1 and 2 answer X10 units 1 and 2, and the device takes all 16 units of its house code. To enable X10, hold the SET button about 4 seconds (the LED blinks slowly) and send an On from an X10 controller; an Off disables it.",
+    "The Quick-Start Guide applies to firmware 2.2 and above. Insteon Device Categories and Product Keys (October 2008) records that 0x07/0x03 was first assigned to an EZIO3R I/O Module.",
+    "The Product Guide EZEye Ambient Light Sensor—Model #1011A notes that the EZIO2X4 can't supply the 8 V DC an EZEye needs."
+  ],
+  "sources": [
+    "Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller",
+    "EZIOxx Advanced Details",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Product Guide EZEye Ambient Light Sensor—Model #1011A"
+  ]
+}

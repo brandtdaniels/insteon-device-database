@@ -1,0 +1,86 @@
+{
+  "model": "5010J",
+  "name": "EZIO4O",
+  "description": "A plug-in load controller with 4 relays that switch AC or DC loads on Insteon or X10 commands.",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x08",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x08 to the EZIO4O; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x08, the model's own entry."
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "ezio",
+      "category": "0x07",
+      "subcategory": "0x08",
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details cover the whole EZIOxx line, from inputs-only to outputs-only models, and warn that a model may not support every command."
+      }
+    }
+  ],
+  "radio": "powerline",
+  "role": "responder",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Relay 1",
+      "role": "responder",
+      "type": "output1",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+      }
+    },
+    {
+      "number": "0x02",
+      "name": "Relay 2",
+      "role": "responder",
+      "type": "output2",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+      }
+    },
+    {
+      "number": "0x03",
+      "name": "Relay 3",
+      "role": "responder",
+      "type": "output3",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+      }
+    },
+    {
+      "number": "0x04",
+      "name": "Relay 4",
+      "role": "responder",
+      "type": "output4",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Each relay is a switch rated 0.5 A at 30 V DC or 120 V AC, with normally open, common and normally closed terminals (Rx_NO, RxCM, Rx_NC). Timers can pulse a relay from 1 second to 255 minutes; setting them takes software.",
+    "To link the relays as a responder: put the controller in linking mode, then hold the EZIO4O's SET button 3 to 4 seconds (the LED turns off); hold it 3 to 4 seconds again to link a snapshot of all the relays, or tap it once per relay number and then hold it 3 to 4 seconds to link one relay. To unlink, put the controller in unlinking mode and hold the EZIO4O's SET button 3 to 4 seconds.",
+    "X10: relays 1 to 4 answer X10 units 1 to 4, and the device takes a whole house code. To enable X10, hold the SET button about 4 seconds (the LED blinks slowly) and send an On from an X10 controller; an Off disables it.",
+    "The Quick-Start Guide applies to firmware 2.0 and above."
+  ],
+  "sources": [
+    "Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller",
+    "EZIOxx Advanced Details",
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

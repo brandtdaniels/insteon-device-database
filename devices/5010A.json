@@ -1,0 +1,130 @@
+{
+  "model": "5010A",
+  "name": "EZFlora",
+  "aliases": [
+    "EZRain",
+    "Compacta EZRain Sprinkler Controller",
+    "31270"
+  ],
+  "description": "An 8-zone irrigation controller with 4 program schedules. It runs one zone at a time, can use zone 8 as a pump zone, and can stop watering when its rain sensor input says it's raining.",
+  "identities": [
+    {
+      "category": "0x04",
+      "subcategory": "0x00",
+      "verification": {
+        "status": "inferred",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives 0x04/0x00 to the Compacta EZRain Sprinkler Controller and lists no EZFlora; the HouseLinc device catalog gives the same identity to the EZRain as model 31270. That the EZFlora reports it is read from those entries: no other irrigation controller from Compacta is listed, and no EZFlora document gives a category."
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "ezFlora",
+      "category": "0x04",
+      "subcategory": "0x00"
+    }
+  ],
+  "role": "responder",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Zone 1",
+      "role": "responder",
+      "type": "zone1",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x02",
+      "name": "Zone 2",
+      "role": "responder",
+      "type": "zone2",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x03",
+      "name": "Zone 3",
+      "role": "responder",
+      "type": "zone3",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x04",
+      "name": "Zone 4",
+      "role": "responder",
+      "type": "zone4",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x05",
+      "name": "Zone 5",
+      "role": "responder",
+      "type": "zone5",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x06",
+      "name": "Zone 6",
+      "role": "responder",
+      "type": "zone6",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x07",
+      "name": "Zone 7",
+      "role": "responder",
+      "type": "zone7",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    },
+    {
+      "number": "0x08",
+      "name": "Zone 8",
+      "role": "responder",
+      "type": "zone8",
+      "verification": {
+        "status": "inferred",
+        "note": "The Quick Start Guide - EZFlora Model #5010A links zone N by tapping the SET button N times; numbering the zones as groups 1 to 8 follows that."
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Each valve wires to a Zone 1 to 8 terminal and to Comm; a 24 V AC transformer connects to the two AC Xmr terminals. Each zone drives one valve, 500 mA at most.",
+    "Each zone has a maximum run of 30 minutes, so a missed Off doesn't leave it running. Zone 8 can be set up as a pump zone that turns on with any other zone. Timers and programs need a gateway or software to set up.",
+    "The RJ-45 accessory port isn't for data or Ethernet. For a rain sensor, connect a 4.7 kΩ resistor between pins 2 and 6 and the sensor between pins 6 and 7; for a water meter, connect it between pins 4 and 5. Both must be enabled in the configuration register.",
+    "To link a zone as a responder: hold the controller's button until it blinks; hold the EZFlora's SET button about 4 seconds (its LED goes out); tap the SET button once per zone number; then hold it about 4 seconds.",
+    "X10: the unit code picks the zone (A1 for zone 1). Hold the SET button about 4 seconds (the LED blinks steadily), then send the X10 On command 3 times within 30 seconds; an Off disables X10.",
+    "Factory reset: unplug it for at least 5 seconds, then hold the SET button while plugging it back in, for 5 seconds.",
+    "The HouseLinc device catalog lists this identity as the Compacta EZRain Sprinkler Controller, model 31270."
+  ],
+  "sources": [
+    "Quick Start Guide - EZFlora Model #5010A",
+    "EZFlora Insteon and X10 Messages/Commands",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "HouseLinc device catalog"
+  ]
+}

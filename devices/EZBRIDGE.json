@@ -1,0 +1,25 @@
+{
+  "model": "EZBRIDGE",
+  "name": "EZBridge",
+  "aliases": [
+    "EZServer"
+  ],
+  "description": "A SimpleHomeNet controller that Insteon's category list names EZBridge/EZServer.",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x08",
+      "verification": {
+        "status": "documented",
+        "note": "Insteon Device Categories and Product Keys (October 2008) assigns it to the EZBridge/EZServer; no Compacta document gives it."
+      }
+    }
+  ],
+  "capabilities": [],
+  "notes": [
+    "No document gives a model number; the profile is named for the product, in the capital letters a model takes. No Compacta document for it was found."
+  ],
+  "sources": [
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

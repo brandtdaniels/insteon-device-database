@@ -1,0 +1,100 @@
+{
+  "id": "ezSnsRf",
+  "name": "EZSnsRF",
+  "description": "The EZSnsRF 5010E wireless sensor receiver from Compacta International, which turns Dakota Alert 3000-series transmitter codes into Insteon group commands: its code records, the buffer that loads and saves them, and Peek and Poke.",
+  "standardCommands": [
+    {
+      "name": "readFxName",
+      "description": "FxName Request: the device answers with an extended FxName message (cmd1 0x03, cmd2 0x01), D1 through D8 the name, EZSnsRF.",
+      "command1": "0x03",
+      "command2": "0x01"
+    },
+    {
+      "name": "setAddressMsb",
+      "description": "Set Address MSB: sets the high byte of the address Peek and Poke use. It must be 0x00 for the addresses the notes list.",
+      "command1": "0x28",
+      "parameter": {
+        "name": "addressMsb",
+        "description": "The address's high byte."
+      }
+    },
+    {
+      "name": "poke",
+      "description": "Poke: writes cmd2 to the parameter RAM at the address Peek last set, then moves to the next address.",
+      "command1": "0x29",
+      "parameter": {
+        "name": "value",
+        "description": "The value to store."
+      }
+    },
+    {
+      "name": "peek",
+      "description": "Peek: sets the address to cmd2, and reads the byte there.",
+      "command1": "0x2B",
+      "parameter": {
+        "name": "address",
+        "description": "The address's low byte."
+      },
+      "reply": {
+        "name": "value",
+        "description": "The byte at the address."
+      }
+    },
+    {
+      "name": "loadInitializationValues",
+      "description": "EZSnsRF Control, Load Initialization Values: resets the device to its factory settings.",
+      "command1": "0xF0",
+      "command2": "0x00"
+    },
+    {
+      "name": "writeCodeRecord",
+      "description": "EZSnsRF Control, Write a code record: saves the code record buffer as the record of the last code received.",
+      "command1": "0xF0",
+      "command2": "0x01"
+    },
+    {
+      "name": "readCodeRecord",
+      "description": "EZSnsRF Control, Read a code record: loads the record of the last code received into the code record buffer.",
+      "command1": "0xF0",
+      "command2": "0x02"
+    },
+    {
+      "name": "getCodeRecord",
+      "description": "EZSnsRF Control, Get a code record: has the device send the code record buffer, for the last code received, in an extended message.",
+      "command1": "0xF0",
+      "command2": "0x03"
+    },
+    {
+      "name": "requestCodeRecord",
+      "description": "Specific Code Record Read: asks for a record. The device answers with an extended Code record request Response (cmd1 0xF1, cmd2 the record), D1 through D8 the record.",
+      "command1": "0xF1",
+      "parameter": {
+        "name": "record",
+        "description": "The record, 0x00 through 0x13.",
+        "range": {
+          "from": 0,
+          "through": 19
+        }
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "transmitter",
+      "label": "Transmitter",
+      "kind": "sensor"
+    }
+  ],
+  "notes": [
+    "An Insteon group command is sent for a code whose record is in use and linked; a broadcast for a code whose record is only in use. The broadcast (Status Change, cmd1 0x27) carries the record number, 0x00 through 0x13, in cmd2 bits 0 to 5.",
+    "Code records: the device keeps a record for each code it has learned, 20 in all (0x00 through 0x13), and works on one at a time in the code record buffer. Specific Code Record Write (extended, cmd1 0xF2, cmd2 the record) writes D1 through D8 to a record. A record's 8 bytes: flags (bit 7 in use, bit 6 has an Insteon link, bits 0 to 4 the timer), the code's low byte, the code's high byte (4 bits used), the Insteon group (1 to 20), then cmd1 and cmd2 sent when the signal turns on and cmd1 and cmd2 sent when it turns off.",
+    "The EZSnsRF Insteon Messages/Commands give the record's timer in 0.5-second steps; the Quick-Start Guide EZSnsRF Wireless Sensor Receiver Model #5010E adds half a minute for each tap of the SET button, for 0.5 to 15.5 minutes.",
+    "Peek and Poke addresses, with Set Address MSB 0x00: 0x00 configuration (r), 0x02 firmware revision (r), 0x03 EEPROM loaded (r), 0x04 to 0x0B the code record buffer (rw).",
+    "The device answers an ID Request with an acknowledgment and a SET Button Pressed broadcast, without entering linking mode.",
+    "Its Poke description says to follow a Poke with Load EEPROM from RAM, which its command table doesn't list."
+  ],
+  "sources": [
+    "EZSnsRF Insteon Messages/Commands",
+    "Quick-Start Guide EZSnsRF Wireless Sensor Receiver Model #5010E"
+  ]
+}

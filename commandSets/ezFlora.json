@@ -1,0 +1,1471 @@
+{
+  "id": "ezFlora",
+  "name": "EZFlora",
+  "description": "The EZFlora 5010A 8-zone irrigation controller from Compacta International, sold by SimpleHomeNet and Smartenit: valves, programs, the Sprinkler Control sub-commands, timer banks, the configuration register and the water meter count.",
+  "enumerations": [
+    {
+      "name": "timerBank",
+      "description": "The timer banks, in cmd2.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "manual",
+          "description": "The timers of the manual (default) valve timers."
+        },
+        {
+          "value": "0x01",
+          "name": "program1",
+          "description": "The timers of program 1."
+        },
+        {
+          "value": "0x02",
+          "name": "program2",
+          "description": "The timers of program 2."
+        },
+        {
+          "value": "0x03",
+          "name": "program3",
+          "description": "The timers of program 3."
+        },
+        {
+          "value": "0x04",
+          "name": "program4",
+          "description": "The timers of program 4."
+        }
+      ]
+    }
+  ],
+  "standardCommands": [
+    {
+      "name": "valveOn",
+      "description": "Sprinkler Valve ON: turns on the valve in cmd2. The acknowledgment carries 0x00 instead of the status byte for an invalid valve or while commands are inhibited.",
+      "command1": "0x40",
+      "parameter": {
+        "name": "valve",
+        "description": "The valve, 0x00 through 0x07 for V1 through V8.",
+        "range": {
+          "from": 0,
+          "through": 7
+        }
+      },
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "valveOff",
+      "description": "Sprinkler Valve OFF: turns off the valve in cmd2. The acknowledgment carries 0xFF for an invalid valve.",
+      "command1": "0x41",
+      "parameter": {
+        "name": "valve",
+        "description": "The valve, 0x00 through 0x07 for V1 through V8.",
+        "range": {
+          "from": 0,
+          "through": 7
+        }
+      }
+    },
+    {
+      "name": "programOn",
+      "description": "Sprinkler Program ON: starts the program in cmd2. The acknowledgment carries 0x00 instead of the status byte for an invalid program or while commands are inhibited.",
+      "command1": "0x42",
+      "parameter": {
+        "name": "program",
+        "description": "The program, 0x00 through 0x03 for P1 through P4.",
+        "range": {
+          "from": 0,
+          "through": 3
+        }
+      },
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "programOff",
+      "description": "Sprinkler Program OFF: stops the program in cmd2. The acknowledgment carries 0xFF for an invalid program.",
+      "command1": "0x43",
+      "parameter": {
+        "name": "program",
+        "description": "The program, 0x00 through 0x03 for P1 through P4.",
+        "range": {
+          "from": 0,
+          "through": 3
+        },
+        "verification": {
+          "status": "conflicting",
+          "note": "The EZFlora Insteon and X10 Messages/Commands give cmd2 as 0x00 through 0x03, and in the same row describe programs 1 to 8; the catalog uses 0x00 through 0x03, the 4 programs the EZFlora has."
+        }
+      }
+    },
+    {
+      "name": "factoryReset",
+      "description": "Sprinkler Control, Reset: resets the EZFlora to its factory settings.",
+      "command1": "0x44",
+      "command2": "0x00",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "readValveStatus",
+      "description": "Sprinkler Control, Get Valve Status: reads the valve status byte.",
+      "command1": "0x44",
+      "command2": "0x02",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "inhibit",
+      "description": "Sprinkler Control, Inhibit Command Acceptance: stops accepting valve and program ON commands.",
+      "command1": "0x44",
+      "command2": "0x03",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "resume",
+      "description": "Sprinkler Control, Resume Command Acceptance: accepts commands again.",
+      "command1": "0x44",
+      "command2": "0x04",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "skipForward",
+      "description": "Sprinkler Control, Skip Forward: turns off the active valve and goes on to the program's next valve.",
+      "command1": "0x44",
+      "command2": "0x05",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "skipBack",
+      "description": "Sprinkler Control, Skip Back: turns off the active valve and goes on to the program's previous valve.",
+      "command1": "0x44",
+      "command2": "0x06",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "enablePump",
+      "description": "Sprinkler Control, Enable Pump: sets output V8 up for pump control.",
+      "command1": "0x44",
+      "command2": "0x07",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "disablePump",
+      "description": "Sprinkler Control, Disable Pump: returns output V8 to valve 8.",
+      "command1": "0x44",
+      "command2": "0x08",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "enableValveStatusMessage",
+      "description": "Sprinkler Control, Enable Valve Status Change Message: broadcasts each time the valves change.",
+      "command1": "0x44",
+      "command2": "0x09",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "disableValveStatusMessage",
+      "description": "Sprinkler Control, Disable Valve Status Change Message: stops the valve broadcasts.",
+      "command1": "0x44",
+      "command2": "0x0A",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "armRainSensor",
+      "description": "Sprinkler Control, Arm rain sensor input: lets the rain sensor inhibit watering.",
+      "command1": "0x44",
+      "command2": "0x0B",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "disarmRainSensor",
+      "description": "Sprinkler Control, Disarm rain sensor: stops the rain sensor inhibiting watering.",
+      "command1": "0x44",
+      "command2": "0x0C",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "enableMeterCountMessage",
+      "description": "Sprinkler Control, Enable Meter Count Change Message: broadcasts each time the meter count changes.",
+      "command1": "0x44",
+      "command2": "0x0D",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "disableMeterCountMessage",
+      "description": "Sprinkler Control, Disable Meter Count Change Message: stops the meter broadcasts.",
+      "command1": "0x44",
+      "command2": "0x0E",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "resetMeterCount",
+      "description": "Sprinkler Control, Reset meter count: sets the meter count to zero.",
+      "command1": "0x44",
+      "command2": "0x0F",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "startDiagnostics",
+      "description": "Sprinkler Control, Start diagnostics: turns the valves on one after another, for 1 second each.",
+      "command1": "0x44",
+      "command2": "0xFE",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "stopDiagnostics",
+      "description": "Sprinkler Control, Stop diagnostics: stops the diagnostics sequence.",
+      "command1": "0x44",
+      "command2": "0xFF",
+      "reply": {
+        "name": "valveStatus",
+        "description": "The valve status byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x07",
+            "name": "activeValve",
+            "description": "The active valve, 0 to 7 for V1 to V8."
+          },
+          {
+            "mask": "0x18",
+            "name": "activeProgram",
+            "description": "The active program, 0 to 3."
+          },
+          {
+            "mask": "0x20",
+            "name": "programRunning",
+            "description": "A program sequence is running."
+          },
+          {
+            "mask": "0x40",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          },
+          {
+            "mask": "0x80",
+            "name": "valveOn",
+            "description": "A valve (V1 to V8) is on."
+          }
+        ]
+      }
+    },
+    {
+      "name": "readTimers",
+      "description": "Get Sprinkler Timers Request: asks for a timer bank. The EZFlora answers with an extended Get Sprinkler Timers Response (cmd1 0x41, cmd2 the bank), D1 through D8 the timers of valves 1 to 8 in minutes.",
+      "command1": "0x45",
+      "parameter": {
+        "name": "bank",
+        "description": "The timer bank.",
+        "kind": "enumeration",
+        "enumeration": "timerBank"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "The EZFlora Insteon and X10 Messages/Commands name the reply Get Sprinkler Program Response in this row and Get Sprinkler Timers Response in their extended table."
+      }
+    },
+    {
+      "name": "readConfiguration",
+      "description": "Get Configuration Register: reads the configuration register, which also shows the rain sensor input.",
+      "command1": "0xF0",
+      "command2": "0x00",
+      "reply": {
+        "name": "configuration",
+        "description": "The configuration register.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "diagnostics",
+            "description": "The EZFlora is in diagnostics."
+          },
+          {
+            "mask": "0x02",
+            "name": "rainSensorOn",
+            "description": "The rain sensor input is on."
+          },
+          {
+            "mask": "0x08",
+            "name": "valvesInhibited",
+            "description": "The EZFlora won't turn valves on."
+          },
+          {
+            "mask": "0x10",
+            "name": "rainSensorEnabled",
+            "description": "The rain sensor input is enabled."
+          },
+          {
+            "mask": "0x20",
+            "name": "meterMessageEnabled",
+            "description": "The meter broadcast is enabled."
+          },
+          {
+            "mask": "0x40",
+            "name": "valveMessageEnabled",
+            "description": "The valve broadcast is enabled."
+          },
+          {
+            "mask": "0x80",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          }
+        ]
+      }
+    },
+    {
+      "name": "writeConfiguration",
+      "description": "Set Configuration Register: sets the configuration register.",
+      "command1": "0xF1",
+      "parameter": {
+        "name": "configuration",
+        "description": "The configuration register.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "diagnostics",
+            "description": "The EZFlora is in diagnostics."
+          },
+          {
+            "mask": "0x02",
+            "name": "rainSensorOn",
+            "description": "The rain sensor input is on."
+          },
+          {
+            "mask": "0x08",
+            "name": "valvesInhibited",
+            "description": "The EZFlora won't turn valves on."
+          },
+          {
+            "mask": "0x10",
+            "name": "rainSensorEnabled",
+            "description": "The rain sensor input is enabled."
+          },
+          {
+            "mask": "0x20",
+            "name": "meterMessageEnabled",
+            "description": "The meter broadcast is enabled."
+          },
+          {
+            "mask": "0x40",
+            "name": "valveMessageEnabled",
+            "description": "The valve broadcast is enabled."
+          },
+          {
+            "mask": "0x80",
+            "name": "pumpEnabled",
+            "description": "Output V8 is set up for pump control."
+          }
+        ]
+      }
+    },
+    {
+      "name": "readMeterCountLsb",
+      "description": "Get LS Meter Count: reads the low byte of the water meter count.",
+      "command1": "0xF2",
+      "command2": "0x00",
+      "reply": {
+        "name": "meterCountLsb",
+        "description": "The count's low byte."
+      }
+    },
+    {
+      "name": "readMeterCountMsb",
+      "description": "Get MS Meter Count: reads the high byte of the water meter count.",
+      "command1": "0xF3",
+      "command2": "0x00",
+      "reply": {
+        "name": "meterCountMsb",
+        "description": "The count's high byte."
+      }
+    },
+    {
+      "name": "writeMeterCountLsb",
+      "description": "Set LS Meter Count: sets the low byte of the water meter count to cmd2.",
+      "command1": "0xF4",
+      "parameter": {
+        "name": "meterCountLsb",
+        "description": "The count's low byte.",
+        "verification": {
+          "status": "conflicting",
+          "note": "The EZFlora Insteon and X10 Messages/Commands give cmd2 as 0x00 in this row's Cmd 2 column and say the byte is set to the value in cmd2; the catalog takes the value from cmd2."
+        }
+      }
+    },
+    {
+      "name": "writeMeterCountMsb",
+      "description": "Set MS Meter Count: sets the high byte of the water meter count to cmd2.",
+      "command1": "0xF5",
+      "parameter": {
+        "name": "meterCountMsb",
+        "description": "The count's high byte.",
+        "verification": {
+          "status": "conflicting",
+          "note": "The EZFlora Insteon and X10 Messages/Commands give cmd2 as 0x00 in this row's Cmd 2 column and say the byte is set to the value in cmd2; the catalog takes the value from cmd2."
+        }
+      }
+    },
+    {
+      "name": "setAddressMsb",
+      "description": "Set MSB for Peek and Poke: sets the high byte of the address Peek and Poke use, 0x00 for the EZFlora's own locations and 0xFF for the ALL-Link database.",
+      "command1": "0x28",
+      "parameter": {
+        "name": "addressMsb",
+        "description": "The address's high byte."
+      }
+    },
+    {
+      "name": "poke",
+      "description": "Poke: writes a timer, in minutes, to the location Peek last set, then moves to the next location.",
+      "command1": "0x29",
+      "parameter": {
+        "name": "minutes",
+        "description": "The timer.",
+        "unit": "minutes"
+      }
+    },
+    {
+      "name": "peek",
+      "description": "Peek: sets the timer location to cmd2 and reads the timer there. Only the address's low byte is used. Locations 0x00 to 0x07 hold the manual timers of valves 1 to 8, 0x08 to 0x0F program 1's, 0x10 to 0x17 program 2's, 0x18 to 0x1F program 3's and 0x20 to 0x27 program 4's.",
+      "command1": "0x2B",
+      "parameter": {
+        "name": "location",
+        "description": "The timer location.",
+        "range": {
+          "from": 0,
+          "through": 39
+        },
+        "verification": {
+          "status": "conflicting",
+          "note": "The EZFlora Insteon and X10 Messages/Commands give 0x00 through 0x27 in the command table and 0x00 through 0x2F in their note on timer locations, which lists banks only up to 0x27; the catalog uses 0x00 through 0x27."
+        }
+      },
+      "reply": {
+        "name": "minutes",
+        "description": "The timer.",
+        "unit": "minutes"
+      }
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "writeTimersManual",
+      "description": "Set Sprinkler Timers for the manual (default) valve timers: D1 through D8 hold the timers of valves 1 to 8; D9 through D14 are ignored.",
+      "command1": "0x40",
+      "command2": "0x00",
+      "parameters": [
+        {
+          "name": "valve1Minutes",
+          "description": "Valve 1's timer.",
+          "byte": 1,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve2Minutes",
+          "description": "Valve 2's timer.",
+          "byte": 2,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve3Minutes",
+          "description": "Valve 3's timer.",
+          "byte": 3,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve4Minutes",
+          "description": "Valve 4's timer.",
+          "byte": 4,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve5Minutes",
+          "description": "Valve 5's timer.",
+          "byte": 5,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve6Minutes",
+          "description": "Valve 6's timer.",
+          "byte": 6,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve7Minutes",
+          "description": "Valve 7's timer.",
+          "byte": 7,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve8Minutes",
+          "description": "Valve 8's timer.",
+          "byte": 8,
+          "unit": "minutes"
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZFlora Insteon and X10 Messages/Commands give the timers' unit as minutes for Poke, which writes the same locations."
+      }
+    },
+    {
+      "name": "writeTimersProgram1",
+      "description": "Set Sprinkler Timers for program 1: D1 through D8 hold the timers of valves 1 to 8; D9 through D14 are ignored.",
+      "command1": "0x40",
+      "command2": "0x01",
+      "parameters": [
+        {
+          "name": "valve1Minutes",
+          "description": "Valve 1's timer.",
+          "byte": 1,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve2Minutes",
+          "description": "Valve 2's timer.",
+          "byte": 2,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve3Minutes",
+          "description": "Valve 3's timer.",
+          "byte": 3,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve4Minutes",
+          "description": "Valve 4's timer.",
+          "byte": 4,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve5Minutes",
+          "description": "Valve 5's timer.",
+          "byte": 5,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve6Minutes",
+          "description": "Valve 6's timer.",
+          "byte": 6,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve7Minutes",
+          "description": "Valve 7's timer.",
+          "byte": 7,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve8Minutes",
+          "description": "Valve 8's timer.",
+          "byte": 8,
+          "unit": "minutes"
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZFlora Insteon and X10 Messages/Commands give the timers' unit as minutes for Poke, which writes the same locations."
+      }
+    },
+    {
+      "name": "writeTimersProgram2",
+      "description": "Set Sprinkler Timers for program 2: D1 through D8 hold the timers of valves 1 to 8; D9 through D14 are ignored.",
+      "command1": "0x40",
+      "command2": "0x02",
+      "parameters": [
+        {
+          "name": "valve1Minutes",
+          "description": "Valve 1's timer.",
+          "byte": 1,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve2Minutes",
+          "description": "Valve 2's timer.",
+          "byte": 2,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve3Minutes",
+          "description": "Valve 3's timer.",
+          "byte": 3,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve4Minutes",
+          "description": "Valve 4's timer.",
+          "byte": 4,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve5Minutes",
+          "description": "Valve 5's timer.",
+          "byte": 5,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve6Minutes",
+          "description": "Valve 6's timer.",
+          "byte": 6,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve7Minutes",
+          "description": "Valve 7's timer.",
+          "byte": 7,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve8Minutes",
+          "description": "Valve 8's timer.",
+          "byte": 8,
+          "unit": "minutes"
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZFlora Insteon and X10 Messages/Commands give the timers' unit as minutes for Poke, which writes the same locations."
+      }
+    },
+    {
+      "name": "writeTimersProgram3",
+      "description": "Set Sprinkler Timers for program 3: D1 through D8 hold the timers of valves 1 to 8; D9 through D14 are ignored.",
+      "command1": "0x40",
+      "command2": "0x03",
+      "parameters": [
+        {
+          "name": "valve1Minutes",
+          "description": "Valve 1's timer.",
+          "byte": 1,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve2Minutes",
+          "description": "Valve 2's timer.",
+          "byte": 2,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve3Minutes",
+          "description": "Valve 3's timer.",
+          "byte": 3,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve4Minutes",
+          "description": "Valve 4's timer.",
+          "byte": 4,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve5Minutes",
+          "description": "Valve 5's timer.",
+          "byte": 5,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve6Minutes",
+          "description": "Valve 6's timer.",
+          "byte": 6,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve7Minutes",
+          "description": "Valve 7's timer.",
+          "byte": 7,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve8Minutes",
+          "description": "Valve 8's timer.",
+          "byte": 8,
+          "unit": "minutes"
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZFlora Insteon and X10 Messages/Commands give the timers' unit as minutes for Poke, which writes the same locations."
+      }
+    },
+    {
+      "name": "writeTimersProgram4",
+      "description": "Set Sprinkler Timers for program 4: D1 through D8 hold the timers of valves 1 to 8; D9 through D14 are ignored.",
+      "command1": "0x40",
+      "command2": "0x04",
+      "parameters": [
+        {
+          "name": "valve1Minutes",
+          "description": "Valve 1's timer.",
+          "byte": 1,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve2Minutes",
+          "description": "Valve 2's timer.",
+          "byte": 2,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve3Minutes",
+          "description": "Valve 3's timer.",
+          "byte": 3,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve4Minutes",
+          "description": "Valve 4's timer.",
+          "byte": 4,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve5Minutes",
+          "description": "Valve 5's timer.",
+          "byte": 5,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve6Minutes",
+          "description": "Valve 6's timer.",
+          "byte": 6,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve7Minutes",
+          "description": "Valve 7's timer.",
+          "byte": 7,
+          "unit": "minutes"
+        },
+        {
+          "name": "valve8Minutes",
+          "description": "Valve 8's timer.",
+          "byte": 8,
+          "unit": "minutes"
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZFlora Insteon and X10 Messages/Commands give the timers' unit as minutes for Poke, which writes the same locations."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "zone1",
+      "label": "Zone 1",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x00"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x00"
+        }
+      ]
+    },
+    {
+      "name": "zone2",
+      "label": "Zone 2",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x01"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x01"
+        }
+      ]
+    },
+    {
+      "name": "zone3",
+      "label": "Zone 3",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x02"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x02"
+        }
+      ]
+    },
+    {
+      "name": "zone4",
+      "label": "Zone 4",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x03"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x03"
+        }
+      ]
+    },
+    {
+      "name": "zone5",
+      "label": "Zone 5",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x04"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x04"
+        }
+      ]
+    },
+    {
+      "name": "zone6",
+      "label": "Zone 6",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x05"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x05"
+        }
+      ]
+    },
+    {
+      "name": "zone7",
+      "label": "Zone 7",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x06"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x06"
+        }
+      ]
+    },
+    {
+      "name": "zone8",
+      "label": "Zone 8",
+      "kind": "relay",
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "valveOn",
+          "value": "0x07"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "valveOff",
+          "value": "0x07"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Every Sprinkler Control sub-command's acknowledgment carries the valve status byte. For an invalid valve or program, ON commands return 0x00 and OFF commands 0xFF.",
+    "Valve Status Changed broadcast (cmd1 0x27): with Enable Valve Status Change Message, the EZFlora broadcasts when a valve turns on or off during a program, but not after a direct valve command; with Enable Meter Count Change Message, it broadcasts when the meter count changes. The To Address carries the status byte in its high byte and the meter count's high and low bytes in its middle and low bytes.",
+    "The EZFlora answers an ID Request with an acknowledgment and a SET Button Pressed broadcast, and a Ping (cmd1 0x0F) with an acknowledgment. Enter Link Mode (cmd1 0x09) is the same as holding the SET button 4 seconds, and Enter Unlink Mode (cmd1 0x0A) as holding it 10 seconds. ALL-Link Activate (cmd1 0x11, an ALL-Link command) recalls groups 0x00 through 0x0F.",
+    "Configuration register bit 2 isn't documented. Bit 7 of the register and bit 6 of the valve status byte both show the pump option.",
+    "X10: units 1 to 8 turn valves 1 to 8 on and off; units 9 to 12 start and stop programs 1 to 4; unit 13 On inhibits commands and Off resumes them; unit 14 On skips forward and Off skips back; unit 16 On enables the pump on V8 and Off disables it.",
+    "The accessory connector (RJ-45) isn't for data: pin 1 input 1 (not used), pin 2 +5 V auxiliary (50 mA maximum), pins 3, 5 and 7 ground, pin 4 water meter pulse input (with a built-in pull-up), pin 6 rain sensor (must be pulled up to inhibit), pin 8 no connection."
+  ],
+  "sources": [
+    "EZFlora Insteon and X10 Messages/Commands",
+    "Quick Start Guide - EZFlora Model #5010A"
+  ]
+}
