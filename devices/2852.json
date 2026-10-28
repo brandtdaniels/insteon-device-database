@@ -117,6 +117,47 @@
         "Then place the sensor in its location, adjust the responder to the state you want and press and hold the responder's SET button until it double-beeps; the Leak Sensor's LED stops blinking. Test by tapping the Leak Sensor's SET button; the responder turns on.",
         "To add it to a Hub, when the app prompts, press and hold the SET button.",
         "The Leak Sensor is a controller only and doesn't turn responders off when the leak dries."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button for about 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks green"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     },
     "unlinking": {
@@ -194,7 +235,64 @@
     "resetErases": [
       "links",
       "settings"
-    ]
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document describes this; it's how the device is set up in practice."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Press and hold the SET button until the status LED starts blinking.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "LED blinks green"
+            },
+            {
+              "text": "Press and hold the SET button again until the blink pattern changes.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "LED keeps blinking in a new pattern"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
+    }
   },
   "notes": [
     "Its heartbeat sends on when dry and off when wet.",

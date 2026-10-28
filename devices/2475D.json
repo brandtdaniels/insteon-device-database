@@ -132,6 +132,51 @@
       "notes": [
         "The dimmer links only as a responder. First put the controller in linking mode; for most controllers, press and hold the SET button for 3 seconds or the On or scene button for 10 seconds. The controller stays in linking mode for 4 minutes.",
         "Pressing and holding the dimmer's SET button starts linking mode."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in linking mode, press and hold the SET button until the dimmer double-beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "action": "send",
+              "command": "ID Request"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     },
     "unlinking": {
@@ -192,6 +237,42 @@
       ],
       "notes": [
         "Otherwise the controllers retry commands and cause network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09), as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     }
   },

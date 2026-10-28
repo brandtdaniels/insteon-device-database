@@ -161,8 +161,51 @@
       "verification": {
         "status": "conflicting",
         "note": "The LED Bulb A19 2672 Owner's Manual says the bulb double-beeps when it is linked or unlinked; the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper. The catalog follows the LED Bulb Developer Notes and gives no confirmation from the bulb. The 5-second linking window after power-up is from the LED Bulb Developer Notes; the LED Bulb A19 2672 Owner's Manual gives no timeout."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in linking mode and the fixture on, screw in the bulb, or unscrew it for a moment and reinsert it.",
+              "action": "powerOn"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "action": "send",
+              "command": "ID Request"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
     },
+    "linkingTimeoutSeconds": 5,
     "unlinking": {
       "steps": [
         {
@@ -178,7 +221,53 @@
         "note": "The LED Bulb A19 2672 Owner's Manual says the bulb double-beeps when it is linked or unlinked; the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper. The catalog follows the LED Bulb Developer Notes and gives no confirmation from the bulb."
       }
     },
-    "linkingTimeoutSeconds": 5
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document describes this; it's how the device is set up in practice."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment and reinsert it.",
+              "action": "powerOn"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
+    }
   },
   "notes": [
     "Has no buttons or LED.",

@@ -52,6 +52,115 @@
         "With one Access Point only, check RF coverage by tapping an RF-only device's SET button (or holding a scene button) where it will be used and watching the Access Point's LED.",
         "Access Points below revision 2.0 have a white LED instead of the red and green LED; the Access Point 2443 Owner's Manual has a table of how mixed revisions behave."
       ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the LED starts blinking.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document describes this; it's how the device is set up in practice."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the LED starts blinking.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "LED blinks"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "action": "send",
+              "command": "ID Request"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document describes this; it's how the device is set up in practice."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the LED starts blinking.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "LED blinks"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene.",
+            "Removing it from a Hub needs a press of its SET button; the Hub can't unlink it on its own."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
     }
   },
   "notes": [

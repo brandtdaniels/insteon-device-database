@@ -131,6 +131,64 @@
         "Alternatively, after installation, quickly tap the switch connected to the module exactly five times in less than four seconds (alternating up and down on a latching or dual momentary switch) and wait two seconds; the module beeps to enter linking mode, or double-beeps when it joins a controller that is already in linking mode.",
         "The 3-second hold time comes from the Global Line Developer Notes; software can send the Enter Linking Mode command for the same result.",
         "If either device's LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the module beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks green; the module stays in linking mode for four minutes"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "action": "send",
+              "command": "ID Request"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     },
     "linkingTimeoutSeconds": 240,
@@ -246,6 +304,53 @@
       ],
       "notes": [
         "The Micro On/Off 2443 Owner's Manual says to remove all of the module's responder links before uninstalling it; otherwise controllers keep retrying commands and create network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder, for group 0; the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09), as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     }
   },

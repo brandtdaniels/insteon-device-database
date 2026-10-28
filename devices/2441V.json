@@ -97,7 +97,54 @@
       "verification": {
         "status": "conflicting",
         "note": "The Thermostat Adapter 2441V Owner's Manual says to hold the SET button for 3 seconds and gives no timeout for the Thermostat Adapter's own linking mode; the Thermostat Adapter 2441V Quick Start Guide says to hold it for about 5 seconds and that linking mode times out after 4 minutes. The catalog uses the owner's manual's 3 seconds and the quick start guide's 4 minutes."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED blinks; thermostat display flashes all characters once"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "action": "send",
+              "command": "ID Request"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1.",
+            "The Hub makes no links to the thermostat's other groups and doesn't set its clock."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
     },
     "linkingTimeoutSeconds": 240,
     "unlinking": {
@@ -182,6 +229,45 @@
       ],
       "notes": [
         "If it isn't unlinked, controllers keep retrying commands and slow the system."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED blinks; thermostat display flashes all characters once"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene.",
+            "Removing it from a Hub needs a press of its SET button; the Hub can't unlink it on its own."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     }
   },

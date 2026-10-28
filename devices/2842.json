@@ -145,7 +145,71 @@
       "verification": {
         "status": "conflicting",
         "note": "The Motion Sensor 2842 Owner's Manual (published as the owner's manual but a 2012 quick start guide) says the sensor sends ON to up to 30 linked responders in one place and allows up to 32 responders in another. The catalog records no responder limit."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button for 5 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 5,
+              "expect": "LED behind the lens blinks red"
+            },
+            {
+              "text": "Tap the SET button.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED double-blinks"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "action": "send",
+              "command": "ID Request"
+            },
+            {
+              "text": "While the sensor is still awake, have the Hub send Set Operating Flags (extended) with cmd2 0x18 to keep it awake while the link is checked.",
+              "action": "send",
+              "command": "Set Operating Flags"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            },
+            {
+              "text": "When done, have the Hub send Set Operating Flags with cmd2 0x19 to let the sensor sleep again.",
+              "action": "send",
+              "command": "Set Operating Flags"
+            }
+          ],
+          "notes": [
+            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device.",
+            "The stay-awake and sleep commands keep the sensor listening while the Hub checks the link and reads its settings."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
     },
     "unlinking": {
       "steps": [
@@ -203,7 +267,66 @@
     },
     "resetErases": [
       "links"
-    ]
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document describes this; it's how the device is set up in practice."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Press and hold the SET button for 5 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 5,
+              "expect": "LED blinks red"
+            },
+            {
+              "text": "Press and hold the SET button for 5 seconds again.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 5,
+              "expect": "LED keeps blinking red"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
+    }
   },
   "sources": [
     "HouseLinc device catalog",

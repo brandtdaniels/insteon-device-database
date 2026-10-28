@@ -118,7 +118,60 @@
       "verification": {
         "status": "conflicting",
         "note": "The Mini Remote - 8 Scene 2444A2WH8 Owner's Manual says setup mode times out after more than 3 minutes with a long beep; the RemoteLinc 2 Developer Notes say the LED blinks green for 4 minutes or until linked. The catalog uses the owner's manual's 3 minutes (180 seconds)."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Tap the scene button you want to use; either side of it works.",
+              "action": "tap",
+              "control": "scene button"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds, until it beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Tap the SET button.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED double-blinks green"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            },
+            {
+              "text": "When all responders are added, tap the SET button.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "Double beep; LED turns off"
+            }
+          ],
+          "notes": [
+            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
     },
     "linkingTimeoutSeconds": 180,
     "multiLinking": {
@@ -231,7 +284,73 @@
     "resetErases": [
       "links",
       "settings"
-    ]
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document describes this; it's how the device is set up in practice."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Tap the B button.",
+              "action": "tap",
+              "control": "B button",
+              "count": 1
+            },
+            {
+              "text": "Press and hold the SET button until the Mini Remote beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Press and hold the SET button again until it beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Beep; LED blinks red"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene.",
+            "The button tapped first is the one the Hub links to, group 1."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
+    }
   },
   "notes": [
     "Groups 1 and 2 are buttons B and A, 3 and 4 are D and C, 5 and 6 are F and E, and 7 and 8 are H and G."

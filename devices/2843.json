@@ -17,10 +17,6 @@
       "category": "0x10",
       "subcategory": "0x07",
       "region": "Australia and New Zealand"
-    },
-    {
-      "category": "0x10",
-      "subcategory": "0x09"
     }
   ],
   "engines": [
@@ -178,7 +174,55 @@
       "verification": {
         "status": "conflicting",
         "note": "The Open/Close Sensor 2843 Owner's Manual holds the SET button 3 seconds to link responders but 5 seconds during installation. The catalog uses 3 seconds."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks green"
+            },
+            {
+              "text": "Tap the SET button.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED double-blinks green"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping a few times to check the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges each Ping"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds to finish.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
+      ]
     },
     "multiLinking": {
       "steps": [
@@ -295,11 +339,58 @@
           "text": "Remove the sensor as a controller from each of its responders.",
           "action": "other"
         }
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from every scene on the Hub first.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks green"
+            },
+            {
+              "text": "Press and hold the SET button again for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED keeps blinking green"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "The Hub won't remove a device that still belongs to a scene."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "No document describes this; it's how the device is set up in practice."
+          }
+        }
       ]
     }
   },
   "notes": [
-    "HouseLinc lists subcategory 0x09 as the Door Sensor 2843-232.",
+    "Subcategory 0x09 is the MyLife Door Sensor 2843-232, which has its own profile.",
     "Its heartbeat's cmd1 is 0x11 while it's open and 0x13 while it's closed.",
     "Its Developer Notes give the heartbeat as about once every 24 hours; other sources give 23.8 hours.",
     "With its jumper removed, in multi-scene mode, the sensor sends group 1 when it opens and group 2 when it closes. Later units without a jumper, as the 2016 Open/Close Sensor 2843 Owner's Manual describes them, have no multi-scene mode."
