@@ -14,8 +14,10 @@
       "subcategory": "0x0A"
     }
   ],
+  "radio": "powerline",
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Lock Controller 2862 Owner's Manual"
   ]
 }

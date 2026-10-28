@@ -39,9 +39,11 @@
     }
   ],
   "notes": [
-    "Returns its load and LEDs to their states before a power outage."
+    "Returns its load and LEDs to their states before a power outage.",
+    "Its owner's manual describes linking it only as a responder."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "In-LineLinc Dimmer 2475DA1 Owner's Manual"
   ]
 }

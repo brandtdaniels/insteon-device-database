@@ -5,15 +5,18 @@
   "identities": [
     {
       "category": "0x10",
-      "subcategory": "0x02"
+      "subcategory": "0x02",
+      "region": "US"
     },
     {
       "category": "0x10",
-      "subcategory": "0x06"
+      "subcategory": "0x06",
+      "region": "Europe"
     },
     {
       "category": "0x10",
-      "subcategory": "0x07"
+      "subcategory": "0x07",
+      "region": "Australia and New Zealand"
     },
     {
       "category": "0x10",
@@ -82,6 +85,11 @@
       "role": "controller"
     },
     {
+      "number": "0x02",
+      "name": "Closed",
+      "role": "controller"
+    },
+    {
       "number": "0x04",
       "name": "Heartbeat",
       "role": "controller"
@@ -109,14 +117,16 @@
       "intervalMinutes": 1428
     }
   ],
-  "sources": [
-    "HouseLinc device catalog",
-    "insteon.com product catalog",
-    "Open/Close Sensor Developer Notes"
-  ],
   "notes": [
     "HouseLinc lists subcategory 0x09 as the Door Sensor 2843-232.",
     "Its heartbeat's cmd1 is 0x11 while it's open and 0x13 while it's closed.",
-    "Its Developer Notes give the heartbeat as about once every 24 hours; other sources give 23.8 hours."
+    "Its Developer Notes give the heartbeat as about once every 24 hours; other sources give 23.8 hours.",
+    "With its jumper removed, in multi-scene mode, the sensor sends group 1 when it opens and group 2 when it closes. Later units without a jumper, as the 2016 Open/Close Sensor 2843 Owner's Manual describes them, have no multi-scene mode."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "insteon.com product catalog",
+    "Open/Close Sensor Developer Notes",
+    "Open/Close Sensor 2843 Owner's Manual"
   ]
 }

@@ -1,6 +1,9 @@
 {
   "model": "2477SA1",
   "name": "220V/240V 30 AMP Load Controller Normally Open",
+  "aliases": [
+    "240V Load Controller"
+  ],
   "identities": [
     {
       "category": "0x09",
@@ -21,12 +24,22 @@
       }
     }
   ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "240V Load Controller 2477SA Owner's Manual"
   ]
 }

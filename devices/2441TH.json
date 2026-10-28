@@ -154,9 +154,12 @@
   ],
   "notes": [
     "Subcategory 0x16 is a later firmware, given its own subcategory so software can tell its features apart; HouseLinc lists it as a heat pump thermostat.",
-    "Subcategories 0x0F and 0x10 are the European and Australian and New Zealand versions, the 2732-422 and 2732-522, and 0x17 and 0x18 are their later firmware."
+    "Subcategories 0x0F and 0x10 are the European and Australian and New Zealand versions, the 2732-422 and 2732-522, and 0x17 and 0x18 are their later firmware.",
+    "The owner's manual gives subcategory 0x0B to the 2441TH, 0x0F to the 2732-422 and 0x10 to the 2732-522.",
+    "The owner's manual's list of groups prints the status report group as EF; its footnote, like the catalog, gives FE, group 254."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Thermostat 2441TH Owner's Manual"
   ]
 }

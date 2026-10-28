@@ -124,10 +124,12 @@
       ]
     }
   ],
-  "sources": [
-    "HouseLinc device catalog"
-  ],
   "notes": [
-    "Subcategories 0x11 and 0x12 are the European and Australian and New Zealand versions, the 2732-432 and 2732-532."
+    "Subcategories 0x11 and 0x12 are the European and Australian and New Zealand versions, the 2732-432 and 2732-532.",
+    "The owner's manual gives subcategory 0x0A to the 2441ZTH, 0x11 to the 2732-432 and 0x12 to the 2732-532."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Wireless Thermostat 2441ZTH Owner's Manual"
   ]
 }

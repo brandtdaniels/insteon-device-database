@@ -26,6 +26,7 @@
       "subcategory": "0x03"
     }
   ],
+  "radio": "rf",
   "groups": [
     {
       "number": "0x01",
@@ -55,11 +56,12 @@
       "humidity": false
     }
   ],
-  "sources": [
-    "HouseLinc device catalog",
-    "Insteon Developer's Guide (2009)"
-  ],
   "notes": [
     "It links to group 1 while cooling, group 2 while heating and group 3 while its fan runs; devices linked to group 0xEF get its status reports."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Developer's Guide (2009)",
+    "Thermostat Adapter 2441V Owner's Manual"
   ]
 }

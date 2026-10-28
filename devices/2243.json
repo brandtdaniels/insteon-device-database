@@ -13,6 +13,10 @@
     {
       "category": "0x03",
       "subcategory": "0x2D"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x3A"
     }
   ],
   "engines": [
@@ -50,9 +54,11 @@
   "notes": [
     "HouseLinc names it Central Controller.",
     "Sold as a HomeKit bridge, which current versions of HomeKit no longer support.",
-    "Its hub interface on port 25105 is expected to match the other Hubs' but hasn't been verified."
+    "Its hub interface on port 25105 is expected to match the other Hubs' but hasn't been verified.",
+    "Sold as the 2243-222 in the US, 2243-422 in Europe, 2243-442 in the UK and 2243-522 in Australia and New Zealand."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Hub Pro 2243 Owner's Manual"
   ]
 }

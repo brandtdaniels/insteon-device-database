@@ -10,12 +10,12 @@
     {
       "category": "0x03",
       "subcategory": "0x2E",
-      "region": "EU"
+      "region": "Europe"
     },
     {
       "category": "0x03",
       "subcategory": "0x2F",
-      "region": "AU/NZ"
+      "region": "Australia and New Zealand"
     },
     {
       "category": "0x03",
@@ -85,10 +85,12 @@
     }
   ],
   "notes": [
-    "Insteon Device Categories (January 2014) lists 0x03/0x2B as the 915 MHz Hub without RF, so radio: dual doesn't hold for it, and 0x03/0x37 as the one with RF."
+    "Insteon Device Categories (January 2014) lists 0x03/0x2B as the 915 MHz Hub without RF, so radio: dual doesn't hold for it, and 0x03/0x37 as the one with RF.",
+    "Sold as the 2242-222 in the US, 2242-422 in Europe, 2242-442 in the UK and 2242-522 in Australia and New Zealand."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Device Categories (January 2014)"
+    "Insteon Device Categories (January 2014)",
+    "Hub 2242 Owner's Manual"
   ]
 }
