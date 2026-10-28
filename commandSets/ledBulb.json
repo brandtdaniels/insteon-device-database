@@ -1,15 +1,23 @@
 {
   "id": "ledBulb",
   "name": "LED Bulb",
-  "description": "The dimmable LED bulbs, which run the KeypadLinc code base.",
+  "description": "The dimmable LED bulbs. They have no SET button, status LED or beeper.",
   "operatingFlags": [
     {
       "name": "programmingLock",
-      "description": "Linking and programming from the device itself are locked out.",
+      "description": "The bulb doesn't enter linking mode when it powers up.",
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
       "off": "0x01"
+    },
+    {
+      "name": "powerUpLastState",
+      "description": "The bulb powers up to its last state. Clear, it powers up on, which is the default: to full on if it was off, or to its last level.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x04",
+      "off": "0x05"
     },
     {
       "name": "ledOnTransmit",
@@ -17,7 +25,11 @@
       "query": "0x00",
       "bit": "0x02",
       "on": "0x02",
-      "off": "0x03"
+      "off": "0x03",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes list bit 1 of the 0x00 reply as not used."
+      }
     },
     {
       "name": "radioOff",
@@ -25,7 +37,11 @@
       "query": "0x00",
       "bit": "0x40",
       "on": "0x0C",
-      "off": "0x0D"
+      "off": "0x0D",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes list bit 6 of the 0x00 reply as not used."
+      }
     },
     {
       "name": "powerLineOff",
@@ -33,7 +49,11 @@
       "query": "0x00",
       "bit": "0x80",
       "on": "0x0E",
-      "off": "0x0F"
+      "off": "0x0F",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes list bit 7 of the 0x00 reply as not used."
+      }
     },
     {
       "name": "applicationRetries",
@@ -41,7 +61,11 @@
       "query": "0x05",
       "bit": "0x01",
       "on": "0x10",
-      "off": "0x11"
+      "off": "0x11",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+      }
     },
     {
       "name": "x10Off",
@@ -49,7 +73,11 @@
       "query": "0x05",
       "bit": "0x02",
       "on": "0x12",
-      "off": "0x13"
+      "off": "0x13",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+      }
     },
     {
       "name": "errorBlink",
@@ -57,7 +85,11 @@
       "query": "0x05",
       "bit": "0x04",
       "on": "0x15",
-      "off": "0x14"
+      "off": "0x14",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+      }
     },
     {
       "name": "cleanupReport",
@@ -65,7 +97,11 @@
       "query": "0x05",
       "bit": "0x08",
       "on": "0x17",
-      "off": "0x16"
+      "off": "0x16",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+      }
     },
     {
       "name": "checksumRequired",
@@ -73,18 +109,22 @@
       "query": "0x05",
       "bit": "0x10",
       "on": "0x19",
-      "off": "0x18"
+      "off": "0x18",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+      }
     }
   ],
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the ALL-Link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes. It clears when the bulb powers up.",
       "query": "0x01"
     },
     {
       "name": "crcErrorCount",
-      "description": "The number of messages received with a CRC error.",
+      "description": "The number of messages received with a CRC error. It clears when the bulb powers up and rolls over from 255 to 0.",
       "query": "0x02",
       "verification": {
         "status": "conflicting",
@@ -93,30 +133,28 @@
     },
     {
       "name": "signalToNoiseFailureCount",
-      "description": "The number of signal-to-noise failures.",
+      "description": "The number of signal-to-noise failures. It clears when the bulb powers up and rolls over from 255 to 0.",
       "query": "0x03"
     }
   ],
   "flagCommands": [
     {
-      "name": "powerUpLastState",
-      "description": "The bulb powers up to its last state.",
-      "command2": "0x04"
-    },
-    {
-      "name": "powerUpOn",
-      "description": "The bulb powers up on.",
-      "command2": "0x05"
-    },
-    {
       "name": "linkOnPowerUpOff",
       "description": "Turns linking at power-up off.",
-      "command2": "0x08"
+      "command2": "0x08",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list cmd2 0x08 or 0x09; they turn linking at power-up off with programming lock (cmd2 0x00) instead."
+      }
     },
     {
       "name": "linkOnPowerUpOn",
       "description": "Turns linking at power-up on.",
-      "command2": "0x09"
+      "command2": "0x09",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes don't list cmd2 0x08 or 0x09; they turn linking at power-up off with programming lock (cmd2 0x00) instead."
+      }
     },
     {
       "name": "smartHopsOn",
@@ -130,10 +168,117 @@
     }
   ],
   "notes": [
-    "Bits 2 and 4 of the 0x00 reply hold the power-up state and link-at-power-up settings, but Insteon's documents don't make clear which value each command writes.",
-    "Insteon's documents don't give this product's extended Get and Set layout."
+    "When it powers up, the bulb sends a SET button broadcast and stays in responder linking mode for 5 seconds, unless programming lock is on. To link it, put the controller in linking mode, then power the bulb up.",
+    "The bulb's levels and ramp rates differ from other dimmers': at 0x0F it gives about a tenth of its full light, and at 0x7F more than half.",
+    "The LED Bulb Developer Notes give ramp rate 0x00 as about 2 seconds when setting it and as 9 minutes in their ramp table; the rest of the table runs from 8 minutes at 0x01 to 0.1 second at 0x1F.",
+    "Of the extended Get reply, the LED Bulb Developer Notes use only D7, the ramp rate."
   ],
   "sources": [
-    "Insteon Developer's Guide (2009)"
+    "Insteon Developer's Guide (2009)",
+    "LED Bulb Developer Notes"
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "rampRate",
+        "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds. 0x1C (0.5 second) by default.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x1F"
+        }
+      }
+    ],
+    "writes": [
+      {
+        "name": "rampRate",
+        "description": "Sets the ramp rate.",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "rampRate"
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The LED Bulb Developer Notes send D1 0x00; other products ignore D1 for settings that aren't per button."
+        }
+      }
+    ]
+  },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the bulb on to the level in cmd2 at its ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOnFast",
+      "description": "Turns the bulb full on instantly. The bulb ignores cmd2.",
+      "command1": "0x12"
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the bulb off at its ramp rate.",
+      "command1": "0x13"
+    },
+    {
+      "name": "lightOffFast",
+      "description": "Turns the bulb off instantly.",
+      "command1": "0x14"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the bulb's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The bulb's level, from 0x00 (off) to 0xFF (full)."
+      }
+    },
+    {
+      "name": "instantChange",
+      "description": "Sets the bulb to the level in cmd2 instantly.",
+      "command1": "0x21",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "onAtRampRate",
+      "description": "Turns the bulb on to a level at a ramp rate, both given in cmd2.",
+      "command1": "0x34",
+      "parameter": {
+        "name": "levelAndRampRate",
+        "description": "Bits 4 through 7 give the level, which is 16 times their value plus 0x0F, and bits 0 through 3 the ramp rate, which is 2 times their value plus 1."
+      }
+    },
+    {
+      "name": "offAtRampRate",
+      "description": "Turns the bulb off at a ramp rate given in cmd2. The bulb ignores bits 4 through 7.",
+      "command1": "0x35",
+      "parameter": {
+        "name": "rampRate",
+        "description": "The ramp rate, which is 2 times this value plus 1.",
+        "mask": "0x0F"
+      }
+    }
   ]
 }

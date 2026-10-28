@@ -30,7 +30,51 @@
     {
       "category": "0x01",
       "subcategory": "0x4D",
-      "region": "Australia and New Zealand, B22"
+      "region": "Australia and New Zealand, B22",
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb Developer Notes print 0x4D as an Australian Edison base; other sources make it the B22 version."
+      }
+    }
+  ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x3A",
+      "verification": {
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list this subcategory; the bulbs they list run i2CS."
+      }
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x3B"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x4C"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x51",
+      "verification": {
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list this subcategory; the bulbs they list run i2CS."
+      }
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x3C"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x4D"
     }
   ],
   "commandSets": [
@@ -74,11 +118,12 @@
   ],
   "notes": [
     "Has no buttons or LED.",
-    "Can be set to turn on when power returns; that's off by default.",
+    "Powers up on by default, and can be set to power up to its last state instead.",
     "Sold as the 2672-222 in the US, the 2672-422 (E27) and 2672-432 (B22) in Europe, and the 2672-522 (E27) and 2672-532 (B22) in Australia and New Zealand."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "LED Bulb 2672 Owner's Manual"
+    "LED Bulb 2672 Owner's Manual",
+    "LED Bulb Developer Notes"
   ]
 }

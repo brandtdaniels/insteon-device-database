@@ -28,6 +28,33 @@
       "region": "Australia and New Zealand, B22"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x49"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x4A"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x4E"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x4B"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x4F"
+    }
+  ],
   "commandSets": [
     {
       "commandSet": "ledBulb",
@@ -66,6 +93,7 @@
     "Has no buttons or LED."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "LED Bulb Developer Notes"
   ]
 }
