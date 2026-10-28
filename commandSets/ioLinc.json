@@ -69,7 +69,7 @@
     },
     {
       "name": "keyBeep",
-      "description": "The I/O Linc beeps when its set button is pressed.",
+      "description": "The I/O Linc beeps when its SET button is pressed.",
       "query": "0x02",
       "bit": "0x02",
       "on": "0x0A",
@@ -79,7 +79,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
   ],
@@ -148,7 +148,7 @@
       },
       {
         "name": "signalToNoise",
-        "description": "The power line's signal-to-noise value.",
+        "description": "The powerline's signal-to-noise value.",
         "byte": 9
       }
     ],

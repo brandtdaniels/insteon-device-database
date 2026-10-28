@@ -29,7 +29,7 @@
     },
     {
       "name": "powerLineOff",
-      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "description": "Insteon communication over the powerline is off. The device turns it back on whenever it powers up.",
       "query": "0x00",
       "bit": "0x80",
       "on": "0x0E",
@@ -37,7 +37,7 @@
     },
     {
       "name": "applicationRetries",
-      "description": "The device retries application messages as many times as its link database says, and reports cleanup errors.",
+      "description": "The device retries application messages as many times as its ALL-Link database says, and reports cleanup errors.",
       "query": "0x05",
       "bit": "0x01",
       "on": "0x10",
@@ -69,7 +69,7 @@
     },
     {
       "name": "checksumRequired",
-      "description": "Extended Set and link database write messages must carry a checksum in D14.",
+      "description": "Extended Set and ALL-Link database write messages must carry a checksum in D14.",
       "query": "0x05",
       "bit": "0x10",
       "on": "0x19",
@@ -79,7 +79,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {

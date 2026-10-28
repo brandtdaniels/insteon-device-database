@@ -253,7 +253,7 @@
     ]
   },
   "notes": [
-    "Bits 2 and 3 of the 0x04 reply together set button 4's mode: always off, always on, a 4-hour countdown or on/off toggle.",
+    "Bits 2 and 3 of the 0x04 reply together SET button 4's mode: always off, always on, a 4-hour countdown or on/off toggle.",
     "The keypad is built on the KeypadLinc code base, but Insteon's documents don't say which of the KeypadLinc's other operating flags it accepts.",
     "Setting the hours and minutes starts the countdown, and the matching LED lights a second later."
   ],

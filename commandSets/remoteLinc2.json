@@ -61,7 +61,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes. It clears when the device loses power.",
+      "description": "A count that goes up whenever the ALL-Link database changes. It clears when the device loses power.",
       "query": "0x01"
     }
   ],
