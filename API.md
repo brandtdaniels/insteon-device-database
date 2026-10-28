@@ -5,13 +5,13 @@ parameters and no authentication: a client downloads the catalog and looks devic
 
 ## Files
 
-Every file is under `https://brandtdaniels.github.io/insteon-device-catalog/v1/` and is fetched
+Every file is under `https://brandtdaniels.github.io/insteon-device-catalog/v0/` and is fetched
 with a plain `GET` over HTTPS.
 
 | File | Contents |
 | --- | --- |
-| `manifest.json` | The schema version, the number of profiles, the catalog's file name and its SHA-256 |
-| `catalog.json` | The schema version, every profile sorted by model, and every command set |
+| `manifest.json` | The catalog's version, when it was built, the number of profiles, the catalog's file name and its SHA-256 |
+| `catalog.json` | The catalog's version, every profile sorted by model, and every command set |
 | `device-profile.schema.json` | The JSON Schema every profile follows |
 | `command-set.schema.json` | The JSON Schema every command set follows |
 
@@ -19,10 +19,11 @@ with a plain `GET` over HTTPS.
 
 ```json
 {
+  "built": "2026-10-28T22:00:00Z",
   "catalog": "catalog.json",
-  "devices": 14,
-  "schemaVersion": 1,
-  "sha256": "8d824948278c3c03ffc12ccc994c3f78981de410ebaa3650b174e030de77cfe6"
+  "devices": 140,
+  "sha256": "8d824948278c3c03ffc12ccc994c3f78981de410ebaa3650b174e030de77cfe6",
+  "version": "0.2.3"
 }
 ```
 
@@ -32,7 +33,7 @@ with a plain `GET` over HTTPS.
 {
   "commandSets": [ { "id": "keypadLinc", "name": "KeypadLinc", "…": "…" }, "…" ],
   "devices": [ { "model": "2242", "name": "Hub", "…": "…" }, "…" ],
-  "schemaVersion": 1
+  "version": "0.2.3"
 }
 ```
 
@@ -240,7 +241,8 @@ The control follows from the setting:
 ## Keeping a copy up to date
 
 1. Fetch `manifest.json`.
-2. If its `schemaVersion` isn't one the client understands, keep the copy it has.
+2. If its `version` isn't one the client understands, keep the copy it has: below 1.0, one
+   with the same MAJOR.MINOR as the client was built for; from 1.0, the same MAJOR.
 3. If its `sha256` matches the copy the client has, stop: nothing changed.
 4. Otherwise fetch `catalog.json`, check that its bytes hash to `sha256`, and only then replace
    the copy.
@@ -264,6 +266,15 @@ working.
 
 ## Versions
 
-The `v1` in the path is the format's version. Adding profiles, or optional fields a `v1` client
-can ignore, keeps `v1`. A change that would break a `v1` client is published under `v2`, and `v1`
-stays where it is.
+The catalog follows semantic versioning, MAJOR.MINOR.PATCH, and the path names its MAJOR version:
+`v0` now, `v1` once the format is final.
+
+- PATCH: the data changed but not the format, such as a new profile or a corrected value.
+- MINOR: the schemas changed. From 1.0, only by adding optional fields a client can ignore.
+- MAJOR: from 1.0, a change that would break a client built for the earlier format. It's
+  published under a new path, and the old one stays where it is.
+
+Below 1.0 the format can still change in any MINOR, so a client should only take a catalog with
+the MAJOR.MINOR it was built for. `VERSION` in the repository holds MAJOR.MINOR, and the build
+fails a pull request that changes the schemas without changing it. The publishing workflow
+counts PATCH: the commits since `VERSION` last changed.

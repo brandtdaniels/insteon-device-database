@@ -1,8 +1,8 @@
 # Insteon Device Catalog
 
 [![Catalog](https://github.com/brandtdaniels/insteon-device-catalog/actions/workflows/catalog.yml/badge.svg?branch=main)](https://github.com/brandtdaniels/insteon-device-catalog/actions/workflows/catalog.yml)
-[![Device profiles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-catalog%2Fv1%2Fmanifest.json&query=%24.devices&label=device%20profiles)](https://brandtdaniels.github.io/insteon-device-catalog/v1/catalog.json)
-[![Schema](https://img.shields.io/badge/schema-v1-blue.svg)](schema/device-profile.schema.json)
+[![Device profiles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-catalog%2Fv0%2Fmanifest.json&query=%24.devices&label=device%20profiles)](https://brandtdaniels.github.io/insteon-device-catalog/v0/catalog.json)
+[![Catalog version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-catalog%2Fv0%2Fmanifest.json&query=%24.version&label=catalog)](https://brandtdaniels.github.io/insteon-device-catalog/v0/manifest.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 What each Insteon product is and what it can do, as data, so software can support a device by
@@ -35,19 +35,20 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 
 Every change to `main` publishes the profiles to GitHub Pages:
 
-- `https://brandtdaniels.github.io/insteon-device-catalog/v1/catalog.json`: every profile,
+- `https://brandtdaniels.github.io/insteon-device-catalog/v0/catalog.json`: every profile,
   sorted by model, and every command set
-- `https://brandtdaniels.github.io/insteon-device-catalog/v1/manifest.json`: the schema version,
-  the number of profiles and the catalog's SHA-256
-- `https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json` and
+- `https://brandtdaniels.github.io/insteon-device-catalog/v0/manifest.json`: the catalog's
+  version, when it was built, the number of profiles and the catalog's SHA-256
+- `https://brandtdaniels.github.io/insteon-device-catalog/v0/device-profile.schema.json` and
   `command-set.schema.json`: the schemas
 - `https://brandtdaniels.github.io/insteon-device-catalog/`: a page listing the files and every
   profile, for people rather than software
 
 See [API.md](API.md) for the files' formats, how to keep a copy up to date and how to look a
-device up. In short: read the manifest first, check that its schema version is one you
-understand, then download the catalog and check its hash. A breaking change to the format gets a new version path, so `v1`
-keeps working for software built against it. Software should ship a copy of the catalog and
+device up. In short: read the manifest first, check that its version is one you understand, then
+download the catalog and check its hash. The catalog follows semantic versioning, and the path
+names its MAJOR version; it stays at 0 until the format is final. Software should ship a copy of
+the catalog and
 treat downloading a newer one as optional.
 
 ## Adding or changing a profile

@@ -20,7 +20,10 @@ import sys
 import jsonschema
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SCHEMA_VERSION = 1
+# The catalog's version, MAJOR.MINOR from the VERSION file and PATCH from the publishing
+# workflow: the number of commits since VERSION last changed.
+MAJOR_MINOR = (ROOT / "VERSION").read_text().strip()
+MAJOR = MAJOR_MINOR.split(".")[0]
 
 
 def load_profiles():
@@ -531,7 +534,9 @@ def term_problems(label, value, key=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--output", type=pathlib.Path, help="where to write v1/catalog.json and v1/manifest.json")
+    parser.add_argument("--output", type=pathlib.Path, help="where to write the catalog, its manifest and schemas, under v<MAJOR>/")
+    parser.add_argument("--patch", type=int, default=0, help="the version's PATCH number, from the publishing workflow")
+    parser.add_argument("--built", help="when the catalog was built, as an ISO 8601 date and time, from the publishing workflow")
     arguments = parser.parse_args()
 
     profiles, errors = load_profiles()
@@ -555,21 +560,25 @@ def main():
     if arguments.output is None:
         return
 
-    catalog = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles, "commandSets": command_sets}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    version = f"{MAJOR_MINOR}.{arguments.patch}"
+    catalog = json.dumps({"version": version, "devices": profiles, "commandSets": command_sets}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     manifest = {
-        "schemaVersion": SCHEMA_VERSION,
+        "version": version,
         "devices": len(profiles),
         "catalog": "catalog.json",
         "sha256": hashlib.sha256(catalog.encode()).hexdigest(),
     }
 
-    directory = arguments.output / f"v{SCHEMA_VERSION}"
+    if arguments.built:
+        manifest["built"] = arguments.built
+
+    directory = arguments.output / f"v{MAJOR}"
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "catalog.json").write_text(catalog)
     (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     (directory / "device-profile.schema.json").write_text((ROOT / "schema" / "device-profile.schema.json").read_text())
     (directory / "command-set.schema.json").write_text((ROOT / "schema" / "command-set.schema.json").read_text())
-    (arguments.output / "index.html").write_text(index_page(profiles, command_sets))
+    (arguments.output / "index.html").write_text(index_page(profiles, command_sets, version))
 
 
 # The category names the Insteon Developer's Guide gives.
@@ -654,7 +663,7 @@ def capability_descriptions():
     return {option["properties"]["kind"]["const"]: option["description"] for option in schema["$defs"]["capability"]["oneOf"]}
 
 
-def index_page(profiles, command_sets):
+def index_page(profiles, command_sets, version):
     """The landing page: what the catalog is, how to download it, and a card for each profile to
     search and filter."""
     escape = html.escape
@@ -768,7 +777,8 @@ def index_page(profiles, command_sets):
     template = string.Template((ROOT / "templates" / "index.html").read_text())
 
     return template.substitute(
-        version=SCHEMA_VERSION,
+        version=MAJOR,
+        catalog_version=version,
         count=len(profiles),
         sections="\n".join(sections),
         category_options="".join(f'<option value="{c}">{escape(CATEGORY_NAMES.get(c, c))}</option>' for c in categories),
