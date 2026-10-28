@@ -2,7 +2,8 @@
   "model": "2457D2",
   "name": "Dimmer Plug",
   "aliases": [
-    "LampLinc Dimmer"
+    "LampLinc Dimmer",
+    "Dimmer Module"
   ],
   "description": "A plug-in module that lets a dimmable lamp be turned on and off and dimmed remotely. The lamp plugs into the module, which plugs into a wall outlet.",
   "identities": [
@@ -59,10 +60,13 @@
   ],
   "notes": [
     "Linking and unlinking modes time out after 4 minutes.",
-    "Setting the on-level to 0 turns on resume dim."
+    "Setting the on-level to 0 turns on resume dim.",
+    "Versions before 3.6 support X10; load sense is supported from version 3.6.",
+    "The 2014 to 2016 owner's manuals print subcategory 0x37, which the DIN Rail Dimmer 2452 reports in Australia and New Zealand; Insteon Device Categories (January 2014) gives the 2457D2 only 0x01/0x0E. A later hardware revision may report 0x37."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Dimmer Module 2457D2 Owner's Manual"
   ]
 }

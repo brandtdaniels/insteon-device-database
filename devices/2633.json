@@ -21,6 +21,11 @@
       "category": "0x02",
       "subcategory": "0x36",
       "region": "Australia and New Zealand"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x3A",
+      "region": "Chile"
     }
   ],
   "engines": [
@@ -81,8 +86,12 @@
       "kind": "onOff"
     }
   ],
+  "notes": [
+    "The 2633-452, sold in Chile on 915 MHz, reports 0x02/0x3A."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "Global Line Developer Notes"
+    "Global Line Developer Notes",
+    "On/Off Module 2633 Owner's Manual"
   ]
 }

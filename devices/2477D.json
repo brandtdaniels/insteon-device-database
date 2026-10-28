@@ -32,8 +32,12 @@
       "kind": "dimmable"
     }
   ],
+  "notes": [
+    "The 2015 owner's manual for the 2477S, 2477D and 2477DH prints subcategory 0x00, a template value; Insteon Device Categories (January 2014) gives the 2477D 0x01/0x20."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Wall Switch 2477D Owner's Manual"
   ]
 }

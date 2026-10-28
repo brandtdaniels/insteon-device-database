@@ -1,6 +1,9 @@
 {
   "model": "2443",
   "name": "Access Point",
+  "aliases": [
+    "Wireless Phase Coupler"
+  ],
   "identities": [
     {
       "category": "0x00",
@@ -9,11 +12,13 @@
   ],
   "radio": "dual",
   "capabilities": [],
+  "notes": [
+    "Insteon later reused the model number 2443 for the Micro On/Off Module, whose identities are its own.",
+    "It doesn't relay X10."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Developer's Guide (2009)"
-  ],
-  "notes": [
-    "Insteon later reused the model number 2443 for the Micro On/Off Module, whose identities are its own."
+    "Insteon Developer's Guide (2009)",
+    "Access Point 2443 Owner's Manual"
   ]
 }

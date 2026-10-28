@@ -74,9 +74,11 @@
   ],
   "notes": [
     "Has no buttons or LED.",
-    "Can be set to turn on when power returns; that's off by default."
+    "Can be set to turn on when power returns; that's off by default.",
+    "Sold as the 2672-222 in the US, the 2672-422 (E27) and 2672-432 (B22) in Europe, and the 2672-522 (E27) and 2672-532 (B22) in Australia and New Zealand."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "LED Bulb 2672 Owner's Manual"
   ]
 }

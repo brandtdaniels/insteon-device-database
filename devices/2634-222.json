@@ -41,11 +41,13 @@
   ],
   "notes": [
     "Has no X10.",
-    "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672."
+    "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672.",
+    "Its owner's manual lists it as an Insteon controller; its Developer Notes list it as a responder only, as the catalog does."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Outdoor ApplianceLinc with RF Developer Notes"
+    "Outdoor ApplianceLinc with RF Developer Notes",
+    "Outdoor On/Off Module 2634-222 Owner's Manual"
   ]
 }

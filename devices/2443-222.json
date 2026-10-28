@@ -56,6 +56,8 @@
       "subcategory": "0x32"
     }
   ],
+  "radio": "dual",
+  "role": "both",
   "groups": [
     {
       "number": "0x01",
@@ -74,6 +76,7 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Global Line Developer Notes"
+    "Global Line Developer Notes",
+    "Micro On/Off 2443 Owner's Manual"
   ]
 }

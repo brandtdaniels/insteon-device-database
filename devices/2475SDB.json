@@ -32,6 +32,8 @@
       "subcategory": "0x1F"
     }
   ],
+  "radio": "dual",
+  "role": "responder",
   "groups": [
     {
       "number": "0x01",
@@ -46,6 +48,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2475SDB Developer Notes"
+    "2475SDB Developer Notes",
+    "In-LineLinc On/Off 2475SDB Owner's Manual"
   ]
 }

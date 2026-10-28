@@ -40,6 +40,8 @@
       "subcategory": "0x21"
     }
   ],
+  "radio": "dual",
+  "role": "both",
   "groups": [
     {
       "number": "0x01",
@@ -55,6 +57,7 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "2472D Developer Notes"
+    "2472D Developer Notes",
+    "OutletLinc Dimmer 2472D Owner's Manual"
   ]
 }

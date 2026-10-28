@@ -1,6 +1,9 @@
 {
   "model": "2448A7",
   "name": "USB Adapter",
+  "aliases": [
+    "USB Stick"
+  ],
   "identities": [
     {
       "category": "0x03",
@@ -17,6 +20,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "USB Stick 2448A7 Quick Start Guide"
   ]
 }

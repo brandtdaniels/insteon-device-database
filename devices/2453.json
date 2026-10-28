@@ -56,6 +56,8 @@
       "subcategory": "0x34"
     }
   ],
+  "radio": "dual",
+  "role": "both",
   "groups": [
     {
       "number": "0x01",
@@ -71,6 +73,7 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Global Line Developer Notes"
+    "Global Line Developer Notes",
+    "DIN Rail On/Off 2453 Owner's Manual"
   ]
 }

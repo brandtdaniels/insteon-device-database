@@ -32,13 +32,22 @@
       "role": "controller"
     },
     {
+      "number": "0x02",
+      "name": "Button 2",
+      "role": "controller"
+    },
+    {
       "number": "0x09",
       "name": "Low battery",
       "role": "controller"
     }
   ],
   "capabilities": [],
+  "notes": [
+    "It sends group 1 as one on/off pair by default, and can be set to two scenes."
+  ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Mini Remote 2342 Owner's Manual"
   ]
 }
