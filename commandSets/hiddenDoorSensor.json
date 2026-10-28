@@ -114,8 +114,12 @@
       },
       {
         "name": "doorState",
-        "description": "The door's state, 0x00 or 0xFF. The guide's tables disagree on which is open.",
-        "byte": 5
+        "description": "The door's state, 0x00 or 0xFF.",
+        "byte": 5,
+        "verification": {
+          "status": "conflicting",
+          "note": "The Hidden Door Sensor's developer guide gives 0x00 and 0xFF, but its tables disagree on which one means open."
+        }
       },
       {
         "name": "heartbeatInterval",
@@ -243,8 +247,12 @@
           },
           {
             "name": "doorState",
-            "description": "The door's state, 0x00 or 0xFF. The guide's tables disagree on which is open.",
-            "byte": 5
+            "description": "The door's state, 0x00 or 0xFF.",
+            "byte": 5,
+            "verification": {
+              "status": "conflicting",
+              "note": "The Hidden Door Sensor's developer guide gives 0x00 and 0xFF, but its tables disagree on which one means open."
+            }
           },
           {
             "name": "heartbeatInterval",

@@ -75,7 +75,11 @@
       "query": "0x00",
       "bit": "0x10",
       "on": "0x08",
-      "off": "0x09"
+      "off": "0x09",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+      }
     },
     {
       "name": "keyBeep",
@@ -83,7 +87,11 @@
       "query": "0x00",
       "bit": "0x20",
       "on": "0x0A",
-      "off": "0x0B"
+      "off": "0x0B",
+      "verification": {
+        "status": "conflicting",
+        "note": "The product requirements document and the developer's guide for the 2477S list bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07; Insteon's command sheets and the Insteon for Hub app make bit 5 the key beep on this code base."
+      }
     },
     {
       "name": "radioOff",
@@ -151,7 +159,11 @@
     {
       "name": "crcErrorCount",
       "description": "The number of messages received with a CRC error.",
-      "query": "0x02"
+      "query": "0x02",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+      }
     },
     {
       "name": "signalToNoiseFailureCount",
@@ -378,6 +390,10 @@
         "description": "What the tap sets.",
         "kind": "enumeration",
         "enumeration": "setButtonTap"
+      },
+      "verification": {
+        "status": "conflicting",
+        "note": "The developer's guides give cmd2 of cmd1 0x25 as 0x00 to set the on-level and 0x02 to set the ramp rate; Insteon's 2007 command tables give it as the number of taps, 0x01 or 0x02."
       }
     },
     {
@@ -450,13 +466,8 @@
     }
   ],
   "notes": [
-    "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
-    "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
-    "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
-    "The product requirements document and the developer's guide for the 2477S list bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07; Insteon's command sheets and the Insteon for Hub app make bit 5 the key beep on this code base.",
     "The 2477S developer's guide also lists resume dim, bit 2 of the 0x00 reply set with 0x04 and 0x05, which the catalog leaves out for this relay.",
-    "The 2477S developer's guide lists the ramp rate and on-level in the extended Get reply and their Sets, though the relay only switches its load.",
-    "The developer's guides give cmd2 of cmd1 0x25 as 0x00 to set the on-level and 0x02 to set the ramp rate; Insteon's 2007 command tables give it as the number of taps, 0x01 or 0x02."
+    "The 2477S developer's guide lists the ramp rate and on-level in the extended Get reply and their Sets, though the relay only switches its load."
   ],
   "sources": [
     "Insteon command workbook",

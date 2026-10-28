@@ -41,7 +41,11 @@
       "query": "0x00",
       "bit": "0x10",
       "on": "0x08",
-      "off": "0x09"
+      "off": "0x09",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+      }
     },
     {
       "name": "keyBeep",
@@ -117,7 +121,11 @@
     {
       "name": "crcErrorCount",
       "description": "The number of messages received with a CRC error.",
-      "query": "0x02"
+      "query": "0x02",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+      }
     },
     {
       "name": "signalToNoiseFailureCount",
@@ -371,9 +379,6 @@
     }
   ],
   "notes": [
-    "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
-    "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
-    "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
     "Insteon's earlier command sheet describes selector 0x02 as a mask whose bits 0 and 1 disable relays 1 and 2.",
     "The 2475DA2 guide marks bit 2 of the 0x00 reply and bits 2 and 4 of the 0x05 reply N/A and lists no Set Operating Flags for resume dim, error blink or the checksum flag, so they're left out here; the command workbook gives them for the KeypadLinc code base.",

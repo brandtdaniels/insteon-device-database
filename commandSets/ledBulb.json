@@ -85,7 +85,11 @@
     {
       "name": "crcErrorCount",
       "description": "The number of messages received with a CRC error.",
-      "query": "0x02"
+      "query": "0x02",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+      }
     },
     {
       "name": "signalToNoiseFailureCount",
@@ -127,7 +131,6 @@
   ],
   "notes": [
     "Bits 2 and 4 of the 0x00 reply hold the power-up state and link-at-power-up settings, but Insteon's documents don't make clear which value each command writes.",
-    "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
     "Insteon's documents don't give this product's extended Get and Set layout."
   ],
   "sources": [
