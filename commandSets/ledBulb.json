@@ -1,7 +1,7 @@
 {
   "id": "ledBulb",
   "name": "LED Bulb",
-  "description": "The dimmable LED bulbs. They have no SET button, status LED or beeper.",
+  "description": "The dimmable LED bulbs, which run the KeypadLinc code base. They have no SET button or status LED.",
   "operatingFlags": [
     {
       "name": "programmingLock",
@@ -27,8 +27,8 @@
       "on": "0x02",
       "off": "0x03",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes list bit 1 of the 0x00 reply as not used."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes list bit 1 of the 0x00 reply as not used; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -39,8 +39,8 @@
       "on": "0x0C",
       "off": "0x0D",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes list bit 6 of the 0x00 reply as not used."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes list bit 6 of the 0x00 reply as not used; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -51,8 +51,8 @@
       "on": "0x0E",
       "off": "0x0F",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes list bit 7 of the 0x00 reply as not used."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes list bit 7 of the 0x00 reply as not used; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -63,8 +63,8 @@
       "on": "0x10",
       "off": "0x11",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -75,8 +75,8 @@
       "on": "0x12",
       "off": "0x13",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -87,8 +87,8 @@
       "on": "0x15",
       "off": "0x14",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -99,8 +99,8 @@
       "on": "0x17",
       "off": "0x16",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
       }
     },
     {
@@ -111,8 +111,8 @@
       "on": "0x19",
       "off": "0x18",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list the 0x05 reply."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
       }
     }
   ],
@@ -143,8 +143,8 @@
       "description": "Turns linking at power-up off.",
       "command2": "0x08",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list cmd2 0x08 or 0x09; they turn linking at power-up off with programming lock (cmd2 0x00) instead."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list cmd2 0x08 or 0x09; they keep the bulb out of linking at power-up with programming lock (cmd2 0x00) instead."
       }
     },
     {
@@ -152,8 +152,8 @@
       "description": "Turns linking at power-up on.",
       "command2": "0x09",
       "verification": {
-        "status": "conflicting",
-        "note": "The LED Bulb Developer Notes don't list cmd2 0x08 or 0x09; they turn linking at power-up off with programming lock (cmd2 0x00) instead."
+        "status": "inferred",
+        "note": "The LED Bulb Developer Notes don't list cmd2 0x08 or 0x09; they keep the bulb out of linking at power-up with programming lock (cmd2 0x00) instead."
       }
     },
     {
@@ -168,43 +168,26 @@
     }
   ],
   "notes": [
-    "When it powers up, the bulb sends a SET button broadcast and stays in responder linking mode for 5 seconds, unless programming lock is on. To link it, put the controller in linking mode, then power the bulb up.",
-    "The bulb's levels and ramp rates differ from other dimmers': at 0x0F it gives about a tenth of its full light, and at 0x7F more than half.",
+    "When it powers up, the bulb sends a SET button broadcast and stays in responder linking mode for 5 seconds; with programming lock on, it doesn't enter linking mode. To link it, put the controller in linking mode, then power the bulb up.",
+    "The bulb's levels differ from other dimmers': at 0x0F it gives about a tenth of its full light, and at 0x7F more than half.",
     "The LED Bulb Developer Notes give ramp rate 0x00 as about 2 seconds when setting it and as 9 minutes in their ramp table; the rest of the table runs from 8 minutes at 0x01 to 0.1 second at 0x1F.",
     "Of the extended Get reply, the LED Bulb Developer Notes use only D7, the ramp rate."
   ],
   "sources": [
     "Insteon Developer's Guide (2009)",
-    "LED Bulb Developer Notes"
+    "LED Bulb Developer Notes",
+    "LED Bulb 2672 Owner's Manual"
   ],
   "extendedSettings": {
     "perButton": false,
     "values": [
       {
         "name": "rampRate",
-        "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds. 0x1C (0.5 second) by default.",
+        "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x1C (0.5 second) by default.",
         "byte": 7,
         "range": {
           "from": "0x00",
           "through": "0x1F"
-        }
-      }
-    ],
-    "writes": [
-      {
-        "name": "rampRate",
-        "description": "Sets the ramp rate.",
-        "selector": "0x05",
-        "perButton": false,
-        "bytes": [
-          {
-            "position": 3,
-            "value": "rampRate"
-          }
-        ],
-        "verification": {
-          "status": "inferred",
-          "note": "The LED Bulb Developer Notes send D1 0x00; other products ignore D1 for settings that aren't per button."
         }
       }
     ]
@@ -279,6 +262,32 @@
         "description": "The ramp rate, which is 2 times this value plus 1.",
         "mask": "0x0F"
       }
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "writeRampRate",
+      "description": "Sets the ramp rate. The bulb takes D1 0x00 here, where most devices take 0x01.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x05"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "rampRate",
+          "description": "The ramp rate, from 0x00 through 0x1F.",
+          "byte": 3,
+          "range": {
+            "from": 0,
+            "through": 31
+          }
+        }
+      ],
+      "integrity": "checksum"
     }
   ]
 }
