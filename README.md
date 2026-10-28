@@ -71,7 +71,7 @@ the catalog and treat downloading a newer one as optional.
 A value with no `verification` is documented: an Insteon document gives it, and none of the
 catalog's sources disagree. Where that isn't so, give the profile, identity, engine, command set
 entry or group, or the command set's flag, reading, value, write, field, command or direct
-message, a `verification` with a `status` and a `note`:
+message, value table, group type or link data byte, a `verification` with a `status` and a `note`:
 
 | Status | Meaning | The note says |
 | --- | --- | --- |

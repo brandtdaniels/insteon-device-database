@@ -1230,7 +1230,37 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate"
+          },
+          {
+            "byte": 3,
+            "name": "group",
+            "label": "Group",
+            "description": "The device's single group, always 0x01.",
+            "value": "0x01"
+          }
+        ]
+      }
     }
   ],
   "notes": [
