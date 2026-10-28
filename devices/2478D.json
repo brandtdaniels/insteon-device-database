@@ -1,6 +1,9 @@
 {
   "model": "2478D",
-  "name": "SwitchLinc Dimmer 240V",
+  "name": "Dimmer Switch 240V",
+  "aliases": [
+    "SwitchLinc Dimmer 240V"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -19,6 +22,16 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xBC",
+          "0xBD"
+        ]
+      }
     }
   ],
   "notes": [

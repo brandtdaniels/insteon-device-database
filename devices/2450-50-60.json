@@ -1,13 +1,20 @@
 {
   "model": "2450-50-60",
-  "name": "I/O Linc",
+  "name": "I/O Module (50/60 Hz)",
+  "aliases": [
+    "I/O Linc"
+  ],
   "identities": [
     {
       "category": "0x07",
       "subcategory": "0x0D"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs"
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

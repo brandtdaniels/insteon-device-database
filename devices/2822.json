@@ -1,6 +1,9 @@
 {
   "model": "2822",
-  "name": "I/O Linc",
+  "name": "I/O Module",
+  "aliases": [
+    "I/O Linc"
+  ],
   "identities": [
     {
       "category": "0x07",

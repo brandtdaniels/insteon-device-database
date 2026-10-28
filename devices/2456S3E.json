@@ -1,6 +1,9 @@
 {
   "model": "2456S3E",
-  "name": "Outdoor ApplianceLinc",
+  "name": "Outdoor On/Off Module",
+  "aliases": [
+    "Outdoor ApplianceLinc"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -10,6 +13,16 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xD5",
+          "0xD6"
+        ]
+      }
     }
   ],
   "sources": [

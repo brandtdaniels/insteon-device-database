@@ -1,6 +1,9 @@
 {
   "model": "2476DH",
-  "name": "SwitchLinc Dimmer",
+  "name": "Dimmer Switch (High Wattage)",
+  "aliases": [
+    "SwitchLinc Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",

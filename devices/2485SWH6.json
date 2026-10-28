@@ -1,6 +1,9 @@
 {
   "model": "2485SWH6",
-  "name": "KeypadLinc Schedule Timer On/Off Switch",
+  "name": "Schedule Timer On/Off Keypad",
+  "aliases": [
+    "KeypadLinc Schedule Timer On/Off Switch"
+  ],
   "identities": [
     {
       "category": "0x02",

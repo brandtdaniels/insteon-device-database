@@ -55,7 +55,11 @@
   "radio": "rf",
   "role": "controller",
   "batteryPowered": true,
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs"
+    }
+  ],
   "notes": [
     "Comes as a 4-scene remote, an 8-scene remote, and a single on/off switch.",
     "Runs on a rechargeable battery and doesn't repeat messages."

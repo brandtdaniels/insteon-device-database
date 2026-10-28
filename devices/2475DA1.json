@@ -1,6 +1,9 @@
 {
   "model": "2475DA1",
-  "name": "In-LineLinc Dimmer (Dual-Band)",
+  "name": "In-Line Dimmer Module (Dual-Band)",
+  "aliases": [
+    "In-LineLinc Dimmer (Dual-Band)"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -19,6 +22,9 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs"
     }
   ],
   "notes": [

@@ -1,6 +1,9 @@
 {
   "model": "2413S",
-  "name": "PowerLinc Serial Modem",
+  "name": "Serial Modem",
+  "aliases": [
+    "PowerLinc Serial Modem"
+  ],
   "identities": [
     {
       "category": "0x03",
@@ -16,6 +19,18 @@
   "capabilities": [
     {
       "kind": "modem"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "except": [
+          "0x88",
+          "0x92",
+          "0x98",
+          "0x99",
+          "0xE3"
+        ]
+      }
     }
   ],
   "sources": [

@@ -1,6 +1,9 @@
 {
   "model": "2441ZTH",
-  "name": "TempLinc Wireless Zone Thermostat",
+  "name": "Wireless Zone Thermostat",
+  "aliases": [
+    "TempLinc Wireless Zone Thermostat"
+  ],
   "identities": [
     {
       "category": "0x05",

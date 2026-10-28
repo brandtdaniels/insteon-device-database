@@ -1,6 +1,9 @@
 {
   "model": "2440",
-  "name": "RemoteLinc",
+  "name": "Remote Control",
+  "aliases": [
+    "RemoteLinc"
+  ],
   "identities": [
     {
       "category": "0x00",

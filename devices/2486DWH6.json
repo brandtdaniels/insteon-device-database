@@ -1,6 +1,9 @@
 {
   "model": "2486DWH6",
-  "name": "KeypadLinc Dimmer, 6 Buttons",
+  "name": "Dimmer Keypad, 6 Buttons",
+  "aliases": [
+    "KeypadLinc Dimmer, 6 Buttons"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -15,6 +18,24 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xB2",
+          "0xB3",
+          "0xB5",
+          "0xB6",
+          "0xB7",
+          "0xB8",
+          "0xB9",
+          "0xBA",
+          "0xBB",
+          "0xBC"
+        ]
+      }
     }
   ],
   "notes": [

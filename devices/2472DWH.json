@@ -14,6 +14,24 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0x44",
+          "0xB3",
+          "0xB5",
+          "0xB6",
+          "0xB7",
+          "0xB8",
+          "0xB9",
+          "0xBA",
+          "0xBB",
+          "0xBC"
+        ]
+      }
     }
   ],
   "sources": [

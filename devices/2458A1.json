@@ -1,13 +1,27 @@
 {
   "model": "2458A1",
-  "name": "MorningLinc",
+  "name": "Morning Industry Lock Controller",
+  "aliases": [
+    "MorningLinc"
+  ],
   "identities": [
     {
       "category": "0x0F",
       "subcategory": "0x06"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xD5",
+          "0xD6"
+        ]
+      }
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

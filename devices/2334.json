@@ -20,6 +20,9 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs"
     }
   ],
   "sources": [

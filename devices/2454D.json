@@ -1,6 +1,9 @@
 {
   "model": "2454D",
-  "name": "SocketLinc",
+  "name": "Socket Dimmer",
+  "aliases": [
+    "SocketLinc"
+  ],
   "identities": [
     {
       "category": "0x01",

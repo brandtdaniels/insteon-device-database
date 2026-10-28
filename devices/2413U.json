@@ -20,6 +20,20 @@
   "capabilities": [
     {
       "kind": "modem"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x9A",
+          "0x9B",
+          "0xEB",
+          "0xEC",
+          "0xED",
+          "0xEE",
+          "0xEF"
+        ]
+      }
     }
   ],
   "sources": [

@@ -28,6 +28,9 @@
     {
       "kind": "hubPro",
       "port": 80
+    },
+    {
+      "kind": "i2cs"
     }
   ],
   "notes": [

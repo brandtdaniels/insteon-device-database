@@ -1,6 +1,9 @@
 {
   "model": "2456D2",
-  "name": "LampLinc",
+  "name": "Lamp Dimmer Module",
+  "aliases": [
+    "LampLinc"
+  ],
   "identities": [
     {
       "category": "0x01",

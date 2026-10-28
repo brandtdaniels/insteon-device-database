@@ -11,7 +11,25 @@
       "subcategory": "0x00"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x40",
+          "0x41",
+          "0xA1",
+          "0xA2",
+          "0xA3",
+          "0xA4",
+          "0xA5",
+          "0xA6",
+          "0xA7",
+          "0xA8"
+        ]
+      }
+    }
+  ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog"

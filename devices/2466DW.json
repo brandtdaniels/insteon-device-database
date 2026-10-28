@@ -1,6 +1,9 @@
 {
   "model": "2466DW",
-  "name": "ToggleLinc Dimmer",
+  "name": "Toggle Dimmer Switch",
+  "aliases": [
+    "ToggleLinc Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -14,6 +17,20 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xD1",
+          "0xD2",
+          "0xD3",
+          "0xD4",
+          "0xD5",
+          "0xD6"
+        ]
+      }
     }
   ],
   "notes": [

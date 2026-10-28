@@ -1,6 +1,9 @@
 {
   "model": "2448A7T",
-  "name": "TouchLinc",
+  "name": "Touchscreen Controller",
+  "aliases": [
+    "TouchLinc"
+  ],
   "identities": [
     {
       "category": "0x03",
@@ -11,7 +14,16 @@
       "subcategory": "0x27"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "firmware": {
+        "only": [
+          "0x98"
+        ]
+      }
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

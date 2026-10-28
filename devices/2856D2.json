@@ -1,6 +1,9 @@
 {
   "model": "2856D2",
-  "name": "ICON LampLinc",
+  "name": "ICON Dimmer Module",
+  "aliases": [
+    "ICON LampLinc"
+  ],
   "identities": [
     {
       "category": "0x01",

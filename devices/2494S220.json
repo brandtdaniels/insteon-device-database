@@ -1,6 +1,9 @@
 {
   "model": "2494S220",
-  "name": "SwitchLinc 220V Relay",
+  "name": "On/Off Switch 220V",
+  "aliases": [
+    "SwitchLinc 220V Relay"
+  ],
   "identities": [
     {
       "category": "0x02",
