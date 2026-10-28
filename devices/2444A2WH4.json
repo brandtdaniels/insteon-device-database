@@ -1,6 +1,9 @@
 {
   "model": "2444A2WH4",
   "name": "Mini Remote - 4 Scene",
+  "aliases": [
+    "RemoteLinc 2"
+  ],
   "identities": [
     {
       "category": "0x00",
@@ -22,28 +25,55 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "remoteLinc2",
+      "category": "0x00",
+      "subcategory": "0x10"
+    }
+  ],
   "radio": "rf",
   "role": "controller",
   "batteryPowered": true,
   "groups": [
     {
       "number": "0x01",
-      "name": "Button A",
+      "name": "Scene 1",
       "role": "controller"
     },
     {
       "number": "0x02",
-      "name": "Button B",
+      "name": "Scene 2",
       "role": "controller"
     },
     {
       "number": "0x03",
-      "name": "Button C",
+      "name": "Scene 3",
       "role": "controller"
     },
     {
       "number": "0x04",
-      "name": "Button D",
+      "name": "Scene 4",
+      "role": "controller"
+    },
+    {
+      "number": "0x05",
+      "name": "Scene 5",
+      "role": "controller"
+    },
+    {
+      "number": "0x06",
+      "name": "Scene 6",
+      "role": "controller"
+    },
+    {
+      "number": "0x07",
+      "name": "Scene 7",
+      "role": "controller"
+    },
+    {
+      "number": "0x08",
+      "name": "Scene 8",
       "role": "controller"
     },
     {
@@ -53,14 +83,15 @@
     }
   ],
   "capabilities": [],
-  "notes": [
-    "Each of buttons A to D is a pair of buttons that sends on and off to one group.",
-    "Software can turn its grouped mode off so that each of its 8 buttons sends to its own group; the Insteon for Hub app creates groups 1 to 8 for this."
-  ],
   "sources": [
     "HouseLinc device catalog",
     "Insteon device database (SQLite, InsteonDevices.db)",
+    "2444 RemoteLinc 2 Developer's Guide",
     "Insteon for Hub app",
     "Insteon SKU list"
+  ],
+  "notes": [
+    "With its grouped flag set, each row's on and off buttons share a group, 1 to 4 from the top. Otherwise each button has its own group, 1 to 8, left to right and top to bottom.",
+    "It sleeps between button presses, so it hears commands only while awake."
   ]
 }

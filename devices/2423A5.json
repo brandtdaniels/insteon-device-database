@@ -10,8 +10,16 @@
       "subcategory": "0x09"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "applianceStatusSensor",
+      "category": "0x07",
+      "subcategory": "0x09"
+    }
+  ],
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "2423A5 SynchroLinc Developer's Guide"
   ]
 }

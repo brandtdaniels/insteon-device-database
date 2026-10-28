@@ -7,6 +7,25 @@
       "subcategory": "0x0A"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x10",
+      "subcategory": "0x0A",
+      "firmware": {
+        "only": [
+          "0xDC"
+        ]
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "smokeBridge",
+      "category": "0x10",
+      "subcategory": "0x0A"
+    }
+  ],
   "radio": "powerline",
   "role": "controller",
   "groups": [
@@ -91,13 +110,18 @@
           "event": "malfunction"
         }
       ]
+    },
+    {
+      "kind": "heartbeat",
+      "group": "0x0A",
+      "intervalMinutes": 1440
     }
   ],
   "notes": [
     "HouseLinc names it Smoke Detector.",
     "It sends Insteon messages over powerline only; its radio only listens for the smoke alarms it's paired with.",
     "Tapping its SET button sends each group's command as a test, ending with the all-clear.",
-    "It sends a heartbeat to group 0x0A, which software can turn off; its interval isn't documented.",
+    "It sends a heartbeat to group 0x0A about once every 24 hours, which software can turn off.",
     "The Insteon for Hub app reads group 4 as the all-clear of earlier firmware; Insteon's command workbook calls it new or unknown."
   ],
   "sources": [
@@ -105,6 +129,7 @@
     "Insteon command workbook, Smoke sheet",
     "2982-222 Smoke Bridge PRD",
     "Insteon command workbook",
-    "Insteon for Hub app"
+    "Insteon for Hub app",
+    "2982-222 Smoke Bridge Developer's Guide"
   ]
 }

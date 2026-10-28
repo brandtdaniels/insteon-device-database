@@ -1,0 +1,119 @@
+{
+  "id": "applianceStatusSensor",
+  "name": "Appliance Status Sensor",
+  "description": "The Appliance Status Sensor (SynchroLinc), which triggers when the power its appliance draws crosses a threshold.",
+  "extendedCommands": [
+    {
+      "name": "readSettings",
+      "description": "Reads the trigger threshold, holdoff and hysteresis.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x00"
+        },
+        {
+          "position": 2,
+          "value": "0x00"
+        }
+      ],
+      "reply": {
+        "command2": "0x00",
+        "match": [
+          {
+            "position": 1,
+            "value": "0x00"
+          },
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "values": [
+          {
+            "name": "triggerThreshold",
+            "description": "The power, in watts, at which the sensor triggers.",
+            "bytes": [
+              3,
+              4
+            ],
+            "range": {
+              "from": 0,
+              "through": 1800
+            }
+          },
+          {
+            "name": "holdoff",
+            "description": "How long the sensor waits before sending, in steps of about 0.067 second, up to about 17 seconds.",
+            "byte": 5,
+            "scale": 0.067,
+            "unit": "seconds"
+          },
+          {
+            "name": "hysteresis",
+            "description": "How much the power, in watts, must change before the sensor checks whether to trigger.",
+            "byte": 6,
+            "range": {
+              "from": 0,
+              "through": 255
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "setSettings",
+      "description": "Sets the trigger threshold, holdoff and hysteresis.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x00"
+        },
+        {
+          "position": 2,
+          "value": "0x02"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "triggerThreshold",
+          "description": "The power, in watts, at which the sensor triggers.",
+          "bytes": [
+            3,
+            4
+          ],
+          "range": {
+            "from": 0,
+            "through": 1800
+          }
+        },
+        {
+          "name": "holdoff",
+          "description": "How long the sensor waits before sending, in steps of about 0.067 second, up to about 17 seconds.",
+          "byte": 5,
+          "scale": 0.067,
+          "unit": "seconds"
+        },
+        {
+          "name": "hysteresis",
+          "description": "How much the power, in watts, must change before the sensor checks whether to trigger.",
+          "byte": 6,
+          "range": {
+            "from": 0,
+            "through": 255
+          }
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "The guide sends 0x00 in D1 of the extended Get and Set, where most devices take 0x01, so they're described as extended commands.",
+    "The sensor sends its messages as soon as the holdoff has passed."
+  ],
+  "sources": [
+    "2423A5 SynchroLinc Developer's Guide"
+  ]
+}
