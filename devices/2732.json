@@ -18,6 +18,23 @@
       "region": "Australia and New Zealand"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x13"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x14"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x15"
+    }
+  ],
   "radio": "rf",
   "role": "both",
   "groups": [

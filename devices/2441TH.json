@@ -42,6 +42,38 @@
       "region": "Australia and New Zealand"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x0B"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x16"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x17"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x18"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x0F"
+    },
+    {
+      "commandSet": "tempLinc",
+      "category": "0x05",
+      "subcategory": "0x10"
+    }
+  ],
   "radio": "rf",
   "role": "both",
   "groups": [

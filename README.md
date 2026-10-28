@@ -23,8 +23,9 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 - **Engines:** where a source states it, the Insteon engine (i1, i2 or i2CS) the product runs
   under each identity and firmware version.
 - **Command sets:** where a source states it, the command set the product uses under each
-  identity: its operating flags and extended settings, which [`commandSets/`](commandSets)
-  describes once for every product that shares them.
+  identity: its operating flags, extended settings, other standard and extended commands, and
+  the direct messages it sends, which [`commandSets/`](commandSets) describes once for every
+  product that shares them.
 - **Sources:** the documents its values come from.
 
 [`schema/device-profile.schema.json`](schema/device-profile.schema.json) and
@@ -58,6 +59,7 @@ treat downloading a newer one as optional.
    appears twice, that no two profiles claim the same identity for the same firmware, and that
    each engine and command set entry names one of the product's identities and no firmware
    version twice. It also checks each command set in `commandSets/` against its schema, and that
-   no two of its flags share a bit or a command, no two values share a byte, and no two writes
-   share a selector.
+   no two of its flags share a bit or a command, no two values share a byte, no two writes
+   share a selector, no two commands or direct messages share a command, no message fills a
+   byte's bits twice, and every flag and enumeration it names exists.
 3. Open a pull request. CI runs the same check.

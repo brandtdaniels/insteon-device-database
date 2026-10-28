@@ -162,6 +162,172 @@ def command_set_problems(command_set):
         if len(positions) != len(set(positions)):
             problems.append(f"the {write['name']} write fills a byte twice")
 
+    return problems + message_problems(command_set)
+
+
+def message_problems(command_set):
+    """Reports message names used twice, standard commands and direct messages that share a
+    command, values in the wrong place or with an encoding that doesn't fit their kind, user data
+    bytes filled twice, and names of flags and enumerations that don't exist."""
+    problems = []
+    standard = command_set.get("standardCommands", [])
+    extended = command_set.get("extendedCommands", [])
+    direct = command_set.get("directMessages", [])
+    enumerations = {enumeration["name"]: enumeration for enumeration in command_set.get("enumerations", [])}
+    flag_names = {flag["name"] for flag in command_set.get("operatingFlags", [])}
+
+    names = [item["name"] for item in standard + extended + direct]
+
+    if len(names) != len(set(names)):
+        problems.append("a command or message name appears more than once")
+
+    if len(enumerations) != len(command_set.get("enumerations", [])):
+        problems.append("an enumeration name appears more than once")
+
+    for enumeration in enumerations.values():
+        if len({value["value"] for value in enumeration["values"]}) != len(enumeration["values"]):
+            problems.append(f"the {enumeration['name']} enumeration names a value twice")
+
+        if len({value["name"] for value in enumeration["values"]}) != len(enumeration["values"]):
+            problems.append(f"the {enumeration['name']} enumeration uses a name twice")
+
+    def command2s(command):
+        """The cmd2 values a standard command sends, or None for any."""
+        if "parameter" not in command:
+            return {command.get("command2", "0x00")}
+
+        enumeration = enumerations.get(command["parameter"].get("enumeration"))
+
+        return {value["value"] for value in enumeration["values"]} if enumeration else None
+
+    for index, command in enumerate(standard):
+        for other in standard[index + 1:]:
+            if command["command1"] != other["command1"]:
+                continue
+
+            mine, theirs = command2s(command), command2s(other)
+
+            if mine is None or theirs is None or mine & theirs:
+                problems.append(f"the {command['name']} and {other['name']} commands share a cmd1 and cmd2")
+
+    def extended_key(command1, command2, fixed_bytes):
+        return (command1, command2, tuple(sorted((byte["position"], byte["value"]) for byte in fixed_bytes)))
+
+    requests = [extended_key(command["command1"], command["command2"], command.get("fixed", [])) for command in extended]
+    replies = [extended_key(command["reply"].get("command1", command["command1"]), command["reply"]["command2"], command["reply"].get("match", [])) for command in extended if "reply" in command]
+
+    if len(requests) != len(set(requests)):
+        problems.append("two extended commands send the same cmd1, cmd2 and fixed bytes")
+
+    if len(replies) != len(set(replies)):
+        problems.append("two extended replies can't be told apart by their cmd1, cmd2 and match bytes")
+
+    for item in command_set.get("operatingFlags", []) + command_set.get("flagCommands", []):
+        if "extendedWhen" in item and item["extendedWhen"] not in flag_names:
+            problems.append(f"the {item['name']} flag names the operating flag {item['extendedWhen']!r}, which doesn't exist")
+
+    if len({message["command1"] for message in direct}) != len(direct):
+        problems.append("two direct messages share a cmd1")
+
+    def field_problems(field, owner, extended_message):
+        found = []
+        located = ("byte" in field) + ("bytes" in field)
+
+        if extended_message and located != 1:
+            found.append(f"{owner}: the {field['name']} value needs a byte or bytes")
+
+        if not extended_message and located:
+            found.append(f"{owner}: the {field['name']} value is in cmd2, so it can't name user data bytes")
+
+        kind = field.get("kind", "number")
+
+        if (kind == "enumeration") != ("enumeration" in field):
+            found.append(f"{owner}: the {field['name']} value names an enumeration only if its kind is enumeration")
+        elif "enumeration" in field and field["enumeration"] not in enumerations:
+            found.append(f"{owner}: the {field['name']} value names the enumeration {field['enumeration']!r}, which doesn't exist")
+
+        if (kind == "flags") != ("bits" in field):
+            found.append(f"{owner}: the {field['name']} value names bits only if its kind is flags")
+
+        if "mask" in field and (int(field["mask"], 16) == 0 or "bytes" in field):
+            found.append(f"{owner}: the {field['name']} value's mask must pick out some bits of a single byte")
+
+        if kind != "number" and any(key in field for key in ("scale", "unit", "signed")):
+            found.append(f"{owner}: the {field['name']} value has a scale, unit or sign, which only a number can have")
+
+        if "range" in field and field["range"]["from"] > field["range"]["through"]:
+            found.append(f"{owner}: the {field['name']} value's range runs backward")
+
+        bits = field.get("bits", [])
+
+        if any(int(bit["mask"], 16) == 0 for bit in bits) or len({bit["mask"] for bit in bits}) != len(bits) or len({bit["name"] for bit in bits}) != len(bits):
+            found.append(f"{owner}: the {field['name']} value's bits must have distinct, nonzero masks and distinct names")
+
+        if kind == "buttons" and not extended_message:
+            found.append(f"{owner}: the {field['name']} value can't be buttons in cmd2")
+
+        return found
+
+    def reserved(integrity):
+        return [(position, 0xFF) for position in {"checksum": [14], "crc": [13, 14]}.get(integrity, [])]
+
+    def positions(fields):
+        """The user data bytes the values fill, each with the bits it fills."""
+        found = []
+
+        for field in fields:
+            for position in [field["byte"]] if "byte" in field else field.get("bytes", []):
+                found.append((position, int(field.get("mask", "0xFF"), 16)))
+
+        return found
+
+    def overlaps(filled):
+        return any(a[0] == b[0] and a[1] & b[1] for index, a in enumerate(filled) for b in filled[index + 1:])
+
+    for command in standard:
+        owner = f"the {command['name']} command"
+
+        for key in ("parameter", "reply", "followUp"):
+            if key in command:
+                problems += field_problems(command[key], owner, False)
+
+        if "extendedWhen" in command and command["extendedWhen"] not in flag_names:
+            problems.append(f"{owner}: it names the operating flag {command['extendedWhen']!r}, which doesn't exist")
+
+    for command in extended:
+        owner = f"the {command['name']} command"
+        parameters = command.get("parameters", [])
+
+        for field in parameters:
+            problems += field_problems(field, owner, True)
+
+        filled = positions(parameters) + [(byte["position"], 0xFF) for byte in command.get("fixed", [])] + reserved(command.get("integrity")) + ([(1, 0xFF)] if command.get("perButton") else [])
+
+        if overlaps(filled):
+            problems.append(f"{owner}: it fills a user data byte twice")
+
+        if "reply" in command:
+            reply = command["reply"]
+
+            for field in reply["values"]:
+                problems += field_problems(field, f"{owner}'s reply", True)
+
+            read = positions(reply["values"]) + [(byte["position"], 0xFF) for byte in reply.get("match", [])] + reserved(reply.get("integrity"))
+
+            if overlaps(read):
+                problems.append(f"{owner}'s reply reads a user data byte twice")
+
+    for message in direct:
+        problems += field_problems(message["value"], f"the {message['name']} message", False)
+
+    if "displayScale" in command_set:
+        known = flag_names | {field["name"] for command in extended for field in command.get("reply", {}).get("values", [])}
+        known |= {bit["name"] for command in extended for field in command.get("reply", {}).get("values", []) for bit in field.get("bits", [])}
+        known |= {value["name"] for value in command_set.get("extendedSettings", {}).get("values", [])}
+
+        if command_set["displayScale"]["celsiusWhen"] not in known:
+            problems.append(f"the displayScale names {command_set['displayScale']['celsiusWhen']!r}, which isn't a flag, value or bit")
+
     return problems
 
 

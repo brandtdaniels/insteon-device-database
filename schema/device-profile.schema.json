@@ -266,6 +266,7 @@
               "const": "thermostat"
             },
             "modeValues": {
+              "description": "Which table the mode report (cmd1 0x70) uses: commandTable, Insteon's command table, or tempLinc, the TempLinc product requirements' table. Where a profile names a command set, the command set's directMessages describe the reports, and they win where the two differ.",
               "enum": [
                 "commandTable",
                 "tempLinc"

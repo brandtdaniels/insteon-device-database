@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v1/command-set.schema.json",
   "title": "Insteon command set",
-  "description": "The settings a family of Insteon products shares: the operating flags it reads with Get Operating Flags (cmd1 0x1F) and sets with Set Operating Flags (cmd1 0x20), and the values it reads and writes with extended Get/Set (cmd1 0x2E). Profiles name the command sets their identities and firmware versions use.",
+  "description": "The settings and messages a family of Insteon products shares, in the Insteon protocol's own terms: operating flags read with Get Operating Flags (cmd1 0x1F) and set with Set Operating Flags (cmd1 0x20), values read and written with extended Get and Set (cmd1 0x2E), other standard and extended direct commands, and the direct messages the products send on their own. Profiles name the command sets their identities and firmware versions use.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -27,6 +27,28 @@
       "minLength": 1,
       "description": "Which products use the command set, and what sets it apart."
     },
+    "displayScale": {
+      "description": "How to tell whether the device displays Celsius, for values in displayDegrees. Without it, or before it's been read, they're Fahrenheit.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "celsiusWhen"
+      ],
+      "properties": {
+        "celsiusWhen": {
+          "description": "An operating flag, value or named bit that is true when the device displays Celsius.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        }
+      }
+    },
+    "enumerations": {
+      "description": "Names for the values of a byte.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/enumeration"
+      }
+    },
     "operatingFlags": {
       "description": "Bits of a Get Operating Flags reply, and the Set Operating Flags commands that change them.",
       "type": "array",
@@ -50,6 +72,27 @@
     },
     "extendedSettings": {
       "$ref": "#/$defs/extendedSettings"
+    },
+    "standardCommands": {
+      "description": "Standard direct commands beyond the operating flags.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/standardCommand"
+      }
+    },
+    "extendedCommands": {
+      "description": "Extended direct commands beyond extended Get and Set with cmd2 0x00, such as a Get with another cmd2 and its reply.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/extendedCommand"
+      }
+    },
+    "directMessages": {
+      "description": "Standard direct messages the device sends on its own, such as a thermostat's reports.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/directMessage"
+      }
     },
     "notes": {
       "type": "array",
@@ -112,6 +155,11 @@
         "off": {
           "$ref": "#/$defs/byte",
           "description": "The Set Operating Flags cmd2 that sets the bit to 0."
+        },
+        "extendedWhen": {
+          "description": "An operating flag that, while set, has its Set Operating Flags commands sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
         }
       }
     },
@@ -156,6 +204,11 @@
         "command2": {
           "$ref": "#/$defs/byte",
           "description": "The Set Operating Flags cmd2."
+        },
+        "extendedWhen": {
+          "description": "An operating flag that, while set, has the command sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
         }
       }
     },
@@ -213,7 +266,7 @@
           "$ref": "#/$defs/position"
         },
         "kind": {
-          "description": "How to read the byte: a number, or a mask with one bit per button, button 1 in bit 0.",
+          "description": "How to read the value: a number, or a mask with one bit per button, button 1 in bit 0.",
           "enum": [
             "number",
             "buttons"
@@ -286,6 +339,353 @@
               }
             }
           }
+        }
+      }
+    },
+    "dataByte": {
+      "description": "A user data byte, from D1 through D14.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 14
+    },
+    "field": {
+      "description": "A value in a message: in cmd2 of a standard message, or in user data bytes of an extended one, and how to read it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "byte": {
+          "$ref": "#/$defs/dataByte",
+          "description": "The user data byte that holds the value, in an extended message."
+        },
+        "bytes": {
+          "description": "The user data bytes that hold the value, most significant first, in an extended message. They needn't be next to each other.",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/dataByte"
+          }
+        },
+        "kind": {
+          "description": "How to read the value: a number, a mask with one bit per button (button 1 in bit 0), a name from an enumeration, named bits, or a boolean that is true when nonzero.",
+          "enum": [
+            "number",
+            "buttons",
+            "enumeration",
+            "flags",
+            "boolean"
+          ],
+          "default": "number"
+        },
+        "range": {
+          "description": "The values it can take, in its unit.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "from",
+            "through"
+          ],
+          "properties": {
+            "from": {
+              "type": "number"
+            },
+            "through": {
+              "type": "number"
+            }
+          }
+        },
+        "mask": {
+          "$ref": "#/$defs/byte",
+          "description": "The bits of the byte that hold the value. The value is shifted down past the mask's low zero bits."
+        },
+        "signed": {
+          "description": "Whether the value is a two's complement number.",
+          "type": "boolean",
+          "default": false
+        },
+        "scale": {
+          "description": "What one count is worth in the value's unit, such as 0.5 for half degrees.",
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 1
+        },
+        "unit": {
+          "description": "The value's unit once scaled. displayDegrees are degrees in the scale the device displays, which the command set's displayScale says how to find.",
+          "enum": [
+            "percent",
+            "celsius",
+            "fahrenheit",
+            "displayDegrees",
+            "seconds",
+            "minutes",
+            "hours"
+          ]
+        },
+        "enumeration": {
+          "description": "With kind enumeration, the enumeration that names each value.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "bits": {
+          "description": "With kind flags, the named bits.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mask",
+              "name"
+            ],
+            "properties": {
+              "mask": {
+                "$ref": "#/$defs/byte"
+              },
+              "name": {
+                "$ref": "#/$defs/name"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "fixedByte": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "value"
+      ],
+      "properties": {
+        "position": {
+          "$ref": "#/$defs/dataByte"
+        },
+        "value": {
+          "$ref": "#/$defs/byte"
+        }
+      }
+    },
+    "integrity": {
+      "description": "How an extended message's user data is protected: none; a checksum in D14, the two's complement of the sum of cmd1, cmd2 and D1 through D13; or a CRC over cmd1, cmd2 and D1 through D12, with its high byte in D13 and its low byte in D14.",
+      "enum": [
+        "none",
+        "checksum",
+        "crc"
+      ],
+      "default": "none"
+    },
+    "enumeration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "values"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "name"
+            ],
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/byte"
+              },
+              "name": {
+                "$ref": "#/$defs/name"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "standardCommand": {
+      "description": "A standard direct command: cmd1, and a fixed cmd2 or one the caller gives. With neither, cmd2 is 0x00.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "command1"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command1": {
+          "$ref": "#/$defs/byte"
+        },
+        "command2": {
+          "$ref": "#/$defs/byte",
+          "description": "A fixed cmd2."
+        },
+        "parameter": {
+          "$ref": "#/$defs/field",
+          "description": "The value the caller gives in cmd2, instead of a fixed one."
+        },
+        "reply": {
+          "$ref": "#/$defs/field",
+          "description": "The value the acknowledgement carries in cmd2."
+        },
+        "extendedWhen": {
+          "description": "An operating flag that, while set, has the command sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "followUp": {
+          "$ref": "#/$defs/field",
+          "description": "A value that one more standard direct message with the same cmd1 may carry after the acknowledgement, such as a second setpoint. The device sends it only when it has that value."
+        }
+      },
+      "not": {
+        "required": [
+          "command2",
+          "parameter"
+        ]
+      }
+    },
+    "extendedCommand": {
+      "description": "An extended direct command: cmd1, cmd2 and user data the caller fills in, and the extended reply that carries values back, if any.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "command1",
+        "command2"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command1": {
+          "$ref": "#/$defs/byte"
+        },
+        "command2": {
+          "$ref": "#/$defs/byte"
+        },
+        "perButton": {
+          "description": "Whether D1 chooses a button or group.",
+          "type": "boolean",
+          "default": false
+        },
+        "fixed": {
+          "description": "The command's fixed user data bytes. The rest are 0x00, apart from parameters and integrity.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fixedByte"
+          }
+        },
+        "parameters": {
+          "description": "The values the caller gives, and the bytes each goes in.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        },
+        "integrity": {
+          "$ref": "#/$defs/integrity"
+        },
+        "reply": {
+          "description": "The extended direct message that answers the command, after its acknowledgement.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command2",
+            "values"
+          ],
+          "properties": {
+            "command1": {
+              "$ref": "#/$defs/byte",
+              "description": "The reply's cmd1. Defaults to the command's."
+            },
+            "command2": {
+              "$ref": "#/$defs/byte",
+              "description": "The reply's cmd2."
+            },
+            "match": {
+              "description": "Bytes that tell this reply apart from others with the same command.",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/fixedByte"
+              }
+            },
+            "integrity": {
+              "$ref": "#/$defs/integrity"
+            },
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        }
+      }
+    },
+    "directMessage": {
+      "description": "A standard direct message the device sends on its own, with a value in cmd2.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "command1",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command1": {
+          "$ref": "#/$defs/byte"
+        },
+        "value": {
+          "$ref": "#/$defs/field"
         }
       }
     }
