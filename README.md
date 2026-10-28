@@ -1,40 +1,44 @@
-# Insteon Device Database OpenAPI Specification
-[![Build Status](https://travis-ci.com/brandtdaniels/insteon-device-database.svg?branch=master)](https://travis-ci.com/brandtdaniels/insteon-device-database)
-## Steps to finish
+# INSTEON Device Database
 
-1. Enable [Travis](https://docs.travis-ci.com/user/getting-started/#To-get-started-with-Travis-CI%3A) for your repository (**note**: you already have `.travis.yml` file)
-1. [Create GitHub access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/); select `public_repo` on `Select scopes` section.
-1. Use the token value as a value for [Travis environment variable](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings) with the name `GH_TOKEN`
-1. Make a test commit to trigger CI: `git commit --allow-empty -m "Test Travis CI" && git push`
-1. Wait until Travis build is finished. You can check progress by clicking on the `Build Status` badge at the top
-1. **[Optional]** You can setup [custom domain](https://help.github.com/articles/using-a-custom-domain-with-github-pages/) (just create `web/CNAME` file)
-1. **[Optional]** If your API is public consider adding it into [APIs.guru](https://APIs.guru) directory using [this form](https://apis.guru/add-api/).
-1. Delete this section ❌
+What each INSTEON product is and what it can do, as data, so software can support a device by
+looking it up instead of carrying code for it.
 
-## Links
+Each product has a profile in [`devices/`](devices), named by its model number. A profile lists:
 
-- [Reference Documentation (ReDoc)](https://brandtdaniels.github.io/insteon-device-database/)
-- [SwaggerUI](https://brandtdaniels.github.io/insteon-device-database/swagger-ui/)
-- OpenAPI Raw Files: [JSON](https://brandtdaniels.github.io/insteon-device-database/openapi.json) [YAML](https://brandtdaniels.github.io/insteon-device-database/openapi.yaml)
+- **Identities:** the category and subcategory the product reports when asked to identify
+  itself, and the firmware versions they cover where those matter.
+- **Radio and role:** where a source states them, how it communicates (powerline, RF or both), and whether it can be an
+  ALL-Link controller, a responder, or both.
+- **Groups:** its ALL-Link groups, and whether software must link a group.
+- **Capabilities:** what it can do, chosen from a fixed set: `onOff`, `dimmable`, `modem`,
+  `hub`, `hubPro`, `thermostat`, `groupEvents` and `heartbeat`. A capability is a description,
+  never code.
+- **Sources:** the documents its values come from.
 
-**Warning:** All above links are updated only after Travis CI finishes deployment
+[`schema/device-profile.schema.json`](schema/device-profile.schema.json) defines the format.
 
-## Working on specification
-### Install
+## Using the database
 
-1. Install [Node JS](https://nodejs.org/)
-2. Clone repo and run `npm install` in the repo root
+Every change to `master` publishes the profiles to GitHub Pages:
 
-### Usage
+- `https://brandtdaniels.github.io/insteon-device-database/v1/database.json`: every profile,
+  sorted by model
+- `https://brandtdaniels.github.io/insteon-device-database/v1/manifest.json`: the schema version,
+  the number of profiles and the database's SHA-256
+- `https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json`: the
+  schema
 
-#### `npm start`
-Starts the development server.
+See [API.md](API.md) for the files' formats, how to keep a copy up to date and how to look a
+device up. In short: read the manifest first, check that its schema version is one you
+understand, then download the database and check its hash. A breaking change to the format gets a new version path, so `v1`
+keeps working for software built against it. Software should ship a copy of the database and
+treat downloading a newer one as optional.
 
-#### `npm run build`
-Bundles the spec and prepares web_deploy folder with static assets.
+## Adding or changing a profile
 
-#### `npm test`
-Validates the spec.
-
-#### `npm run gh-pages`
-Deploys docs to GitHub Pages. You don't need to run it manually if you have Travis CI configured.
+1. Add or edit `devices/<model>.json`. Check every value against a document, and list the
+   document in `sources`.
+2. Run `pip install -r requirements.txt` and `python3 -I scripts/build.py` to validate. It checks
+   each profile against the schema, that the file is named for its model, that no capability
+   appears twice, and that no two profiles claim the same identity for the same firmware.
+3. Open a pull request. CI runs the same check.

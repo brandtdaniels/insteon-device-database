@@ -1,0 +1,35 @@
+{
+  "model": "2475D",
+  "name": "In-LineLinc Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x02"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x1A"
+    }
+  ],
+  "radio": "powerline",
+  "role": "responder",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "responder"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "Linked by holding SET for 10 seconds."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2475D In-LineLinc Dimmer PRD"
+  ]
+}

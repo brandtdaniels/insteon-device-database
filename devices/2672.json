@@ -1,0 +1,51 @@
+{
+  "model": "2672",
+  "name": "LED Bulb A19",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x3A",
+      "region": "US"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x3B",
+      "region": "Europe, E27"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x4C",
+      "region": "Europe, B22"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x51",
+      "region": "Chile"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x3C",
+      "region": "Australia and New Zealand, E27"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x4D",
+      "region": "Australia and New Zealand, B22"
+    }
+  ],
+  "radio": "dual",
+  "role": "responder",
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "Has no buttons or LED.",
+    "Can be set to turn on when power returns; that's off by default."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2672 and 2674 LED Bulbs PRD"
+  ]
+}

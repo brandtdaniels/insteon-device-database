@@ -1,0 +1,66 @@
+{
+  "model": "2845",
+  "name": "Hidden Door Sensor",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x11",
+      "region": "US"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x14",
+      "region": "Europe"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x15",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "rf",
+  "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Open/close",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Closed",
+      "role": "controller"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "opened"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "closed"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "closed"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Sends closed to group 2 only when set to.",
+    "Sends a heartbeat at most every 24 hours; its PRD leaves the group undecided."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2845-222 Door Sensor II PRD"
+  ]
+}

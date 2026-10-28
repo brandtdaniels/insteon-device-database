@@ -1,0 +1,44 @@
+{
+  "model": "2732",
+  "name": "Thermostat for Heat Pump",
+  "identities": [
+    {
+      "category": "0x05",
+      "subcategory": "0x13",
+      "region": "US and Canada"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x14",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x15",
+      "region": "Australia and New Zealand"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x17",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x18",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "rf",
+  "role": "both",
+  "capabilities": [],
+  "notes": [
+    "The 2441TH's hardware with heat pump firmware.",
+    "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532.",
+    "Subcategories 0x17 and 0x18 are the Thermostat 2.0 firmware, the regional versions of the 2441TH's 0x16."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2732-xxx Thermostat for Heat Pump PRD",
+    "Thermostat 2.0 PRD"
+  ]
+}

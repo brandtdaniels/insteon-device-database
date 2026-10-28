@@ -1,0 +1,32 @@
+{
+  "model": "2474DWH",
+  "name": "SwitchLinc 2-Wire Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x24"
+    }
+  ],
+  "radio": "rf",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "Needs no neutral wire.",
+    "Repeats RF but not powerline."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2474DWH SwitchLinc 2-Wire Dimmer PRD"
+  ]
+}

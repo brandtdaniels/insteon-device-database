@@ -1,0 +1,31 @@
+{
+  "model": "2478D",
+  "name": "SwitchLinc Dimmer 240V",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x31"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "Returns its load and LEDs to their states before a power outage."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2478D 240V SwitchLinc Dimmer PRD"
+  ]
+}
