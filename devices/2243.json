@@ -15,6 +15,23 @@
       "subcategory": "0x2D"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x18"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x2C"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x2D"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "capabilities": [
@@ -28,9 +45,6 @@
     {
       "kind": "hubPro",
       "port": 80
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "notes": [

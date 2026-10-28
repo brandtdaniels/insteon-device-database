@@ -11,6 +11,13 @@
       "subcategory": "0x38"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x02",
+      "subcategory": "0x38"
+    }
+  ],
   "radio": "dual",
   "groups": [
     {
@@ -22,9 +29,6 @@
   "capabilities": [
     {
       "kind": "onOff"
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "notes": [

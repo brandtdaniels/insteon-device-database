@@ -13,12 +13,21 @@
       "region": "Australia and New Zealand"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x3D"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x3E"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "sources": [

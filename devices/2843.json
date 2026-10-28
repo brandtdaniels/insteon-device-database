@@ -20,6 +20,40 @@
       "subcategory": "0x09"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x10",
+      "subcategory": "0x02",
+      "firmware": {
+        "only": [
+          "0x32",
+          "0x33",
+          "0x34",
+          "0x40",
+          "0x41",
+          "0x42",
+          "0x43",
+          "0x81",
+          "0x83",
+          "0x84",
+          "0x86",
+          "0x87",
+          "0x88"
+        ]
+      }
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x10",
+      "subcategory": "0x06"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x10",
+      "subcategory": "0x07"
+    }
+  ],
   "radio": "rf",
   "role": "controller",
   "batteryPowered": true,
@@ -55,40 +89,6 @@
       "kind": "heartbeat",
       "group": "0x04",
       "intervalMinutes": 1428
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x10",
-          "subcategory": "0x02",
-          "firmware": {
-            "only": [
-              "0x32",
-              "0x33",
-              "0x34",
-              "0x40",
-              "0x41",
-              "0x42",
-              "0x43",
-              "0x81",
-              "0x83",
-              "0x84",
-              "0x86",
-              "0x87",
-              "0x88"
-            ]
-          }
-        },
-        {
-          "category": "0x10",
-          "subcategory": "0x06"
-        },
-        {
-          "category": "0x10",
-          "subcategory": "0x07"
-        }
-      ]
     }
   ],
   "sources": [

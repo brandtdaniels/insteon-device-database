@@ -7,27 +7,24 @@
       "subcategory": "0x11"
     }
   ],
-  "radio": "rf",
-  "role": "controller",
-  "capabilities": [
+  "engines": [
     {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x00",
-          "subcategory": "0x11",
-          "firmware": {
-            "only": [
-              "0x37",
-              "0x94",
-              "0x95",
-              "0x96"
-            ]
-          }
-        }
-      ]
+      "engine": "i2cs",
+      "category": "0x00",
+      "subcategory": "0x11",
+      "firmware": {
+        "only": [
+          "0x37",
+          "0x94",
+          "0x95",
+          "0x96"
+        ]
+      }
     }
   ],
+  "radio": "rf",
+  "role": "controller",
+  "capabilities": [],
   "sources": [
     "HouseLinc device catalog",
     "Insteon device database (SQLite, InsteonDevices.db)"
