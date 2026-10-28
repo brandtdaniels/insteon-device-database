@@ -1,0 +1,53 @@
+{
+  "id": "iMeter",
+  "name": "iMeter",
+  "description": "The iMeter Solo, which measures the power a plug-in load draws and the energy it uses.",
+  "standardCommands": [
+    {
+      "name": "resetEnergy",
+      "description": "Clears the energy count and the meter's log time and index, and sets the meter to its 0 to 150 W range.",
+      "command1": "0x80"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "readMeter",
+      "description": "Reads the power and energy. The meter acknowledges, then sends an extended reply.",
+      "command1": "0x82",
+      "command2": "0x00",
+      "reply": {
+        "command2": "0x00",
+        "integrity": "crc",
+        "values": [
+          {
+            "name": "power",
+            "description": "The power the load draws now, in watts. Values over 32767 are negative: subtract 65535, not 65536, as the iMeter calibrates out the difference. Noise can make an unloaded meter read slightly negative.",
+            "bytes": [
+              7,
+              8
+            ]
+          },
+          {
+            "name": "energy",
+            "description": "The energy used since the last reset. Multiply by 65535 and divide by 216,000,000 for kilowatt-hours. When D9 is 0xFE or more, read the energy as 0 and reset it; the count lasts about 7 months at full load before it rolls over.",
+            "bytes": [
+              9,
+              10,
+              11,
+              12
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "Software that stands in for a meter, such as a modem feeding an Energy Display, sends the same reply with the CRC in D13 and D14.",
+    "After an ID Request (cmd1 0x10) the meter broadcasts its identity with cmd1 0x02, where holding the SET button broadcasts it with cmd1 0x01; cmd2 is the hardware revision in both.",
+    "Loads over 1,000 W can take up to 10 seconds to read."
+  ],
+  "sources": [
+    "iMeter Developer Notes",
+    "Power Meter 2423A1 Owner's Manual"
+  ]
+}
