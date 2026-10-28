@@ -173,7 +173,7 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
-      "label": "Programming lock",
+      "label": "Disable linking on power-up",
       "section": "Linking",
       "description": "The bulb doesn't enter linking mode when it powers up.",
       "query": "0x00",
@@ -205,7 +205,8 @@
       "verification": {
         "status": "inferred",
         "note": "The LED Bulb Developer Notes list bit 1 of the 0x00 reply as not used; it's read from the KeypadLinc code base the bulbs run."
-      }
+      },
+      "advanced": true
     },
     {
       "name": "radioOff",
@@ -279,7 +280,8 @@
       "verification": {
         "status": "inferred",
         "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
-      }
+      },
+      "advanced": true
     },
     {
       "name": "cleanupReport",
@@ -380,8 +382,18 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     }
   ],
   "notes": [
@@ -409,7 +421,12 @@
           "through": "0x1F"
         },
         "table": "rampRate",
-        "default": "0x1C"
+        "default": "0x1C",
+        "verification": {
+          "status": "conflicting",
+          "note": "The LED Bulb Developer Notes give ramp rate 0x00 as about 2 seconds when setting it and as 9 minutes in their ramp table; the table uses 2 seconds."
+        },
+        "write": "writeRampRate"
       }
     ]
   },

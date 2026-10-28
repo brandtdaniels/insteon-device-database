@@ -53,7 +53,7 @@
     },
     {
       "name": "loadSense",
-      "label": "Load sense",
+      "label": "Top outlet load sense",
       "section": "Load",
       "description": "Load sense is on for the top outlet, group 1.",
       "query": "0x00",
@@ -364,8 +364,19 @@
         "command": "readOutlets",
         "bitPerGroup": true
       },
-      "on": "topOutletOn",
-      "off": "topOutletOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "topOutletOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "topOutletOff"
+        }
+      ]
     },
     {
       "name": "bottomOutlet",
@@ -375,8 +386,18 @@
         "command": "readOutlets",
         "bitPerGroup": true
       },
-      "on": "bottomOutletOn",
-      "off": "bottomOutletOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "bottomOutletOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "bottomOutletOff"
+        }
+      ]
     }
   ],
   "notes": [

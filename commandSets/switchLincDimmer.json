@@ -473,7 +473,11 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "table": "rampRate",
+        "verification": {
+          "status": "conflicting",
+          "note": "Earlier sources give ramp rate 0x00 as 9 minutes; the table uses the later reading, 2 seconds."
+        }
       },
       {
         "name": "onLevel",
@@ -575,8 +579,18 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     }
   ],
   "notes": [

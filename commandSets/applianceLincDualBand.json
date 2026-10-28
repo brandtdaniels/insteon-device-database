@@ -347,8 +347,19 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     }
   ],
   "notes": [

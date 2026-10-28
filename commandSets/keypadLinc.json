@@ -261,7 +261,8 @@
       "verification": {
         "status": "conflicting",
         "note": "One source swaps 0x06 and 0x07 (the 6- and 8-button layouts) and 0x08 and 0x09 (backlight on and off); the values here are those other sources give."
-      }
+      },
+      "advanced": true
     },
     {
       "name": "ledOff",
@@ -500,7 +501,11 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "table": "rampRate",
+        "verification": {
+          "status": "conflicting",
+          "note": "Earlier sources give ramp rate 0x00 as 9 minutes; the table uses the later reading, 2 seconds."
+        }
       },
       {
         "name": "onLevel",
@@ -544,7 +549,7 @@
       },
       {
         "name": "x10AllMask",
-        "label": "Buttons that respond to X10 all",
+        "label": "Buttons that send X10 all on and off",
         "section": "X10",
         "advanced": true,
         "description": "The buttons that send X10 All On or All Off instead of On or Off.",
@@ -951,8 +956,18 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     },
     {
       "name": "load",
@@ -961,8 +976,19 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     },
     {
       "name": "button",

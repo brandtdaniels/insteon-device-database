@@ -174,7 +174,7 @@
     {
       "name": "noWarning",
       "label": "No warning before the countdown ends",
-      "section": "Alarm",
+      "section": "Timer",
       "description": "The keypad gives no warning before its countdown ends.",
       "query": "0x04",
       "bit": "0x01",
@@ -307,7 +307,7 @@
       },
       {
         "name": "x10AllMask",
-        "label": "Buttons that respond to X10 all",
+        "label": "Buttons that send X10 all on and off",
         "section": "X10",
         "advanced": true,
         "description": "The buttons that send X10 All On or All Off instead of On or Off.",
@@ -459,10 +459,85 @@
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off at the saved ramp rate.",
+      "command1": "0x13"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's level, from 0x00 (off) to 0xFF (full)."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "light",
+      "label": "Light",
+      "kind": "dimmer",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "label": "Load",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    }
+  ],
   "notes": [
     "Bits 2 and 3 of the 0x04 reply together SET button 4's mode: always off, always on, a 4-hour countdown or on/off toggle.",
     "The keypad is built on the KeypadLinc code base, but Insteon's documents don't say which of the KeypadLinc's other operating flags it accepts.",
     "Setting the hours and minutes starts the countdown, and the matching LED lights a second later."
   ],
-  "sources": []
+  "sources": [
+    "Insteon Developer's Guide (2009)"
+  ]
 }

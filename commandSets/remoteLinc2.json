@@ -36,7 +36,7 @@
     {
       "name": "stayAwake",
       "label": "Stay awake",
-      "section": "Sensor",
+      "section": "Battery",
       "advanced": true,
       "description": "The remote stays awake, with 0xFF as its awake interval.",
       "query": "0x00",
@@ -90,7 +90,7 @@
       {
         "name": "awakeInterval",
         "label": "Awake interval",
-        "section": "Sensor",
+        "section": "Battery",
         "advanced": true,
         "description": "How long the remote stays awake, in seconds.",
         "byte": 3
@@ -98,14 +98,14 @@
       {
         "name": "sleepInterval",
         "label": "Sleep interval",
-        "section": "Sensor",
+        "section": "Battery",
         "advanced": true,
         "description": "How long the remote sleeps, in steps of 755.2 seconds.",
         "byte": 4
       },
       {
         "name": "broadcastCount",
-        "label": "Broadcasts per event",
+        "label": "Heartbeat broadcasts",
         "section": "Sensor",
         "advanced": true,
         "description": "How many times the remote sends its I'm Alive broadcast.",
@@ -122,8 +122,8 @@
       },
       {
         "name": "sleepIntervalLow",
-        "label": "Sleep interval, low battery",
-        "section": "Sensor",
+        "label": "Sleep interval, low byte",
+        "section": "Battery",
         "advanced": true,
         "description": "The low byte of the sleep interval, in steps of 2.3 seconds.",
         "byte": 7
@@ -134,7 +134,8 @@
         "section": "Communication",
         "advanced": true,
         "description": "How many times the remote retries a message: 0x01 by default, 0x00 for none, or 0xFF to send broadcasts only.",
-        "byte": 8
+        "byte": 8,
+        "default": "0x01"
       },
       {
         "name": "configuration",

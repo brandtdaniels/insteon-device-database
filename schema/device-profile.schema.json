@@ -184,7 +184,12 @@
           ]
         },
         "type": {
-          "description": "The group type, in one of the profile's command sets, that says what the group is.",
+          "description": "The group type, in every command set the profile's identities use, that says what the group is.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "activeWhen": {
+          "description": "An operating flag the group is in use only while set, such as a keypad's detached load.",
           "type": "string",
           "pattern": "^[a-z][A-Za-z0-9]*$"
         },

@@ -32,7 +32,11 @@
       "number": "0x01",
       "name": "Button 1",
       "role": "both",
-      "type": "light"
+      "type": "light",
+      "verification": {
+        "status": "documented",
+        "note": "Group 1 controls the load by default; the load number setting can move it to another button."
+      }
     },
     {
       "number": "0x02",

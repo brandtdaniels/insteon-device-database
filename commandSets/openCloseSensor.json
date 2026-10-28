@@ -92,7 +92,8 @@
         "range": {
           "from": "0x00",
           "through": "0xFF"
-        }
+        },
+        "default": "0x64"
       },
       {
         "name": "configuration",

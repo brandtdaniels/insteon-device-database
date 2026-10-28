@@ -118,7 +118,7 @@
     {
       "name": "humidityReportsOn",
       "label": "Report humidity",
-      "section": "Display",
+      "section": "Sensor",
       "description": "The adapter reports humidity when it changes.",
       "query": "0x00",
       "bit": "0x04",

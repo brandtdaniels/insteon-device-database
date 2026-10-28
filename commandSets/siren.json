@@ -45,7 +45,7 @@
     {
       "name": "memoryFull",
       "label": "Database full",
-      "section": "Alarm",
+      "section": "Diagnostics",
       "advanced": true,
       "description": "The last add or modify of an ALL-Link database record failed because the database is full. It clears when the siren powers up.",
       "query": "0x00",

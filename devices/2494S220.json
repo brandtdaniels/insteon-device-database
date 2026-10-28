@@ -26,6 +26,18 @@
       "subcategory": "0x19"
     }
   ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both",
+      "type": "load",
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the product having one load, which its group 1 controls, as on other one-load products."
+      }
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

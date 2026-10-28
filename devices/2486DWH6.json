@@ -50,7 +50,11 @@
       "number": "0x01",
       "name": "On/Off",
       "role": "both",
-      "type": "light"
+      "type": "light",
+      "verification": {
+        "status": "documented",
+        "note": "Group 1 controls the load unless the load is detached; then group 9 does, and group 1 only sets its LED."
+      }
     },
     {
       "number": "0x03",
@@ -80,7 +84,8 @@
       "number": "0x09",
       "name": "Detached load",
       "role": "responder",
-      "type": "light"
+      "type": "light",
+      "activeWhen": "detachedLoad"
     }
   ],
   "capabilities": [

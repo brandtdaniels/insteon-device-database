@@ -447,7 +447,7 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "advanced": true
       },
       {
         "name": "onLevel",
@@ -459,8 +459,7 @@
           "from": "0x00",
           "through": "0xFF"
         },
-        "unit": "percent",
-        "scale": 0.392157
+        "advanced": true
       },
       {
         "name": "ledBrightness",
@@ -693,8 +692,19 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     }
   ],
   "notes": [

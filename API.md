@@ -168,15 +168,26 @@ The catalog says what each group is and how to show each setting, so an app can 
 from the catalog alone.
 
 **Group types.** A command set's `groupTypes` say what its groups can be, and each profile group
-names one in `type`:
+names one in `type`, which every command set its identities use must have:
 
 ```json
 "groupTypes": [
   { "name": "light", "label": "Light", "kind": "dimmer",
-    "state": { "command": "readStatus" }, "on": "lightOn", "off": "lightOff" },
+    "state": { "command": "readStatus" },
+    "actions": [
+      { "name": "on", "label": "On", "command": "lightOn" },
+      { "name": "off", "label": "Off", "command": "lightOff" } ] },
   { "name": "fan", "label": "Fan", "kind": "fan",
-    "state": { "command": "readFanSpeed" },
-    "speeds": ["fanOff", "fanLow", "fanMedium", "fanHigh"] }
+    "state": { "command": "readFanSpeed", "ranges": [
+      { "from": "0x00", "through": "0x00", "label": "Off" },
+      { "from": "0x01", "through": "0x7F", "label": "Low" },
+      { "from": "0x80", "through": "0xFE", "label": "Medium" },
+      { "from": "0xFF", "through": "0xFF", "label": "High" } ] },
+    "actions": [
+      { "name": "off", "label": "Off", "command": "fanOff" },
+      { "name": "low", "label": "Low", "command": "fanLow" },
+      { "name": "medium", "label": "Medium", "command": "fanMedium" },
+      { "name": "high", "label": "High", "command": "fanHigh" } ] }
 ]
 ```
 
@@ -187,29 +198,44 @@ names one in `type`:
 ]
 ```
 
-A group type's `kind` is `dimmer`, `relay`, `fan`, `sensor` or `button`. `state` names the
-standard command whose reply holds its state; with `bitPerGroup`, the reply holds one bit per
-group, group 1 in bit 0, as a keypad's LEDs or a dual outlet's outlets do. `on`, `off` and a
-fan's `speeds` name the standard or extended commands that drive it; a dimmer's `on` takes the
-level.
+- `kind` is `dimmer`, `relay`, `fan`, `sensor` or `button`.
+- `state` names the standard command whose acknowledgment carries the group's state in cmd2.
+  With `bitPerGroup`, the reply holds one bit per group, group 1 in bit 0, as a keypad's LEDs or
+  a dual outlet's outlets do; `ranges` name ranges of the value, such as a fan's speeds.
+- `actions` are what an app can tell the group to do, for controls, scenes and schedules. Each
+  names a standard or extended command and, when the command takes a parameter, either a fixed
+  `value` (`0xFF` to switch a relay on) or nothing, for the caller to give, such as a dimmer's
+  level. An action with `schedulable` false, such as a beep, stays out of schedules.
+- Only a responder can be told to do something, so a group whose type has actions has the role
+  `responder` or `both`. A controller-only group, such as a sensor's, has no actions; it's
+  something an app watches for, through the profile's `groupEvents`.
+- A group with `activeWhen` is in use only while that operating flag is set, as a keypad's
+  detached load (group 9) is while `detachedLoad` is.
 
 **Settings.** Operating flags, readings and extended settings values can carry:
 
 - `label`: what to call the setting, such as "Beep on button press".
-- `section`: the heading to show it under, such as Load, Buttons, LEDs, Linking, Night,
-  Communication, X10 or Diagnostics.
+- `section`: the heading to show it under, one of Load, Relay, Sensor, Buttons, LEDs, Night,
+  Timer, Alarm, Display, Battery, Linking, Communication, X10 and Diagnostics, in that order.
 - `advanced`: true for a setting to keep out of sight unless asked, such as the powerline's
   timing or X10.
 - `default`: the value as the device leaves the factory, where a document gives it: true or
   false for a flag, a byte for a value.
 - For a value, `unit` and `scale` to show it as a number, such as an on-level as a percentage,
   or `table`, the command set's `valueTables` entry that names each raw value, such as the ramp
-  rate's durations.
+  rate's durations. A table can carry a `verification` like any other value.
 
-The control follows from the setting: a flag with `on` and `off` is a switch, one without them
-or a reading is read-only, a value with a `table` or an enumeration is a picker, a `buttons` value
-is a choice of buttons, and a value with a `range` is a slider or stepper. A value is per group
-when its extended settings are `perButton`; everything else is the whole device's.
+The control follows from the setting:
+
+- A flag with both `on` and `off` is a switch. A flag set by standard commands instead names them
+  in `onCommand` and `offCommand`, such as the i3 products' night mode. A flag with only one of
+  them can be set only that way, such as the Siren's disarmed flag, which the arm command clears.
+  Any other flag, and every reading, is read-only.
+- A value with a `table` is a picker, a `buttons` value is a choice of buttons, and a value with a
+  `range` is a slider or stepper. A value is writable when an extended settings write sets it, or
+  when it names the extended command that does in `write`; otherwise it's read-only.
+- A value is per group when the write that sets it is `perButton`; everything else is the whole
+  device's.
 
 ## Keeping a copy up to date
 

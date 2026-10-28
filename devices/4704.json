@@ -19,7 +19,11 @@
       "number": "0x01",
       "name": "Button A",
       "role": "both",
-      "type": "load"
+      "type": "load",
+      "verification": {
+        "status": "documented",
+        "note": "Group 1 controls the load unless the load is detached; then group 9 does, and group 1 only sets its LED."
+      }
     },
     {
       "number": "0x02",

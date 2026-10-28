@@ -158,7 +158,8 @@
         "label": "Low battery level",
         "section": "Battery",
         "description": "The battery level below which the sensor sends low battery. It's 0x40, about 1.25 V, by default.",
-        "byte": 7
+        "byte": 7,
+        "default": "0x40"
       }
     ],
     "writes": [

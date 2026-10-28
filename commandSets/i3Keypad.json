@@ -232,7 +232,7 @@
     },
     {
       "name": "resumeDim",
-      "label": "Resume dim",
+      "label": "Holding sets the on-level",
       "section": "Load",
       "description": "Brightening or dimming the load by holding its button also sets its on-level. Clear by default.",
       "query": "0x00",
@@ -294,7 +294,9 @@
       "description": "It's night: the device uses its night on-level limit, ramp rate and LED brightness. Night mode on (cmd1 0x3B) sets it and night mode off (cmd1 0x3C) clears it, as direct or group commands.",
       "query": "0x05",
       "bit": "0x02",
-      "default": false
+      "default": false,
+      "onCommand": "nightModeOn",
+      "offCommand": "nightModeOff"
     },
     {
       "name": "lockButtons",
@@ -1378,8 +1380,18 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     },
     {
       "name": "button",

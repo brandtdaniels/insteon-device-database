@@ -263,7 +263,8 @@
       "query": "0x00",
       "bit": "0x04",
       "on": "0x04",
-      "off": "0x05"
+      "off": "0x05",
+      "advanced": true
     },
     {
       "name": "ledOff",
@@ -447,14 +448,15 @@
     "values": [
       {
         "name": "ledDimming",
-        "label": "LED brightness",
+        "label": "LED dimming",
         "section": "LEDs",
         "description": "How far the LED is dimmed: 0x00 is no dimming, the brightest, 0x01 the most dimming and 0xFF the least.",
         "byte": 3,
         "range": {
           "from": "0x00",
           "through": "0xFF"
-        }
+        },
+        "advanced": true
       },
       {
         "name": "x10HouseCode",
@@ -482,7 +484,7 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "advanced": true
       },
       {
         "name": "onLevel",
@@ -494,8 +496,7 @@
           "from": "0x00",
           "through": "0xFF"
         },
-        "unit": "percent",
-        "scale": 0.392157
+        "advanced": true
       },
       {
         "name": "signalToNoise",
@@ -787,8 +788,19 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     }
   ],
   "notes": [

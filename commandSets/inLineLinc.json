@@ -391,7 +391,11 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "table": "rampRate",
+        "verification": {
+          "status": "conflicting",
+          "note": "Earlier sources give ramp rate 0x00 as 9 minutes; the table uses the later reading, 2 seconds."
+        }
       },
       {
         "name": "onLevel",
@@ -457,6 +461,79 @@
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off at the saved ramp rate.",
+      "command1": "0x13"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's level, from 0x00 (off) to 0xFF (full)."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "light",
+      "label": "Light",
+      "kind": "dimmer",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "label": "Load",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    }
+  ],
   "notes": [
     "Earlier sources give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds."
   ],

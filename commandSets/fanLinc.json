@@ -373,7 +373,12 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "table": "rampRate",
+        "verification": {
+          "status": "conflicting",
+          "note": "The FanLinc Developer Notes give the Set's range as 0.1 to 2 seconds but list the longer rates in their own table; the table uses the later reading."
+        },
+        "default": "0x1C"
       },
       {
         "name": "onLevel",
@@ -537,21 +542,69 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     },
     {
       "name": "fan",
       "label": "Fan",
       "kind": "fan",
       "state": {
-        "command": "readFanSpeed"
+        "command": "readFanSpeed",
+        "ranges": [
+          {
+            "from": "0x00",
+            "through": "0x00",
+            "label": "Off"
+          },
+          {
+            "from": "0x01",
+            "through": "0x7F",
+            "label": "Low"
+          },
+          {
+            "from": "0x80",
+            "through": "0xFE",
+            "label": "Medium"
+          },
+          {
+            "from": "0xFF",
+            "through": "0xFF",
+            "label": "High"
+          }
+        ]
       },
-      "speeds": [
-        "fanOff",
-        "fanLow",
-        "fanMedium",
-        "fanHigh"
+      "actions": [
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "fanOff"
+        },
+        {
+          "name": "low",
+          "label": "Low",
+          "command": "fanLow"
+        },
+        {
+          "name": "medium",
+          "label": "Medium",
+          "command": "fanMedium"
+        },
+        {
+          "name": "high",
+          "label": "High",
+          "command": "fanHigh"
+        }
       ]
     }
   ],

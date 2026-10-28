@@ -386,8 +386,7 @@
     {
       "name": "dualLine",
       "label": "Dual line",
-      "section": "Communication",
-      "advanced": true,
+      "section": "Relay",
       "description": "The module has two sense lines. A dual sense line is always momentary. Micro and DIN rail modules only.",
       "query": "0x06",
       "bit": "0x01",
@@ -490,7 +489,11 @@
           "from": "0x00",
           "through": "0x1F"
         },
-        "table": "rampRate"
+        "table": "rampRate",
+        "verification": {
+          "status": "conflicting",
+          "note": "Earlier sources give ramp rate 0x00 as 9 minutes; the table uses the later reading, 2 seconds."
+        }
       },
       {
         "name": "onLevel",
@@ -711,8 +714,18 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     },
     {
       "name": "load",
@@ -721,8 +734,19 @@
       "state": {
         "command": "readStatus"
       },
-      "on": "lightOn",
-      "off": "lightOff"
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
     }
   ],
   "notes": [
