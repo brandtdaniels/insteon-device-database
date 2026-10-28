@@ -11,6 +11,13 @@
       "subcategory": "0x37"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "plugInModule",
+      "category": "0x02",
+      "subcategory": "0x37"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

@@ -10,6 +10,13 @@
       "subcategory": "0x25"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLincCountdownTimer",
+      "category": "0x02",
+      "subcategory": "0x25"
+    }
+  ],
   "radio": "powerline",
   "capabilities": [
     {

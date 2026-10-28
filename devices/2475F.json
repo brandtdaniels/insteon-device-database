@@ -24,6 +24,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "fanLinc",
+      "category": "0x01",
+      "subcategory": "0x2E"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

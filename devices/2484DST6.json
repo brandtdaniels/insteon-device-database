@@ -10,6 +10,13 @@
       "subcategory": "0x2F"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLincScheduleTimer",
+      "category": "0x01",
+      "subcategory": "0x2F"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

@@ -14,6 +14,18 @@
       "subcategory": "0x1D"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincDimmerLegacy",
+      "category": "0x01",
+      "subcategory": "0x04"
+    },
+    {
+      "commandSet": "switchLincDimmerLegacy",
+      "category": "0x01",
+      "subcategory": "0x1D"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

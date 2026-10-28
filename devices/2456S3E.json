@@ -24,6 +24,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "applianceLinc",
+      "category": "0x02",
+      "subcategory": "0x06"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

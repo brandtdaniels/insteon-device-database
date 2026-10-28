@@ -11,6 +11,18 @@
       "subcategory": "0x17"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "applianceLinc",
+      "category": "0x02",
+      "subcategory": "0x0C"
+    },
+    {
+      "commandSet": "applianceLinc",
+      "category": "0x02",
+      "subcategory": "0x17"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

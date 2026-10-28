@@ -1,0 +1,263 @@
+{
+  "id": "keypadLincCountdownTimer",
+  "name": "KeypadLinc Countdown Timer",
+  "description": "The countdown timer keypads, a KeypadLinc variant whose buttons choose how long the load stays on. Settings are for the whole device, so D1 is always 0x01.",
+  "operatingFlags": [
+    {
+      "name": "noWarning",
+      "description": "The keypad gives no warning before its countdown ends.",
+      "query": "0x04",
+      "bit": "0x01",
+      "on": "0x32",
+      "off": "0x31"
+    },
+    {
+      "name": "actsAsRelay",
+      "description": "The keypad switches its load as a relay instead of dimming it.",
+      "query": "0x04",
+      "bit": "0x02",
+      "on": "0x34",
+      "off": "0x33"
+    },
+    {
+      "name": "buttonFourFourHours",
+      "description": "Button 4 starts a 4-hour countdown.",
+      "query": "0x04",
+      "bit": "0x04",
+      "on": "0x36"
+    },
+    {
+      "name": "buttonFourForever",
+      "description": "Button 4 turns the load on with no countdown.",
+      "query": "0x04",
+      "bit": "0x08",
+      "on": "0x38"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "buttonFourOff",
+      "description": "Sets button 4 to off. Insteon's documents describe 0x35 and 0x37 alike and don't say which bit each clears.",
+      "command2": "0x35"
+    },
+    {
+      "name": "buttonFourOffAlternate",
+      "description": "Sets button 4 to off. Insteon's documents describe 0x35 and 0x37 alike and don't say which bit each clears.",
+      "command2": "0x37"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "timerSeconds",
+        "description": "The seconds of the countdown.",
+        "byte": 3
+      },
+      {
+        "name": "timerMinutes",
+        "description": "The minutes of the countdown.",
+        "byte": 4
+      },
+      {
+        "name": "x10HouseCode",
+        "description": "The X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10UnitCode",
+        "description": "The X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "rampRate",
+        "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x1F"
+        }
+      },
+      {
+        "name": "onLevel",
+        "description": "The level the load turns on to, from 0x00 (off) to 0xFF (full).",
+        "byte": 8,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "ledBrightness",
+        "description": "The brightness of the status LEDs, from 0x11 (dimmest) to 0x7F (brightest).",
+        "byte": 9,
+        "range": {
+          "from": "0x11",
+          "through": "0x7F"
+        }
+      },
+      {
+        "name": "timerHours",
+        "description": "The countdown's hours, which also turn the timer on: 0x00 is off, 0x01 is on for the minutes and seconds alone, 0x02 for one hour plus the minutes and seconds, and so on.",
+        "byte": 10
+      },
+      {
+        "name": "timerLeds",
+        "description": "The timer LEDs: bit 0 is 2 minutes, bit 1 5 minutes, bit 2 10 minutes, bit 3 15 minutes, bit 4 30 minutes, bit 5 1 hour, bit 6 2 hours and bit 7 4 hours.",
+        "byte": 11
+      },
+      {
+        "name": "x10AllMask",
+        "description": "The buttons that send X10 All On or All Off instead of On or Off.",
+        "byte": 12,
+        "kind": "buttons"
+      },
+      {
+        "name": "nonToggleOnMask",
+        "description": "The non-toggle buttons that send On. The others send Off.",
+        "byte": 13,
+        "kind": "buttons"
+      },
+      {
+        "name": "triggerMask",
+        "description": "The trigger buttons, each of which sends a trigger command when pressed.",
+        "byte": 14,
+        "kind": "buttons"
+      }
+    ],
+    "writes": [
+      {
+        "name": "countdown",
+        "description": "Sets the countdown (D3 seconds, D4 minutes, D5 hours) and the level the load turns on to (D6). A level of 0x00 keeps the local on-level when the load is off and leaves the level alone when it's on.",
+        "selector": "0x02",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "timerSeconds"
+          },
+          {
+            "position": 4,
+            "value": "timerMinutes"
+          },
+          {
+            "position": 5,
+            "value": "timerHours"
+          },
+          {
+            "position": 6,
+            "value": "countdownOnLevel"
+          }
+        ]
+      },
+      {
+        "name": "x10Address",
+        "description": "Sets the X10 address.",
+        "selector": "0x04",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10HouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10UnitCode"
+          }
+        ]
+      },
+      {
+        "name": "rampRate",
+        "description": "Sets the ramp rate.",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "rampRate"
+          }
+        ]
+      },
+      {
+        "name": "onLevel",
+        "description": "Sets the on-level.",
+        "selector": "0x06",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onLevel"
+          }
+        ]
+      },
+      {
+        "name": "ledBrightness",
+        "description": "Sets the brightness of the status LEDs.",
+        "selector": "0x07",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "ledBrightness"
+          }
+        ]
+      },
+      {
+        "name": "ledMask",
+        "description": "Turns the timer LEDs on and off.",
+        "selector": "0x09",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "timerLeds"
+          }
+        ]
+      },
+      {
+        "name": "x10AllMask",
+        "description": "Sets which buttons send X10 All On or All Off.",
+        "selector": "0x0A",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10AllMask"
+          }
+        ]
+      },
+      {
+        "name": "nonToggleOnMask",
+        "description": "Sets which non-toggle buttons send On.",
+        "selector": "0x0B",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "nonToggleOnMask"
+          }
+        ]
+      },
+      {
+        "name": "triggerMask",
+        "description": "Sets which buttons are trigger buttons.",
+        "selector": "0x0C",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "triggerMask"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Bits 2 and 3 of the 0x04 reply together set button 4's mode: always off, always on, a 4-hour countdown or on/off toggle.",
+    "The keypad is built on the KeypadLinc code base, but Insteon's documents don't say which of the KeypadLinc's other operating flags it accepts.",
+    "Setting the hours and minutes starts the countdown, and the matching LED lights a second later."
+  ],
+  "sources": [
+    "Insteon command workbook"
+  ]
+}

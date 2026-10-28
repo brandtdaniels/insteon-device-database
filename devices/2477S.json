@@ -18,6 +18,13 @@
       "subcategory": "0x2A"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelay",
+      "category": "0x02",
+      "subcategory": "0x2A"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

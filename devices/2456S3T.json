@@ -10,6 +10,13 @@
       "subcategory": "0x07"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "applianceLinc",
+      "category": "0x02",
+      "subcategory": "0x07"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

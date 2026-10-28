@@ -14,6 +14,18 @@
       "subcategory": "0x29"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelayCountdownTimer",
+      "category": "0x02",
+      "subcategory": "0x0E"
+    },
+    {
+      "commandSet": "switchLincRelayCountdownTimer",
+      "category": "0x02",
+      "subcategory": "0x29"
+    }
+  ],
   "role": "both",
   "groups": [
     {

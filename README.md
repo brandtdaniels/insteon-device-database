@@ -22,9 +22,13 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
   never code.
 - **Engines:** where a source states it, the Insteon engine (i1, i2 or i2CS) the product runs
   under each identity and firmware version.
+- **Command sets:** where a source states it, the command set the product uses under each
+  identity: its operating flags and extended settings, which [`commandSets/`](commandSets)
+  describes once for every product that shares them.
 - **Sources:** the documents its values come from.
 
-[`schema/device-profile.schema.json`](schema/device-profile.schema.json) defines the format.
+[`schema/device-profile.schema.json`](schema/device-profile.schema.json) and
+[`schema/command-set.schema.json`](schema/command-set.schema.json) define the formats.
 
 ## Using the catalog
 
@@ -34,8 +38,8 @@ Every change to `main` publishes the profiles to GitHub Pages:
   sorted by model
 - `https://brandtdaniels.github.io/insteon-device-catalog/v1/manifest.json`: the schema version,
   the number of profiles and the catalog's SHA-256
-- `https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json`: the
-  schema
+- `https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json` and
+  `command-set.schema.json`: the schemas
 - `https://brandtdaniels.github.io/insteon-device-catalog/`: a page listing the files and every
   profile, for people rather than software
 
@@ -52,5 +56,8 @@ treat downloading a newer one as optional.
 2. Run `pip install -r requirements.txt` and `python3 -I scripts/build.py` to validate. It checks
    each profile against the schema, that the file is named for its model, that no capability
    appears twice, that no two profiles claim the same identity for the same firmware, and that
-   each engine entry names one of the product's identities and no firmware version twice.
+   each engine and command set entry names one of the product's identities and no firmware
+   version twice. It also checks each command set in `commandSets/` against its schema, and that
+   no two of its flags share a bit or a command, no two values share a byte, and no two writes
+   share a selector.
 3. Open a pull request. CI runs the same check.
