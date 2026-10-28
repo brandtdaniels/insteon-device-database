@@ -1,0 +1,21 @@
+{
+  "model": "2992-222",
+  "name": "Range Extender",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x1D"
+    }
+  ],
+  "radio": "dual",
+  "role": "responder",
+  "capabilities": [],
+  "notes": [
+    "Repeats INSTEON messages between powerline and RF, and bridges the two powerline phases.",
+    "Answers status requests and beeps; it has no load to control."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2992-222 Range Extender PRD"
+  ]
+}

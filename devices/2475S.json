@@ -1,0 +1,31 @@
+{
+  "model": "2475S",
+  "name": "In-LineLinc Relay",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x10"
+    }
+  ],
+  "radio": "powerline",
+  "role": "responder",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "responder"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Linked by holding SET for 10 seconds."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2475S In-LineLinc Relay PRD"
+  ]
+}

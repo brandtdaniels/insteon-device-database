@@ -1,0 +1,44 @@
+{
+  "model": "2632",
+  "name": "Dimmer Module",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x0B",
+      "region": "France"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x0F",
+      "region": "Germany"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x11",
+      "region": "UK"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x12",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2632-x22 Dimmer Module PRD"
+  ]
+}

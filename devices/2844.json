@@ -1,0 +1,91 @@
+{
+  "model": "2844",
+  "name": "Motion Sensor II",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x16",
+      "region": "US"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x17",
+      "region": "Europe"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x18",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "rf",
+  "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Motion",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Dusk and dawn",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Low battery",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Heartbeat",
+      "role": "controller"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "motion"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "motionStopped"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "dark"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x13",
+          "event": "light"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "lowBattery"
+        }
+      ]
+    },
+    {
+      "kind": "heartbeat",
+      "group": "0x04",
+      "intervalMinutes": 1440
+    }
+  ],
+  "notes": [
+    "Groups other than 1 are off by default.",
+    "Its heartbeat's cmd1, 0x11 to 0x14, gives the battery level from fully charged to almost empty.",
+    "Optional groups report temperature and light levels."
+  ],
+  "sources": [
+    "2844-x22 Motion Sensor II and III PRDs"
+  ]
+}

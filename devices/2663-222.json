@@ -1,0 +1,36 @@
+{
+  "model": "2663-222",
+  "name": "On/Off Outlet",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x39"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Outlet 1",
+      "role": "both"
+    },
+    {
+      "number": "0x02",
+      "name": "Outlet 2",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Both outlets are switched, each by its own group."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2663-2xx On/Off Outlet PRD"
+  ]
+}

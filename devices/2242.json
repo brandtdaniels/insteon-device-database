@@ -1,0 +1,48 @@
+{
+  "model": "2242",
+  "name": "Hub",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x2B",
+      "region": "US"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x2E",
+      "region": "EU"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x2F",
+      "region": "AU/NZ"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x30",
+      "region": "UK"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x31"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x32"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "modem"
+    },
+    {
+      "kind": "hub",
+      "port": 25105
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}
