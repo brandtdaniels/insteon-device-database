@@ -78,7 +78,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "One source swaps 0x08 and 0x09 (backlight on and off); the values here are those other sources give. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but later sources read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -90,7 +90,7 @@
       "off": "0x0B",
       "verification": {
         "status": "conflicting",
-        "note": "The 2477S SwitchLinc Relay PRD and the 2477S Developer Notes list bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07; Insteon's command sheets and the Insteon for Hub app make bit 5 the key beep on this code base."
+        "note": "The 2477S Developer Notes list bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07; other sources make bit 5 the key beep on this code base."
       }
     },
     {
@@ -162,7 +162,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; later sources count messages with CRC errors there."
       }
     },
     {
@@ -470,10 +470,7 @@
     "The 2477S Developer Notes list the ramp rate and on-level in the extended Get reply and their Sets, though the relay only switches its load."
   ],
   "sources": [
-    "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app",
-    "2477S SwitchLinc Relay PRD",
     "2477S Developer Notes",
     "Insteon Command Tables (2007)"
   ]

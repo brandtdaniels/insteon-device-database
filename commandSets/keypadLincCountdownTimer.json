@@ -257,7 +257,5 @@
     "The keypad is built on the KeypadLinc code base, but Insteon's documents don't say which of the KeypadLinc's other operating flags it accepts.",
     "Setting the hours and minutes starts the countdown, and the matching LED lights a second later."
   ],
-  "sources": [
-    "Insteon command workbook"
-  ]
+  "sources": []
 }

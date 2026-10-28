@@ -39,9 +39,6 @@
   ],
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog",
-    "Insteon device database (SQLite, InsteonDevices.db)",
-    "Insteon for Hub app",
-    "Insteon SKU list"
+    "HouseLinc device catalog"
   ]
 }

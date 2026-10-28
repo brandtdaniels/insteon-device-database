@@ -49,7 +49,6 @@
     "Returns its load and LEDs to their states before a power outage."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "2478D 240V SwitchLinc Dimmer PRD"
+    "HouseLinc device catalog"
   ]
 }

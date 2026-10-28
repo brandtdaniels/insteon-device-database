@@ -100,7 +100,7 @@
       "off": "0x06",
       "verification": {
         "status": "conflicting",
-        "note": "The 2472D and KeypadLinc Line Developer Notes give Set Operating Flags 0x06 as load sense off and 0x07 as on, used here; the command workbook gives 0x06 as on and 0x07 as off."
+        "note": "The 2472D and KeypadLinc Line Developer Notes give Set Operating Flags 0x06 as load sense off and 0x07 as on, used here; another source gives 0x06 as on and 0x07 as off."
       }
     },
     {
@@ -112,7 +112,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "One source swaps 0x08 and 0x09 (backlight on and off); the values here are those other sources give. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but later sources read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -192,7 +192,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there. The 2472D Developer Notes give query 0x02 as the signal-to-noise ratio of the last failure; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; later sources count messages with CRC errors there. The 2472D Developer Notes give query 0x02 as the signal-to-noise ratio of the last failure; later sources count messages with CRC errors there."
       }
     },
     {
@@ -259,7 +259,7 @@
         "byte": 12,
         "verification": {
           "status": "conflicting",
-          "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; the command workbook gives 0x7D."
+          "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; another source gives 0x7D."
         }
       },
       {
@@ -542,13 +542,11 @@
     }
   ],
   "notes": [
-    "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
+    "Earlier sources give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
     "The 2472D Developer Notes' examples show category 0x01 and subcategory 0x0E, which the catalog gives to the 2457D2."
   ],
   "sources": [
-    "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app",
     "2472D Developer Notes",
     "Insteon Command Tables (2007)"
   ]

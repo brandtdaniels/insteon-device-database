@@ -47,8 +47,6 @@
   ],
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog",
-    "Insteon for Hub app",
-    "Insteon SKU list"
+    "HouseLinc device catalog"
   ]
 }

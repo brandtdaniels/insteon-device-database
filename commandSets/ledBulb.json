@@ -88,7 +88,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; later sources count messages with CRC errors there."
       }
     },
     {
@@ -134,8 +134,6 @@
     "Insteon's documents don't give this product's extended Get and Set layout."
   ],
   "sources": [
-    "Insteon command workbook",
-    "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app"
+    "Insteon Developer's Guide (2009)"
   ]
 }

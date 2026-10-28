@@ -43,7 +43,6 @@
     "Repeats RF but not powerline."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "2474DWH SwitchLinc 2-Wire Dimmer PRD"
+    "HouseLinc device catalog"
   ]
 }

@@ -28,7 +28,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but later sources read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -109,11 +109,10 @@
     ]
   },
   "notes": [
-    "The Insteon Developer's Guide lists 0x0A and above as unused on this code base; the later command sheets add the cleanup report commands 0x0A and 0x0B.",
-    "Insteon's earlier command sheets give D12 as the signal-to-noise ratio and D13 as a count of messages with CRC errors."
+    "The Insteon Developer's Guide lists 0x0A and above as unused on this code base; later sources add the cleanup report commands 0x0A and 0x0B.",
+    "Earlier sources give D12 as the signal-to-noise ratio and D13 as a count of messages with CRC errors."
   ],
   "sources": [
-    "Insteon command workbook",
     "Insteon Developer's Guide (2009)"
   ]
 }

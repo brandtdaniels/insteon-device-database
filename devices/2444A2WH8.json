@@ -76,12 +76,9 @@
   ],
   "capabilities": [],
   "notes": [
-    "Groups 1 and 2 are buttons B and A, 3 and 4 are D and C, 5 and 6 are F and E, and 7 and 8 are H and G, as the Insteon for Hub app names them."
+    "Groups 1 and 2 are buttons B and A, 3 and 4 are D and C, 5 and 6 are F and E, and 7 and 8 are H and G."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "Insteon device database (SQLite, InsteonDevices.db)",
-    "Insteon for Hub app",
-    "Insteon SKU list"
+    "HouseLinc device catalog"
   ]
 }

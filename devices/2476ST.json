@@ -43,7 +43,6 @@
     "When its timer runs out it sends off to its group's members, unless its group control option is turned off."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "2476ST SwitchLinc Relay Countdown Timer PRD"
+    "HouseLinc device catalog"
   ]
 }

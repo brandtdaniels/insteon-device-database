@@ -15,7 +15,6 @@
     "Answers status requests and beeps; it has no load to control."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "2992-222 Range Extender PRD"
+    "HouseLinc device catalog"
   ]
 }

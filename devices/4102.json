@@ -65,7 +65,6 @@
     "In the 8-button layout groups 1 to 8 are buttons A to H, and in the 6-button layout group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D. Software sets the layout, and Insteon's documents don't say which one it ships with."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "Insteon for Hub app"
+    "HouseLinc device catalog"
   ]
 }

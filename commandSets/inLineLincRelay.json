@@ -100,7 +100,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "One source swaps 0x08 and 0x09 (backlight on and off); the values here are those other sources give. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but later sources read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -112,7 +112,7 @@
       "off": "0x0B",
       "verification": {
         "status": "conflicting",
-        "note": "The 2475SDB Developer Notes list bit 5 of the 0x00 reply as load sense, but its Set Operating Flags table makes 0x0A and 0x0B the key beep, as Insteon's command sheets and the Insteon for Hub app do."
+        "note": "The 2475SDB Developer Notes list bit 5 of the 0x00 reply as load sense, but its Set Operating Flags table makes 0x0A and 0x0B the key beep, as other sources do."
       }
     },
     {
@@ -184,7 +184,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "The Insteon Developer's Guide and the 2475SDB Developer Notes give query 0x02 as the signal-to-noise value of the last failure; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide and the 2475SDB Developer Notes give query 0x02 as the signal-to-noise value of the last failure; later sources count messages with CRC errors there."
       }
     },
     {
@@ -559,9 +559,7 @@
     "The 2475SDB Developer Notes list no status request; Insteon's 2007 command tables give cmd1 0x19 for every on/off device."
   ],
   "sources": [
-    "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app",
     "2475SDB Developer Notes",
     "Insteon Command Tables (2007)"
   ]

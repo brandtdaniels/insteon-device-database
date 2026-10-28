@@ -1,7 +1,7 @@
 {
   "id": "tempLinc",
   "name": "TempLinc Thermostat",
-  "description": "The TempLinc thermostats: wired, wireless zone, regional, heat pump and Thermostat 2.0 versions.",
+  "description": "The TempLinc thermostats: wired, wireless zone, regional and heat pump versions, and their later firmware.",
   "displayScale": {
     "celsiusWhen": "displayCelsius"
   },
@@ -939,17 +939,15 @@
   ],
   "notes": [
     "The thermostat sends its reports as direct messages to each device linked to it in group 0xFE, once enableStatusReports has told it to check that group.",
-    "Mode reports use a different table from the mode the thermostat keeps. Insteon's 2012 product requirements give the kept table for mode reports; the later command workbook, used here, gives a table of its own.",
+    "Mode reports use a different table from the mode the thermostat keeps. Earlier sources give the kept table for mode reports; later sources, used here, give a table of its own.",
     "Insteon's later documents don't list reads with cmd1 0x6A, or with cmd1 0x6B and cmd2 0x02 or 0x03, for the TempLinc. Read its state with readStatus or readSettings instead.",
     "The TempLinc's Get Operating Flags reply isn't documented; read its settings from readSettings.",
     "Insteon's documents don't give the units of the first page's own temperature, the zone temperatures, or the external temperature report, cmd1 0x73.",
-    "Insteon's 2012 product requirements read the extended Get with the temperature in D3 and D4, and a second page chosen by D2 0x10; the later command workbook, used here, chooses pages by D3.",
-    "The Insteon for Hub app sends 0x01 in D1 of extended Get and Set; the workbook allows any group."
+    "Earlier sources read the extended Get with the temperature in D3 and D4, and a second page chosen by D2 0x10; later sources, used here, choose pages by D3.",
+    "Extended Get and Set take 0x01 in D1; other values are also accepted."
   ],
   "sources": [
-    "Insteon command workbook",
-    "Insteon's TempLinc thermostat product requirements (2012)",
-    "Insteon's Thermostat 2.0 product requirements (2015)",
-    "Insteon for Hub app"
+    "Thermostat Developer Notes",
+    "Wireless Thermostat Developer Notes"
   ]
 }

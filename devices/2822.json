@@ -59,7 +59,5 @@
   "notes": [
     "Each relay's momentary time can be set from 0.2 seconds to 100 minutes."
   ],
-  "sources": [
-    "2822-x22 I/O Linc Dual-Band PRD"
-  ]
+  "sources": []
 }

@@ -43,7 +43,5 @@
     "On opens and off closes; fast on and fast off open and close fully; brighten and dim start opening and closing, and stopping ends the movement.",
     "Doesn't repeat Insteon messages."
   ],
-  "sources": [
-    "2772-x22 Motorized Shades PRD"
-  ]
+  "sources": []
 }
