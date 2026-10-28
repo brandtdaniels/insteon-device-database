@@ -51,17 +51,14 @@
   ],
   "capabilities": [
     {
-      "kind": "onOff"
-    },
-    {
       "kind": "dimmable"
     }
   ],
   "notes": [
     "The documented firmware is 0x58.",
-    "It replies 0x02 to a get engine version command (cmd1 0x0D), as i2CS devices do, and sends the SET button broadcast (cmd1 0x01), with its hardware version in cmd2, when any button is held, even with programming locked."
+    "It replies 0x02 to Get Insteon Engine Version (cmd1 0x0D), as i2CS devices do, and broadcasts Button Held (cmd1 0x01), with its hardware version in cmd2, when any button is held, even with programming locked."
   ],
   "sources": [
-    "Insteon i3 Keypad Developer Documentation (October 2025)"
+    "i3 Keypad (Insteon Developer Documentation, October 2025)"
   ]
 }
