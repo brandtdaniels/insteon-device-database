@@ -1,4 +1,4 @@
-"""Validates the device profiles and bundles them into the published database.
+"""Validates the device profiles and bundles them into the published catalog.
 
 Usage: python3 scripts/build.py [--output DIR]
 
@@ -78,7 +78,7 @@ def overlapping_identities(profiles):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--output", type=pathlib.Path, help="where to write v1/database.json and v1/manifest.json")
+    parser.add_argument("--output", type=pathlib.Path, help="where to write v1/catalog.json and v1/manifest.json")
     arguments = parser.parse_args()
 
     profiles, errors = load_profiles()
@@ -94,17 +94,17 @@ def main():
     if arguments.output is None:
         return
 
-    database = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    catalog = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
         "devices": len(profiles),
-        "database": "database.json",
-        "sha256": hashlib.sha256(database.encode()).hexdigest(),
+        "catalog": "catalog.json",
+        "sha256": hashlib.sha256(catalog.encode()).hexdigest(),
     }
 
     directory = arguments.output / f"v{SCHEMA_VERSION}"
     directory.mkdir(parents=True, exist_ok=True)
-    (directory / "database.json").write_text(database)
+    (directory / "catalog.json").write_text(catalog)
     (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     (directory / "device-profile.schema.json").write_text((ROOT / "schema" / "device-profile.schema.json").read_text())
     (arguments.output / "index.html").write_text(index_page(profiles))
@@ -159,7 +159,7 @@ def capability_descriptions():
 
 
 def index_page(profiles):
-    """The landing page: what the database is, its files, and a table of the profiles to search,
+    """The landing page: what the catalog is, its files, and a table of the profiles to search,
     sort and filter."""
     escape = html.escape
     descriptions = capability_descriptions()

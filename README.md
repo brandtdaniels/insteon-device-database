@@ -1,7 +1,7 @@
-# INSTEON Device Database
+# INSTEON Device Catalog
 
-[![Database](https://github.com/brandtdaniels/insteon-device-database/actions/workflows/database.yml/badge.svg?branch=main)](https://github.com/brandtdaniels/insteon-device-database/actions/workflows/database.yml)
-[![Device profiles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-database%2Fv1%2Fmanifest.json&query=%24.devices&label=device%20profiles)](https://brandtdaniels.github.io/insteon-device-database/v1/database.json)
+[![Catalog](https://github.com/brandtdaniels/insteon-device-catalog/actions/workflows/catalog.yml/badge.svg?branch=main)](https://github.com/brandtdaniels/insteon-device-catalog/actions/workflows/catalog.yml)
+[![Device profiles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-catalog%2Fv1%2Fmanifest.json&query=%24.devices&label=device%20profiles)](https://brandtdaniels.github.io/insteon-device-catalog/v1/catalog.json)
 [![Schema](https://img.shields.io/badge/schema-v1-blue.svg)](schema/device-profile.schema.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -24,23 +24,23 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 
 [`schema/device-profile.schema.json`](schema/device-profile.schema.json) defines the format.
 
-## Using the database
+## Using the catalog
 
 Every change to `main` publishes the profiles to GitHub Pages:
 
-- `https://brandtdaniels.github.io/insteon-device-database/v1/database.json`: every profile,
+- `https://brandtdaniels.github.io/insteon-device-catalog/v1/catalog.json`: every profile,
   sorted by model
-- `https://brandtdaniels.github.io/insteon-device-database/v1/manifest.json`: the schema version,
-  the number of profiles and the database's SHA-256
-- `https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json`: the
+- `https://brandtdaniels.github.io/insteon-device-catalog/v1/manifest.json`: the schema version,
+  the number of profiles and the catalog's SHA-256
+- `https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json`: the
   schema
-- `https://brandtdaniels.github.io/insteon-device-database/`: a page listing the files and every
+- `https://brandtdaniels.github.io/insteon-device-catalog/`: a page listing the files and every
   profile, for people rather than software
 
 See [API.md](API.md) for the files' formats, how to keep a copy up to date and how to look a
 device up. In short: read the manifest first, check that its schema version is one you
-understand, then download the database and check its hash. A breaking change to the format gets a new version path, so `v1`
-keeps working for software built against it. Software should ship a copy of the database and
+understand, then download the catalog and check its hash. A breaking change to the format gets a new version path, so `v1`
+keeps working for software built against it. Software should ship a copy of the catalog and
 treat downloading a newer one as optional.
 
 ## Adding or changing a profile

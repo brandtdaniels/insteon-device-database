@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json",
+  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json",
   "title": "INSTEON device profile",
   "description": "What one INSTEON product is and can do, keyed by the category and subcategory it reports.",
   "type": "object",

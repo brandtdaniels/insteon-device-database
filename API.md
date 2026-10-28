@@ -1,31 +1,31 @@
-# The database API
+# The catalog API
 
-The database is three static JSON files on GitHub Pages. There's no server, no query
-parameters and no authentication: a client downloads the database and looks devices up itself.
+The catalog is three static JSON files on GitHub Pages. There's no server, no query
+parameters and no authentication: a client downloads the catalog and looks devices up itself.
 
 ## Files
 
-Every file is under `https://brandtdaniels.github.io/insteon-device-database/v1/` and is fetched
+Every file is under `https://brandtdaniels.github.io/insteon-device-catalog/v1/` and is fetched
 with a plain `GET` over HTTPS.
 
 | File | Contents |
 | --- | --- |
-| `manifest.json` | The schema version, the number of profiles, the database's file name and its SHA-256 |
-| `database.json` | The schema version and every profile, sorted by model |
+| `manifest.json` | The schema version, the number of profiles, the catalog's file name and its SHA-256 |
+| `catalog.json` | The schema version and every profile, sorted by model |
 | `device-profile.schema.json` | The JSON Schema every profile follows |
 
 `manifest.json`:
 
 ```json
 {
-  "database": "database.json",
+  "catalog": "catalog.json",
   "devices": 14,
   "schemaVersion": 1,
   "sha256": "8d824948278c3c03ffc12ccc994c3f78981de410ebaa3650b174e030de77cfe6"
 }
 ```
 
-`database.json`:
+`catalog.json`:
 
 ```json
 {
@@ -79,7 +79,7 @@ versions. Without one, the identity covers every version.
 1. Fetch `manifest.json`.
 2. If its `schemaVersion` isn't one the client understands, keep the copy it has.
 3. If its `sha256` matches the copy the client has, stop: nothing changed.
-4. Otherwise fetch `database.json`, check that its bytes hash to `sha256`, and only then replace
+4. Otherwise fetch `catalog.json`, check that its bytes hash to `sha256`, and only then replace
    the copy.
 
 Ship a copy with the software, so it works offline and fetching is optional.
