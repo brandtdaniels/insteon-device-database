@@ -1,0 +1,18 @@
+{
+  "model": "2485SWH6",
+  "name": "KeypadLinc Schedule Timer On/Off Switch",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x26"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

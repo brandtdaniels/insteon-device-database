@@ -1,0 +1,18 @@
+{
+  "model": "4706A",
+  "name": "Central Controller Interface",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x22"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

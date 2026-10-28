@@ -1,0 +1,32 @@
+{
+  "model": "2442-222",
+  "name": "Micro Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x35",
+      "region": "US"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x38",
+      "region": "Europe"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x39",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "notes": [
+    "HouseLinc lists the regional versions as the 2442-222, 2442-422 and 2442-522."
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

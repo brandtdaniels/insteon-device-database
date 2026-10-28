@@ -1,0 +1,18 @@
+{
+  "model": "2473SWH",
+  "name": "OutletLinc Relay",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x08"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

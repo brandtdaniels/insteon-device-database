@@ -1,0 +1,18 @@
+{
+  "model": "4102",
+  "name": "Wall Keypad Switch 277V",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x24"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "model": "2856S3B",
+  "name": "ICON Appliance Module",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x0C"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x17"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

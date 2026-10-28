@@ -1,0 +1,18 @@
+{
+  "model": "2454D",
+  "name": "SocketLinc",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x0D"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

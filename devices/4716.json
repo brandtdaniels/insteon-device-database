@@ -1,0 +1,14 @@
+{
+  "model": "4716",
+  "name": "Motion Sensor",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x03"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

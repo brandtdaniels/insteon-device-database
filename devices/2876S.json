@@ -1,0 +1,22 @@
+{
+  "model": "2876S",
+  "name": "ICON On/Off Switch",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x0B"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x16"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

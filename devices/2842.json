@@ -1,0 +1,28 @@
+{
+  "model": "2842",
+  "name": "Motion Sensor",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x01",
+      "region": "US"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x04",
+      "region": "Europe"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x05",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ],
+  "notes": [
+    "HouseLinc also lists its US identity under the 2420M."
+  ]
+}
