@@ -559,6 +559,14 @@
           "type": "string",
           "minLength": 1
         },
+        "device": {
+          "description": "Which device the step is done on: this one, or the other device being linked or unlinked. Defaults to this one.",
+          "enum": [
+            "this",
+            "other"
+          ],
+          "default": "this"
+        },
         "action": {
           "description": "What the step does, for an app that guides it or does it itself.",
           "enum": [
@@ -587,12 +595,12 @@
           "minLength": 1
         },
         "seconds": {
-          "description": "How long to hold, wait or keep going.",
+          "description": "How long to hold, wait or keep going, for a hold, wait or press step.",
           "type": "number",
           "exclusiveMinimum": 0
         },
         "count": {
-          "description": "How many times to tap or press.",
+          "description": "How many times to tap or press. A step that taps and then holds is two steps.",
           "type": "integer",
           "minimum": 1
         },
@@ -616,6 +624,11 @@
         "steps"
       ],
       "properties": {
+        "description": {
+          "description": "What this way of doing it is, for an alternative, such as From software or As a responder.",
+          "type": "string",
+          "minLength": 1
+        },
         "steps": {
           "type": "array",
           "minItems": 1,
@@ -632,6 +645,13 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "alternatives": {
+          "description": "Other ways to do the same thing, such as from software instead of with the SET button. Each is a whole procedure; an app follows one.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/procedure"
+          }
         }
       }
     }
