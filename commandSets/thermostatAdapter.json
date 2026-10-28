@@ -1,0 +1,446 @@
+{
+  "id": "thermostatAdapter",
+  "name": "Thermostat Adapter",
+  "description": "The Thermostat Adapter for Venstar thermostats, and the Venstar thermostats with its board built in.",
+  "enumerations": [
+    {
+      "name": "mode",
+      "description": "The mode a thermostat reports.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "off"
+        },
+        {
+          "value": "0x01",
+          "name": "heat"
+        },
+        {
+          "value": "0x02",
+          "name": "cool"
+        },
+        {
+          "value": "0x03",
+          "name": "auto"
+        },
+        {
+          "value": "0x04",
+          "name": "fanOn"
+        },
+        {
+          "value": "0x05",
+          "name": "program"
+        },
+        {
+          "value": "0x06",
+          "name": "programHeat"
+        },
+        {
+          "value": "0x07",
+          "name": "programCool"
+        }
+      ]
+    },
+    {
+      "name": "modeCommand",
+      "description": "The cmd2 that sets a mode or the fan.",
+      "values": [
+        {
+          "value": "0x04",
+          "name": "heat"
+        },
+        {
+          "value": "0x05",
+          "name": "cool"
+        },
+        {
+          "value": "0x06",
+          "name": "auto"
+        },
+        {
+          "value": "0x07",
+          "name": "fanOn"
+        },
+        {
+          "value": "0x08",
+          "name": "fanAuto"
+        },
+        {
+          "value": "0x09",
+          "name": "off"
+        },
+        {
+          "value": "0x0A",
+          "name": "programHeat"
+        },
+        {
+          "value": "0x0B",
+          "name": "programCool"
+        },
+        {
+          "value": "0x0C",
+          "name": "programAuto"
+        }
+      ]
+    },
+    {
+      "name": "light",
+      "description": "The adapter's LED.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "off"
+        },
+        {
+          "value": "0x01",
+          "name": "on"
+        },
+        {
+          "value": "0x02",
+          "name": "red"
+        }
+      ]
+    }
+  ],
+  "operatingFlags": [
+    {
+      "name": "extendedCommandsOnly",
+      "description": "The adapter takes change commands only as extended messages that repeat cmd1 and cmd2 in D1 and D2.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "humidityReportsOff",
+      "description": "The adapter doesn't report humidity when it changes.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x01",
+      "off": "0x00"
+    },
+    {
+      "name": "ledOn",
+      "description": "The adapter's LED is on.",
+      "query": "0x00",
+      "bit": "0x20",
+      "on": "0x07",
+      "off": "0x06"
+    },
+    {
+      "name": "autoLinkOff",
+      "description": "The adapter doesn't link on its own.",
+      "query": "0x00",
+      "bit": "0x80"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "programmingLockOn",
+      "description": "Locks out linking and programming from the adapter itself.",
+      "command2": "0x04"
+    },
+    {
+      "name": "programmingLockOff",
+      "description": "Allows linking and programming from the adapter itself.",
+      "command2": "0x05"
+    }
+  ],
+  "standardCommands": [
+    {
+      "name": "raiseSetpoint",
+      "description": "Raises the setpoint.",
+      "command1": "0x68",
+      "parameter": {
+        "name": "change",
+        "description": "How far to raise it.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      },
+      "extendedWhen": "extendedCommandsOnly"
+    },
+    {
+      "name": "lowerSetpoint",
+      "description": "Lowers the setpoint.",
+      "command1": "0x69",
+      "parameter": {
+        "name": "change",
+        "description": "How far to lower it.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      },
+      "extendedWhen": "extendedCommandsOnly"
+    },
+    {
+      "name": "readTemperature",
+      "description": "Reads the temperature.",
+      "command1": "0x6A",
+      "command2": "0x00",
+      "reply": {
+        "name": "temperature",
+        "description": "The temperature.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      }
+    },
+    {
+      "name": "readSetpoints",
+      "description": "Reads the setpoints. The acknowledgement carries the heat setpoint, or the only one, and in a mode with two setpoints a second message carries the cool setpoint.",
+      "command1": "0x6A",
+      "command2": "0x20",
+      "reply": {
+        "name": "setpoint",
+        "description": "The heat setpoint, or the only one.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      },
+      "followUps": 1
+    },
+    {
+      "name": "readHumidity",
+      "description": "Reads the relative humidity.",
+      "command1": "0x6A",
+      "command2": "0x60",
+      "reply": {
+        "name": "humidity",
+        "description": "The relative humidity.",
+        "unit": "percent"
+      }
+    },
+    {
+      "name": "readMode",
+      "description": "Reads the mode.",
+      "command1": "0x6B",
+      "command2": "0x02",
+      "reply": {
+        "name": "mode",
+        "description": "The mode.",
+        "kind": "enumeration",
+        "enumeration": "mode"
+      }
+    },
+    {
+      "name": "readEquipment",
+      "description": "Reads whether cooling or heating is running.",
+      "command1": "0x6B",
+      "command2": "0x0D",
+      "reply": {
+        "name": "equipment",
+        "description": "What's running.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "cooling"
+          },
+          {
+            "mask": "0x02",
+            "name": "heating"
+          }
+        ]
+      }
+    },
+    {
+      "name": "setMode",
+      "description": "Sets the mode or the fan.",
+      "command1": "0x6B",
+      "parameter": {
+        "name": "mode",
+        "description": "The mode or fan setting.",
+        "kind": "enumeration",
+        "enumeration": "modeCommand"
+      },
+      "extendedWhen": "extendedCommandsOnly"
+    },
+    {
+      "name": "setCoolSetpoint",
+      "description": "Sets the cool setpoint.",
+      "command1": "0x6C",
+      "parameter": {
+        "name": "coolSetpoint",
+        "description": "The cool setpoint.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      },
+      "extendedWhen": "extendedCommandsOnly"
+    },
+    {
+      "name": "setHeatSetpoint",
+      "description": "Sets the heat setpoint.",
+      "command1": "0x6D",
+      "parameter": {
+        "name": "heatSetpoint",
+        "description": "The heat setpoint.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      },
+      "extendedWhen": "extendedCommandsOnly"
+    },
+    {
+      "name": "readFan",
+      "description": "Reads the thermostat's fan byte, at address 0x4B of its data map.",
+      "command1": "0xF0",
+      "command2": "0x4B",
+      "reply": {
+        "name": "fan",
+        "description": "Whether the fan is on rather than auto.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x10",
+            "name": "fanOn"
+          }
+        ]
+      }
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "readStatus",
+      "description": "Reads the mode, humidity, temperature, setpoints, LED and fan with an extended Get.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x01"
+        }
+      ],
+      "reply": {
+        "command2": "0x00",
+        "match": [
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "values": [
+          {
+            "name": "mode",
+            "description": "The mode.",
+            "byte": 3,
+            "kind": "enumeration",
+            "enumeration": "mode"
+          },
+          {
+            "name": "humidity",
+            "description": "The relative humidity.",
+            "byte": 4,
+            "unit": "percent"
+          },
+          {
+            "name": "temperature",
+            "description": "The temperature, in whole degrees.",
+            "byte": 5,
+            "unit": "displayDegrees"
+          },
+          {
+            "name": "coolSetpoint",
+            "description": "The cool setpoint, in whole degrees.",
+            "byte": 6,
+            "unit": "displayDegrees"
+          },
+          {
+            "name": "heatSetpoint",
+            "description": "The heat setpoint, in whole degrees.",
+            "byte": 7,
+            "unit": "displayDegrees"
+          },
+          {
+            "name": "led",
+            "description": "The LED.",
+            "byte": 8,
+            "kind": "enumeration",
+            "enumeration": "light"
+          },
+          {
+            "name": "fan",
+            "description": "Whether the fan is on rather than auto.",
+            "byte": 9,
+            "kind": "flags",
+            "bits": [
+              {
+                "mask": "0x10",
+                "name": "fanOn"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "directMessages": [
+    {
+      "name": "temperatureReport",
+      "description": "The temperature changed.",
+      "command1": "0x6E",
+      "value": {
+        "name": "temperature",
+        "description": "The temperature.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      }
+    },
+    {
+      "name": "humidityReport",
+      "description": "The relative humidity changed.",
+      "command1": "0x6F",
+      "value": {
+        "name": "humidity",
+        "description": "The relative humidity.",
+        "unit": "percent"
+      }
+    },
+    {
+      "name": "modeReport",
+      "description": "The mode changed.",
+      "command1": "0x70",
+      "value": {
+        "name": "mode",
+        "description": "The mode.",
+        "kind": "enumeration",
+        "enumeration": "mode"
+      }
+    },
+    {
+      "name": "coolSetpointReport",
+      "description": "The cool setpoint changed.",
+      "command1": "0x71",
+      "value": {
+        "name": "coolSetpoint",
+        "description": "The cool setpoint.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      }
+    },
+    {
+      "name": "heatSetpointReport",
+      "description": "The heat setpoint changed.",
+      "command1": "0x72",
+      "value": {
+        "name": "heatSetpoint",
+        "description": "The heat setpoint.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      }
+    }
+  ],
+  "notes": [
+    "The adapter sends its reports as direct messages to each device linked to it while it was off.",
+    "Insteon's documents don't say how to read whether the thermostat displays Celsius, so displayDegrees here are Fahrenheit unless the app knows otherwise.",
+    "The 2008 adapter datasheet says cmd2 0x0D of cmd1 0x6B isn't supported; the later command workbook lists it.",
+    "Insteon's 2009 Developer's Guide calls cmd2 0x08 of cmd1 0x6B fan off; the adapter datasheet and later documents call it fan auto."
+  ],
+  "sources": [
+    "Insteon command workbook",
+    "Insteon's Thermostat Adapter datasheet (2008)",
+    "Insteon Developer's Guide (2009)"
+  ]
+}
