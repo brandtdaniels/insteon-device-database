@@ -1,0 +1,14 @@
+{
+  "model": "2423A4",
+  "name": "iGateway",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x1B"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

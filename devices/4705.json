@@ -1,0 +1,18 @@
+{
+  "model": "4705",
+  "name": "Plug-in Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x2A"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

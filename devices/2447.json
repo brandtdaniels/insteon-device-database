@@ -1,0 +1,24 @@
+{
+  "model": "2447",
+  "name": "Fixture Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x3F",
+      "region": "Europe"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x40",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

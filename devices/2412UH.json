@@ -1,0 +1,18 @@
+{
+  "model": "2412UH",
+  "name": "PowerLinc USB Modem",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x13"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

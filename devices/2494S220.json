@@ -1,0 +1,22 @@
+{
+  "model": "2494S220",
+  "name": "SwitchLinc 220V Relay",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x18"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x19"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

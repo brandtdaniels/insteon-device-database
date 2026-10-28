@@ -1,0 +1,18 @@
+{
+  "model": "2448A7T",
+  "name": "TouchLinc",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x24"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x27"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

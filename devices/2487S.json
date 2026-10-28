@@ -1,0 +1,25 @@
+{
+  "model": "2487S",
+  "name": "KeypadLinc On/Off",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x1E"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x2C"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ],
+  "notes": [
+    "HouseLinc also lists its identity under 2487S-50."
+  ]
+}

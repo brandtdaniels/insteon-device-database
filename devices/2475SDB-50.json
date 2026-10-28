@@ -1,0 +1,18 @@
+{
+  "model": "2475SDB-50",
+  "name": "In-LineLinc On/Off",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x2B"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

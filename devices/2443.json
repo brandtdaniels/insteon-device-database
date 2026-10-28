@@ -1,0 +1,14 @@
+{
+  "model": "2443",
+  "name": "Range Extender",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x0B"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

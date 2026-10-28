@@ -1,0 +1,21 @@
+{
+  "model": "2856D2",
+  "name": "ICON LampLinc",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x07"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ],
+  "notes": [
+    "HouseLinc also lists its identity under 2856D2B."
+  ]
+}

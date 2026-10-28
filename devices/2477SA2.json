@@ -1,0 +1,18 @@
+{
+  "model": "2477SA2",
+  "name": "220V/240V 30 AMP Load Controller Normally Closed",
+  "identities": [
+    {
+      "category": "0x09",
+      "subcategory": "0x0B"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "model": "2334",
+  "name": "Keypad Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x41",
+      "region": "US"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x42",
+      "region": "US"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

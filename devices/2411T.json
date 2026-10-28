@@ -1,0 +1,14 @@
+{
+  "model": "2411T",
+  "name": "IRLinc Transmitter",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x07"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

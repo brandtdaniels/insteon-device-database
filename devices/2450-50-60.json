@@ -1,0 +1,14 @@
+{
+  "model": "2450-50-60",
+  "name": "I/O Linc",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x0D"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

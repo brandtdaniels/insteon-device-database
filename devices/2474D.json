@@ -1,0 +1,18 @@
+{
+  "model": "2474D",
+  "name": "ICON SwitchLinc Dimmer In-line Companion",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x18"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

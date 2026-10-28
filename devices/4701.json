@@ -1,0 +1,18 @@
+{
+  "model": "4701",
+  "name": "Wall Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x27"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}
