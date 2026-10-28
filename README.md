@@ -48,8 +48,7 @@ See [API.md](API.md) for the files' formats, how to keep a copy up to date and h
 device up. In short: read the manifest first, check that its version is one you understand, then
 download the catalog and check its hash. The catalog follows semantic versioning, and the path
 names its MAJOR version; it stays at 0 until the format is final. Software should ship a copy of
-the catalog and
-treat downloading a newer one as optional.
+the catalog and treat downloading a newer one as optional.
 
 ## Adding or changing a profile
 

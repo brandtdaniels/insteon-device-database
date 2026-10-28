@@ -23,6 +23,10 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The catalog's version, MAJOR.MINOR from the VERSION file and PATCH from the publishing
 # workflow: the number of commits since VERSION last changed.
 MAJOR_MINOR = (ROOT / "VERSION").read_text().strip()
+
+if not re.fullmatch(r"\d+\.\d+", MAJOR_MINOR):
+    sys.exit(f"VERSION must be MAJOR.MINOR, not {MAJOR_MINOR!r}")
+
 MAJOR = MAJOR_MINOR.split(".")[0]
 
 
@@ -561,7 +565,9 @@ def main():
         return
 
     version = f"{MAJOR_MINOR}.{arguments.patch}"
-    catalog = json.dumps({"version": version, "devices": profiles, "commandSets": command_sets}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    # The version stays out of the catalog itself, so its bytes, and its SHA-256, change only
+    # when its data does.
+    catalog = json.dumps({"devices": profiles, "commandSets": command_sets}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     manifest = {
         "version": version,
         "devices": len(profiles),
