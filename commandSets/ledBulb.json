@@ -88,7 +88,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
       }
     },
     {

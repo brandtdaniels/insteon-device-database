@@ -36,7 +36,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -178,7 +178,7 @@
     ]
   },
   "notes": [
-    "Insteon's 2009 Developer's Guide lists 0x0A and above as unused on this code base; the later command sheets add the cleanup report commands 0x0A and 0x0B.",
+    "The Insteon Developer's Guide lists 0x0A and above as unused on this code base; the later command sheets add the cleanup report commands 0x0A and 0x0B.",
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
     "Insteon's earlier command sheets give D12 as the signal-to-noise ratio and D13 as a count of messages with CRC errors."
   ],

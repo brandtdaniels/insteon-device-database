@@ -110,10 +110,10 @@
     }
   ],
   "notes": [
-    "The guide sends 0x00 in D1 of the extended Get and Set, where most devices take 0x01, so they're described as extended commands.",
+    "The SynchroLinc Developer Notes send 0x00 in D1 of the extended Get and Set, where most devices take 0x01, so they're described as extended commands.",
     "The sensor sends its messages as soon as the holdoff has passed."
   ],
   "sources": [
-    "2423A5 SynchroLinc Developer's Guide"
+    "SynchroLinc Developer Notes"
   ]
 }

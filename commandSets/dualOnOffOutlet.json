@@ -62,7 +62,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -142,7 +142,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
       }
     },
     {
@@ -308,13 +308,13 @@
     }
   ],
   "notes": [
-    "The 2663-222 guide marks bit 0 of the 0x05 reply reserved and lists no Set Operating Flags 0x10 or 0x11, so the application retries flag is left out; the command workbook gives it for the KeypadLinc code base.",
-    "The 2663-222 guide gives bit 4 of the 0x05 reply as the button lock; the command workbook gives 0x18 to lock the buttons and 0x19 to unlock them."
+    "The On/Off Outlet Developer Notes mark bit 0 of the 0x05 reply reserved and lists no Set Operating Flags 0x10 or 0x11, so the application retries flag is left out; the command workbook gives it for the KeypadLinc code base.",
+    "The On/Off Outlet Developer Notes give bit 4 of the 0x05 reply as the button lock; the command workbook gives 0x18 to lock the buttons and 0x19 to unlock them."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
     "Insteon for Hub app",
-    "2663-222 On/Off Outlet Developer's Guide"
+    "On/Off Outlet Developer Notes"
   ]
 }

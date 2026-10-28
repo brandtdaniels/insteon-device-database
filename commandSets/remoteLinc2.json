@@ -101,7 +101,7 @@
       },
       {
         "name": "configuration",
-        "description": "A configuration byte the guide doesn't explain.",
+        "description": "A configuration byte the RemoteLinc 2 Developer Notes don't explain.",
         "byte": 9
       },
       {
@@ -252,7 +252,7 @@
           },
           {
             "name": "configuration",
-            "description": "A configuration byte the guide doesn't explain.",
+            "description": "A configuration byte the RemoteLinc 2 Developer Notes don't explain.",
             "byte": 9
           },
           {
@@ -265,11 +265,11 @@
     }
   ],
   "notes": [
-    "The guide gives the sleep interval's first byte in steps of 755.2 seconds, or 12.5 minutes, and its low byte in steps of 2.3 seconds.",
-    "The guide's descriptions of Set Operating Flags 0x08 and 0x09 are unclear for the RemoteLinc 2, so listenOnly has no commands here.",
-    "Insteon's file for this guide is named for the 2342, but its title and ID request reply are the RemoteLinc 2's, subcategory 0x10."
+    "The RemoteLinc 2 Developer Notes give the sleep interval's first byte in steps of 755.2 seconds, or 12.5 minutes, and its low byte in steps of 2.3 seconds.",
+    "The RemoteLinc 2 Developer Notes' descriptions of Set Operating Flags 0x08 and 0x09 are unclear for the RemoteLinc 2, so listenOnly has no commands here.",
+    "Insteon's file for the RemoteLinc 2 Developer Notes are named for the 2342, but its title and ID request reply are the RemoteLinc 2's, subcategory 0x10."
   ],
   "sources": [
-    "2444 RemoteLinc 2 Developer's Guide"
+    "RemoteLinc 2 Developer Notes"
   ]
 }

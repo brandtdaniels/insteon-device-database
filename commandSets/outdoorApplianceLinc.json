@@ -170,12 +170,12 @@
     }
   ],
   "notes": [
-    "The 2634-222 guide marks the 0x00 reply N/A, so its Set Operating Flags commands have no bit to read back. It sends them as extended messages with a checksum in D14.",
-    "The 2634-222 guide gives no extended Set for the settings its Get reports.",
+    "The Outdoor ApplianceLinc with RF Developer Notes mark the 0x00 reply N/A, so its Set Operating Flags commands have no bit to read back. It sends them as extended messages with a checksum in D14.",
+    "The Outdoor ApplianceLinc with RF Developer Notes give no extended Set for the settings its Get reports.",
     "The device sends its Assign to ALL-Link Group broadcast on power-up, and supports only responder links, whose on-level should be 0xFE and ramp rate 0x1F.",
-    "The 2634-222 guide gives the device's identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672 LED bulb; the catalog keeps 0x02 and 0x38 for the 2634-222."
+    "The Outdoor ApplianceLinc with RF Developer Notes give the device's identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672 LED bulb; the catalog keeps 0x02 and 0x38 for the 2634-222."
   ],
   "sources": [
-    "2634-222 Outdoor ApplianceLinc Developer's Guide"
+    "Outdoor ApplianceLinc with RF Developer Notes"
   ]
 }
