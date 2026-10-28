@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v1/command-set.schema.json",
+  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v0/command-set.schema.json",
   "title": "Insteon command set",
   "description": "The settings and messages a family of Insteon products shares, in the Insteon protocol's own terms: operating flags read with Get Operating Flags (cmd1 0x1F) and set with Set Operating Flags (cmd1 0x20), values read and written with extended Get and Set (cmd1 0x2E), other standard and extended direct commands, and the direct messages the products send on their own. Profiles name the command sets their identities and firmware versions use.",
   "type": "object",
