@@ -33,7 +33,7 @@
       "region": "Australia and New Zealand, B22",
       "verification": {
         "status": "conflicting",
-        "note": "The LED Bulb Developer Notes print 0x4D as an Australian Edison base; other sources make it the B22 version."
+        "note": "The LED Bulb Developer Notes print 0x4D as an Australian Edison base, the same as 0x3C; the HouseLinc device catalog makes it the B22 version."
       }
     }
   ],

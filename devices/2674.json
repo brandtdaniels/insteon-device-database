@@ -90,7 +90,8 @@
     }
   ],
   "notes": [
-    "Has no buttons or LED."
+    "Has no buttons or LED.",
+    "Powers up on by default, and can be set to power up to its last state instead."
   ],
   "sources": [
     "HouseLinc device catalog",

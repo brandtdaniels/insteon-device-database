@@ -19,7 +19,7 @@
     },
     {
       "name": "triggerLevel",
-      "description": "Which level a triggered group sets the local load to.",
+      "description": "Which level a triggered group sets the local load to. The values are the reverse of the KeypadLinc's.",
       "values": [
         {
           "value": "0x00",
@@ -61,7 +61,7 @@
     },
     {
       "name": "resumeDim",
-      "description": "Brightening or dimming the load by holding its button also sets its on-level. Set by default on the i3 Dial.",
+      "description": "Brightening or dimming the load by holding its button also sets its on-level. Clear by default.",
       "query": "0x00",
       "bit": "0x04",
       "on": "0x04",
@@ -114,7 +114,7 @@
       "off": "0x1F",
       "verification": {
         "status": "conflicting",
-        "note": "The bit property table names bit 7 relay mode, set for relay and clear by default; the 0x05 reply and the bulk Get reply call it dimmer mode. Either way, cmd2 0x1E selects relay and 0x1F dimmer."
+        "note": "The bit property table names bit 7 relay mode, set for relay and clear by default; the 0x05 reply calls it dimmer mode. Either way, cmd2 0x1E selects relay and 0x1F dimmer."
       }
     },
     {
@@ -126,7 +126,7 @@
       "off": "0x29"
     },
     {
-      "name": "hopPowerlineOnRadio",
+      "name": "pushHopsToRadio",
       "description": "The device repeats every powerline message over RF, for an RF-only device that only one powerline device can reach. Clear, it repeats a message over RF only if it heard it over RF or sent it.",
       "query": "0x07",
       "bit": "0x04",
@@ -151,7 +151,11 @@
       "query": "0x07",
       "bit": "0x10",
       "on": "0x2E",
-      "off": "0x2F"
+      "off": "0x2F",
+      "verification": {
+        "status": "conflicting",
+        "note": "The request tables give cmd2 0x2C and 0x2D, which are the green element's; the headings and examples give 0x2E and 0x2F."
+      }
     },
     {
       "name": "relayAtFullOn",
@@ -249,6 +253,66 @@
           {
             "position": 3,
             "value": "ledBrightness"
+          }
+        ],
+        "verification": {
+          "status": "conflicting",
+          "note": "The table sends D1 0x01; the example and its checksum send 0x00."
+        }
+      },
+      {
+        "name": "loadCalibration",
+        "description": "Sets the maximum, minimum and starting on-levels, which readLoadSettings reads.",
+        "selector": "0x0D",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "maxOnLevel"
+          },
+          {
+            "position": 4,
+            "value": "minOnLevel"
+          },
+          {
+            "position": 5,
+            "value": "startOnLevel"
+          }
+        ]
+      },
+      {
+        "name": "nightSettings",
+        "description": "Sets the night on-level limit, LED brightness and ramp rate, which readLoadSettings reads.",
+        "selector": "0x12",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "nightMaxOnLevel"
+          },
+          {
+            "position": 4,
+            "value": "nightLedBrightness"
+          },
+          {
+            "position": 5,
+            "value": "nightRampRate"
+          }
+        ],
+        "verification": {
+          "status": "conflicting",
+          "note": "The table puts the night on-level limit in D3, the LED brightness in D4 and the ramp rate in D5, in the order of the Get reply; the example lists them the other way round."
+        }
+      },
+      {
+        "name": "triggerMask",
+        "description": "Sets whether group 1 sends a trigger command (cmd1 0x30) when pressed, 0x00 or 0x01. Read it with operating flags query 0x08.",
+        "selector": "0x0C",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "triggerMask"
           }
         ]
       }
@@ -464,12 +528,11 @@
       "command1": "0x38",
       "parameter": {
         "name": "amount",
-        "description": "How much to brighten, or dim if negative.",
-        "signed": true,
-        "range": {
-          "from": -128,
-          "through": 127
-        }
+        "description": "0x00 through 0x7F brighten by that much; 0x80 through 0xFF dim by bits 0 through 6, so 0x89 dims by 9."
+      },
+      "verification": {
+        "status": "conflicting",
+        "note": "The text calls the value a signed 8-bit integer; its ranges and its example, which adds -9 with 0x89, make bit 7 the sign and bits 0 through 6 the amount, as used here."
       }
     },
     {
@@ -494,13 +557,17 @@
     {
       "name": "nightModeOff",
       "description": "Clears night mode. It can also be sent as a group command.",
-      "command1": "0x3C"
+      "command1": "0x3C",
+      "verification": {
+        "status": "conflicting",
+        "note": "Its request table prints cmd1 0x3B; its heading and example give 0x3C."
+      }
     }
   ],
   "extendedCommands": [
     {
       "name": "readLoadSettings",
-      "description": "Reads the load calibration and night settings. The reply's header is the same as that of the extended Get reply, so wait for one before asking for the other.",
+      "description": "Reads the load calibration and night settings, which the extended Set writes with selectors 0x0D and 0x12.",
       "command1": "0x2E",
       "command2": "0x00",
       "fixed": [
@@ -550,91 +617,6 @@
           }
         ]
       }
-    },
-    {
-      "name": "writeLoadCalibration",
-      "description": "Sets the maximum, minimum and starting on-levels.",
-      "command1": "0x2E",
-      "command2": "0x00",
-      "fixed": [
-        {
-          "position": 2,
-          "value": "0x0D"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "maxOnLevel",
-          "description": "The highest level the load goes to. 0xF1 by default.",
-          "byte": 3
-        },
-        {
-          "name": "minOnLevel",
-          "description": "The lowest level the load dims to before it turns off, which can stop flicker. 0x20 by default.",
-          "byte": 4
-        },
-        {
-          "name": "startOnLevel",
-          "description": "The level the load starts at when it turns on from off, for loads that must reach some power before they dim lower. 0x00 by default.",
-          "byte": 5
-        }
-      ],
-      "integrity": "checksum"
-    },
-    {
-      "name": "writeNightSettings",
-      "description": "Sets the night on-level limit, LED brightness and ramp rate.",
-      "command1": "0x2E",
-      "command2": "0x00",
-      "fixed": [
-        {
-          "position": 2,
-          "value": "0x12"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "nightMaxOnLevel",
-          "description": "The highest level at night. 0x7F by default.",
-          "byte": 3
-        },
-        {
-          "name": "nightLedBrightness",
-          "description": "The LED brightness at night. 0x1F by default.",
-          "byte": 4
-        },
-        {
-          "name": "nightRampRate",
-          "description": "The ramp rate at night. 0x1B by default.",
-          "byte": 5
-        }
-      ],
-      "integrity": "checksum",
-      "verification": {
-        "status": "conflicting",
-        "note": "The table puts the night on-level limit in D3, the LED brightness in D4 and the ramp rate in D5, in the order of the Get reply; the example lists them the other way round."
-      }
-    },
-    {
-      "name": "writeTriggerMask",
-      "description": "Sets which groups send a trigger command (cmd1 0x30) when pressed, so that two devices can control one scene without links in every device. Read it with operating flags query 0x08.",
-      "command1": "0x2E",
-      "command2": "0x00",
-      "fixed": [
-        {
-          "position": 2,
-          "value": "0x0C"
-        }
-      ],
-      "parameters": [
-        {
-          "name": "trigger",
-          "description": "Whether the group sends a trigger command.",
-          "byte": 3,
-          "kind": "boolean"
-        }
-      ],
-      "integrity": "checksum"
     },
     {
       "name": "readProperties",
@@ -707,11 +689,11 @@
             "bits": [
               {
                 "mask": "0x08",
-                "name": "dimmerMode"
+                "name": "dimming"
               },
               {
                 "mask": "0x10",
-                "name": "nightMode"
+                "name": "night"
               },
               {
                 "mask": "0x20",
@@ -843,11 +825,11 @@
           "bits": [
             {
               "mask": "0x08",
-              "name": "dimmerMode"
+              "name": "dimming"
             },
             {
               "mask": "0x10",
-              "name": "nightMode"
+              "name": "night"
             },
             {
               "mask": "0x20",
@@ -941,17 +923,17 @@
           }
         },
         {
-          "name": "command1",
-          "description": "The cmd1 of the group command to send.",
+          "name": "groupCommand1",
+          "description": "The cmd1 to send to the group.",
           "byte": 4
         },
         {
-          "name": "command2",
-          "description": "The cmd2 of the group command to send.",
+          "name": "groupCommand2",
+          "description": "The cmd2 to send to the group.",
           "byte": 5
         },
         {
-          "name": "rampRateSource",
+          "name": "rampRate",
           "description": "How fast the local load changes.",
           "byte": 6,
           "kind": "enumeration",
@@ -984,11 +966,12 @@
   ],
   "notes": [
     "Ramp rate 0x00 is 2 seconds, 0x01 8 minutes, 0x0A 2 minutes, 0x0D 47 seconds, 0x13 28 seconds, 0x18 8.5 seconds, 0x1B 2 seconds, 0x1C 0.5 second and 0x1F 0.1 second.",
-    "The device answers only the commands listed here and doesn't reply to a product data request (cmd1 0x03).",
-    "Its ALL-Link database runs down from 0x0FFF to 0x0307, 416 records. Bit 0 of a record's flags is fast fail, bit 2 marks a Lighting Director record, bits 3 and 4 hold its hop count and bit 5 is always 1; the device may change some of these bits on its own.",
+    "The device ignores or rejects any command its documents don't list, Product Data Request (cmd1 0x03) among them. Besides the commands here, they list the linking commands, Get Insteon Engine Version, ID Request and ALL-Link database reads, writes and modifies.",
+    "Its database layout gives records from 0x0FFF down to 0x0300, 416 of them; the database read reply gives addresses from 0x0FFF to 0x0407. Bit 0 of a record's flags is fast fail, bit 2 marks a Lighting Director record, bits 3 and 4 hold its hop count and bit 5 is always 1; the device may change some of these bits on its own.",
+    "The load settings reply (readLoadSettings) starts with the same bytes as the extended Get reply, so wait for one before asking for the other.",
     "The extended Get request carries no checksum."
   ],
   "sources": [
-    "Insteon i3 Paddle and Dial Developer Documentation (October 2025)"
+    "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)"
   ]
 }
