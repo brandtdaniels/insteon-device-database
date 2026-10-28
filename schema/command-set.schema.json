@@ -155,6 +155,11 @@
         "off": {
           "$ref": "#/$defs/byte",
           "description": "The Set Operating Flags cmd2 that sets the bit to 0."
+        },
+        "extendedWhen": {
+          "description": "An operating flag that, while set, has its Set Operating Flags commands sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
         }
       }
     },
@@ -199,6 +204,11 @@
         "command2": {
           "$ref": "#/$defs/byte",
           "description": "The Set Operating Flags cmd2."
+        },
+        "extendedWhen": {
+          "description": "An operating flag that, while set, has the command sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
         }
       }
     },
@@ -471,12 +481,13 @@
       }
     },
     "integrity": {
-      "description": "How an extended message's user data is protected: none; a checksum in D14, the two's complement of the sum of cmd1, cmd2 and D1 through D13; or a CRC over cmd1, cmd2 and D1 through D12, in D13 and D14.",
+      "description": "How an extended message's user data is protected: none; a checksum in D14, the two's complement of the sum of cmd1, cmd2 and D1 through D13; or a CRC over cmd1, cmd2 and D1 through D12, with its high byte in D13 and its low byte in D14.",
       "enum": [
         "none",
         "checksum",
         "crc"
-      ]
+      ],
+      "default": "none"
     },
     "enumeration": {
       "type": "object",
@@ -551,16 +562,14 @@
           "$ref": "#/$defs/field",
           "description": "The value the acknowledgement carries in cmd2."
         },
-        "followUps": {
-          "description": "How many more standard direct messages with the same cmd1 the device sends after the acknowledgement, each with a further value in cmd2.",
-          "type": "integer",
-          "minimum": 0,
-          "default": 0
-        },
         "extendedWhen": {
           "description": "An operating flag that, while set, has the command sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
           "type": "string",
           "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "followUp": {
+          "$ref": "#/$defs/field",
+          "description": "A value that one more standard direct message with the same cmd1 may carry after the acknowledgement, such as a second setpoint. The device sends it only when it has that value."
         }
       },
       "not": {
