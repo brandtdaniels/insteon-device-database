@@ -66,6 +66,11 @@
       "engine": "i2cs",
       "category": "0x03",
       "subcategory": "0x32"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x37"
     }
   ],
   "radio": "dual",
@@ -80,7 +85,7 @@
     }
   ],
   "notes": [
-    "Insteon Device Categories (January 2014) lists 0x03/0x2B as the 915 MHz Hub without RF and 0x03/0x37 as the one with RF."
+    "Insteon Device Categories (January 2014) lists 0x03/0x2B as the 915 MHz Hub without RF, so radio: dual doesn't hold for it, and 0x03/0x37 as the one with RF."
   ],
   "sources": [
     "HouseLinc device catalog",

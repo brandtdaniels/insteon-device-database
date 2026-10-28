@@ -23,7 +23,8 @@
     }
   ],
   "notes": [
-    "Insteon Device Categories and Product Keys (October 2008) names it the Icon Appliance Adapter."
+    "Insteon Device Categories and Product Keys (October 2008) names it the Icon Appliance Adapter.",
+    "HouseLinc lists 0x02/0x0C under 2856S3B."
   ],
   "sources": [
     "HouseLinc device catalog",

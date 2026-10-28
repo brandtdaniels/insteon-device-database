@@ -2,7 +2,7 @@
   "model": "2413UH",
   "name": "USB Modem",
   "aliases": [
-    "PowerLinc USB Modem for HouseLinc"
+    "PowerLinc USB Modem for HouseLinc (Dual Band)"
   ],
   "identities": [
     {
@@ -36,7 +36,7 @@
     }
   ],
   "notes": [
-    "The version of the modem sold with HouseLinc."
+    "The 2413U made for HouseLinc; Insteon Device Categories (January 2014) calls it the PowerLinc USB Modem for HL (Dual Band)."
   ],
   "sources": [
     "HouseLinc device catalog",

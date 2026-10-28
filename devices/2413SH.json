@@ -2,7 +2,7 @@
   "model": "2413SH",
   "name": "Serial Modem",
   "aliases": [
-    "PowerLinc Serial Modem for HouseLinc"
+    "PowerLinc Serial Modem for HouseLinc (Dual Band)"
   ],
   "identities": [
     {
@@ -43,7 +43,7 @@
     }
   ],
   "notes": [
-    "The version of the modem sold with HouseLinc."
+    "The 2413S made for HouseLinc; Insteon Device Categories (January 2014) calls it the PowerLinc Serial Modem for HL(Dual Band)."
   ],
   "sources": [
     "HouseLinc device catalog",

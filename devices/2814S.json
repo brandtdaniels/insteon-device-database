@@ -1,6 +1,9 @@
 {
   "model": "2814S",
   "name": "ICON PowerLinc Serial",
+  "aliases": [
+    "ICON PLC Serial"
+  ],
   "identities": [
     {
       "category": "0x03",
@@ -9,6 +12,7 @@
   ],
   "capabilities": [],
   "sources": [
+    "HouseLinc device catalog",
     "Insteon Device Categories (January 2014)",
     "Insteon Device Categories and Product Keys (October 2008)"
   ]
