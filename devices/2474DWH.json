@@ -40,9 +40,14 @@
   ],
   "notes": [
     "Needs no neutral wire.",
-    "Repeats RF but not powerline."
+    "Repeats RF but not powerline.",
+    "Holding the SET button announces the dimmer with an ALL-Link broadcast (flags 0xCF), cmd1 0x01 and cmd2 0x01, the group; holding it again sends cmd1 0x02. An ID Request (cmd1 0x10) gets a plain broadcast with cmd2 0x00.",
+    "The SwitchLinc 2-Wire Dimmer Developer Notes list no operating flags readings 0x02 to 0x04, no X10 bytes in the extended Get reply, and no X10 address or retries writes, as an RF-only dimmer would.",
+    "In the SwitchLinc 2-Wire Dimmer Developer Notes, Set Operating Flags cmd2 0x0C to 0x0F repeat the LED on transmit and resume dim settings, and 0x10, 0x11 and 0x18 to 0x1D aren't used.",
+    "The extended Set takes D1 0x00; the SwitchLinc 2-Wire Dimmer Developer Notes say other values are ignored."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "SwitchLinc 2-Wire Dimmer Developer Notes"
   ]
 }
