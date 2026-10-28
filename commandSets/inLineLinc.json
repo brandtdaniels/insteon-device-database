@@ -464,7 +464,7 @@
   "standardCommands": [
     {
       "name": "lightOn",
-      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "description": "Turns the load on: a dimmer to the level in cmd2 at the saved ramp rate, an on/off model to full on.",
       "command1": "0x11",
       "parameter": {
         "name": "onLevel",
@@ -487,7 +487,7 @@
       "command2": "0x00",
       "reply": {
         "name": "onLevel",
-        "description": "The load's level, from 0x00 (off) to 0xFF (full)."
+        "description": "The load's level, from 0x00 (off) to 0xFF (full); an on/off model gives only 0x00 or 0xFF."
       }
     }
   ],

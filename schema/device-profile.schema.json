@@ -189,9 +189,22 @@
           "pattern": "^[a-z][A-Za-z0-9]*$"
         },
         "activeWhen": {
-          "description": "An operating flag the group is in use only while set, such as a keypad's detached load.",
-          "type": "string",
-          "pattern": "^[a-z][A-Za-z0-9]*$"
+          "description": "The operating flag state the group is in use under, such as a keypad's detached load (group 9), in use only while detachedLoad is set.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "flag",
+            "set"
+          ],
+          "properties": {
+            "flag": {
+              "type": "string",
+              "pattern": "^[a-z][A-Za-z0-9]*$"
+            },
+            "set": {
+              "type": "boolean"
+            }
+          }
         },
         "linkable": {
           "description": "How the group can be linked: from the device's buttons, or only by software.",

@@ -34,7 +34,7 @@
     {
       "number": "0x01",
       "name": "Load",
-      "role": "both",
+      "role": "responder",
       "type": "light",
       "verification": {
         "status": "inferred",

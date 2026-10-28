@@ -136,6 +136,8 @@ def load_command_sets(profiles):
 
                     if group_type is None:
                         errors.append(f"{label} names the group type {group['type']!r}, which {entry} doesn't have")
+                    elif group_type.get("state", {}).get("bitPerGroup") and int(group["number"], 16) > 8:
+                        errors.append(f"{label} reads one bit per group, but a reply has bits for groups 1 to 8 only")
                     elif group_type.get("actions") and group["role"] == "controller":
                         errors.append(f"{label} is only a controller, but its group type has actions")
                     elif group_type["kind"] == "dimmer" and "dimmable" not in kinds:
@@ -145,8 +147,11 @@ def load_command_sets(profiles):
 
             if "activeWhen" in group:
                 for entry in sorted(entries):
-                    if group["activeWhen"] not in flag_names[entry]:
-                        errors.append(f"{label} is in use while {group['activeWhen']!r}, which {entry} has no flag for")
+                    if group["activeWhen"]["flag"] not in flag_names[entry]:
+                        errors.append(f"{label} depends on {group['activeWhen']['flag']!r}, which {entry} has no flag for")
+
+            if profile.get("role") in ("controller", "responder") and group["role"] not in (profile["role"],):
+                errors.append(f"{label} is a {group['role']}, but the profile is only a {profile['role']}")
 
     return command_sets, errors
 
@@ -243,6 +248,11 @@ def presentation_problems(command_set):
                 problems.append(f"{label} reads its state with {state['command']!r}, which has no reply")
             elif state.get("bitPerGroup") and replies[state["command"]].get("kind") != "flags":
                 problems.append(f"{label} reads one bit per group from a reply that isn't flags")
+
+        ranges = [(int(r["from"], 16), int(r["through"], 16)) for r in (state or {}).get("ranges", [])]
+
+        if any(low > high for low, high in ranges) or any(a[1] >= b[0] for a, b in zip(sorted(ranges), sorted(ranges)[1:])):
+            problems.append(f"{label}'s state ranges are reversed or overlap")
 
         names = [action["name"] for action in group_type.get("actions", [])]
 

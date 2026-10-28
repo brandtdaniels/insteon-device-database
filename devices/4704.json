@@ -22,7 +22,11 @@
       "type": "load",
       "verification": {
         "status": "documented",
-        "note": "Group 1 controls the load unless the load is detached; then group 9 does, and group 1 only sets its LED."
+        "note": "Group 1 controls the load unless the load is detached, when it only sets its LED."
+      },
+      "activeWhen": {
+        "flag": "detachedLoad",
+        "set": false
       }
     },
     {

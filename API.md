@@ -205,12 +205,12 @@ names one in `type`, which every command set its identities use must have:
 - `actions` are what an app can tell the group to do, for controls, scenes and schedules. Each
   names a standard or extended command and, when the command takes a parameter, either a fixed
   `value` (`0xFF` to switch a relay on) or nothing, for the caller to give, such as a dimmer's
-  level. An action with `schedulable` false, such as a beep, stays out of schedules.
+  level. An action with `schedulable` false stays out of schedules.
 - Only a responder can be told to do something, so a group whose type has actions has the role
   `responder` or `both`. A controller-only group, such as a sensor's, has no actions; it's
   something an app watches for, through the profile's `groupEvents`.
-- A group with `activeWhen` is in use only while that operating flag is set, as a keypad's
-  detached load (group 9) is while `detachedLoad` is.
+- A group with `activeWhen` is in use only while that operating flag is `set` or clear: a
+  keypad's detached load, group 9, while `detachedLoad` is set, and its group 1 while it's clear.
 
 **Settings.** Operating flags, readings and extended settings values can carry:
 
