@@ -1,6 +1,6 @@
 # The catalog API
 
-The catalog is three static JSON files on GitHub Pages. There's no server, no query
+The catalog is four static JSON files on GitHub Pages. There's no server, no query
 parameters and no authentication: a client downloads the catalog and looks devices up itself.
 
 ## Files
@@ -11,7 +11,7 @@ with a plain `GET` over HTTPS.
 | File | Contents |
 | --- | --- |
 | `manifest.json` | The catalog's version, when it was built, the number of profiles, the catalog's file name and its SHA-256 |
-| `catalog.json` | The catalog's version, every profile sorted by model, and every command set |
+| `catalog.json` | Every profile sorted by model, and every command set |
 | `device-profile.schema.json` | The JSON Schema every profile follows |
 | `command-set.schema.json` | The JSON Schema every command set follows |
 
@@ -32,8 +32,7 @@ with a plain `GET` over HTTPS.
 ```json
 {
   "commandSets": [ { "id": "keypadLinc", "name": "KeypadLinc", "…": "…" }, "…" ],
-  "devices": [ { "model": "2242", "name": "Hub", "…": "…" }, "…" ],
-  "version": "0.2.3"
+  "devices": [ { "model": "2242", "name": "Hub", "…": "…" }, "…" ]
 }
 ```
 
@@ -288,14 +287,18 @@ working.
 ## Versions
 
 The catalog follows semantic versioning, MAJOR.MINOR.PATCH, and the path names its MAJOR version:
-`v0` now, `v1` once the format is final.
+`v0` now, `v1` once the format is final. The manifest carries the version and when the catalog
+was built; the catalog itself doesn't, so its SHA-256 changes only when its data does.
 
-- PATCH: the data changed but not the format, such as a new profile or a corrected value.
-- MINOR: the schemas changed. From 1.0, only by adding optional fields a client can ignore.
-- MAJOR: from 1.0, a change that would break a client built for the earlier format. It's
-  published under a new path, and the old one stays where it is.
+- PATCH: the data changed but not the format, such as a new profile or a corrected value. The
+  publishing workflow counts it: the commits since `VERSION` last changed that changed
+  `devices/` or `commandSets/`.
+- MINOR: the format changed, in the schemas or in the files' layout. From 1.0, only by adding
+  optional fields a client can ignore.
+- MAJOR: from 1.0, a change that would break a client built for the earlier format. It will be
+  published under a new path, with the earlier MAJOR's files kept beside it.
 
 Below 1.0 the format can still change in any MINOR, so a client should only take a catalog with
-the MAJOR.MINOR it was built for. `VERSION` in the repository holds MAJOR.MINOR, and the build
-fails a pull request that changes the schemas without changing it. The publishing workflow
-counts PATCH: the commits since `VERSION` last changed.
+the MAJOR.MINOR it was built for. `VERSION` in the repository holds MAJOR.MINOR; the build fails
+a pull request that changes the schemas without raising it, or that lowers it. A change to the
+files' layout in `scripts/build.py` must raise it too.
