@@ -1,0 +1,109 @@
+{
+  "model": "2868-222",
+  "name": "Siren",
+  "description": "A plug-in siren with a 115 dB siren and a 100 dB chime. Insteon sensors and controllers trigger it when it's armed, and keypads and remotes arm and disarm it, in home mode, away mode or both.",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x1E",
+      "region": "US"
+    }
+  ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x1E",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes give 0x03 as its get engine version reply in their text and 0x02 in their table and example."
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "siren",
+      "category": "0x07",
+      "subcategory": "0x1E"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Sound when armed away",
+      "role": "both",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "number": "0x02",
+      "name": "Arm away",
+      "role": "responder",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "number": "0x03",
+      "name": "Sound when armed home",
+      "role": "responder",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "number": "0x04",
+      "name": "Arm home",
+      "role": "responder",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "number": "0x05",
+      "name": "Sound when armed",
+      "role": "responder"
+    },
+    {
+      "number": "0x06",
+      "name": "Arm home and away",
+      "role": "responder"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x12",
+          "event": "sounding"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x14",
+          "event": "sounding"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "As a controller, group 1 is the alert: it broadcasts while the siren sounds.",
+    "The documented firmware is 0xE1.",
+    "The LED is green when the siren is armed and red when it's disarmed.",
+    "Holds 24 links.",
+    "The siren alert sounds for 2 minutes by default, unless the siren is disarmed.",
+    "The Siren Module Developer Notes' example broadcasts carry another product's category and subcategory."
+  ],
+  "sources": [
+    "Siren Module Developer Notes",
+    "Siren 2868-222 Owner's Manual"
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "id": "siren",
+  "name": "Siren",
+  "description": "The Siren: armed and disarmed from Insteon controllers, it sounds a siren or chime when a linked sensor or controller triggers it.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "The SET button can't be used for linking.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "blinkOnTraffic",
+      "description": "The LED blinks whenever the siren hears Insteon traffic, including messages it repeats.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "disarmed",
+      "description": "The siren is disarmed. Disarm (cmd2 0x04) sets it and the arm command clears it.",
+      "query": "0x00",
+      "bit": "0x04"
+    },
+    {
+      "name": "memoryFull",
+      "description": "The last add or modify of an ALL-Link database record failed because the database is full. It clears when the siren powers up.",
+      "query": "0x00",
+      "bit": "0x08"
+    },
+    {
+      "name": "ledOff",
+      "description": "The LED is off.",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "cleanupReport",
+      "description": "The siren sends a cleanup report after each group command it sends. Set by default.",
+      "query": "0x00",
+      "bit": "0x40"
+    },
+    {
+      "name": "hopPowerlineOnRadio",
+      "description": "The siren repeats every powerline message over RF, whatever its hop count, which can cause collisions. Clear, it repeats only messages it heard first over the powerline.",
+      "query": "0x00",
+      "bit": "0x80"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "disarm",
+      "description": "Disarms the siren at once.",
+      "command2": "0x04"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "alertType",
+        "description": "The sound an alert makes: 0x00 a chime, 0x01 a siren.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x01"
+        }
+      },
+      {
+        "name": "delayAndDuration",
+        "description": "Bit 7 and the duration in bits 0 through 6, 0 to 127, roughly in seconds. For an alert, bit 7 delays sounding by 30 seconds; for arming, it makes the 45-second countdown silent.",
+        "byte": 8
+      }
+    ],
+    "writes": [
+      {
+        "name": "alertType",
+        "description": "Sets the alert type. Linking copies it into the new responder record.",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "alertType"
+          }
+        ]
+      },
+      {
+        "name": "delayAndDuration",
+        "description": "Sets the delay and duration, or the arming countdown. Linking copies it into the new responder record.",
+        "selector": "0x06",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "delayAndDuration"
+          }
+        ]
+      }
+    ]
+  },
+  "standardCommands": [
+    {
+      "name": "soundAlert",
+      "description": "Sounds the alert at once, armed or not.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "delayAndDuration",
+        "description": "Bit 7 and the duration in bits 0 through 6, 0 to 127, roughly in seconds. For an alert, bit 7 delays sounding by 30 seconds; for arming, it makes the 45-second countdown silent."
+      }
+    },
+    {
+      "name": "stopAlert",
+      "description": "Stops the alert.",
+      "command1": "0x13"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads how long the alert has left to sound. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "secondsLeft",
+        "description": "About how many seconds the alert has left, or 0 when it isn't sounding.",
+        "unit": "seconds"
+      },
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes also list armed states in this reply: 0x00 disarmed, 0x01 armed home, 0x03 armed away and 0x04 both."
+      }
+    },
+    {
+      "name": "readArmedState",
+      "description": "Reads whether the siren is armed or arming, in which modes, and how long the arming countdown has left. The acknowledgment's cmd1 is 0x19.",
+      "command1": "0x19",
+      "command2": "0x03",
+      "reply": {
+        "name": "armedState",
+        "description": "The armed modes and the countdown.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x3F",
+            "name": "countdown",
+            "description": "The seconds left of the arming countdown."
+          },
+          {
+            "mask": "0x40",
+            "name": "home",
+            "description": "Armed or arming in home mode."
+          },
+          {
+            "mask": "0x80",
+            "name": "away",
+            "description": "Armed or arming in away mode."
+          }
+        ]
+      }
+    },
+    {
+      "name": "beep",
+      "description": "Beeps once.",
+      "command1": "0x30"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "arm",
+      "description": "Arms the siren at once, with no countdown.",
+      "command1": "0x20",
+      "command2": "0x05",
+      "parameters": [
+        {
+          "name": "mode",
+          "description": "The mode to arm in.",
+          "byte": 1
+        }
+      ],
+      "integrity": "checksum",
+      "verification": {
+        "status": "inferred",
+        "note": "The Siren Module Developer Notes don't give the mode values; their example arms with 0x01."
+      }
+    }
+  ],
+  "notes": [
+    "Responder groups 1, 3 and 5 trigger the alert when the siren is armed away, home or either; groups 2, 4 and 6 arm it away, home or both. A group On (cmd1 0x11) to an arm group starts a 45-second countdown with a beep each second, Fast On (cmd1 0x12) starts it silently, and another arm group during the countdown changes the mode without restarting it. A group Off (cmd1 0x13) to any arm group disarms the siren and silences it.",
+    "While the alert sounds, the siren broadcasts Fast On and Fast Off (cmd1 0x12 and 0x14) to group 1 in turn, every 2 seconds.",
+    "Each responder record's data holds the alert's delay and duration, or the arming countdown, and the alert type.",
+    "The siren adds or modifies a record with ALL-Link database command D2 0x03, matching on group and ID, and answers 0x2F with NAK 0xF9 when its database is full."
+  ],
+  "sources": [
+    "Siren Module Developer Notes"
+  ]
+}
