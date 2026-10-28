@@ -1,0 +1,30 @@
+{
+  "model": "2634-222",
+  "name": "On/Off Outdoor Module",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x38"
+    }
+  ],
+  "radio": "dual",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Has no X10."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2634-222 On/Off Outdoor Module II PRD"
+  ]
+}

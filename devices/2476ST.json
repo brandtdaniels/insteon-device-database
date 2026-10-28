@@ -1,0 +1,34 @@
+{
+  "model": "2476ST",
+  "name": "SwitchLinc Relay Countdown Timer",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x0E"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x29"
+    }
+  ],
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "When its timer runs out it sends off to its group's members, unless its group control option is turned off."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2476ST SwitchLinc Relay Countdown Timer PRD"
+  ]
+}

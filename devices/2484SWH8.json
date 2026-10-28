@@ -1,0 +1,20 @@
+{
+  "model": "2484SWH8",
+  "name": "KeypadLinc Countdown Timer Relay, 8 Buttons",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x25"
+    }
+  ],
+  "radio": "powerline",
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2484D/S KeypadLinc 8 Button Countdown Timer PRD"
+  ]
+}
