@@ -5,6 +5,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "The bridge can't enter linking mode.",
       "query": "0x00",
       "bit": "0x01",
@@ -13,6 +15,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The LED blinks when the bridge sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,6 +25,8 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The LED is off, except in linking mode.",
       "query": "0x00",
       "bit": "0x10",
@@ -29,6 +35,8 @@
     },
     {
       "name": "heartbeat",
+      "label": "Heartbeat",
+      "section": "Sensor",
       "description": "The bridge sends a heartbeat to group 0x0A.",
       "query": "0x00",
       "bit": "0x20",
@@ -37,6 +45,9 @@
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The bridge sends a success report after each group broadcast.",
       "query": "0x00",
       "bit": "0x40",
@@ -47,6 +58,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes. It clears when the device loses power.",
       "query": "0x01"
     }

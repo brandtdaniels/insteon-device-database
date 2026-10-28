@@ -31,12 +31,14 @@
     {
       "number": "0x01",
       "name": "Outlet 1",
-      "role": "both"
+      "role": "both",
+      "type": "topOutlet"
     },
     {
       "number": "0x02",
       "name": "Outlet 2",
-      "role": "both"
+      "role": "both",
+      "type": "bottomOutlet"
     }
   ],
   "capabilities": [

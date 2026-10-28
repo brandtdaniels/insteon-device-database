@@ -49,6 +49,13 @@
         "$ref": "#/$defs/enumeration"
       }
     },
+    "valueTables": {
+      "description": "Names for the values of settings, which values name with table.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/valueTable"
+      }
+    },
     "operatingFlags": {
       "description": "Bits of a Get Operating Flags reply, and the Set Operating Flags commands that change them.",
       "type": "array",
@@ -92,6 +99,13 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/directMessage"
+      }
+    },
+    "groupTypes": {
+      "description": "What the device's groups are, which profiles name in their groups' type.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/groupType"
       }
     },
     "notes": {
@@ -162,6 +176,27 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "label": {
+          "$ref": "#/$defs/label"
+        },
+        "section": {
+          "$ref": "#/$defs/section"
+        },
+        "advanced": {
+          "$ref": "#/$defs/advanced"
+        },
+        "default": {
+          "description": "The bit's value as the device leaves the factory.",
+          "type": "boolean"
+        },
+        "onCommand": {
+          "description": "A standard command that sets the bit, for a flag Set Operating Flags doesn't set.",
+          "$ref": "#/$defs/name"
+        },
+        "offCommand": {
+          "description": "A standard command that clears the bit.",
+          "$ref": "#/$defs/name"
         }
       }
     },
@@ -187,6 +222,15 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "label": {
+          "$ref": "#/$defs/label"
+        },
+        "section": {
+          "$ref": "#/$defs/section"
+        },
+        "advanced": {
+          "$ref": "#/$defs/advanced"
         }
       }
     },
@@ -299,6 +343,45 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "label": {
+          "$ref": "#/$defs/label"
+        },
+        "section": {
+          "$ref": "#/$defs/section"
+        },
+        "advanced": {
+          "$ref": "#/$defs/advanced"
+        },
+        "default": {
+          "$ref": "#/$defs/byte",
+          "description": "The value as the device leaves the factory."
+        },
+        "table": {
+          "description": "The value table that names each value, such as the ramp rate's durations.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "unit": {
+          "description": "The value's unit once scaled, for a value shown as a number.",
+          "enum": [
+            "percent",
+            "celsius",
+            "fahrenheit",
+            "seconds",
+            "minutes",
+            "hours"
+          ]
+        },
+        "scale": {
+          "description": "What one count is worth in the value's unit, such as 100/255 for a level shown as a percentage.",
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 1
+        },
+        "write": {
+          "description": "The extended command that sets the value, for a value no extended Set write sets.",
+          "$ref": "#/$defs/name"
         }
       }
     },
@@ -746,6 +829,193 @@
           "items": {
             "$ref": "#/$defs/byte"
           }
+        }
+      }
+    },
+    "label": {
+      "description": "What a settings page calls the item, in sentence case, such as Key beep.",
+      "type": "string",
+      "minLength": 1
+    },
+    "section": {
+      "description": "The heading a settings page shows the item under. Apps show the sections in this order.",
+      "enum": [
+        "Load",
+        "Relay",
+        "Sensor",
+        "Buttons",
+        "LEDs",
+        "Night",
+        "Timer",
+        "Alarm",
+        "Display",
+        "Battery",
+        "Linking",
+        "Communication",
+        "X10",
+        "Diagnostics"
+      ]
+    },
+    "advanced": {
+      "description": "Whether a settings page should keep the item out of sight unless asked, such as a setting for testing or for the powerline's timing.",
+      "type": "boolean",
+      "default": false
+    },
+    "valueTable": {
+      "description": "Names for the values of a setting whose raw values mean something else, such as ramp rates and the durations they stand for.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "values"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "label"
+            ],
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/byte"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "seconds": {
+                "description": "The duration the value stands for, in seconds.",
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
+    },
+    "groupType": {
+      "description": "What a group of the device is, how to read its state and what it can be told to do.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "label",
+        "kind"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "label": {
+          "$ref": "#/$defs/label"
+        },
+        "kind": {
+          "description": "What it is: a dimmer, a relay or outlet switched on and off, a fan with speeds, a sensor or input that only reports, or a button that controls other devices.",
+          "enum": [
+            "dimmer",
+            "relay",
+            "fan",
+            "sensor",
+            "button"
+          ]
+        },
+        "state": {
+          "description": "How to read its state.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command"
+          ],
+          "properties": {
+            "command": {
+              "description": "The standard command whose acknowledgment carries the state.",
+              "$ref": "#/$defs/name"
+            },
+            "bitPerGroup": {
+              "description": "Whether the reply holds one bit per group, group 1 in bit 0, rather than the state itself.",
+              "type": "boolean",
+              "default": false
+            },
+            "ranges": {
+              "description": "Names for ranges of the reply's value, such as a fan's speeds.",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "from",
+                  "through",
+                  "label"
+                ],
+                "properties": {
+                  "from": {
+                    "$ref": "#/$defs/byte"
+                  },
+                  "through": {
+                    "$ref": "#/$defs/byte"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "actions": {
+          "description": "What an app can tell the group to do, for controls, scenes and schedules. A group whose type has actions must be a responder.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "label",
+              "command"
+            ],
+            "properties": {
+              "name": {
+                "$ref": "#/$defs/name"
+              },
+              "label": {
+                "$ref": "#/$defs/label"
+              },
+              "command": {
+                "description": "The standard or extended command to send.",
+                "$ref": "#/$defs/name"
+              },
+              "value": {
+                "$ref": "#/$defs/byte",
+                "description": "The value to give the command's parameter. Without it, the caller gives it, such as a dimmer's level."
+              },
+              "schedulable": {
+                "description": "Whether the action makes sense in a schedule.",
+                "type": "boolean",
+                "default": true
+              }
+            }
+          }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     }

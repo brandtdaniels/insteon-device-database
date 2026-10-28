@@ -19,7 +19,7 @@
     }
   ],
   "radio": "rf",
-  "role": "responder",
+  "role": "both",
   "batteryPowered": true,
   "groups": [
     {
@@ -43,5 +43,9 @@
     "On opens and off closes; fast on and fast off open and close fully; brighten and dim start opening and closing, and stopping ends the movement.",
     "Doesn't repeat Insteon messages."
   ],
-  "sources": []
+  "sources": [],
+  "verification": {
+    "status": "inferred",
+    "note": "Read from its groups: it responds to On and Off and sends its heights and heartbeat to controller groups."
+  }
 }

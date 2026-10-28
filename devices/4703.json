@@ -18,42 +18,58 @@
     {
       "number": "0x01",
       "name": "Button A",
-      "role": "both"
+      "role": "both",
+      "type": "light",
+      "verification": {
+        "status": "documented",
+        "note": "Group 1 controls the load unless the load is detached, when it only sets its LED."
+      },
+      "activeWhen": {
+        "flag": "detachedLoad",
+        "set": false
+      }
     },
     {
       "number": "0x02",
       "name": "Button B",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x03",
       "name": "Button C",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x04",
       "name": "Button D",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x05",
       "name": "Button E",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x06",
       "name": "Button F",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x07",
       "name": "Button G",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x08",
       "name": "Button H",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     }
   ],
   "capabilities": [

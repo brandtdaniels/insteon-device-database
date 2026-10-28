@@ -116,11 +116,42 @@ def load_command_sets(profiles):
         command_sets.append(command_set)
 
     ids = {command_set.get("id") for command_set in command_sets}
+    group_types = {command_set["id"]: {group_type["name"]: group_type for group_type in command_set.get("groupTypes", [])} for command_set in command_sets}
+    flag_names = {command_set["id"]: {flag["name"] for flag in command_set.get("operatingFlags", [])} for command_set in command_sets}
 
     for profile in profiles:
         for entry in profile.get("commandSets", []):
             if entry["commandSet"] not in ids:
                 errors.append(f"{profile['model']}.json: it names the command set {entry['commandSet']!r}, which doesn't exist")
+
+        entries = {entry["commandSet"] for entry in profile.get("commandSets", []) if entry["commandSet"] in ids}
+        kinds = {capability["kind"] for capability in profile["capabilities"]}
+
+        for group in profile.get("groups", []):
+            label = f"{profile['model']}.json: group {group['number']}"
+
+            if "type" in group:
+                for entry in sorted(entries):
+                    group_type = group_types[entry].get(group["type"])
+
+                    if group_type is None:
+                        errors.append(f"{label} names the group type {group['type']!r}, which {entry} doesn't have")
+                    elif group_type.get("state", {}).get("bitPerGroup") and int(group["number"], 16) > 8:
+                        errors.append(f"{label} reads one bit per group, but a reply has bits for groups 1 to 8 only")
+                    elif group_type.get("actions") and group["role"] == "controller":
+                        errors.append(f"{label} is only a controller, but its group type has actions")
+                    elif group_type["kind"] == "dimmer" and "dimmable" not in kinds:
+                        errors.append(f"{label} is a dimmer, but the profile isn't dimmable")
+                    elif group_type["kind"] == "relay" and "onOff" not in kinds and "dimmable" not in kinds:
+                        errors.append(f"{label} is a relay, but the profile doesn't switch a load")
+
+            if "activeWhen" in group:
+                for entry in sorted(entries):
+                    if group["activeWhen"]["flag"] not in flag_names[entry]:
+                        errors.append(f"{label} depends on {group['activeWhen']['flag']!r}, which {entry} has no flag for")
+
+            if profile.get("role") in ("controller", "responder") and group["role"] not in (profile["role"],):
+                errors.append(f"{label} is a {group['role']}, but the profile is only a {profile['role']}")
 
     return command_sets, errors
 
@@ -163,7 +194,108 @@ def command_set_problems(command_set):
         if len(positions) != len(set(positions)):
             problems.append(f"the {write['name']} write fills a byte twice")
 
-    return problems + message_problems(command_set)
+    return problems + message_problems(command_set) + presentation_problems(command_set)
+
+
+def presentation_problems(command_set):
+    """Reports value tables and group types that are named twice or name what doesn't exist, and
+    defaults outside a value's range or table."""
+    problems = []
+    tables = {table["name"]: table for table in command_set.get("valueTables", [])}
+    group_types = command_set.get("groupTypes", [])
+    commands = {command["name"] for key in ("standardCommands", "extendedCommands") for command in command_set.get(key, [])}
+    standard = {command["name"] for command in command_set.get("standardCommands", [])}
+
+    if len(tables) != len(command_set.get("valueTables", [])):
+        problems.append("a value table name appears more than once")
+
+    for table in tables.values():
+        values = [entry["value"] for entry in table["values"]]
+
+        if len(values) != len(set(values)):
+            problems.append(f"the {table['name']} value table names a value twice")
+
+    for value in command_set.get("extendedSettings", {}).get("values", []):
+        table = value.get("table")
+
+        if table is not None and table not in tables:
+            problems.append(f"the {value['name']} value names the value table {table!r}, which doesn't exist")
+
+        if "default" in value:
+            default = int(value["default"], 16)
+            bounds = value.get("range")
+
+            if bounds and not int(bounds["from"], 16) <= default <= int(bounds["through"], 16):
+                problems.append(f"the {value['name']} value's default is outside its range")
+
+            if table in tables and value["default"] not in {entry["value"] for entry in tables[table]["values"]}:
+                problems.append(f"the {value['name']} value's default isn't in its value table")
+
+    if len({group_type["name"] for group_type in group_types}) != len(group_types):
+        problems.append("a group type name appears more than once")
+
+    replies = {command["name"]: command.get("reply") for command in command_set.get("standardCommands", [])}
+    parameters = {command["name"]: "parameter" in command for key in ("standardCommands", "extendedCommands") for command in command_set.get(key, [])}
+
+    for group_type in group_types:
+        label = f"the {group_type['name']} group type"
+        state = group_type.get("state")
+
+        if state is not None:
+            if state["command"] not in standard:
+                problems.append(f"{label} reads its state with {state['command']!r}, which isn't a standard command")
+            elif replies[state["command"]] is None:
+                problems.append(f"{label} reads its state with {state['command']!r}, which has no reply")
+            elif state.get("bitPerGroup") and replies[state["command"]].get("kind") != "flags":
+                problems.append(f"{label} reads one bit per group from a reply that isn't flags")
+
+        ranges = [(int(r["from"], 16), int(r["through"], 16)) for r in (state or {}).get("ranges", [])]
+
+        if any(low > high for low, high in ranges) or any(a[1] >= b[0] for a, b in zip(sorted(ranges), sorted(ranges)[1:])):
+            problems.append(f"{label}'s state ranges are reversed or overlap")
+
+        names = [action["name"] for action in group_type.get("actions", [])]
+
+        if len(names) != len(set(names)):
+            problems.append(f"{label} names an action twice")
+
+        for action in group_type.get("actions", []):
+            if action["command"] not in commands:
+                problems.append(f"{label}'s {action['name']} action names the command {action['command']!r}, which doesn't exist")
+            elif "value" in action and not parameters[action["command"]]:
+                problems.append(f"{label}'s {action['name']} action gives a value to {action['command']!r}, which takes none")
+
+    extended = {command["name"] for command in command_set.get("extendedCommands", [])}
+
+    for value in command_set.get("extendedSettings", {}).get("values", []):
+        label = f"the {value['name']} value"
+
+        if value.get("kind") == "buttons" and ("unit" in value or "table" in value):
+            problems.append(f"{label} is buttons but has a unit or table")
+
+        if "table" in value and "unit" in value:
+            problems.append(f"{label} has both a table and a unit")
+
+        if "scale" in value and "unit" not in value:
+            problems.append(f"{label} has a scale but no unit")
+
+        if value.get("write") is not None and value["write"] not in extended:
+            problems.append(f"{label} is written by {value['write']!r}, which isn't an extended command")
+
+        if value.get("table") in tables and value.get("range"):
+            bounds = value["range"]
+
+            for entry in tables[value["table"]]["values"]:
+                if not int(bounds["from"], 16) <= int(entry["value"], 16) <= int(bounds["through"], 16):
+                    problems.append(f"{label}'s table has a value outside its range")
+                    break
+
+    for flag in command_set.get("operatingFlags", []):
+        for key in ("onCommand", "offCommand"):
+            if key in flag and flag[key] not in standard:
+                problems.append(f"the {flag['name']} flag's {key} names {flag[key]!r}, which isn't a standard command")
+
+    return problems
 
 
 def message_problems(command_set):
@@ -387,7 +519,7 @@ def term_problems(label, value, key=None):
     elif isinstance(value, list):
         for child in value:
             problems += term_problems(label, child, key)
-    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources"} or (key == "name" and " " in value)):
+    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources", "label", "section"} or (key == "name" and " " in value)):
         prose = re.sub(r"`[^`]*`", "", value)
 
         for pattern, replacement in RULED_OUT_TERMS:

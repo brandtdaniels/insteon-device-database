@@ -5,48 +5,66 @@
   "operatingFlags": [
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The sensor sends a success report after each group broadcast.",
       "query": "0x00",
       "bit": "0x01"
     },
     {
       "name": "ignoreJumper",
+      "label": "Ignore jumper",
+      "section": "Communication",
+      "advanced": true,
       "description": "The sensor doesn't read its jumper.",
       "query": "0x00",
       "bit": "0x02"
     },
     {
       "name": "twoGroups",
+      "label": "Send open and closed to separate groups",
+      "section": "Sensor",
       "description": "The sensor uses two groups.",
       "query": "0x00",
       "bit": "0x04"
     },
     {
       "name": "repeatOpen",
+      "label": "Repeat open",
+      "section": "Sensor",
       "description": "The sensor repeats its open message.",
       "query": "0x00",
       "bit": "0x08"
     },
     {
       "name": "repeatClosed",
+      "label": "Repeat closed",
+      "section": "Sensor",
       "description": "The sensor repeats its closed message.",
       "query": "0x00",
       "bit": "0x10"
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The LED is off.",
       "query": "0x00",
       "bit": "0x20"
     },
     {
       "name": "linkToAllGroups",
+      "label": "Link to all groups at once",
+      "section": "Linking",
       "description": "The guides' Link to FF Group option is on.",
       "query": "0x00",
       "bit": "0x40"
     },
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the sensor itself are locked out.",
       "query": "0x00",
       "bit": "0x80"
@@ -55,6 +73,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes. It clears when the device loses power.",
       "query": "0x01"
     }
@@ -64,15 +85,21 @@
     "values": [
       {
         "name": "ledBrightness",
+        "label": "LED brightness",
+        "section": "LEDs",
         "description": "The LED's brightness, from 0x00 to 0xFF (brightest). It's 0x64 by default.",
         "byte": 3,
         "range": {
           "from": "0x00",
           "through": "0xFF"
-        }
+        },
+        "default": "0x64"
       },
       {
         "name": "configuration",
+        "label": "Configuration",
+        "section": "Communication",
+        "advanced": true,
         "description": "The configuration byte, which Get Operating Flags with cmd2 0x00 also reads.",
         "byte": 6
       }
