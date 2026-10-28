@@ -109,15 +109,17 @@
       "query": "0x00",
       "bit": "0x02",
       "on": "0x02",
-      "off": "0x03"
+      "off": "0x03",
+      "extendedWhen": "extendedCommandsOnly"
     },
     {
-      "name": "humidityReportsOff",
-      "description": "The adapter doesn't report humidity when it changes.",
+      "name": "humidityReportsOn",
+      "description": "The adapter reports humidity when it changes.",
       "query": "0x00",
       "bit": "0x04",
-      "on": "0x01",
-      "off": "0x00"
+      "on": "0x00",
+      "off": "0x01",
+      "extendedWhen": "extendedCommandsOnly"
     },
     {
       "name": "ledOn",
@@ -125,7 +127,8 @@
       "query": "0x00",
       "bit": "0x20",
       "on": "0x07",
-      "off": "0x06"
+      "off": "0x06",
+      "extendedWhen": "extendedCommandsOnly"
     },
     {
       "name": "autoLinkOff",
@@ -145,12 +148,14 @@
     {
       "name": "programmingLockOn",
       "description": "Locks out linking and programming from the adapter itself.",
-      "command2": "0x04"
+      "command2": "0x04",
+      "extendedWhen": "extendedCommandsOnly"
     },
     {
       "name": "programmingLockOff",
       "description": "Allows linking and programming from the adapter itself.",
-      "command2": "0x05"
+      "command2": "0x05",
+      "extendedWhen": "extendedCommandsOnly"
     }
   ],
   "standardCommands": [
@@ -201,7 +206,24 @@
         "scale": 0.5,
         "unit": "displayDegrees"
       },
-      "followUps": 1
+      "followUp": {
+        "name": "coolSetpoint",
+        "description": "The cool setpoint, in a mode with two.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      }
+    },
+    {
+      "name": "readAmbientTemperature",
+      "description": "Reads the temperature, as readTemperature does.",
+      "command1": "0x6B",
+      "command2": "0x03",
+      "reply": {
+        "name": "temperature",
+        "description": "The temperature.",
+        "scale": 0.5,
+        "unit": "displayDegrees"
+      }
     },
     {
       "name": "readHumidity",

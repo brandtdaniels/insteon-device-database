@@ -265,16 +265,8 @@
                 "name": "heating"
               },
               {
-                "mask": "0x04",
-                "name": "energySaving"
-              },
-              {
                 "mask": "0x08",
                 "name": "displayCelsius"
-              },
-              {
-                "mask": "0x10",
-                "name": "hold"
               }
             ]
           },
@@ -833,28 +825,28 @@
       "integrity": "checksum"
     },
     {
-      "name": "displayCelsius",
+      "name": "setDisplayCelsius",
       "description": "Displays Celsius. A Set Operating Flags command.",
       "command1": "0x20",
       "command2": "0x06",
       "integrity": "checksum"
     },
     {
-      "name": "displayFahrenheit",
+      "name": "setDisplayFahrenheit",
       "description": "Displays Fahrenheit. A Set Operating Flags command.",
       "command1": "0x20",
       "command2": "0x07",
       "integrity": "checksum"
     },
     {
-      "name": "clock24Hour",
+      "name": "setClock24Hour",
       "description": "Shows a 24-hour clock. A Set Operating Flags command.",
       "command1": "0x20",
       "command2": "0x08",
       "integrity": "checksum"
     },
     {
-      "name": "clock12Hour",
+      "name": "setClock12Hour",
       "description": "Shows a 12-hour clock. A Set Operating Flags command.",
       "command1": "0x20",
       "command2": "0x09",

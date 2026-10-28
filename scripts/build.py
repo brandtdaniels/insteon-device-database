@@ -210,6 +210,22 @@ def message_problems(command_set):
             if mine is None or theirs is None or mine & theirs:
                 problems.append(f"the {command['name']} and {other['name']} commands share a cmd1 and cmd2")
 
+    def extended_key(command1, command2, fixed_bytes):
+        return (command1, command2, tuple(sorted((byte["position"], byte["value"]) for byte in fixed_bytes)))
+
+    requests = [extended_key(command["command1"], command["command2"], command.get("fixed", [])) for command in extended]
+    replies = [extended_key(command["reply"].get("command1", command["command1"]), command["reply"]["command2"], command["reply"].get("match", [])) for command in extended if "reply" in command]
+
+    if len(requests) != len(set(requests)):
+        problems.append("two extended commands send the same cmd1, cmd2 and fixed bytes")
+
+    if len(replies) != len(set(replies)):
+        problems.append("two extended replies can't be told apart by their cmd1, cmd2 and match bytes")
+
+    for item in command_set.get("operatingFlags", []) + command_set.get("flagCommands", []):
+        if "extendedWhen" in item and item["extendedWhen"] not in flag_names:
+            problems.append(f"the {item['name']} flag names the operating flag {item['extendedWhen']!r}, which doesn't exist")
+
     if len({message["command1"] for message in direct}) != len(direct):
         problems.append("two direct messages share a cmd1")
 
@@ -232,6 +248,20 @@ def message_problems(command_set):
 
         if (kind == "flags") != ("bits" in field):
             found.append(f"{owner}: the {field['name']} value names bits only if its kind is flags")
+
+        if "mask" in field and (int(field["mask"], 16) == 0 or "bytes" in field):
+            found.append(f"{owner}: the {field['name']} value's mask must pick out some bits of a single byte")
+
+        if kind != "number" and any(key in field for key in ("scale", "unit", "signed")):
+            found.append(f"{owner}: the {field['name']} value has a scale, unit or sign, which only a number can have")
+
+        if "range" in field and field["range"]["from"] > field["range"]["through"]:
+            found.append(f"{owner}: the {field['name']} value's range runs backward")
+
+        bits = field.get("bits", [])
+
+        if any(int(bit["mask"], 16) == 0 for bit in bits) or len({bit["mask"] for bit in bits}) != len(bits) or len({bit["name"] for bit in bits}) != len(bits):
+            found.append(f"{owner}: the {field['name']} value's bits must have distinct, nonzero masks and distinct names")
 
         if kind == "buttons" and not extended_message:
             found.append(f"{owner}: the {field['name']} value can't be buttons in cmd2")
@@ -257,7 +287,7 @@ def message_problems(command_set):
     for command in standard:
         owner = f"the {command['name']} command"
 
-        for key in ("parameter", "reply"):
+        for key in ("parameter", "reply", "followUp"):
             if key in command:
                 problems += field_problems(command[key], owner, False)
 

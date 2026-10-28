@@ -33,11 +33,6 @@
     {
       "commandSet": "tempLinc",
       "category": "0x05",
-      "subcategory": "0x07"
-    },
-    {
-      "commandSet": "tempLinc",
-      "category": "0x05",
       "subcategory": "0x11"
     },
     {

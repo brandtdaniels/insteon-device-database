@@ -112,9 +112,11 @@ versions use it. A command set is organized by Insteon's own message types:
   `perButton` is true, D1 chooses the button or group; otherwise D1 is `0x01`.
 - **Standard commands**: other standard direct commands, each a `command1` with a fixed
   `command2`, a `parameter` the caller puts in cmd2, or neither for `0x00`. A `reply` is the
-  value the acknowledgement carries in cmd2, and `followUps` counts the further direct messages
-  with the same cmd1 that carry more. While the operating flag `extendedWhen` names is set, the
-  command goes as an extended message with cmd1 and cmd2 again in D1 and D2.
+  value the acknowledgement carries in cmd2, and `followUp` the value one more direct message
+  with the same cmd1 may carry, when the device has it. While the operating flag `extendedWhen`
+  names is set, the command goes as an extended message with cmd1 and cmd2 again in D1 and D2
+  and the other user data bytes `0x00`. Operating flags and flag commands can carry
+  `extendedWhen` too.
 - **Extended commands**: other extended direct commands, such as a Get with a cmd2 other than
   `0x00`. Each gives its `command1` and `command2`, its `fixed` user data bytes, the
   `parameters` the caller fills in, its `integrity`, and the extended `reply` that answers it,
@@ -145,7 +147,8 @@ they're Fahrenheit.
 
 `integrity` says how an extended message's user data is protected: `none`, a `checksum` in D14
 (the two's complement of the sum of cmd1, cmd2 and D1 through D13), or a `crc`, a 16-bit CRC
-over cmd1, cmd2 and D1 through D12 in D13 and D14.
+over cmd1, cmd2 and D1 through D12, with its high byte in D13 and its low byte in D14. Without
+`integrity`, it's `none`.
 
 For example, the reply to Get Operating Flags with cmd2 `0x00` from a device using
 `switchLincDimmer` has bit `0x20` set when its key beep is on, and Set Operating Flags with cmd2
