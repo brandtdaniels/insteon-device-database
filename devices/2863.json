@@ -1,0 +1,32 @@
+{
+  "model": "2863",
+  "name": "Deadbolt",
+  "identities": [
+    {
+      "category": "0x0F",
+      "subcategory": "0x07",
+      "region": "US"
+    },
+    {
+      "category": "0x0F",
+      "subcategory": "0x08",
+      "region": "Europe"
+    },
+    {
+      "category": "0x0F",
+      "subcategory": "0x09",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "rf",
+  "role": "both",
+  "batteryPowered": true,
+  "capabilities": [],
+  "notes": [
+    "It's asleep most of the time, so it may take a few seconds to answer a command."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2863-x22 Dead Bolt Turner PRD"
+  ]
+}
