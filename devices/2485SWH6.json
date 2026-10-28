@@ -10,6 +10,13 @@
       "subcategory": "0x26"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLincScheduleTimer",
+      "category": "0x02",
+      "subcategory": "0x26"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

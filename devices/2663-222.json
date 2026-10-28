@@ -18,6 +18,13 @@
       "subcategory": "0x39"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "dualOnOffOutlet",
+      "category": "0x02",
+      "subcategory": "0x39"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

@@ -52,6 +52,13 @@
         "$ref": "#/$defs/engine"
       }
     },
+    "commandSets": {
+      "description": "Which command set the product uses under each identity and firmware version, where a source states it. Command sets are published beside the profiles, and describe the operating flags and extended settings the product shares with others.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/commandSetEntry"
+      }
+    },
     "radio": {
       "description": "How the product communicates: powerline, RF, or both. Omitted when no source states it.",
       "enum": [
@@ -381,6 +388,32 @@
         },
         "firmware": {
           "description": "The firmware versions that run the engine. Omitted, every version does.",
+          "$ref": "#/$defs/firmwareSelection"
+        }
+      }
+    },
+    "commandSetEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commandSet",
+        "category",
+        "subcategory"
+      ],
+      "properties": {
+        "commandSet": {
+          "description": "The command set's id.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "category": {
+          "$ref": "#/$defs/byte"
+        },
+        "subcategory": {
+          "$ref": "#/$defs/byte"
+        },
+        "firmware": {
+          "description": "The firmware versions that use the command set. Omitted, every version does.",
           "$ref": "#/$defs/firmwareSelection"
         }
       }

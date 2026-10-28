@@ -36,6 +36,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "lampLinc",
+      "category": "0x01",
+      "subcategory": "0x0E"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

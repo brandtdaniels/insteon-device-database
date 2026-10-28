@@ -1,0 +1,138 @@
+{
+  "id": "ledBulb",
+  "name": "LED Bulb",
+  "description": "The dimmable LED bulbs, which run the KeypadLinc code base.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "radioOff",
+      "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
+      "query": "0x00",
+      "bit": "0x40",
+      "on": "0x0C",
+      "off": "0x0D"
+    },
+    {
+      "name": "powerLineOff",
+      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "query": "0x00",
+      "bit": "0x80",
+      "on": "0x0E",
+      "off": "0x0F"
+    },
+    {
+      "name": "applicationRetries",
+      "description": "The device retries application messages as many times as its link database says, and reports cleanup errors.",
+      "query": "0x05",
+      "bit": "0x01",
+      "on": "0x10",
+      "off": "0x11"
+    },
+    {
+      "name": "x10Off",
+      "description": "X10 sending and receiving are off.",
+      "query": "0x05",
+      "bit": "0x02",
+      "on": "0x12",
+      "off": "0x13"
+    },
+    {
+      "name": "errorBlink",
+      "description": "The status LED blinks when a communication error occurs.",
+      "query": "0x05",
+      "bit": "0x04",
+      "on": "0x15",
+      "off": "0x14"
+    },
+    {
+      "name": "cleanupReport",
+      "description": "The device sends a success report after the cleanup messages that follow a group command.",
+      "query": "0x05",
+      "bit": "0x08",
+      "on": "0x17",
+      "off": "0x16"
+    },
+    {
+      "name": "checksumRequired",
+      "description": "Extended Set and link database write messages must carry a checksum in D14.",
+      "query": "0x05",
+      "bit": "0x10",
+      "on": "0x19",
+      "off": "0x18"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    },
+    {
+      "name": "crcErrorCount",
+      "description": "The number of messages received with a CRC error.",
+      "query": "0x02"
+    },
+    {
+      "name": "signalToNoiseFailureCount",
+      "description": "The number of signal-to-noise failures.",
+      "query": "0x03"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "powerUpLastState",
+      "description": "The bulb powers up to its last state.",
+      "command2": "0x04"
+    },
+    {
+      "name": "powerUpOn",
+      "description": "The bulb powers up on.",
+      "command2": "0x05"
+    },
+    {
+      "name": "linkOnPowerUpOff",
+      "description": "Turns linking at power-up off.",
+      "command2": "0x08"
+    },
+    {
+      "name": "linkOnPowerUpOn",
+      "description": "Turns linking at power-up on.",
+      "command2": "0x09"
+    },
+    {
+      "name": "smartHopsOn",
+      "description": "Starts each message with the hop count of the last acknowledgment received (smart hops).",
+      "command2": "0x1C"
+    },
+    {
+      "name": "smartHopsOff",
+      "description": "Starts each message with one hop.",
+      "command2": "0x1D"
+    }
+  ],
+  "notes": [
+    "Bits 2 and 4 of the 0x00 reply hold the power-up state and link-at-power-up settings, but Insteon's documents don't make clear which value each command writes.",
+    "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
+    "Insteon's documents don't give this product's extended Get and Set layout."
+  ],
+  "sources": [
+    "Insteon command workbook",
+    "Insteon Developer's Guide (2009)",
+    "Insteon for Hub app"
+  ]
+}

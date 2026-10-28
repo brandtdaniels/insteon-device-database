@@ -34,6 +34,18 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "lampLinc",
+      "category": "0x01",
+      "subcategory": "0x02"
+    },
+    {
+      "commandSet": "lampLinc",
+      "category": "0x01",
+      "subcategory": "0x1A"
+    }
+  ],
   "radio": "powerline",
   "role": "responder",
   "groups": [

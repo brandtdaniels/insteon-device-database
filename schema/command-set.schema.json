@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v1/command-set.schema.json",
+  "title": "Insteon command set",
+  "description": "The settings a family of Insteon products shares: the operating flags it reads with Get Operating Flags (cmd1 0x1F) and sets with Set Operating Flags (cmd1 0x20), and the values it reads and writes with extended Get/Set (cmd1 0x2E). Profiles name the command sets their identities and firmware versions use.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "description",
+    "sources"
+  ],
+  "properties": {
+    "id": {
+      "description": "The command set's identifier, which profiles name and the file is named for.",
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What people call the command set, such as the product family it comes from."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which products use the command set, and what sets it apart."
+    },
+    "operatingFlags": {
+      "description": "Bits of a Get Operating Flags reply, and the Set Operating Flags commands that change them.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/flag"
+      }
+    },
+    "readings": {
+      "description": "Get Operating Flags queries whose whole reply is a value rather than bits.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reading"
+      }
+    },
+    "flagCommands": {
+      "description": "Set Operating Flags commands whose effect no Get Operating Flags bit is documented to show.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/flagCommand"
+      }
+    },
+    "extendedSettings": {
+      "$ref": "#/$defs/extendedSettings"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "sources": {
+      "description": "The documents the values come from.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "byte": {
+      "description": "A byte, written as 0x followed by two uppercase hexadecimal digits.",
+      "type": "string",
+      "pattern": "^0x[0-9A-F]{2}$"
+    },
+    "name": {
+      "description": "A name for code to refer to, in lower camel case.",
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]*$"
+    },
+    "flag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "query",
+        "bit"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What the flag means when its bit is 1."
+        },
+        "query": {
+          "$ref": "#/$defs/byte",
+          "description": "The Get Operating Flags cmd2 whose reply holds the bit."
+        },
+        "bit": {
+          "$ref": "#/$defs/byte",
+          "description": "The bit's mask in the reply's cmd2."
+        },
+        "on": {
+          "$ref": "#/$defs/byte",
+          "description": "The Set Operating Flags cmd2 that sets the bit to 1."
+        },
+        "off": {
+          "$ref": "#/$defs/byte",
+          "description": "The Set Operating Flags cmd2 that sets the bit to 0."
+        }
+      }
+    },
+    "reading": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "query"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "query": {
+          "$ref": "#/$defs/byte",
+          "description": "The Get Operating Flags cmd2."
+        }
+      }
+    },
+    "flagCommand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "command2"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command2": {
+          "$ref": "#/$defs/byte",
+          "description": "The Set Operating Flags cmd2."
+        }
+      }
+    },
+    "extendedSettings": {
+      "description": "Values read with an extended Get (cmd1 0x2E, D2 0x00) and written with an extended Set (D2 a selector). D1 is the button or group, or 0x01 for the whole device.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "perButton"
+      ],
+      "properties": {
+        "perButton": {
+          "description": "Whether D1 of a Get chooses a button or group whose values the reply holds.",
+          "type": "boolean"
+        },
+        "values": {
+          "description": "The values in a Get reply, which has 0x01 in D2.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/value"
+          }
+        },
+        "writes": {
+          "description": "The Set selectors.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/write"
+          }
+        }
+      }
+    },
+    "position": {
+      "description": "A user data byte, from D3 through D14.",
+      "type": "integer",
+      "minimum": 3,
+      "maximum": 14
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "byte"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "byte": {
+          "$ref": "#/$defs/position"
+        },
+        "kind": {
+          "description": "How to read the byte: a number, or a mask with one bit per button, button 1 in bit 0.",
+          "enum": [
+            "number",
+            "buttons"
+          ],
+          "default": "number"
+        },
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "from",
+            "through"
+          ],
+          "properties": {
+            "from": {
+              "$ref": "#/$defs/byte"
+            },
+            "through": {
+              "$ref": "#/$defs/byte"
+            }
+          }
+        }
+      }
+    },
+    "write": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "selector",
+        "perButton",
+        "bytes"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selector": {
+          "$ref": "#/$defs/byte",
+          "description": "D2 of the Set."
+        },
+        "perButton": {
+          "description": "Whether D1 chooses the button or group the value is for. Otherwise D1 is ignored, and 0x01 is sent.",
+          "type": "boolean"
+        },
+        "bytes": {
+          "description": "Which value goes in each byte from D3.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "position",
+              "value"
+            ],
+            "properties": {
+              "position": {
+                "$ref": "#/$defs/position"
+              },
+              "value": {
+                "description": "The name of a value, or of a value the Set alone writes.",
+                "type": "string",
+                "pattern": "^[a-z][A-Za-z0-9]*$"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

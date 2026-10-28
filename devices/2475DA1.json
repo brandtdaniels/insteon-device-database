@@ -17,6 +17,13 @@
       "subcategory": "0x32"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "inLineLinc",
+      "category": "0x01",
+      "subcategory": "0x32"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

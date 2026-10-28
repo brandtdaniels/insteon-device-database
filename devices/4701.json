@@ -7,6 +7,13 @@
       "subcategory": "0x27"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincDimmer",
+      "category": "0x01",
+      "subcategory": "0x27"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

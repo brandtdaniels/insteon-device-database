@@ -28,6 +28,33 @@
       "region": "Australia and New Zealand, B22"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "ledBulb",
+      "category": "0x01",
+      "subcategory": "0x49"
+    },
+    {
+      "commandSet": "ledBulb",
+      "category": "0x01",
+      "subcategory": "0x4A"
+    },
+    {
+      "commandSet": "ledBulb",
+      "category": "0x01",
+      "subcategory": "0x4E"
+    },
+    {
+      "commandSet": "ledBulb",
+      "category": "0x01",
+      "subcategory": "0x4B"
+    },
+    {
+      "commandSet": "ledBulb",
+      "category": "0x01",
+      "subcategory": "0x4F"
+    }
+  ],
   "radio": "dual",
   "role": "responder",
   "capabilities": [

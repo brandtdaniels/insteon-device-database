@@ -32,6 +32,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "ioLinc",
+      "category": "0x07",
+      "subcategory": "0x00"
+    }
+  ],
   "capabilities": [],
   "sources": [
     "HouseLinc device catalog",

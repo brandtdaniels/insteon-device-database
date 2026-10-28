@@ -18,6 +18,13 @@
       "subcategory": "0x38"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "applianceLinc",
+      "category": "0x02",
+      "subcategory": "0x38"
+    }
+  ],
   "radio": "dual",
   "groups": [
     {

@@ -24,6 +24,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincDimmer",
+      "category": "0x01",
+      "subcategory": "0x31"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

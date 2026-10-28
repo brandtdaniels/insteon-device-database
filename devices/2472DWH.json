@@ -33,6 +33,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "outletLinc",
+      "category": "0x01",
+      "subcategory": "0x21"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

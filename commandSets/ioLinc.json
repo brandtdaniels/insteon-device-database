@@ -1,0 +1,222 @@
+{
+  "id": "ioLinc",
+  "name": "I/O Linc",
+  "description": "The I/O Linc, with a sensor input and a relay output.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "ledOnTransmit",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "relayFollowsInput",
+      "description": "The relay follows the sensor input.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x04",
+      "off": "0x05"
+    },
+    {
+      "name": "momentary",
+      "description": "The relay is momentary (momentary A): it closes for the momentary time and then opens.",
+      "query": "0x00",
+      "bit": "0x08",
+      "on": "0x06",
+      "off": "0x07"
+    },
+    {
+      "name": "momentaryOnBothCommands",
+      "description": "Both On and Off commands close the momentary relay (momentary B).",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x12",
+      "off": "0x13"
+    },
+    {
+      "name": "triggerReversed",
+      "description": "The I/O Linc sends On when the sensor input opens rather than when it closes.",
+      "query": "0x00",
+      "bit": "0x40",
+      "on": "0x0E",
+      "off": "0x0F"
+    },
+    {
+      "name": "momentaryFollowsSensor",
+      "description": "Whether the momentary relay closes depends on the state of the sensor input (momentary C).",
+      "query": "0x00",
+      "bit": "0x80",
+      "on": "0x14",
+      "off": "0x15"
+    },
+    {
+      "name": "ledOff",
+      "description": "The status LED is off.",
+      "query": "0x02",
+      "bit": "0x01",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "keyBeep",
+      "description": "The I/O Linc beeps when its set button is pressed.",
+      "query": "0x02",
+      "bit": "0x02",
+      "on": "0x0A",
+      "off": "0x0B"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes.",
+      "query": "0x01"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "sendX10OnWhenOff",
+      "description": "The I/O Linc sends X10 On when its input turns off.",
+      "command2": "0x0C"
+    },
+    {
+      "name": "sendX10OnWhenOn",
+      "description": "The I/O Linc sends X10 On when its input turns on.",
+      "command2": "0x0D"
+    },
+    {
+      "name": "x10OnTurnsOff",
+      "description": "A received X10 On turns the relay off.",
+      "command2": "0x10"
+    },
+    {
+      "name": "x10OnTurnsOn",
+      "description": "A received X10 On turns the relay on.",
+      "command2": "0x11"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "momentaryPrescaler",
+        "description": "The multiplier for the momentary time. With 0x46 and a momentary time of 0xFF, the relay stays closed for about 30 minutes.",
+        "byte": 3,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "momentaryTime",
+        "description": "How long the relay stays closed in momentary mode, in tenths of a second.",
+        "byte": 4,
+        "range": {
+          "from": "0x02",
+          "through": "0xFF"
+        }
+      },
+      {
+        "name": "x10InputHouseCode",
+        "description": "The input's X10 house code, or 0x20 for no X10 address.",
+        "byte": 5
+      },
+      {
+        "name": "x10InputUnitCode",
+        "description": "The input's X10 unit code.",
+        "byte": 6
+      },
+      {
+        "name": "x10OutputHouseCode",
+        "description": "The output's X10 house code, or 0x20 for no X10 address.",
+        "byte": 7
+      },
+      {
+        "name": "x10OutputUnitCode",
+        "description": "The output's X10 unit code.",
+        "byte": 8
+      },
+      {
+        "name": "signalToNoise",
+        "description": "The power line's signal-to-noise value.",
+        "byte": 9
+      }
+    ],
+    "writes": [
+      {
+        "name": "x10InputAddress",
+        "description": "Sets the input's X10 address.",
+        "selector": "0x04",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10InputHouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10InputUnitCode"
+          }
+        ]
+      },
+      {
+        "name": "x10OutputAddress",
+        "description": "Sets the output's X10 address.",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "x10OutputHouseCode"
+          },
+          {
+            "position": 4,
+            "value": "x10OutputUnitCode"
+          }
+        ]
+      },
+      {
+        "name": "momentaryTime",
+        "description": "Sets the momentary time. A nonzero time turns the momentary flag on, and 0x00 turns it off.",
+        "selector": "0x06",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "momentaryTime"
+          }
+        ]
+      },
+      {
+        "name": "momentaryPrescaler",
+        "description": "Sets the multiplier for the momentary time.",
+        "selector": "0x07",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "momentaryPrescaler"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Insteon's later command sheet marks bit 6 of the 0x00 reply as ignored; the earlier sheet and the Insteon for Hub app read it as the trigger reversal that 0x0E and 0x0F set.",
+    "Insteon's earlier command sheet labels D5 and D6 of the reply the relay's X10 address and D7 and D8 the sensor's, where the later sheet has the input's and the output's."
+  ],
+  "sources": [
+    "Insteon command workbook",
+    "Insteon for Hub app"
+  ]
+}

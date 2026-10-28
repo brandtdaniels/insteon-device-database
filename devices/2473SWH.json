@@ -32,6 +32,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "outletLincLegacy",
+      "category": "0x02",
+      "subcategory": "0x08"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"
