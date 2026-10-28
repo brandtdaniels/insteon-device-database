@@ -51,6 +51,23 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x0A"
+    },
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x15"
+    },
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x1C"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

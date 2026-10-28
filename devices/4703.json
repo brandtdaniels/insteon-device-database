@@ -7,6 +7,13 @@
       "subcategory": "0x29"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "keypadLinc",
+      "category": "0x01",
+      "subcategory": "0x29"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

@@ -23,6 +23,28 @@
       "region": "Australia and New Zealand"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "plugInModule",
+      "category": "0x02",
+      "subcategory": "0x2D"
+    },
+    {
+      "commandSet": "plugInModule",
+      "category": "0x02",
+      "subcategory": "0x30"
+    },
+    {
+      "commandSet": "plugInModule",
+      "category": "0x02",
+      "subcategory": "0x35"
+    },
+    {
+      "commandSet": "plugInModule",
+      "category": "0x02",
+      "subcategory": "0x36"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

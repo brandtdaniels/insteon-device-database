@@ -18,6 +18,13 @@
       "subcategory": "0x25"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "inLineLinc0To10V",
+      "category": "0x01",
+      "subcategory": "0x25"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [

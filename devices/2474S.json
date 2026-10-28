@@ -10,6 +10,13 @@
       "subcategory": "0x12"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x12"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

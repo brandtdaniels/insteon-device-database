@@ -17,6 +17,13 @@
       "subcategory": "0x24"
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincDimmer",
+      "category": "0x01",
+      "subcategory": "0x24"
+    }
+  ],
   "radio": "rf",
   "role": "both",
   "groups": [

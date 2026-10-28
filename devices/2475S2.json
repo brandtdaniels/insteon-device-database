@@ -25,6 +25,13 @@
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x14"
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"
