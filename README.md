@@ -63,3 +63,27 @@ treat downloading a newer one as optional.
    share a selector, no two commands or direct messages share a command, no message fills a
    byte's bits twice, and every flag and enumeration it names exists.
 3. Open a pull request. CI runs the same check.
+
+### How sure a value is
+
+A value with no `verification` is documented: an Insteon document gives it, and none of the
+catalog's sources disagree. Where that isn't so, give the profile, identity, engine, command set
+entry or group, or the command set's flag, reading, value, write, field, command or direct
+message, a `verification` with a `status` and a `note`:
+
+| Status | Meaning | The note says |
+| --- | --- | --- |
+| `documented` | An Insteon document gives the value, as when `verification` is omitted. | What more there is to know about the source. |
+| `inferred` | No document states it. | What it's read from: an example, a similar product, or how the product behaves. |
+| `conflicting` | Insteon's documents disagree. | What each document gives, and which value the catalog uses. |
+| `observed` | Confirmed on a device. | What was seen. List the firmware versions in `firmware`. |
+
+```json
+"verification": {
+  "status": "conflicting",
+  "note": "The 2472D developer's guide gives 0x63 as the default over-temperature limit; the command workbook gives 0x7D."
+}
+```
+
+An app can warn before it sends a command, or trusts a reading, whose status is `conflicting`
+or `inferred`. When a device confirms a value, change its status to `observed`.

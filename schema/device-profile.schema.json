@@ -110,6 +110,9 @@
         "type": "string",
         "minLength": 1
       }
+    },
+    "verification": {
+      "$ref": "#/$defs/verification"
     }
   },
   "$defs": {
@@ -152,6 +155,9 @@
         "region": {
           "description": "Where the variant was sold, when the subcategory tells regions apart.",
           "type": "string"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -185,6 +191,9 @@
             "software"
           ],
           "default": "device"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -390,6 +399,9 @@
         "firmware": {
           "description": "The firmware versions that run the engine. Omitted, every version does.",
           "$ref": "#/$defs/firmwareSelection"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -416,6 +428,43 @@
         "firmware": {
           "description": "The firmware versions that use the command set. Omitted, every version does.",
           "$ref": "#/$defs/firmwareSelection"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
+    },
+    "verification": {
+      "description": "How well the value is confirmed. Omitted means documented: an Insteon document gives it and none of the catalog's sources disagree.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "note"
+      ],
+      "properties": {
+        "status": {
+          "description": "documented: an Insteon document gives the value, as when the field is omitted, and the note says more. inferred: no document states it; it's read from an example, a similar product or the product's behavior, as the note explains. conflicting: Insteon's documents disagree; the note says what each gives, and the value is the one the catalog uses. observed: the value has been confirmed on a device.",
+          "enum": [
+            "documented",
+            "inferred",
+            "conflicting",
+            "observed"
+          ]
+        },
+        "note": {
+          "description": "What the status rests on: the documents and what each says, or what was observed.",
+          "type": "string",
+          "minLength": 1
+        },
+        "firmware": {
+          "description": "For observed values, the firmware versions the value was confirmed on.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/byte"
+          }
         }
       }
     }

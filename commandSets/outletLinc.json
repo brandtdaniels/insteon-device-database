@@ -97,7 +97,11 @@
       "query": "0x00",
       "bit": "0x08",
       "on": "0x07",
-      "off": "0x06"
+      "off": "0x06",
+      "verification": {
+        "status": "conflicting",
+        "note": "The 2472D and KeypadLinc developer's guides give Set Operating Flags 0x06 as load sense off and 0x07 as on, used here; the command workbook gives 0x06 as on and 0x07 as off."
+      }
     },
     {
       "name": "ledOff",
@@ -105,7 +109,11 @@
       "query": "0x00",
       "bit": "0x10",
       "on": "0x08",
-      "off": "0x09"
+      "off": "0x09",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+      }
     },
     {
       "name": "keyBeep",
@@ -181,7 +189,11 @@
     {
       "name": "crcErrorCount",
       "description": "The number of messages received with a CRC error.",
-      "query": "0x02"
+      "query": "0x02",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there. The 2472D developer's guide gives query 0x02 as the signal-to-noise ratio of the last failure; the later command sheets count messages with CRC errors there."
+      }
     },
     {
       "name": "signalToNoiseFailureCount",
@@ -244,7 +256,11 @@
       {
         "name": "overTemperatureLimit",
         "description": "The over-temperature limit, at which the dimmer turns its load off, beeps and flashes its LED red. 0x00 and 0xFF turn the limit off, 0x50 is 70 degrees and the default is 0x63.",
-        "byte": 12
+        "byte": 12,
+        "verification": {
+          "status": "conflicting",
+          "note": "The 2472D developer's guide gives 0x63 as the default over-temperature limit; the command workbook gives 0x7D."
+        }
       },
       {
         "name": "signalToNoiseRatio",
@@ -450,6 +466,10 @@
         "description": "What the tap sets.",
         "kind": "enumeration",
         "enumeration": "setButtonTap"
+      },
+      "verification": {
+        "status": "conflicting",
+        "note": "The developer's guides give cmd2 of cmd1 0x25 as 0x00 to set the on-level and 0x02 to set the ramp rate; Insteon's 2007 command tables give it as the number of taps, 0x01 or 0x02."
       }
     },
     {
@@ -522,15 +542,8 @@
     }
   ],
   "notes": [
-    "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
-    "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
-    "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
-    "The 2472D and KeypadLinc developer's guides give Set Operating Flags 0x06 as load sense off and 0x07 as on, used here; the command workbook gives 0x06 as on and 0x07 as off.",
-    "The 2472D developer's guide gives 0x63 as the default over-temperature limit; the command workbook gives 0x7D.",
-    "The 2472D developer's guide gives query 0x02 as the signal-to-noise ratio of the last failure; the later command sheets count messages with CRC errors there.",
-    "The 2472D developer's guide's examples show category 0x01 and subcategory 0x0E, which the catalog gives to the 2457D2.",
-    "The developer's guides give cmd2 of cmd1 0x25 as 0x00 to set the on-level and 0x02 to set the ramp rate; Insteon's 2007 command tables give it as the number of taps, 0x01 or 0x02."
+    "The 2472D developer's guide's examples show category 0x01 and subcategory 0x0E, which the catalog gives to the 2457D2."
   ],
   "sources": [
     "Insteon command workbook",

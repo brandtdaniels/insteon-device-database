@@ -160,6 +160,9 @@
           "description": "An operating flag that, while set, has its Set Operating Flags commands sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
           "type": "string",
           "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -182,6 +185,9 @@
         "query": {
           "$ref": "#/$defs/byte",
           "description": "The Get Operating Flags cmd2."
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -209,6 +215,9 @@
           "description": "An operating flag that, while set, has the command sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
           "type": "string",
           "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -288,6 +297,9 @@
               "$ref": "#/$defs/byte"
             }
           }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -339,6 +351,9 @@
               }
             }
           }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -461,6 +476,9 @@
               }
             }
           }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -570,6 +588,9 @@
         "followUp": {
           "$ref": "#/$defs/field",
           "description": "A value that one more standard direct message with the same cmd1 may carry after the acknowledgement, such as a second setpoint. The device sends it only when it has that value."
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       },
       "not": {
@@ -660,6 +681,9 @@
               }
             }
           }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     },
@@ -686,6 +710,43 @@
         },
         "value": {
           "$ref": "#/$defs/field"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
+    },
+    "verification": {
+      "description": "How well the value is confirmed. Omitted means documented: an Insteon document gives it and none of the catalog's sources disagree.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "note"
+      ],
+      "properties": {
+        "status": {
+          "description": "documented: an Insteon document gives the value, as when the field is omitted, and the note says more. inferred: no document states it; it's read from an example, a similar product or the product's behavior, as the note explains. conflicting: Insteon's documents disagree; the note says what each gives, and the value is the one the catalog uses. observed: the value has been confirmed on a device.",
+          "enum": [
+            "documented",
+            "inferred",
+            "conflicting",
+            "observed"
+          ]
+        },
+        "note": {
+          "description": "What the status rests on: the documents and what each says, or what was observed.",
+          "type": "string",
+          "minLength": 1
+        },
+        "firmware": {
+          "description": "For observed values, the firmware versions the value was confirmed on.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/byte"
+          }
         }
       }
     }
