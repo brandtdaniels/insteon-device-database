@@ -97,11 +97,14 @@
     "HouseLinc names it Smoke Detector.",
     "It sends Insteon messages over powerline only; its radio only listens for the smoke alarms it's paired with.",
     "Tapping its SET button sends each group's command as a test, ending with the all-clear.",
-    "It sends a heartbeat to group 0x0A, which software can turn off; its interval isn't documented."
+    "It sends a heartbeat to group 0x0A, which software can turn off; its interval isn't documented.",
+    "The Insteon for Hub app reads group 4 as the all-clear of earlier firmware; Insteon's command workbook calls it new or unknown."
   ],
   "sources": [
     "HouseLinc device catalog",
     "Insteon command workbook, Smoke sheet",
-    "2982-222 Smoke Bridge PRD"
+    "2982-222 Smoke Bridge PRD",
+    "Insteon command workbook",
+    "Insteon for Hub app"
   ]
 }

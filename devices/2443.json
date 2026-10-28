@@ -1,6 +1,6 @@
 {
   "model": "2443",
-  "name": "Range Extender",
+  "name": "Access Point",
   "identities": [
     {
       "category": "0x00",
@@ -11,6 +11,10 @@
   "capabilities": [],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon device database (SQLite, InsteonDevices.db)"
+    "Insteon device database (SQLite, InsteonDevices.db)",
+    "Insteon Developer's Guide (2009)"
+  ],
+  "notes": [
+    "Insteon later reused the model number 2443 for the Micro On/Off Module, whose identities are its own."
   ]
 }
