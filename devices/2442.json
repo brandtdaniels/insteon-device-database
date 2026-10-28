@@ -1,6 +1,9 @@
 {
   "model": "2442",
-  "name": "SignaLinc",
+  "name": "RF Signal Enhancer",
+  "aliases": [
+    "SignaLinc"
+  ],
   "identities": [
     {
       "category": "0x00",

@@ -10,6 +10,21 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x09",
+          "subcategory": "0x0B",
+          "firmware": {
+            "except": [
+              "0x3A",
+              "0x40"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

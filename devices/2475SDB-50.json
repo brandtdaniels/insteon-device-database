@@ -1,6 +1,9 @@
 {
   "model": "2475SDB-50",
-  "name": "In-LineLinc On/Off",
+  "name": "In-Line On/Off Module (Dual-Band)",
+  "aliases": [
+    "In-LineLinc On/Off"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -10,6 +13,20 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x2B",
+          "firmware": {
+            "only": [
+              "0x41"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

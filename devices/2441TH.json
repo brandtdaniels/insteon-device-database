@@ -1,6 +1,9 @@
 {
   "model": "2441TH",
-  "name": "TempLinc Thermostat",
+  "name": "Thermostat",
+  "aliases": [
+    "TempLinc Thermostat"
+  ],
   "identities": [
     {
       "category": "0x05",

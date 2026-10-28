@@ -1,6 +1,9 @@
 {
   "model": "2456D3",
-  "name": "LampLinc Dimmer",
+  "name": "Dimmer Module",
+  "aliases": [
+    "LampLinc Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -10,6 +13,26 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x01",
+          "subcategory": "0x00",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xD1",
+              "0xD2",
+              "0xD3",
+              "0xD4",
+              "0xD5",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

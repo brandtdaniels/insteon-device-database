@@ -1,6 +1,9 @@
 {
   "model": "2484DWH8",
-  "name": "KeypadLinc Countdown Timer, 8 Buttons",
+  "name": "Countdown Timer Dimmer Keypad, 8 Buttons",
+  "aliases": [
+    "KeypadLinc Countdown Timer, 8 Buttons"
+  ],
   "identities": [
     {
       "category": "0x01",

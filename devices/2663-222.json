@@ -28,6 +28,9 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs"
     }
   ],
   "notes": [

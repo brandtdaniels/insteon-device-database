@@ -1,6 +1,9 @@
 {
   "model": "2484SWH8",
-  "name": "KeypadLinc Countdown Timer Relay, 8 Buttons",
+  "name": "Countdown Timer On/Off Keypad, 8 Buttons",
+  "aliases": [
+    "KeypadLinc Countdown Timer Relay, 8 Buttons"
+  ],
   "identities": [
     {
       "category": "0x02",

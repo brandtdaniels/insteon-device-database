@@ -7,7 +7,22 @@
       "subcategory": "0x03"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x05",
+          "subcategory": "0x03",
+          "firmware": {
+            "only": [
+              "0x95"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

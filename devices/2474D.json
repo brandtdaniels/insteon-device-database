@@ -1,6 +1,9 @@
 {
   "model": "2474D",
-  "name": "ICON SwitchLinc Dimmer In-line Companion",
+  "name": "ICON In-Line Dimmer",
+  "aliases": [
+    "ICON SwitchLinc Dimmer In-line Companion"
+  ],
   "identities": [
     {
       "category": "0x01",

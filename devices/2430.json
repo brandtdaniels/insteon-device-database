@@ -1,6 +1,9 @@
 {
   "model": "2430",
-  "name": "ControLinc",
+  "name": "Tabletop Controller",
+  "aliases": [
+    "ControLinc"
+  ],
   "identities": [
     {
       "category": "0x00",

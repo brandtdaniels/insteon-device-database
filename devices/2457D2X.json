@@ -1,6 +1,9 @@
 {
   "model": "2457D2X",
-  "name": "LampLinc Dimmer",
+  "name": "Dimmer Plug",
+  "aliases": [
+    "LampLinc Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",
@@ -10,6 +13,21 @@
   "capabilities": [
     {
       "kind": "dimmable"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x01",
+          "subcategory": "0x22",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [
