@@ -19,8 +19,41 @@
       }
     }
   ],
-  "capabilities": [],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Cooling",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Heating",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Fan",
+      "role": "controller"
+    },
+    {
+      "number": "0xEF",
+      "name": "Status reports",
+      "role": "controller"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "thermostat",
+      "modeValues": "commandTable",
+      "humidity": false
+    }
+  ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon Developer's Guide (2009)",
+    "Insteon command workbook"
+  ],
+  "notes": [
+    "It links to group 1 while cooling, group 2 while heating and group 3 while its fan runs; devices linked to group 0xEF get its status reports."
   ]
 }

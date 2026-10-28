@@ -16,50 +16,98 @@
       "category": "0x05",
       "subcategory": "0x15",
       "region": "Australia and New Zealand"
-    },
-    {
-      "category": "0x05",
-      "subcategory": "0x17",
-      "region": "Europe"
-    },
-    {
-      "category": "0x05",
-      "subcategory": "0x18",
-      "region": "Australia and New Zealand"
-    },
-    {
-      "category": "0x05",
-      "subcategory": "0x0F",
-      "region": "Europe"
-    },
-    {
-      "category": "0x05",
-      "subcategory": "0x11",
-      "region": "Europe"
-    },
-    {
-      "category": "0x05",
-      "subcategory": "0x10",
-      "region": "Australia and New Zealand"
-    },
-    {
-      "category": "0x05",
-      "subcategory": "0x12",
-      "region": "Australia and New Zealand"
     }
   ],
   "radio": "rf",
   "role": "both",
-  "capabilities": [],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Cooling",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Heating",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Dehumidifying",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Humidifying",
+      "role": "controller"
+    },
+    {
+      "number": "0xFE",
+      "name": "Status reports",
+      "role": "controller",
+      "linkable": "software"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "thermostat",
+      "modeValues": "tempLinc",
+      "humidity": true
+    },
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "coolingStarted"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "coolingStopped"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "heatingStarted"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x13",
+          "event": "heatingStopped"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "dehumidifyingStarted"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x13",
+          "event": "dehumidifyingStopped"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x11",
+          "event": "humidifyingStarted"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x13",
+          "event": "humidifyingStopped"
+        }
+      ]
+    }
+  ],
   "notes": [
-    "The 2441TH's hardware with heat pump firmware.",
-    "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532.",
-    "Subcategories 0x17 and 0x18 are the Thermostat 2.0 firmware, the regional versions of the 2441TH's 0x16.",
-    "HouseLinc also lists subcategories 0x0F and 0x11 for the 2732-422 and 2732-432, and 0x10 and 0x12 for the 2732-522 and 2732-532."
+    "The 2441TH's hardware with heat pump firmware, which its product requirements say works like the 2441TH.",
+    "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532; the product requirements and Insteon's SKU list call them 2732-242, 2732-442 and 2732-542."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2732-xxx Thermostat for Heat Pump PRD",
-    "Thermostat 2.0 PRD"
+    "Thermostat 2.0 PRD",
+    "Insteon SKU list"
   ]
 }
