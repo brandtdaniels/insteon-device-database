@@ -32,6 +32,8 @@ Every change to `main` publishes the profiles to GitHub Pages:
   the number of profiles and the database's SHA-256
 - `https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json`: the
   schema
+- `https://brandtdaniels.github.io/insteon-device-database/`: a page listing the files and every
+  profile, for people rather than software
 
 See [API.md](API.md) for the files' formats, how to keep a copy up to date and how to look a
 device up. In short: read the manifest first, check that its schema version is one you

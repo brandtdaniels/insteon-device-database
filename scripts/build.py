@@ -10,6 +10,7 @@ does.
 
 import argparse
 import hashlib
+import html
 import json
 import pathlib
 import sys
@@ -105,6 +106,56 @@ def main():
     (directory / "database.json").write_text(database)
     (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     (directory / "device-profile.schema.json").write_text((ROOT / "schema" / "device-profile.schema.json").read_text())
+    (arguments.output / "index.html").write_text(index_page(profiles))
+
+
+INDEX_TEMPLATE = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INSTEON Device Database</title>
+<style>
+  :root {{ color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.5; }}
+  body {{ max-width: 60rem; margin: 2rem auto; padding: 0 1rem; }}
+  table {{ border-collapse: collapse; width: 100%; }}
+  th, td {{ text-align: left; padding: 0.25rem 0.75rem 0.25rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent); vertical-align: top; }}
+  code {{ font-size: 0.9em; }}
+</style>
+</head>
+<body>
+<h1>INSTEON Device Database</h1>
+<p>What each INSTEON product is and what it can do, keyed by the category, subcategory and
+firmware version a device reports. Software downloads the database and looks devices up itself.</p>
+<ul>
+  <li><a href="v{version}/manifest.json"><code>v{version}/manifest.json</code></a>: the schema version, the number of profiles and the database's SHA-256</li>
+  <li><a href="v{version}/database.json"><code>v{version}/database.json</code></a>: every profile</li>
+  <li><a href="v{version}/device-profile.schema.json"><code>v{version}/device-profile.schema.json</code></a>: the JSON Schema each profile follows</li>
+  <li><a href="https://github.com/brandtdaniels/insteon-device-database/blob/main/API.md">How to use the database</a> and <a href="https://github.com/brandtdaniels/insteon-device-database">the source</a></li>
+</ul>
+<h2>{count} profiles</h2>
+<table>
+<thead><tr><th>Model</th><th>Name</th><th>Category / subcategory</th><th>Capabilities</th></tr></thead>
+<tbody>
+{rows}
+</tbody>
+</table>
+</body>
+</html>
+"""
+
+
+def index_page(profiles):
+    """The landing page: what the database is, its files, and a table of the profiles."""
+    rows = []
+
+    for profile in profiles:
+        identities = ", ".join(f"{identity['category']}/{identity['subcategory']}" for identity in profile["identities"])
+        capabilities = ", ".join(capability["kind"] for capability in profile["capabilities"])
+        cells = [profile["model"], profile["name"], identities, capabilities]
+        rows.append("<tr>" + "".join(f"<td>{html.escape(cell)}</td>" for cell in cells) + "</tr>")
+
+    return INDEX_TEMPLATE.format(version=SCHEMA_VERSION, count=len(profiles), rows="\n".join(rows))
 
 
 if __name__ == "__main__":
