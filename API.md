@@ -36,7 +36,7 @@ with a plain `GET` over HTTPS.
 
 ## A profile
 
-Bytes are strings of `0x` and two uppercase hexadecimal digits, as INSTEON documents write them.
+Bytes are strings of `0x` and two uppercase hexadecimal digits, as Insteon documents write them.
 
 ```json
 {
