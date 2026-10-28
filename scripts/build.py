@@ -387,7 +387,7 @@ def term_problems(label, value, key=None):
     elif isinstance(value, list):
         for child in value:
             problems += term_problems(label, child, key)
-    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources"} or (key == "name" and " " in value)):
+    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources", "text", "expect"} or (key == "name" and " " in value)):
         prose = re.sub(r"`[^`]*`", "", value)
 
         for pattern, replacement in RULED_OUT_TERMS:

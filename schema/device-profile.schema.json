@@ -94,6 +94,62 @@
         "$ref": "#/$defs/capability"
       }
     },
+    "lifecycle": {
+      "description": "How to install the product, link it, wake it, reset it and remove it, for apps that guide people or do the steps themselves. Links are written between a controller and a responder: the device that goes into linking mode first is the controller.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "installation": {
+          "$ref": "#/$defs/procedure",
+          "description": "Installing the product, such as wiring a switch or plugging in a module."
+        },
+        "linking": {
+          "$ref": "#/$defs/procedure",
+          "description": "Putting the device in linking mode, as a controller or a responder."
+        },
+        "linkingTimeoutSeconds": {
+          "description": "How long the device stays in linking mode if nothing links.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "multiLinking": {
+          "$ref": "#/$defs/procedure",
+          "description": "Linking several devices in one session."
+        },
+        "unlinking": {
+          "$ref": "#/$defs/procedure",
+          "description": "Putting the device in unlinking mode."
+        },
+        "waking": {
+          "$ref": "#/$defs/procedure",
+          "description": "Waking a battery-powered device so it can be programmed."
+        },
+        "awakeSeconds": {
+          "description": "How long a woken device stays awake.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "reset": {
+          "$ref": "#/$defs/procedure",
+          "description": "Restoring the factory settings."
+        },
+        "resetErases": {
+          "description": "What a factory reset erases.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "links",
+              "settings"
+            ]
+          }
+        },
+        "removal": {
+          "$ref": "#/$defs/procedure",
+          "description": "Taking the product out of service, such as unlinking it everywhere and uninstalling it."
+        }
+      }
+    },
     "notes": {
       "description": "Behavior worth knowing that no capability describes.",
       "type": "array",
@@ -464,6 +520,95 @@
           "items": {
             "$ref": "#/$defs/byte"
           }
+        }
+      }
+    },
+    "step": {
+      "description": "One step a person or an app takes: what to do, to which control, for how long or how many times, and what the device does in answer.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "description": "The step as a person reads it, in the owner's manual's words where it has them.",
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "description": "What the step does, for an app that guides it or does it itself.",
+          "enum": [
+            "hold",
+            "tap",
+            "press",
+            "release",
+            "turn",
+            "plugIn",
+            "unplug",
+            "powerOff",
+            "powerOn",
+            "wire",
+            "mount",
+            "insertBatteries",
+            "removeBatteries",
+            "pullTab",
+            "wait",
+            "send",
+            "other"
+          ]
+        },
+        "control": {
+          "description": "The button or part the step uses, as the device labels it, such as SET button.",
+          "type": "string",
+          "minLength": 1
+        },
+        "seconds": {
+          "description": "How long to hold, wait or keep going.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "count": {
+          "description": "How many times to tap or press.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "expect": {
+          "description": "What the device does when the step works, such as the LED blinking green or a beep.",
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "description": "For a step an app sends, the Insteon command, by its Developer's Guide name, such as Enter Linking Mode.",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "procedure": {
+      "description": "Steps in order, and how sure the catalog is of them.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "steps"
+      ],
+      "properties": {
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     }
