@@ -3,7 +3,6 @@
 [![Catalog](https://github.com/brandtdaniels/insteon-device-catalog/actions/workflows/catalog.yml/badge.svg?branch=main)](https://github.com/brandtdaniels/insteon-device-catalog/actions/workflows/catalog.yml)
 [![Device profiles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-catalog%2Fv0%2Fmanifest.json&query=%24.devices&label=device%20profiles)](https://brandtdaniels.github.io/insteon-device-catalog/v0/catalog.json)
 [![Catalog version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-catalog%2Fv0%2Fmanifest.json&query=%24.version&label=catalog)](https://brandtdaniels.github.io/insteon-device-catalog/v0/manifest.json)
-[![Schema](https://img.shields.io/badge/schema-v1-blue.svg)](schema/device-profile.schema.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 What each Insteon product is and what it can do, as data, so software can support a device by
