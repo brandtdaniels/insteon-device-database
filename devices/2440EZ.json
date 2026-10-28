@@ -1,0 +1,14 @@
+{
+  "model": "2440EZ",
+  "name": "RemoteLinc EZ",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x0E"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "Insteon Device Categories (January 2014)"
+  ]
+}

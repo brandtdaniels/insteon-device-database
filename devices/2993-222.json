@@ -1,0 +1,14 @@
+{
+  "model": "2993-222",
+  "name": "Diagnostics Keypad",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x13"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "Insteon Device Categories (January 2014)"
+  ]
+}

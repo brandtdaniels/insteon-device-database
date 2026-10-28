@@ -4,19 +4,10 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x0C"
-    },
-    {
-      "category": "0x02",
       "subcategory": "0x17"
     }
   ],
   "commandSets": [
-    {
-      "commandSet": "applianceLinc",
-      "category": "0x02",
-      "subcategory": "0x0C"
-    },
     {
       "commandSet": "applianceLinc",
       "category": "0x02",
@@ -28,7 +19,11 @@
       "kind": "onOff"
     }
   ],
+  "notes": [
+    "HouseLinc also lists 0x02/0x0C, which Insteon Device Categories (January 2014) gives to the 2856S3, under 2856S3B."
+  ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)"
   ]
 }

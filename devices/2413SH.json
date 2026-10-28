@@ -1,0 +1,52 @@
+{
+  "model": "2413SH",
+  "name": "Serial Modem",
+  "aliases": [
+    "PowerLinc Serial Modem for HouseLinc (Dual Band)"
+  ],
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x19"
+    }
+  ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x19",
+      "firmware": {
+        "only": [
+          "0x3B",
+          "0x92",
+          "0x98",
+          "0x99",
+          "0x9A",
+          "0x9B",
+          "0xC8",
+          "0xC9",
+          "0xCB",
+          "0xCD",
+          "0xCE",
+          "0xE0",
+          "0xE3",
+          "0xE4"
+        ]
+      }
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "notes": [
+    "The 2413S made for HouseLinc; Insteon Device Categories (January 2014) calls it the PowerLinc Serial Modem for HL(Dual Band)."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)"
+  ]
+}

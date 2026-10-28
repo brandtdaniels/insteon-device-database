@@ -1,0 +1,46 @@
+{
+  "model": "2476SS",
+  "name": "On/Off Switch with Sense",
+  "aliases": [
+    "SwitchLinc Relay with Sense"
+  ],
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x15"
+    }
+  ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x02",
+      "subcategory": "0x15",
+      "firmware": {
+        "only": [
+          "0x41"
+        ]
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "switchLincRelayLegacy",
+      "category": "0x02",
+      "subcategory": "0x15"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "notes": [
+    "Insteon Device Categories and Product Keys (October 2008) lists 0x02/0x15 as model 2476S2.",
+    "HouseLinc lists 0x02/0x15 under 2476S."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)",
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

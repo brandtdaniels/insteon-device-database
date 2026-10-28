@@ -9,10 +9,6 @@
     {
       "category": "0x03",
       "subcategory": "0x15"
-    },
-    {
-      "category": "0x03",
-      "subcategory": "0x1A"
     }
   ],
   "engines": [
@@ -24,22 +20,6 @@
         "only": [
           "0x9A",
           "0x9B"
-        ]
-      }
-    },
-    {
-      "engine": "i2cs",
-      "category": "0x03",
-      "subcategory": "0x1A",
-      "firmware": {
-        "only": [
-          "0x9A",
-          "0x9B",
-          "0xEB",
-          "0xEC",
-          "0xED",
-          "0xEE",
-          "0xEF"
         ]
       }
     }

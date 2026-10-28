@@ -119,12 +119,14 @@
   ],
   "notes": [
     "The 2441TH's hardware with heat pump firmware, which its product requirements say works like the 2441TH.",
-    "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532; the product requirements and Insteon's SKU list call them 2732-242, 2732-442 and 2732-542."
+    "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532; the product requirements and Insteon's SKU list call them 2732-242, 2732-442 and 2732-542.",
+    "Insteon Device Categories (January 2014) gives 2732-432 and 2732-532 to the Zone Thermostat, 0x05/0x11 and 0x05/0x12."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2732-xxx Thermostat for Heat Pump PRD",
     "Thermostat 2.0 PRD",
-    "Insteon SKU list"
+    "Insteon SKU list",
+    "Insteon Device Categories (January 2014)"
   ]
 }

@@ -22,10 +22,12 @@
       "kind": "dimmable"
     }
   ],
-  "sources": [
-    "HouseLinc device catalog"
-  ],
   "notes": [
-    "HouseLinc also lists its identity under 2856D2B."
+    "HouseLinc and Insteon Device Categories (January 2014) also list its identity under 2856D2B; Insteon Device Categories and Product Keys (October 2008) gives 2856D2."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }
