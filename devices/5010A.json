@@ -3,8 +3,7 @@
   "name": "EZFlora",
   "aliases": [
     "EZRain",
-    "Compacta EZRain Sprinkler Controller",
-    "31270"
+    "Compacta EZRain Sprinkler Controller"
   ],
   "description": "An 8-zone irrigation controller with 4 program schedules. It runs one zone at a time, can use zone 8 as a pump zone, and can stop watering when its rain sensor input says it's raining.",
   "identities": [
@@ -118,8 +117,7 @@
     "The RJ-45 accessory port isn't for data or Ethernet. For a rain sensor, connect a 4.7 kΩ resistor between pins 2 and 6 and the sensor between pins 6 and 7; for a water meter, connect it between pins 4 and 5. Both must be enabled in the configuration register.",
     "To link a zone as a responder: hold the controller's button until it blinks; hold the EZFlora's SET button about 4 seconds (its LED goes out); tap the SET button once per zone number; then hold it about 4 seconds.",
     "X10: the unit code picks the zone (A1 for zone 1). Hold the SET button about 4 seconds (the LED blinks steadily), then send the X10 On command 3 times within 30 seconds; an Off disables X10.",
-    "Factory reset: unplug it for at least 5 seconds, then hold the SET button while plugging it back in, for 5 seconds.",
-    "The HouseLinc device catalog lists this identity as the Compacta EZRain Sprinkler Controller, model 31270."
+    "Factory reset: unplug it for at least 5 seconds, then hold the SET button while plugging it back in, for 5 seconds."
   ],
   "sources": [
     "Quick Start Guide - EZFlora Model #5010A",

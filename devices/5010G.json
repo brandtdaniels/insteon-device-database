@@ -26,121 +26,201 @@
       "number": "0x01",
       "name": "X10 address 1",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x02",
       "name": "X10 address 2",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x03",
       "name": "X10 address 3",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x04",
       "name": "X10 address 4",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x05",
       "name": "X10 address 5",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x06",
       "name": "X10 address 6",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x07",
       "name": "X10 address 7",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x08",
       "name": "X10 address 8",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x09",
       "name": "X10 address 9",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0A",
       "name": "X10 address 10",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0B",
       "name": "X10 address 11",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0C",
       "name": "X10 address 12",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0D",
       "name": "X10 address 13",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0E",
       "name": "X10 address 14",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0F",
       "name": "X10 address 15",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x10",
       "name": "X10 address 16",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x11",
       "name": "X10 address 17",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x12",
       "name": "X10 address 18",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x13",
       "name": "X10 address 19",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x14",
       "name": "X10 address 20",
       "role": "controller",
-      "type": "x10Address"
+      "type": "x10Address",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZX10RF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     }
   ],
   "capabilities": [],
@@ -149,10 +229,10 @@
     "To learn an X10 address and link responders: hold the SET button 10 to 12 seconds (the LED flashes about once a second); send the X10 address and On (the LED flashes faster); set each responder to the state wanted and hold its SET button about 5 seconds; end by holding the EZX10RF's SET button about 5 seconds. Then tap it 1 to 31 times to add an Off delay of half a minute per tap, from 0.5 to 15.5 minutes, and hold it about 5 seconds; if the LED keeps blinking, press it once more.",
     "To unlink, follow the linking steps with the X10 Off command in place of On.",
     "Factory reset: unplug it for at least 10 seconds, then hold the SET button while plugging it back in, for about 5 seconds.",
-    "The Quick-Start Guide applies to firmware 1.5 and above."
+    "The Quick-Start Guide EZX10RF Wireless Sensor Receiver Insteon EZX10RF—Model #5010G applies to firmware 1.5 and above."
   ],
   "sources": [
-    "Quick-Start Guide EZX10RF Wireless Sensor Receiver",
+    "Quick-Start Guide EZX10RF Wireless Sensor Receiver Insteon EZX10RF—Model #5010G",
     "EZX10RF Insteon Messages/Commands",
     "Insteon Device Categories and Product Keys (October 2008)"
   ]

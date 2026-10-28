@@ -4,7 +4,7 @@
   "aliases": [
     "EZServer"
   ],
-  "description": "A SimpleHomeNet controller that Insteon's category list names EZBridge/EZServer.",
+  "description": "A SimpleHomeNet controller that Insteon Device Categories and Product Keys (October 2008) names EZBridge/EZServer.",
   "identities": [
     {
       "category": "0x00",

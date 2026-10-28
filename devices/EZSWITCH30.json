@@ -12,11 +12,7 @@
       }
     }
   ],
-  "capabilities": [
-    {
-      "kind": "onOff"
-    }
-  ],
+  "capabilities": [],
   "notes": [
     "No document gives a model number; the profile is named for the product, in the capital letters a model takes. No Compacta document for it was found."
   ],

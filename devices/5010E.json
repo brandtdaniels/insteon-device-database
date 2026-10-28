@@ -25,121 +25,201 @@
       "number": "0x01",
       "name": "Transmitter 1",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x02",
       "name": "Transmitter 2",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x03",
       "name": "Transmitter 3",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x04",
       "name": "Transmitter 4",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x05",
       "name": "Transmitter 5",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x06",
       "name": "Transmitter 6",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x07",
       "name": "Transmitter 7",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x08",
       "name": "Transmitter 8",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x09",
       "name": "Transmitter 9",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0A",
       "name": "Transmitter 10",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0B",
       "name": "Transmitter 11",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0C",
       "name": "Transmitter 12",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0D",
       "name": "Transmitter 13",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0E",
       "name": "Transmitter 14",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x0F",
       "name": "Transmitter 15",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x10",
       "name": "Transmitter 16",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x11",
       "name": "Transmitter 17",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x12",
       "name": "Transmitter 18",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x13",
       "name": "Transmitter 19",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     },
     {
       "number": "0x14",
       "name": "Transmitter 20",
       "role": "controller",
-      "type": "transmitter"
+      "type": "transmitter",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZSnsRF Insteon Messages/Commands say each code record holds an assignable group from 1 to 20; that record N sends group N is read from that."
+      }
     }
   ],
   "capabilities": [],
@@ -148,7 +228,7 @@
     "The commands each code sends when its signal turns on and off are programmable, so no document gives them.",
     "To learn a transmitter and link responders: hold the SET button about 4 seconds (the LED flashes about once a second); trigger the transmitter (the LED flashes faster); hold the SET button of each responder about 4 seconds; end by holding the EZSnsRF's SET button 4 seconds. Then tap it 1 to 31 times to add an Off delay of half a minute per tap, from 0.5 to 15.5 minutes, and hold it 4 seconds; with no delay, tap it once more to finish. Holding the SET button 4 seconds cancels at any step.",
     "Factory reset: unplug it for at least 5 seconds, then hold the SET button while plugging it back in, for 5 seconds more.",
-    "The Quick-Start Guide (Rev 1.5) applies to firmware 1.6 and above."
+    "The Quick-Start Guide EZSnsRF Wireless Sensor Receiver Model #5010E (Rev 1.5) applies to firmware 1.6 and above."
   ],
   "sources": [
     "Quick-Start Guide EZSnsRF Wireless Sensor Receiver Model #5010E",

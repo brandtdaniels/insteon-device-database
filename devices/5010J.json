@@ -33,7 +33,7 @@
       "type": "output1",
       "verification": {
         "status": "inferred",
-        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+        "note": "The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
       }
     },
     {
@@ -43,7 +43,7 @@
       "type": "output2",
       "verification": {
         "status": "inferred",
-        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+        "note": "The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
       }
     },
     {
@@ -53,7 +53,7 @@
       "type": "output3",
       "verification": {
         "status": "inferred",
-        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+        "note": "The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
       }
     },
     {
@@ -63,7 +63,7 @@
       "type": "output4",
       "verification": {
         "status": "inferred",
-        "note": "The Quick-Start Guide links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
+        "note": "The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller links relay N by tapping the SET button N times; numbering the relays as groups 1 to 4 follows that."
       }
     }
   ],
@@ -76,7 +76,7 @@
     "Each relay is a switch rated 0.5 A at 30 V DC or 120 V AC, with normally open, common and normally closed terminals (Rx_NO, RxCM, Rx_NC). Timers can pulse a relay from 1 second to 255 minutes; setting them takes software.",
     "To link the relays as a responder: put the controller in linking mode, then hold the EZIO4O's SET button 3 to 4 seconds (the LED turns off); hold it 3 to 4 seconds again to link a snapshot of all the relays, or tap it once per relay number and then hold it 3 to 4 seconds to link one relay. To unlink, put the controller in unlinking mode and hold the EZIO4O's SET button 3 to 4 seconds.",
     "X10: relays 1 to 4 answer X10 units 1 to 4, and the device takes a whole house code. To enable X10, hold the SET button about 4 seconds (the LED blinks slowly) and send an On from an X10 controller; an Off disables it.",
-    "The Quick-Start Guide applies to firmware 2.0 and above."
+    "The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller applies to firmware 2.0 and above."
   ],
   "sources": [
     "Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller",

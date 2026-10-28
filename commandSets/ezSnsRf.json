@@ -5,7 +5,7 @@
   "standardCommands": [
     {
       "name": "readFxName",
-      "description": "FxName Request: the device answers with an extended FxName message (cmd1 0x03, cmd2 0x01), D1 through D8 the name, EZSnsRF.",
+      "description": "FX Username Request, which the maker calls FxName Request: the device answers with an extended FX Username Response (cmd1 0x03, cmd2 0x01), D1 through D8 the name, EZSnsRF.",
       "command1": "0x03",
       "command2": "0x01"
     },
@@ -20,7 +20,7 @@
     },
     {
       "name": "poke",
-      "description": "Poke: writes cmd2 to the parameter RAM at the address Peek last set, then moves to the next address.",
+      "description": "Poke One Byte: writes cmd2 to the parameter RAM at the address Peek One Byte last set, then moves to the next address.",
       "command1": "0x29",
       "parameter": {
         "name": "value",
@@ -29,7 +29,7 @@
     },
     {
       "name": "peek",
-      "description": "Peek: sets the address to cmd2, and reads the byte there.",
+      "description": "Peek One Byte: sets the address to cmd2, and reads the byte there.",
       "command1": "0x2B",
       "parameter": {
         "name": "address",

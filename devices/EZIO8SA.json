@@ -92,7 +92,7 @@
       "type": "output7",
       "verification": {
         "status": "inferred",
-        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed."
+        "note": "The Quick Start Guide - EZIO8SA links input N by tapping the SET button N times; that input N sends group N is read from that. The EZIOxx Advanced Details let each input's group number be changed. The Quick Start Guide - EZIO8SA says outputs 7 and 8 are swapped: addressing output 7 controls output 8, and the other way around. The catalog numbers the groups as its linking steps count the outputs, so this group's responder record, and On and Off for it, reach output 8."
       }
     },
     {
@@ -102,7 +102,7 @@
       "type": "output8",
       "verification": {
         "status": "inferred",
-        "note": "The Quick Start Guide - EZIO8SA links output N by tapping the SET button N times; numbering the outputs as groups follows that."
+        "note": "The Quick Start Guide - EZIO8SA links output N by tapping the SET button N times; numbering the outputs as groups follows that. The Quick Start Guide - EZIO8SA says outputs 7 and 8 are swapped: addressing output 7 controls output 8, and the other way around. The catalog numbers the groups as its linking steps count the outputs, so this group's responder record, and On and Off for it, reach output 7."
       }
     }
   ],
@@ -187,8 +187,9 @@
     }
   ],
   "notes": [
-    "Neither Quick Start Guide gives a model number; the profile is named for the product.",
+    "Neither the Quick Start Guide - EZIO8SA nor the Quick Start Guide - EZIO8SA & PLM Combo gives a model number; the profile is named for the product.",
     "Outputs 7 and 8 are swapped: to control output 8, address output 7, and the other way around.",
+    "As a responder, a record whose Data 2 is 0x01 triggers the input in Data 3 (0x00 for input 1) as if it had turned on, so the input sends its own group command. The EZIOxx Advanced Details allow it for inputs 1 to 7, but neither the Quick Start Guide - EZIO8SA nor the Quick Start Guide - EZIO8SA & PLM Combo gives a way to link one, and groups 1 to 7 are also outputs 1 to 7, whose responder records the catalog gives for those groups.",
     "It needs an Insteon PowerLinc Modem, dual-band recommended, connected to its PLM port with a straight-through CAT5 patch cable, and a 9 to 18 V DC adapter, center positive. The EZIO8SA & PLM Combo comes with the modem and a 12 V DC adapter. An EZIComm 5010K connected this way doesn't power the EZIO8SA.",
     "Each relay is Form C (SPDT), rated 3 A at 24 V DC or 120 V AC, with CM, NC and NO terminals. Output timers run from 1 to 255 seconds or minutes.",
     "Inputs 1 to 4 (DI1 to DI4) are opto-isolated and need 3 to 30 V DC; a dry contact can use the 12 V DC terminal. Inputs 5 and 6 (Anl1, Anl2) are digital by default, on at 0 to 1 V DC and off at 2 to 3 V DC, or analog for 0 to 3 V DC sensors with trip points from 0 to 1023; ground them if unused, or they send constant Insteon traffic. Input 7 is 1-Wire, for a DS18B20 temperature sensor.",
@@ -203,7 +204,7 @@
     "Quick Start Guide - EZIO8SA & PLM Combo",
     "EZIOxx Advanced Details",
     "Quick Start Guide - EZIComm Model #5010K",
-    "Product Guide EZEye Ambient Light Sensor—Model #1011A",
+    "Product Guide EZEye Ambient Light Sensor —Model #1011A",
     "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

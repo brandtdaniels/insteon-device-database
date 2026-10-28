@@ -38,6 +38,10 @@
           "from": 0,
           "through": 7
         }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "The EZIOxx Advanced Details print 45 and 46 without a prefix; the catalog reads them as hexadecimal, like the table's other codes."
       }
     },
     {
@@ -51,6 +55,10 @@
           "from": 0,
           "through": 7
         }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "The EZIOxx Advanced Details print 45 and 46 without a prefix; the catalog reads them as hexadecimal, like the table's other codes."
       }
     },
     {
@@ -432,7 +440,7 @@
     },
     {
       "name": "updateEeprom",
-      "description": "EZIO Control, Update EEPROM: saves the parameters in RAM to EEPROM, as after a Poke.",
+      "description": "EZIO Control, Update EEPROM: saves the parameters in RAM to EEPROM, as after a Poke One Byte.",
       "command1": "0x4F",
       "command2": "0x01"
     },
@@ -495,7 +503,7 @@
     },
     {
       "name": "readFirmwareVersion",
-      "description": "EZIO Control, Get Firmware Version: reads the firmware version, which Peek also reads at address 0x48.",
+      "description": "EZIO Control, Get Firmware Version: reads the firmware version, which Peek One Byte also reads at address 0x48.",
       "command1": "0x4F",
       "command2": "0x05"
     },
@@ -544,7 +552,7 @@
     },
     {
       "name": "poke",
-      "description": "Poke: writes cmd2 to the parameter RAM at the address Peek last set. A location marked rw keeps the value once Update EEPROM saves it.",
+      "description": "Poke One Byte: writes cmd2 to the parameter RAM at the address Peek One Byte last set. A location marked rw keeps the value once Update EEPROM saves it.",
       "command1": "0x29",
       "parameter": {
         "name": "value",
@@ -553,7 +561,7 @@
     },
     {
       "name": "peek",
-      "description": "Peek: sets the address to cmd2, and reads the byte there. The notes list the addresses.",
+      "description": "Peek One Byte: sets the address to cmd2, and reads the byte there. The notes list the addresses.",
       "command1": "0x2B",
       "parameter": {
         "name": "address",
@@ -780,8 +788,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -791,8 +799,8 @@
             "description": "The output to turn on, 0x00 for output 1.",
             "value": "0x00",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -830,8 +838,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -841,8 +849,8 @@
             "description": "The output to turn on, 0x01 for output 2.",
             "value": "0x01",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -880,8 +888,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -891,8 +899,8 @@
             "description": "The output to turn on, 0x02 for output 3.",
             "value": "0x02",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -930,8 +938,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -941,8 +949,8 @@
             "description": "The output to turn on, 0x03 for output 4.",
             "value": "0x03",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -980,8 +988,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -991,8 +999,8 @@
             "description": "The output to turn on, 0x04 for output 5.",
             "value": "0x04",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -1030,8 +1038,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -1041,8 +1049,8 @@
             "description": "The output to turn on, 0x05 for output 6.",
             "value": "0x05",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -1080,8 +1088,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -1091,8 +1099,8 @@
             "description": "The output to turn on, 0x06 for output 7.",
             "value": "0x06",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
@@ -1130,8 +1138,8 @@
             "value": "0x00",
             "table": "responderAction",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the link record; the catalog reads them as Data 2 and Data 3."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
             }
           },
           {
@@ -1141,20 +1149,263 @@
             "description": "The output to turn on, 0x07 for output 8.",
             "value": "0x07",
             "verification": {
-              "status": "documented",
-              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00."
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
             }
           }
         ]
       }
     },
     {
-      "name": "input",
-      "label": "Input",
+      "name": "input1",
+      "label": "Input 1",
       "kind": "sensor",
       "state": {
         "command": "readInputPort",
         "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x00 for input 1.",
+            "value": "0x00",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input2",
+      "label": "Input 2",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x01 for input 2.",
+            "value": "0x01",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input3",
+      "label": "Input 3",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x02 for input 3.",
+            "value": "0x02",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input4",
+      "label": "Input 4",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x03 for input 4.",
+            "value": "0x03",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input5",
+      "label": "Input 5",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x04 for input 5.",
+            "value": "0x04",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input6",
+      "label": "Input 6",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x05 for input 6.",
+            "value": "0x05",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input7",
+      "label": "Input 7",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x06 for input 7.",
+            "value": "0x06",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
       }
     }
   ],
@@ -1163,12 +1414,12 @@
     "Each input sends a group command when it changes, to the group stored for it at addresses 0x40 through 0x47 (inputs 1 to 8), which needn't match the input's number; several inputs can share a group. An input that isn't linked sends a broadcast instead, when broadcasts are enabled. The commands sent on the off-to-on and on-to-off transitions default to Insteon On and Off and can be changed, at addresses 0x20 through 0x3F.",
     "An input can have a timer, 1 second to 255 minutes, that starts when the input turns on and sends the on-to-off command when it runs out; the device can ignore the input turning off while the timer runs. An input can also switch its corresponding output directly (the inputs-to-outputs crosslink at address 0x1A).",
     "Inputs are digital, analog or 1-Wire (one DS18B20 temperature sensor). An analog or 1-Wire input reads as on while its value is past its alarm point; its off-to-on and on-to-off alarm points are separate counts from 0 to 1023, which gives it hysteresis. Analog inputs read 0 to 5 V or 0 to 3.3 V depending on the model.",
-    "Besides the Configuration Port, the Utility Suite sets a Configuration Register: Enable Analog Inputs, Continuous A/D Conversion (once a second rather than when read), Debounce the Inputs, Enable 1-W Sensor, Set Timers in Seconds and Broadcast on Status Change.",
-    "As a responder, the device reads the middle and lower data bytes of its link record when a group On arrives: it turns on one output, sets or turns on a pattern of outputs (the snapshot taken when the link was made), or triggers one of its inputs as if it had turned on, which then sends that input's group command if the input is linked. With output timers enabled, an output turns off when its timer runs out, for pulses as short as 1 second.",
+    "Besides the Configuration Port, software can set a Configuration Register: Enable Analog Inputs, Continuous A/D Conversion (once a second rather than when read), Debounce the Inputs, Enable 1-W Sensor, Set Timers in Seconds and Broadcast on Status Change.",
+    "As a responder, the device reads the middle and lower data bytes of its ALL-Link database record when a group On arrives: it turns on one output, sets or turns on a pattern of outputs (the snapshot taken when the link was made), or triggers one of its inputs as if it had turned on, which then sends that input's group command if the input is linked. With output timers enabled, an output turns off when its timer runs out, for pulses as short as 1 second.",
     "Status Changed broadcast (cmd1 0x27): when broadcasts are enabled, the device sends the output or input port's byte in cmd2 when it changes, with 00 in the To Address's low byte for the output port and 01 for the input port.",
-    "The device answers an ID Request with an acknowledgment and a SET Button Pressed broadcast, without entering linking mode. ALL-Link Activate (cmd1 0x11, an ALL-Link command) recalls groups 0x00 through 0x0F.",
+    "The device answers an ID Request with an acknowledgment and a SET Button Pressed broadcast, without entering linking mode. ALL-Link Recall (cmd1 0x11, an ALL-Link command) recalls groups 0 to 15.",
     "Peek and Poke addresses, with Set Address MSB 0x00: 0x00 to 0x07 output timers (rw); 0x08 X10 house code (rw); 0x09 Configuration Port (rw); 0x0A to 0x11 sensor 1 to 4 alarms, 2 bytes each (rw); 0x12 to 0x19 analog inputs 1 and 2 alarms, 4 bytes each (rw); 0x1A inputs-to-outputs crosslink bitmap (rw); 0x1B to 0x1F reserved; 0x20 to 0x3F the group command on/off sequence for inputs 1 to 8 (rw); 0x40 to 0x47 group numbers for inputs 1 to 8 (rw); 0x48 firmware version (r); 0x49 EEPROM loaded flag (r); 0x4A output port status (r); 0x4B input port status (r); 0x4C analog data, 2 bytes for each of 2 inputs (r); 0x50 1-Wire raw data (r); 0x58 to 0x5F input timers (rw). A Poke to an rw location lasts once Update EEPROM saves it.",
-    "X10: units 1 to 8 turn outputs 1 to 8 on and off, and unit 16 On and Off enable and disable the output timers. To enable X10, pick a house code (A to P) on an X10 controller, hold the SET button at least 4 seconds and release it so the LED blinks, then send 3 On commands (any unit) until the LED stops blinking; 3 Off commands disable it. The EZIO2X4 5010D and EZIO4O 5010J guides give one On or Off command instead of 3."
+    "X10: units 1 to 8 turn outputs 1 to 8 on and off, and unit 16 On and Off enable and disable the output timers. To enable X10, pick a house code (A to P) on an X10 controller, hold the SET button at least 4 seconds and release it so the LED blinks, then send 3 On commands (any unit) until the LED stops blinking; 3 Off commands disable it. The Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller and the Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller give one On or Off command instead of 3."
   ],
   "sources": [
     "EZIOxx Advanced Details"

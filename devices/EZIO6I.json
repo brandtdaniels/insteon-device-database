@@ -27,61 +27,61 @@
     {
       "number": "0x01",
       "name": "Input 1",
-      "role": "controller",
-      "type": "input",
+      "role": "both",
+      "type": "input1",
       "verification": {
         "status": "inferred",
-        "note": "No document gives the EZIO6I's groups; input N sending group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed."
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
       }
     },
     {
       "number": "0x02",
       "name": "Input 2",
-      "role": "controller",
-      "type": "input",
+      "role": "both",
+      "type": "input2",
       "verification": {
         "status": "inferred",
-        "note": "No document gives the EZIO6I's groups; input N sending group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed."
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
       }
     },
     {
       "number": "0x03",
       "name": "Input 3",
-      "role": "controller",
-      "type": "input",
+      "role": "both",
+      "type": "input3",
       "verification": {
         "status": "inferred",
-        "note": "No document gives the EZIO6I's groups; input N sending group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed."
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
       }
     },
     {
       "number": "0x04",
       "name": "Input 4",
-      "role": "controller",
-      "type": "input",
+      "role": "both",
+      "type": "input4",
       "verification": {
         "status": "inferred",
-        "note": "No document gives the EZIO6I's groups; input N sending group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed."
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
       }
     },
     {
       "number": "0x05",
       "name": "Input 5",
-      "role": "controller",
-      "type": "input",
+      "role": "both",
+      "type": "input5",
       "verification": {
         "status": "inferred",
-        "note": "No document gives the EZIO6I's groups; input N sending group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed."
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
       }
     },
     {
       "number": "0x06",
       "name": "Input 6",
-      "role": "controller",
-      "type": "input",
+      "role": "both",
+      "type": "input6",
       "verification": {
         "status": "inferred",
-        "note": "No document gives the EZIO6I's groups; input N sending group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed."
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
       }
     }
   ],
@@ -154,11 +154,12 @@
   ],
   "notes": [
     "No document gives a model number; the profile is named for the product.",
-    "It has opto-isolated inputs and analog inputs: the Product Guide EZEye Ambient Light Sensor—Model #1011A wires an EZEye to it as to the EZIO8SA, its digital output to an opto-isolated input (I1) and its analog output to an analog input (AN1)."
+    "As a responder, a record whose Data 2 is 0x01 triggers the input in Data 3 (0x00 for input 1) as if it had turned on, so the input sends its own group command. No document gives a way to link one from the device.",
+    "It has opto-isolated inputs and analog inputs: the Product Guide EZEye Ambient Light Sensor —Model #1011A wires an EZEye to it as to the EZIO8SA, its digital output to an opto-isolated input (I1) and its analog output to an analog input (AN1)."
   ],
   "sources": [
     "Insteon Device Categories and Product Keys (October 2008)",
     "EZIOxx Advanced Details",
-    "Product Guide EZEye Ambient Light Sensor—Model #1011A"
+    "Product Guide EZEye Ambient Light Sensor —Model #1011A"
   ]
 }
