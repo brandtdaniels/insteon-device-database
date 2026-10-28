@@ -138,6 +138,23 @@ CATEGORY_NAMES = {
 }
 
 
+# What each category holds, for the page's sections.
+CATEGORY_DESCRIPTIONS = {
+    "0x00": "Controllers that send commands rather than switch a load of their own, such as remotes, tabletop controllers and range extenders.",
+    "0x01": "Dimmers: wall switches, keypads, plug-in and in-line modules, outlets and bulbs that dim the light they control.",
+    "0x02": "On/off switches: wall switches, keypads, plug-in and in-line modules, outlets and load controllers that switch what they control.",
+    "0x03": "Network bridges that connect a computer, app or network to Insteon, such as modems, Hubs and USB adapters.",
+    "0x04": "Irrigation controllers, such as sprinkler valve controllers.",
+    "0x05": "Climate control: thermostats and thermostat adapters.",
+    "0x06": "Pool and spa controls, such as pump and heater controllers.",
+    "0x07": "Sensors and actuators: modules with inputs that sense contact closures and voltages, and relays that drive other equipment.",
+    "0x08": "Home entertainment controls, such as audio and video equipment.",
+    "0x09": "Energy management: power meters and high-current load controllers.",
+    "0x0E": "Window coverings: modules and motors for drapes, shades and shutters.",
+    "0x0F": "Access control: locks, deadbolts and garage door controls.",
+    "0x10": "Security, health and safety: open/close, motion and leak sensors, and smoke alarm bridges.",
+}
+
 # How the page names each capability kind.
 CAPABILITY_LABELS = {
     "onOff": "On/off",
@@ -187,7 +204,6 @@ def index_page(profiles):
             "search": search,
             "model": profile["model"],
             "name": profile["name"],
-            "category": category,
             "capabilities": " ".join(kinds),
             "radio": profile.get("radio", ""),
             "battery": "true" if profile.get("batteryPowered") else "false",
@@ -197,20 +213,41 @@ def index_page(profiles):
             f"<tr {data}>"
             f'<td class="model">{escape(profile["model"])}</td>'
             f"<td>{name}</td>"
-            f"<td>{escape(CATEGORY_NAMES.get(category, category))}</td>"
             f'<td class="ids">{"".join(f"<span>{identity}</span>" for identity in identities)}</td>'
             f"<td>{chips}</td>"
             "</tr>"
         )
 
-    categories = sorted({profile["identities"][0]["category"] for profile in profiles})
+    by_category = {}
+
+    for profile, row in zip(profiles, rows):
+        by_category.setdefault(profile["identities"][0]["category"], []).append(row)
+
+    categories = sorted(by_category)
+    sections = []
+
+    for category in categories:
+        name = escape(CATEGORY_NAMES.get(category, category))
+        description = CATEGORY_DESCRIPTIONS.get(category)
+        sections.append(
+            f'<section class="category" id="category-{category}" data-category="{category}">'
+            f"<h3>{name}<code>{category}</code></h3>"
+            + (f'<p class="category-description">{escape(description)}</p>' if description else "")
+            + f'<p class="category-count">{len(by_category[category])} products</p>'
+            '<div class="table-wrap"><table>'
+            "<thead><tr><th>Model</th><th>Name</th><th>Identities</th><th>Capabilities</th></tr></thead>"
+            f"<tbody>{''.join(by_category[category])}</tbody>"
+            "</table></div></section>"
+        )
+
     kinds = sorted({capability["kind"] for profile in profiles for capability in profile["capabilities"]})
     template = string.Template((ROOT / "templates" / "index.html").read_text())
 
     return template.substitute(
         version=SCHEMA_VERSION,
         count=len(profiles),
-        rows="\n".join(rows),
+        sections="\n".join(sections),
+        jump_links="".join(f'<a href="#category-{c}">{escape(CATEGORY_NAMES.get(c, c))}</a>' for c in categories),
         category_options="".join(f'<option value="{c}">{escape(CATEGORY_NAMES.get(c, c))}</option>' for c in categories),
         capability_options="".join(f'<option value="{k}">{escape(CAPABILITY_LABELS.get(k, k))}</option>' for k in kinds),
         legend="\n".join(f"<dt>{escape(CAPABILITY_LABELS.get(kind, kind))}</dt><dd>{escape(text)}</dd>" for kind, text in descriptions.items()),
