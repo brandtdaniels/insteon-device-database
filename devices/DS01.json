@@ -50,11 +50,11 @@
       ],
       "notes": [
         "A neutral wire is required.",
-        "The developer notes say a press and hold of the On/Off button on power cycle selects relay or dimmer mode; they name the On button (dimmer) and Off button (relay), which on the dial is a single push-in button."
+        "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) say a press and hold of the On/Off button on power cycle selects relay or dimmer mode; they name the On button (dimmer) and Off button (relay), which on the dial is a single push-in button."
       ],
       "verification": {
         "status": "inferred",
-        "note": "The developer notes give only the wire functions; they have no installation procedure."
+        "note": "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) give only the wire functions; they have no installation procedure."
       }
     },
     "linking": {
@@ -71,16 +71,20 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "No owner's manual or quick start guide was found; these steps are read from the developer notes, which describe the SET button only briefly."
+        "note": "No owner's manual or quick start guide was found; these steps are read from the i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025), which describe the SET button only briefly."
       }
     },
     "unlinking": {
       "steps": [
         {
-          "text": "Press and hold the SET button twice in a row to enter unlinking mode.",
+          "text": "Press and hold the SET button.",
           "action": "hold",
-          "control": "SET button",
-          "count": 2
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button again to enter unlinking mode.",
+          "action": "hold",
+          "control": "SET button"
         }
       ],
       "notes": [
@@ -88,14 +92,18 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "No owner's manual or quick start guide was found; these steps are read from the developer notes, which describe the SET button only briefly."
+        "note": "No owner's manual or quick start guide was found; these steps are read from the i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025), which describe the SET button only briefly."
       }
     },
     "reset": {
       "steps": [
         {
-          "text": "Power-cycle the switch.",
+          "text": "Turn off power to the switch.",
           "action": "powerOff"
+        },
+        {
+          "text": "Turn power back on.",
+          "action": "powerOn"
         },
         {
           "text": "Long-press the SET button after power is restored.",
@@ -105,23 +113,20 @@
       ],
       "notes": [
         "Software can do the same by sending the Factory Reset extended command, which works only if its data carries the device's category and subcategory.",
-        "The developer notes say a factory reset returns the switch's properties to their defaults; they don't say whether links are erased."
+        "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) say a factory reset returns the switch's properties to their defaults; they don't say whether links are erased."
       ],
       "verification": {
         "status": "inferred",
-        "note": "The developer notes say only that a factory reset is the same as long-pressing the SET button after a power cycle; they give no durations or confirmation."
+        "note": "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) say only that a factory reset is the same as long-pressing the SET button after a power cycle; they give no durations or confirmation."
       }
-    },
-    "resetErases": [
-      "settings"
-    ]
+    }
   },
   "notes": [
     "The documented firmware is 0x54.",
     "It replies 0x02 to Get Insteon Engine Version (cmd1 0x0D), as i2CS devices do, and broadcasts Button Held (cmd1 0x01), with its hardware version in cmd2, when any button is held, even with programming locked."
   ],
   "sources": [
-    "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)",
-    "i3 Paddle and i3 Dial Developer Notes"
+    "i3 Paddle/Dial (Insteon Developer Documentation, December 2023)",
+    "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)"
   ]
 }

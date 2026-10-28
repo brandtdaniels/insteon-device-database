@@ -93,7 +93,11 @@
         "As controller (reporting A/C, heat or fan on and off): set the thermostat to A/C, Heat or FanOn (for FanOn also set the thermostat to Off mode), do these steps, then press and hold the responder's SET button for 3 seconds. The status LED stops blinking and the display flashes once.",
         "As responder: set the thermostat to the state to recall, put the controller in linking mode, then tap the SET button once (for the controller's on command) or twice (for its off command) and press and hold the SET button for 3 seconds. The display flashes all characters twice. Link the on and off buttons separately.",
         "To enable change reports to home automation software, set the thermostat to Off mode, press and hold the SET button for 3 seconds, then press and hold the interface's SET button for 3 seconds. Reports go only to the last device linked this way."
-      ]
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Thermostat Adapter 2441V Owner's Manual says to hold the SET button for 3 seconds and gives no timeout for the Thermostat Adapter's own linking mode; the Thermostat Adapter 2441V Quick Start Guide says to hold it for about 5 seconds and that linking mode times out after 4 minutes. The catalog uses the owner's manual's 3 seconds and the quick start guide's 4 minutes."
+      }
     },
     "linkingTimeoutSeconds": 240,
     "unlinking": {
@@ -119,8 +123,8 @@
         "With the thermostat in Off mode, the same unlinking steps followed by the interface's SET button disable change reports."
       ],
       "verification": {
-        "status": "inferred",
-        "note": "The 4-minute timeout is stated for the controller's linking and unlinking modes when the Thermostat Adapter is the responder; the manual gives no timeout for the Thermostat Adapter's own linking mode."
+        "status": "documented",
+        "note": "The steps are from the Thermostat Adapter 2441V Owner's Manual, which gives a 4-minute timeout only for the controller's linking and unlinking modes when the Thermostat Adapter is the responder. No document gives a timeout for the Thermostat Adapter's own unlinking mode; the Thermostat Adapter 2441V Quick Start Guide gives 4 minutes for its linking mode."
       }
     },
     "reset": {
