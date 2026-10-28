@@ -1,0 +1,309 @@
+{
+  "id": "hiddenDoorSensor",
+  "name": "Hidden Door Sensor",
+  "description": "The Hidden Door Sensor, with an adjustable heartbeat interval and low battery level.",
+  "enumerations": [
+    {
+      "name": "doorState",
+      "description": "The door's state, as a status request reports it.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "closed"
+        },
+        {
+          "value": "0xFF",
+          "name": "open"
+        }
+      ]
+    }
+  ],
+  "operatingFlags": [
+    {
+      "name": "cleanupReport",
+      "description": "The sensor sends a success report after each group broadcast.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x17",
+      "off": "0x16"
+    },
+    {
+      "name": "twoGroups",
+      "description": "The sensor sends on to group 1 when opened and on to group 2 when closed.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x04",
+      "off": "0x05"
+    },
+    {
+      "name": "repeatOpen",
+      "description": "The sensor repeats its open message every 5 minutes for 50 minutes.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x0A",
+      "off": "0x0B"
+    },
+    {
+      "name": "repeatClosed",
+      "description": "The sensor repeats its closed message every 5 minutes for 50 minutes.",
+      "query": "0x00",
+      "bit": "0x08",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "linkToAllGroups",
+      "description": "One link to group 0xFF puts a device in every group: open, closed, low battery and heartbeat.",
+      "query": "0x00",
+      "bit": "0x10",
+      "on": "0x06",
+      "off": "0x07"
+    },
+    {
+      "name": "ledOff",
+      "description": "The LED is off.",
+      "query": "0x00",
+      "bit": "0x20",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "programmingLock",
+      "description": "Linking from the sensor's SET button is locked out.",
+      "query": "0x00",
+      "bit": "0x80",
+      "on": "0x00",
+      "off": "0x01"
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "description": "A count that goes up whenever the link database changes. It clears when the device loses power.",
+      "query": "0x01"
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "stayAwakeOn",
+      "description": "Keeps the sensor awake, with 0xFF as its awake interval.",
+      "command2": "0x18"
+    },
+    {
+      "name": "stayAwakeOff",
+      "description": "Lets the sensor sleep again.",
+      "command2": "0x19"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "operatingFlags",
+        "description": "The operating flags, as Get Operating Flags with cmd2 0x00 reads them.",
+        "byte": 3
+      },
+      {
+        "name": "batteryLevel",
+        "description": "The battery level: about 0x61 at 1.75 V, 0x54 at 1.6 V, 0x51 at 1.5 V and 0x40 at 1.25 V.",
+        "byte": 4,
+        "range": {
+          "from": "0x27",
+          "through": "0x61"
+        }
+      },
+      {
+        "name": "doorState",
+        "description": "The door's state, 0x00 or 0xFF. The guide's tables disagree on which is open.",
+        "byte": 5
+      },
+      {
+        "name": "heartbeatInterval",
+        "description": "The heartbeat interval in 5-minute steps, from 0x01 (5 minutes) to 0xFF. 0x00 is 24 hours.",
+        "byte": 6
+      },
+      {
+        "name": "lowBatteryLevel",
+        "description": "The battery level below which the sensor sends low battery. It's 0x40, about 1.25 V, by default.",
+        "byte": 7
+      }
+    ],
+    "writes": [
+      {
+        "name": "heartbeatInterval",
+        "description": "Sets the heartbeat interval.",
+        "selector": "0x02",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "heartbeatInterval"
+          }
+        ]
+      },
+      {
+        "name": "lowBatteryLevel",
+        "description": "Sets the low battery level.",
+        "selector": "0x03",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "lowBatteryLevel"
+          }
+        ]
+      }
+    ]
+  },
+  "standardCommands": [
+    {
+      "name": "readDoorState",
+      "description": "Reads whether the door is open.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "doorState",
+        "description": "The door's state.",
+        "kind": "enumeration",
+        "enumeration": "doorState"
+      }
+    },
+    {
+      "name": "readBatteryLevel",
+      "description": "Reads the battery level.",
+      "command1": "0x19",
+      "command2": "0x01",
+      "reply": {
+        "name": "batteryLevel",
+        "description": "The battery level: about 0x61 at 1.75 V, 0x54 at 1.6 V, 0x51 at 1.5 V and 0x40 at 1.25 V."
+      }
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "readSettings",
+      "description": "Reads the operating flags, battery level, door state, heartbeat interval and low battery level.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x01"
+        }
+      ],
+      "reply": {
+        "command2": "0x00",
+        "match": [
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "values": [
+          {
+            "name": "operatingFlags",
+            "description": "The operating flags.",
+            "byte": 3,
+            "kind": "flags",
+            "bits": [
+              {
+                "mask": "0x01",
+                "name": "cleanupReport"
+              },
+              {
+                "mask": "0x02",
+                "name": "twoGroups"
+              },
+              {
+                "mask": "0x04",
+                "name": "repeatOpen"
+              },
+              {
+                "mask": "0x08",
+                "name": "repeatClosed"
+              },
+              {
+                "mask": "0x10",
+                "name": "linkToAllGroups"
+              },
+              {
+                "mask": "0x20",
+                "name": "ledOff"
+              },
+              {
+                "mask": "0x80",
+                "name": "programmingLock"
+              }
+            ]
+          },
+          {
+            "name": "batteryLevel",
+            "description": "The battery level: about 0x61 at 1.75 V, 0x54 at 1.6 V, 0x51 at 1.5 V and 0x40 at 1.25 V.",
+            "byte": 4
+          },
+          {
+            "name": "doorState",
+            "description": "The door's state, 0x00 or 0xFF. The guide's tables disagree on which is open.",
+            "byte": 5
+          },
+          {
+            "name": "heartbeatInterval",
+            "description": "The heartbeat interval. 0 means 24 hours.",
+            "byte": 6,
+            "scale": 5,
+            "unit": "minutes",
+            "range": {
+              "from": 0,
+              "through": 1275
+            }
+          },
+          {
+            "name": "lowBatteryLevel",
+            "description": "The battery level below which the sensor sends low battery.",
+            "byte": 7
+          }
+        ]
+      }
+    },
+    {
+      "name": "setHeartbeatInterval",
+      "description": "Sets the heartbeat interval.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 1,
+          "value": "0x01"
+        },
+        {
+          "position": 2,
+          "value": "0x02"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "heartbeatInterval",
+          "description": "The heartbeat interval, in 5-minute steps. 0 means 24 hours.",
+          "byte": 3,
+          "scale": 5,
+          "unit": "minutes",
+          "range": {
+            "from": 0,
+            "through": 1275
+          }
+        }
+      ],
+      "integrity": "checksum"
+    }
+  ],
+  "notes": [
+    "The sensor sleeps to save its battery, and hears commands only while awake.",
+    "Direct commands from a device that isn't in the sensor's link database get a NAK with 0xFF in cmd2.",
+    "The acknowledgment of readDoorState also carries the link database's delta, in cmd1.",
+    "The guide's status request reads 0xFF as open and 0x00 as closed, but its extended Get table reads them the other way. doorState follows the status request.",
+    "The guide describes 0x0A, repeat open, as repeating a closed message. This reads it as repeating the open message, as its name says."
+  ],
+  "sources": [
+    "2845-222 Hidden Door Sensor Developer's Guide"
+  ]
+}
