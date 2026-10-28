@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json",
+  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json",
   "title": "INSTEON device profile",
   "description": "What one INSTEON product is and can do, keyed by the category and subcategory it reports.",
   "type": "object",
@@ -20,6 +20,20 @@
     },
     "name": {
       "description": "The product's name.",
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "description": "Other names the product is known by, such as earlier or marketing names and HouseLinc's name.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "description": {
+      "description": "What the product is, in a sentence or two.",
       "type": "string",
       "minLength": 1
     },
