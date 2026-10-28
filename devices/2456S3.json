@@ -16,17 +16,23 @@
     },
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x42",
-          "0xD1",
-          "0xD2",
-          "0xD3",
-          "0xD4",
-          "0xD5",
-          "0xD6"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x09",
+          "firmware": {
+            "only": [
+              "0x42",
+              "0xD1",
+              "0xD2",
+              "0xD3",
+              "0xD4",
+              "0xD5",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

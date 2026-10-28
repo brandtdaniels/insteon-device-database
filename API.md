@@ -74,17 +74,20 @@ An identity can also carry a `firmware` range, `{ "from": "0x40", "through": "0x
 product reports the same category and subcategory with different behavior across firmware
 versions. Without one, the identity covers every version.
 
-A capability can carry a `firmware` selection when only some firmware versions have it: either
-`{ "only": ["0x41", "0xD1"] }` or `{ "except": ["0x22", "0x24"] }`. Without one, every version
-has it. For example, the 2476D SwitchLinc Dimmer runs the i2CS engine, and so expects a checksum in
-D14 of extended messages, only on the firmware versions its `i2cs` capability lists. To find a
-device's capabilities, keep those whose `firmware` selection includes the version the device
-reported, or that have none. A device whose firmware version isn't known has the capabilities
-without a selection.
+A capability can carry `identities` when only some of the product's identities, or only some
+firmware versions under them, have it. Each entry names an identity's `category` and
+`subcategory`, and can carry a `firmware` selection: `{ "only": ["0x41", "0xD1"] }` or
+`{ "except": ["0x22", "0x24"] }`. Without `identities`, the capability applies to every identity
+and firmware version; an entry without `firmware` covers every version of that identity. For
+example, the 2476D SwitchLinc Dimmer runs the i2CS engine, and so expects a checksum in D14 of
+extended messages, only on the firmware versions its `i2cs` capability lists for each
+subcategory. To find a device's capabilities, keep those without `identities`, and those with an
+entry for the device's category and subcategory whose `firmware` selection, if any, includes the
+version the device reported.
 
-The `firmware` selection appears only on capability kinds added along with it, such as `i2cs`, so
-a client that doesn't know about it skips those kinds as unknown rather than applying them to
-every version.
+Only the `i2cs` capability, added along with `identities`, can carry it; the schema rejects it on
+the other kinds. A client that doesn't know about `identities` skips `i2cs` as an unknown kind
+rather than applying it to every version.
 
 ## Keeping a copy up to date
 

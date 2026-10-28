@@ -26,16 +26,22 @@
     },
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x41",
-          "0x42",
-          "0x43",
-          "0x44",
-          "0xBB",
-          "0xBC"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x01",
+          "subcategory": "0x2D",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0x42",
+              "0x43",
+              "0x44",
+              "0xBB",
+              "0xBC"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

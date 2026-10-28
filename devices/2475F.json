@@ -17,12 +17,18 @@
     },
     {
       "kind": "i2cs",
-      "firmware": {
-        "except": [
-          "0x3B",
-          "0xBA"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x01",
+          "subcategory": "0x2E",
+          "firmware": {
+            "except": [
+              "0x3B",
+              "0xBA"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

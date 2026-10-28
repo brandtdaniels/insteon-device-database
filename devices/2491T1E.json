@@ -10,13 +10,19 @@
   "capabilities": [
     {
       "kind": "i2cs",
-      "firmware": {
-        "only": [
-          "0x95",
-          "0xD3",
-          "0xD4"
-        ]
-      }
+      "identities": [
+        {
+          "category": "0x05",
+          "subcategory": "0x0E",
+          "firmware": {
+            "only": [
+              "0x95",
+              "0xD3",
+              "0xD4"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [
