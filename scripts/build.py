@@ -626,8 +626,9 @@ def index_page(profiles, command_sets):
         description = CATEGORY_DESCRIPTIONS.get(category)
         sections.append(
             f'<section class="category" id="category-{category}" data-category="{category}">'
-            f'<h2>{name}<span class="n">{len(cards[category])}</span></h2>'
-            + (f'<p class="category-description">{escape(description)} Category <span class="mono">{category}</span>.</p>' if description else f'<p class="category-description">Category <span class="mono">{category}</span>.</p>')
+            f'<h2>{name}<span class="n">{len(cards[category])} product{"" if len(cards[category]) == 1 else "s"}</span></h2>'
+            f'<p class="category-code">Category <span class="mono">{category}</span></p>'
+            + (f'<p class="category-description">{escape(description)}</p>' if description else "")
             + f'<div class="grid">{"".join(cards[category])}</div></section>'
         )
 

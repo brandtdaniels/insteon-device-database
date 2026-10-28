@@ -56,8 +56,9 @@
 
   section.category { margin-top: 2.5rem; }
   section.category h2 { margin: 0; font-size: 1.25rem; }
-  section.category h2 .n { color: var(--muted); font-weight: 400; font-size: 0.95rem; margin-left: 0.4rem; }
-  .category-description { margin: 0.2rem 0 1rem; color: var(--muted); max-width: 44rem; font-size: 0.9rem; }
+  section.category h2 .n { color: var(--muted); font-weight: 400; font-size: 0.85rem; margin-left: 0.6rem; }
+  .category-code { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  .category-description { margin: 0.35rem 0 1rem; color: var(--muted); max-width: 44rem; font-size: 0.9rem; }
 
   .grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
   .card {
@@ -152,7 +153,8 @@ $sections
       }
 
       section.hidden = sectionShown === 0;
-      section.querySelector("h2 .n").textContent = sectionShown === sectionCards.length ? sectionCards.length : sectionShown + " of " + sectionCards.length;
+      const noun = sectionCards.length === 1 ? " product" : " products";
+      section.querySelector("h2 .n").textContent = sectionShown === sectionCards.length ? sectionCards.length + noun : sectionShown + " of " + sectionCards.length + noun;
       shown += sectionShown;
     }
 
