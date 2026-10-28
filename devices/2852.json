@@ -94,13 +94,13 @@
     "Its heartbeat sends on when dry and off when wet.",
     "Once wet, it ignores further changes until its SET button is pressed.",
     "It sends dry to group 1 only when its SET button is pressed while it's dry. It sends wet to group 2 when it detects water, or when its SET button is pressed while it's wet.",
-    "Its developer guide gives the heartbeat as about once every 24 hours; Insteon's command workbook gives 23.8 hours."
+    "Its Developer Notes give the heartbeat as about once every 24 hours; Insteon's command workbook gives 23.8 hours."
   ],
   "sources": [
     "HouseLinc device catalog",
     "Insteon command workbook, HeartBeat Status sheet",
     "2852-222 Leak Sensor PRD",
     "insteon.com product catalog",
-    "2852-222 Leak Sensor Developer's Guide"
+    "Leak Sensor Developer Notes"
   ]
 }

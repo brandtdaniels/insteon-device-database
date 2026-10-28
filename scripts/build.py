@@ -372,6 +372,7 @@ RULED_OUT_TERMS = [
     (r"(?<!ALL-)\b[Ll]ink database", "ALL-Link database"),
     (r"\bclean-up", "cleanup"),
     (r"\b[Ss]et button\b", "SET button"),
+    (r"(?<!Insteon )(?<!Modem )(?<!Hub )\b[Dd]eveloper'?s? [Gg]uides?\b|\b[Tt]he guide\b", "the document's title, such as Leak Sensor Developer Notes or Insteon Developer's Guide"),
 ]
 
 
@@ -386,7 +387,7 @@ def term_problems(label, value, key=None):
     elif isinstance(value, list):
         for child in value:
             problems += term_problems(label, child, key)
-    elif isinstance(value, str) and (key in {"description", "note", "notes"} or (key == "name" and " " in value)):
+    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources"} or (key == "name" and " " in value)):
         prose = re.sub(r"`[^`]*`", "", value)
 
         for pattern, replacement in RULED_OUT_TERMS:

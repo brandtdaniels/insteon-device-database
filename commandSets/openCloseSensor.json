@@ -1,7 +1,7 @@
 {
   "id": "openCloseSensor",
   "name": "Open/Close Sensor",
-  "description": "The Open/Close Sensor and the Leak Sensor, whose developer guides give the same configuration byte and extended settings.",
+  "description": "The Open/Close Sensor and the Leak Sensor, whose Developer Notes give the same configuration byte and extended settings.",
   "operatingFlags": [
     {
       "name": "cleanupReport",
@@ -227,7 +227,7 @@
     "The guides document no Set Operating Flags commands for these sensors. Write the configuration byte with an extended Set instead."
   ],
   "sources": [
-    "2843-222 Open/Close Sensor Developer's Guide",
-    "2852-222 Leak Sensor Developer's Guide"
+    "Open/Close Sensor Developer Notes",
+    "Leak Sensor Developer Notes"
   ]
 }

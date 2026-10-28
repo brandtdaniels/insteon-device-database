@@ -96,7 +96,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -192,7 +192,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
       }
     },
     {
@@ -698,9 +698,9 @@
   ],
   "notes": [
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
-    "Insteon's earlier command sheets, the 2009 Developer's Guide and the KeypadLinc developer's guide give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
-    "Insteon's 2009 Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask.",
-    "The KeypadLinc developer's guide covers firmware 0x41 and later of subcategories 0x1B, 0x1C, 0x0F, 0x1E and 0x2C, and every firmware of 0x41 and 0x42.",
+    "Insteon's earlier command sheets, the Insteon Developer's Guide and the KeypadLinc Line Developer Notes give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
+    "The Insteon Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask.",
+    "The KeypadLinc Line Developer Notes cover firmware 0x41 and later of subcategories 0x1B, 0x1C, 0x0F, 0x1E and 0x2C, and every firmware of 0x41 and 0x42.",
     "In the 6-button layout, the On and Off buttons are group 1 and the four small buttons groups 3 through 6; in the 8-button layout, the buttons are groups 1 through 8.",
     "With the load detached, group 9 controls the load: cmd1 0x19 with cmd2 0x00 reads its level, D11 of the extended Get reply holds the LEDs of groups 1 through 8, a group 1 On or Off sets the group 1 LEDs, and the LED mask Set sets the others.",
     "To make buttons act as radio buttons, set both the on mask and the off mask of each button to the other buttons in the group, and link each button as a controller with an off-only link (on-level 0x00) to the devices the other buttons control."
@@ -709,7 +709,7 @@
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
     "Insteon for Hub app",
-    "2334 and 2486 KeypadLinc Developer's Guide",
+    "KeypadLinc Line Developer Notes",
     "Mutually Exclusive Buttons for KeypadLinc",
     "Insteon Command Tables (2007)"
   ]

@@ -44,7 +44,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
+        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -124,7 +124,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there."
       }
     },
     {
@@ -138,7 +138,7 @@
     "values": [
       {
         "name": "inputEnabled",
-        "description": "Whether group D1, one of the groups 2 through 5 that the input lines use, is enabled: 0x01 when it is and 0x00 when it isn't. The 2475DA2 guide calls it the on mask.",
+        "description": "Whether group D1, one of the groups 2 through 5 that the input lines use, is enabled: 0x01 when it is and 0x00 when it isn't. The In-Line 0-10VDC Dimmer Developer Notes call it the on mask.",
         "byte": 3
       },
       {
@@ -270,7 +270,7 @@
     },
     {
       "name": "lightOnFast",
-      "description": "Turns the load full on instantly. The 2475DA2 guide gives cmd2 as the on-level.",
+      "description": "Turns the load full on instantly. The In-Line 0-10VDC Dimmer Developer Notes give cmd2 as the on-level.",
       "command1": "0x12",
       "parameter": {
         "name": "onLevel",
@@ -381,17 +381,17 @@
   "notes": [
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
     "Insteon's earlier command sheet describes selector 0x02 as a mask whose bits 0 and 1 disable relays 1 and 2.",
-    "The 2475DA2 guide marks bit 2 of the 0x00 reply and bits 2 and 4 of the 0x05 reply N/A and lists no Set Operating Flags for resume dim, error blink or the checksum flag, so they're left out here; the command workbook gives them for the KeypadLinc code base.",
-    "The 2475DA2 guide sends Set Operating Flags as an extended message with a checksum in D14.",
-    "The 2475DA2 guide lists the input groups in D1 of the DAC range and retry Sets as well, but doesn't say whether the device keeps them per group.",
+    "The In-Line 0-10VDC Dimmer Developer Notes mark bit 2 of the 0x00 reply and bits 2 and 4 of the 0x05 reply N/A and lists no Set Operating Flags for resume dim, error blink or the checksum flag, so they're left out here; the command workbook gives them for the KeypadLinc code base.",
+    "The In-Line 0-10VDC Dimmer Developer Notes send Set Operating Flags as an extended message with a checksum in D14.",
+    "The In-Line 0-10VDC Dimmer Developer Notes list the input groups in D1 of the DAC range and retry Sets as well, but doesn't say whether the device keeps them per group.",
     "The second Get's reply has the same cmd2 and D2 as the first's, so a reply is told apart only by the request it answers.",
-    "The 2475DA2 guide lists no status request; Insteon's 2007 command tables give cmd1 0x19 for every dimmer."
+    "The In-Line 0-10VDC Dimmer Developer Notes list no status request; Insteon's 2007 command tables give cmd1 0x19 for every dimmer."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
     "Insteon for Hub app",
-    "2475DA2 In-LineLinc 0-10V Dimmer Developer's Guide",
+    "In-Line 0-10VDC Dimmer Developer Notes",
     "Insteon Command Tables (2007)"
   ]
 }

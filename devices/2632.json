@@ -82,11 +82,11 @@
     }
   ],
   "notes": [
-    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base; the Global Line guide lists it as the French 2632-422, with the same commands as the others."
+    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base; the Global Line Developer Notes list it as the French 2632-422, with the same commands as the others."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2632-x22 Dimmer Module PRD",
-    "2442, 2443, 2452, 2453, 2632 and 2633 Global Line Developer's Guide"
+    "Global Line Developer Notes"
   ]
 }

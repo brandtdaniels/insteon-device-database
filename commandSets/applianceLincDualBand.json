@@ -295,10 +295,10 @@
     }
   ],
   "notes": [
-    "The 2635-222 guide sends Set Operating Flags as an extended message with a checksum in D14.",
-    "The 2635-222 guide marks bits 2 and 3 of the 0x00 reply and bits 4, 5 and 7 of the 0x05 reply N/A."
+    "The On/Off Module, Dual-Band Developer Notes send Set Operating Flags as an extended message with a checksum in D14.",
+    "The On/Off Module, Dual-Band Developer Notes mark bits 2 and 3 of the 0x00 reply and bits 4, 5 and 7 of the 0x05 reply N/A."
   ],
   "sources": [
-    "2635-222 On/Off Module, Dual-Band Developer's Guide"
+    "On/Off Module, Dual-Band Developer Notes"
   ]
 }

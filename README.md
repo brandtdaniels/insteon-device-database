@@ -83,7 +83,7 @@ message, a `verification` with a `status` and a `note`:
 ```json
 "verification": {
   "status": "conflicting",
-  "note": "The 2472D developer's guide gives 0x63 as the default over-temperature limit; the command workbook gives 0x7D."
+  "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; the command workbook gives 0x7D."
 }
 ```
 

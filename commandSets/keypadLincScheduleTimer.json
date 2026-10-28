@@ -418,8 +418,8 @@
     "Insteon's documents don't say which Get Operating Flags bit each Set Operating Flags command changes on this keypad.",
     "A Get with 0x01 in D3 returns the on and off times of group D1 in D3 through D10, and a Get with 0x02 in D3 returns the time of day in D3 through D6, in the layout the Sets use.",
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
-    "Insteon's earlier command sheets and 2009 Developer's Guide give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
-    "Insteon's 2009 Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask."
+    "Insteon's earlier command sheets and the Insteon Developer's Guide give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
+    "The Insteon Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask."
   ],
   "sources": [
     "Insteon command workbook",

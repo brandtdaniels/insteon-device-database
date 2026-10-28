@@ -458,7 +458,7 @@
     "The adapter sends its reports as direct messages to each device linked to it while it was off.",
     "Insteon's documents don't say how to read whether the thermostat displays Celsius, so displayDegrees here are Fahrenheit unless the app knows otherwise.",
     "The 2008 adapter datasheet says cmd2 0x0D of cmd1 0x6B isn't supported; the later command workbook lists it.",
-    "Insteon's 2009 Developer's Guide calls cmd2 0x08 of cmd1 0x6B fan off; the adapter datasheet and later documents call it fan auto."
+    "The Insteon Developer's Guide calls cmd2 0x08 of cmd1 0x6B fan off; the adapter datasheet and later documents call it fan auto."
   ],
   "sources": [
     "Insteon command workbook",

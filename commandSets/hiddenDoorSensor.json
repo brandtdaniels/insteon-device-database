@@ -118,7 +118,7 @@
         "byte": 5,
         "verification": {
           "status": "conflicting",
-          "note": "The Hidden Door Sensor's developer guide gives 0x00 and 0xFF, but its tables disagree on which one means open."
+          "note": "The Hidden Door Sensor Developer Notes give 0x00 and 0xFF, but their tables disagree on which one means open."
         }
       },
       {
@@ -251,7 +251,7 @@
             "byte": 5,
             "verification": {
               "status": "conflicting",
-              "note": "The Hidden Door Sensor's developer guide gives 0x00 and 0xFF, but its tables disagree on which one means open."
+              "note": "The Hidden Door Sensor Developer Notes give 0x00 and 0xFF, but their tables disagree on which one means open."
             }
           },
           {
@@ -308,10 +308,10 @@
     "The sensor sleeps to save its battery, and hears commands only while awake.",
     "Direct commands from a device that isn't in the sensor's ALL-Link database get a NAK with 0xFF in cmd2.",
     "The acknowledgment of readDoorState also carries the ALL-Link database's delta, in cmd1.",
-    "The guide's status request reads 0xFF as open and 0x00 as closed, but its extended Get table reads them the other way. doorState follows the status request.",
-    "The guide describes 0x0A, repeat open, as repeating a closed message. This reads it as repeating the open message, as its name says."
+    "The Hidden Door Sensor Developer Notes' status request reads 0xFF as open and 0x00 as closed, but their extended Get table reads them the other way. doorState follows the status request.",
+    "The Hidden Door Sensor Developer Notes describe 0x0A, repeat open, as repeating a closed message. This reads it as repeating the open message, as its name says."
   ],
   "sources": [
-    "2845-222 Hidden Door Sensor Developer's Guide"
+    "Hidden Door Sensor Developer Notes"
   ]
 }

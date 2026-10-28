@@ -41,12 +41,12 @@
   ],
   "notes": [
     "Has no X10.",
-    "Its developer's guide gives its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672."
+    "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2634-222 On/Off Outdoor Module II PRD",
     "insteon.com product catalog",
-    "2634-222 Outdoor ApplianceLinc Developer's Guide"
+    "Outdoor ApplianceLinc with RF Developer Notes"
   ]
 }

@@ -86,7 +86,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Insteon device database (SQLite, InsteonDevices.db)",
-    "2444 RemoteLinc 2 Developer's Guide",
+    "RemoteLinc 2 Developer Notes",
     "Insteon for Hub app",
     "Insteon SKU list"
   ],

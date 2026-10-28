@@ -1,7 +1,7 @@
 {
   "id": "globalLine",
   "name": "Micro, DIN Rail and Plug-In Modules",
-  "description": "The modules Insteon's developer's guide calls the Global Line: the micro and DIN rail dimmer and on/off modules and the 2632 and 2633 plug-in dimmer and on/off modules, which run the KeypadLinc code base. Resume dim, load sense, the ramp rate and the on-level are for the dimmers, and the sense line settings for the micro and DIN rail modules.",
+  "description": "The modules the Global Line Developer Notes cover: the micro and DIN rail dimmer and on/off modules and the 2632 and 2633 plug-in dimmer and on/off modules, which run the KeypadLinc code base. Resume dim, load sense, the ramp rate and the on-level are for the dimmers, and the sense line settings for the micro and DIN rail modules.",
   "enumerations": [
     {
       "name": "manualChangeDirection",
@@ -77,7 +77,7 @@
     },
     {
       "name": "loadSense",
-      "description": "Load sense is on: the device turns its load on when it senses the attached lamp being switched on. Dimmers only, and the guide gives no command that sets it.",
+      "description": "Load sense is on: the device turns its load on when it senses the attached lamp being switched on. Dimmers only, and the Global Line Developer Notes give no command that sets it.",
       "query": "0x00",
       "bit": "0x08"
     },
@@ -90,7 +90,7 @@
       "off": "0x09",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Global Line guide and the Insteon for Hub app. Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets and the Global Line guide read it as LED off, the state 0x08 sets."
+        "note": "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Global Line Developer Notes and the Insteon for Hub app. The Insteon Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets and the Global Line Developer Notes read it as LED off, the state 0x08 sets."
       }
     },
     {
@@ -102,7 +102,7 @@
       "off": "0x0B",
       "verification": {
         "status": "conflicting",
-        "note": "The product requirements documents for the 2632 and 2633 list bit 5 of the 0x00 reply as load sense; the Global Line guide gives bit 5 as the key beep and bit 3 as load sense on the dimmers."
+        "note": "The product requirements documents for the 2632 and 2633 list bit 5 of the 0x00 reply as load sense; the Global Line Developer Notes give bit 5 as the key beep and bit 3 as load sense on the dimmers."
       }
     },
     {
@@ -214,7 +214,7 @@
       "query": "0x02",
       "verification": {
         "status": "conflicting",
-        "note": "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets and the Global Line guide count messages with CRC errors there."
+        "note": "The Insteon Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets and the Global Line Developer Notes count messages with CRC errors there."
       }
     },
     {
@@ -473,16 +473,16 @@
     }
   ],
   "notes": [
-    "The Global Line guide's Set Operating Flags table stops at 0x23; the command workbook adds 0x26 through 0x2B for the KeypadLinc code base, which the micro modules run.",
-    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base; the Global Line guide lists it as the French 2632-422.",
-    "The Global Line guide sends Set Operating Flags as an extended message with a checksum in D14."
+    "The Global Line Developer Notes' Set Operating Flags table stops at 0x23; the command workbook adds 0x26 through 0x2B for the KeypadLinc code base, which the micro modules run.",
+    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base; the Global Line Developer Notes list it as the French 2632-422.",
+    "The Global Line Developer Notes send Set Operating Flags as an extended message with a checksum in D14."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
     "Insteon for Hub app",
-    "Insteon product requirements document for the 2632",
-    "Insteon product requirements document for the 2633",
-    "2442, 2443, 2452, 2453, 2632 and 2633 Global Line Developer's Guide"
+    "2632-x22 Dimmer Module PRD",
+    "2633-x22 On/Off Module PRD",
+    "Global Line Developer Notes"
   ]
 }
