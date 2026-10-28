@@ -277,8 +277,9 @@ def index_page(profiles):
         sections.append(
             f'<section class="category" id="category-{category}" data-category="{category}">'
             f"<h3>{name}</h3>"
+            f'<p class="category-code">Category {category}</p>'
             + (f'<p class="category-description">{escape(description)}</p>' if description else "")
-            + f'<p class="category-count"><span class="products">{len(by_category[category])} products</span> · reported as category {category}</p>'
+            + f'<p class="category-count"><span class="products">{len(by_category[category])} products</span></p>'
             '<div class="table-wrap"><table>'
             "<thead><tr><th>Model</th><th>Name</th><th>Subcategory</th><th>Capabilities</th></tr></thead>"
             f"<tbody>{''.join(by_category[category])}</tbody>"
