@@ -1,0 +1,23 @@
+{
+  "model": "EZX10IR",
+  "name": "EZX10IR",
+  "description": "An X10 IR receiver, Insteon controller and IR distribution hub from SimpleHomeNet.",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x0F",
+      "verification": {
+        "status": "documented",
+        "note": "Insteon Device Categories and Product Keys (October 2008) assigns it to the EZX10IR; no Compacta document gives it."
+      }
+    }
+  ],
+  "role": "controller",
+  "capabilities": [],
+  "notes": [
+    "No document gives a model number; the profile is named for the product. No Compacta document for it was found."
+  ],
+  "sources": [
+    "Insteon Device Categories and Product Keys (October 2008)"
+  ]
+}

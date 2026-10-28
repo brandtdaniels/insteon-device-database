@@ -1,0 +1,32 @@
+{
+  "model": "EZIO8T",
+  "name": "EZIO8T",
+  "description": "An I/O module in the EZIOxx line.",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x02"
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "ezio",
+      "category": "0x07",
+      "subcategory": "0x02",
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details cover the whole EZIOxx line, from inputs-only to outputs-only models, and warn that a model may not support every command."
+      }
+    }
+  ],
+  "capabilities": [],
+  "notes": [
+    "No document gives a model number; the profile is named for the product.",
+    "Insteon Device Categories and Product Keys (October 2008) records that the EZIO8T moved to 0x07/0x02 in November 2006; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole.",
+    "No document found gives its inputs, outputs or ratings."
+  ],
+  "sources": [
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "EZIOxx Advanced Details"
+  ]
+}
