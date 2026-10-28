@@ -28,8 +28,9 @@ Every change to `master` publishes the profiles to GitHub Pages:
 - `https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json`: the
   schema
 
-Read the manifest first, check that its schema version is one you understand, then download the
-database and check its hash. A breaking change to the format gets a new version path, so `v1`
+See [API.md](API.md) for the files' formats, how to keep a copy up to date and how to look a
+device up. In short: read the manifest first, check that its schema version is one you
+understand, then download the database and check its hash. A breaking change to the format gets a new version path, so `v1`
 keeps working for software built against it. Software should ship a copy of the database and
 treat downloading a newer one as optional.
 
