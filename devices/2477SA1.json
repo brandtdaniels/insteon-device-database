@@ -82,7 +82,7 @@
         "The Load Controller must be connected through a 2-pole tandem circuit breaker rated for no more than 30 amps, as it has no over-current protection.",
         "It does not require a neutral connection. Use only copper or copper-clad wire.",
         "Installation by a qualified electrician is recommended.",
-        "The 240V Load Controller 2477SA Owner's Manual lists tools to mount the Load Controller to a wall but gives no mounting steps; the wiring diagram is not in the extracted text."
+        "The 240V Load Controller 2477SA Owner's Manual lists tools to mount the Load Controller to a wall but gives no mounting steps."
       ]
     },
     "linking": {
@@ -326,11 +326,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

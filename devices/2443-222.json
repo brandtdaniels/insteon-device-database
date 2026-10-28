@@ -92,7 +92,11 @@
           "action": "wire"
         },
         {
-          "text": "Make sure the wires are firmly connected and no bare wire is exposed, then turn on the breaker or fuse.",
+          "text": "Make sure the wires are firmly connected and no bare wire is exposed.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the breaker or fuse.",
           "action": "powerOn",
           "control": "breaker",
           "expect": "After a few seconds the load turns on (if wired into a switch or fixture) and the LED turns green"
@@ -218,7 +222,12 @@
           "expect": "LED double-blinks green"
         },
         {
-          "text": "For each responder, adjust it to the desired scene state, then press and hold its SET button until it double-beeps.",
+          "text": "For each responder, adjust it to the desired scene state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
           "device": "other",
           "action": "hold",
           "control": "SET button",
@@ -345,11 +354,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

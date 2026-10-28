@@ -59,8 +59,16 @@
           "action": "other"
         },
         {
-          "text": "Turn the power back on, use a line voltage meter to identify the line, load, neutral and ground wires, then turn the breaker off again.",
+          "text": "Turn the power back on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a line voltage meter to identify the line, load, neutral and ground wires.",
           "action": "other"
+        },
+        {
+          "text": "Turn the breaker off again.",
+          "action": "powerOff"
         },
         {
           "text": "Connect the switch's wires to the line, load, neutral and ground wires. Make sure all wire connectors are firmly attached and no copper is exposed except the ground wire.",
@@ -100,7 +108,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "beep; status LED blinks green"
+          "expect": "Beep; status LED blinks green"
         }
       ],
       "notes": [
@@ -127,7 +135,7 @@
               "action": "hold",
               "control": "SET button",
               "seconds": 3,
-              "expect": "beep; status LED blinks green"
+              "expect": "Beep; status LED blinks green"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -142,18 +150,6 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
-              "action": "send",
-              "command": "Enter Linking Mode"
-            },
-            {
-              "text": "Have the Hub start ALL-Linking as the responder.",
-              "device": "other",
-              "action": "send",
-              "command": "Start ALL-Linking",
-              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
-            },
-            {
               "text": "Have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
@@ -161,12 +157,12 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -178,16 +174,21 @@
           "text": "Press and hold the SET button until the switch beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "status LED blinks green"
+          "expect": "Status LED blinks green"
         },
         {
           "text": "Tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "status LED double-blinks green"
+          "expect": "Status LED double-blinks green"
         },
         {
-          "text": "For each responder, adjust it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
+          "text": "For each responder, adjust it to the desired state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it beeps or its LED flashes.",
           "device": "other",
           "action": "hold",
           "control": "SET button",
@@ -197,7 +198,7 @@
           "text": "After adding all responders, tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "status LED stops blinking"
+          "expect": "Status LED stops blinking"
         }
       ],
       "verification": {
@@ -212,14 +213,14 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "status LED blinks green"
+          "expect": "Status LED blinks green"
         },
         {
           "text": "Press and hold the SET button again until the switch beeps, about 3 seconds.",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "status LED blinks red"
+          "expect": "Status LED blinks red"
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
@@ -256,7 +257,7 @@
           "text": "Push in the SET button and hold it. Do not let go.",
           "action": "hold",
           "control": "SET button",
-          "expect": "long beep"
+          "expect": "Long beep"
         },
         {
           "text": "When the beep stops, release the SET button.",
@@ -306,18 +307,6 @@
               "action": "other"
             },
             {
-              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
-              "action": "send",
-              "command": "Enter Unlinking Mode"
-            },
-            {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
-              "device": "other",
-              "action": "send",
-              "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
-            },
-            {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
               "device": "other",
               "action": "send",
@@ -337,7 +326,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
           }
         }
       ]

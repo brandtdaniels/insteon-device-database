@@ -109,7 +109,7 @@
       "notes": [
         "The Hub 2242 Owner's Manual gives the proper start-up sequence as plugging the Ethernet cable into both the router and the Hub first, then applying power.",
         "Plugging the Hub directly into an outlet gives the greatest signal range and reliability.",
-        "To use the Hub with Insteon-compatible software such as HouseLinc instead of the app, install the software and follow its instructions for adding the Hub as a computer interface; the manual says not to do this if you use the Insteon for Hub app."
+        "To use the Hub with Insteon-compatible software such as HouseLinc instead of the app, install the software and follow its instructions for adding the Hub as a computer interface; the Hub 2242 Owner's Manual says not to do this if you use the Insteon for Hub app."
       ]
     },
     "linking": {

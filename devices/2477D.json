@@ -89,7 +89,7 @@
           "text": "Press and hold the SET button until the switch beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beep"
+          "expect": "Beep"
         }
       ],
       "notes": [
@@ -115,7 +115,7 @@
               "text": "Press and hold the SET button until the switch beeps.",
               "action": "hold",
               "control": "SET button",
-              "expect": "beep"
+              "expect": "Beep"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -165,7 +165,7 @@
           "text": "Press and hold the SET button until the switch beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beep"
+          "expect": "Beep"
         },
         {
           "text": "Tap the SET button.",
@@ -199,18 +199,25 @@
           "text": "Press and hold the SET button until the switch beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beep"
+          "expect": "Beep"
         },
         {
           "text": "Press and hold the SET button again until the switch beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beep"
+          "expect": "Beep"
         },
         {
-          "text": "Press and hold the SET button on the controlled device until it double-beeps; on a multi-button device, tap the button first.",
-          "action": "other",
-          "expect": "double beep"
+          "text": "On a multi-button controlled device, tap the button to unlink first.",
+          "device": "other",
+          "action": "tap"
+        },
+        {
+          "text": "Press and hold the SET button on the controlled device until it double-beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep"
         }
       ],
       "notes": [
@@ -224,7 +231,7 @@
           "text": "Pull the SET button out from the switch until the status LEDs turn off.",
           "action": "pullTab",
           "control": "SET button",
-          "expect": "status LEDs turn off"
+          "expect": "Status LEDs turn off"
         },
         {
           "text": "Wait about ten seconds.",
@@ -235,13 +242,13 @@
           "text": "Push in and hold the SET button until the long beep stops.",
           "action": "hold",
           "control": "SET button",
-          "expect": "long beep"
+          "expect": "Long beep"
         },
         {
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "double beep"
+          "expect": "Double beep"
         }
       ],
       "notes": [
@@ -278,11 +285,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

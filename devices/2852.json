@@ -137,6 +137,11 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
+              "text": "While the sensor is still awake, have the Hub send the Stay Awake command (extended, cmd1 0x2E, cmd2 0x00, data 2 0x04, data 3 the number of seconds to stay awake).",
+              "action": "send",
+              "command": "Stay Awake"
+            },
+            {
               "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
@@ -155,7 +160,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking and waking steps and the standard Insteon commands Start ALL-Linking, Stay Awake and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -269,11 +274,11 @@
               "expect": "LED keeps blinking in a new pattern"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",

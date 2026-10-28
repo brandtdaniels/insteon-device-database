@@ -112,7 +112,7 @@
           "text": "Press and hold the SET button to start linking mode.",
           "action": "hold",
           "control": "SET button",
-          "expect": "status LED blinks green"
+          "expect": "Status LED blinks green"
         }
       ],
       "notes": [
@@ -138,7 +138,7 @@
               "text": "Press and hold the SET button to start linking mode.",
               "action": "hold",
               "control": "SET button",
-              "expect": "status LED blinks green"
+              "expect": "Status LED blinks green"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -189,13 +189,13 @@
           "text": "Press and hold the SET button until the dimmer beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "status LED blinks green"
+          "expect": "Status LED blinks green"
         },
         {
           "text": "Press and hold the SET button again until the dimmer beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "status LED blinks red"
+          "expect": "Status LED blinks red"
         }
       ],
       "notes": [
@@ -234,7 +234,7 @@
           "text": "Then press and hold the SET button until the long beep stops.",
           "action": "hold",
           "control": "SET button",
-          "expect": "long beep; LED turns off and the load turns on"
+          "expect": "Long beep; LED turns off and the load turns on"
         }
       ],
       "notes": [
@@ -307,11 +307,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

@@ -169,7 +169,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "double beep"
+          "expect": "Double beep"
         },
         {
           "text": "Tap the SET button to finish.",
@@ -191,7 +191,7 @@
           "text": "With the controller in unlinking mode, press and hold the SET button until the module double-beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "double beep"
+          "expect": "Double beep"
         }
       ],
       "notes": [
@@ -214,13 +214,13 @@
           "text": "Keep holding the SET button until the module stops beeping.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beeping stops"
+          "expect": "Beeping stops"
         },
         {
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "double beep when the reset is complete"
+          "expect": "Double beep when the reset is complete"
         }
       ]
     },
@@ -254,11 +254,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

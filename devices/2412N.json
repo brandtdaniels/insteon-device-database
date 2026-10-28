@@ -64,7 +64,11 @@
     "linking": {
       "steps": [
         {
-          "text": "In SmartLinc's web interface, click the room of the responder you want to control, then click the scene you want to add it to.",
+          "text": "In SmartLinc's web interface, click the room of the responder you want to control.",
+          "action": "other"
+        },
+        {
+          "text": "Click the scene you want to add it to.",
           "action": "other"
         },
         {
@@ -92,7 +96,11 @@
     "unlinking": {
       "steps": [
         {
-          "text": "In SmartLinc's web interface, click the room of the responder you want to remove, then click the scene it is in.",
+          "text": "In SmartLinc's web interface, click the room of the responder you want to remove.",
+          "action": "other"
+        },
+        {
+          "text": "Click the scene it is in.",
           "action": "other"
         },
         {
@@ -154,7 +162,11 @@
     "removal": {
       "steps": [
         {
-          "text": "Unlink all devices from SmartLinc, then factory reset it.",
+          "text": "Unlink all devices from SmartLinc.",
+          "action": "other"
+        },
+        {
+          "text": "Factory reset SmartLinc.",
           "action": "other"
         }
       ]

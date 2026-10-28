@@ -185,7 +185,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "beep; the scene button's LED blinks"
+          "expect": "Beep; the scene button's LED blinks"
         }
       ],
       "notes": [
@@ -209,7 +209,7 @@
               "action": "hold",
               "control": "SET button",
               "seconds": 3,
-              "expect": "beep; the scene button's LED blinks"
+              "expect": "Beep; the scene button's LED blinks"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -263,16 +263,21 @@
           "text": "Press and hold the SET button until the keypad beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "scene button LED blinks; all lit LEDs brighten to 100%"
+          "expect": "Scene button LED blinks; all lit LEDs brighten to 100%"
         },
         {
           "text": "Tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "scene button LED keeps blinking"
+          "expect": "Scene button LED keeps blinking"
         },
         {
-          "text": "For each responder, adjust it to the desired scene state (on a keypad, tap the button at least once), then press and hold its SET button until it beeps or its LED flashes.",
+          "text": "For each responder, adjust it to the desired scene state (on a keypad, tap the button at least once).",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it beeps or its LED flashes.",
           "device": "other",
           "action": "hold",
           "control": "SET button",
@@ -282,7 +287,7 @@
           "text": "After adding all responders, tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "scene button LED stops blinking; LEDs return to normal brightness"
+          "expect": "Scene button LED stops blinking; LEDs return to normal brightness"
         }
       ]
     },
@@ -296,13 +301,13 @@
           "text": "Press and hold the SET button until the keypad beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "scene button LED blinks"
+          "expect": "Scene button LED blinks"
         },
         {
           "text": "Press and hold the SET button again until it beeps again.",
           "action": "hold",
           "control": "SET button",
-          "expect": "scene button LED keeps blinking"
+          "expect": "Scene button LED keeps blinking"
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
@@ -333,7 +338,7 @@
           "text": "Push the SET button in and hold it in.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beep"
+          "expect": "Beep"
         },
         {
           "text": "Release the SET button.",
@@ -380,11 +385,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

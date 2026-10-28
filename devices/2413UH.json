@@ -68,7 +68,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the 2413U documents; no document names the 2413UH."
+        "note": "Read from the USB Modem 2413U Quick Start Guide, the HouseLinc Owner's Manual and the Insteon Modem Developer's Guide, as for the 2413U; no document names the 2413UH."
       }
     },
     "linking": {
@@ -89,7 +89,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the 2413U documents; no document names the 2413UH."
+        "note": "Read from the USB Modem 2413U Quick Start Guide, the HouseLinc Owner's Manual and the Insteon Modem Developer's Guide, as for the 2413U; no document names the 2413UH."
       },
       "alternatives": [
         {
@@ -164,7 +164,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the 2413U documents; no document names the 2413UH."
+        "note": "Read from the USB Modem 2413U Quick Start Guide, the HouseLinc Owner's Manual and the Insteon Modem Developer's Guide, as for the 2413U; no document names the 2413UH."
       }
     },
     "resetErases": [

@@ -45,7 +45,7 @@
         {
           "text": "Plug iMeter Solo into an unswitched outlet.",
           "action": "plugIn",
-          "expect": "iMeter Solo beeps and its status LED turns on solid green; after about 20 seconds it beeps again"
+          "expect": "IMeter Solo beeps and its status LED turns on solid green; after about 20 seconds it beeps again"
         }
       ],
       "notes": [
@@ -59,7 +59,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "iMeter Solo beeps; the iMeter Developer Notes say the LED blinks green until it links or 4 minutes pass"
+          "expect": "IMeter Solo beeps; the iMeter Developer Notes say the LED blinks green until it links or 4 minutes pass"
         }
       ],
       "notes": [
@@ -82,7 +82,7 @@
           "text": "While holding down the SET button, plug iMeter Solo back in, making sure not to let go of the SET button.",
           "action": "plugIn",
           "control": "SET button",
-          "expect": "iMeter Solo beeps and its status LED turns on solid red"
+          "expect": "IMeter Solo beeps and its status LED turns on solid red"
         },
         {
           "text": "Continue to hold down the SET button for 3 seconds.",

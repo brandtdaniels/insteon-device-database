@@ -136,17 +136,18 @@
       ],
       "notes": [
         "Multi-linking mode times out after 4 minutes of inactivity.",
-        "The manual gives these steps for most Insteon controllers in general, not for IRLinc specifically."
+        "The Infrared Receiver 2411R Owner's Manual gives these steps for most Insteon controllers in general, not for IRLinc specifically."
       ],
       "verification": {
         "status": "inferred",
-        "note": "Generic multi-linking steps from the IRLinc Receiver manual; it does not say where the remote button to learn is chosen in this mode."
+        "note": "Generic multi-linking steps from the Infrared Receiver 2411R Owner's Manual; it does not say where the remote button to learn is chosen in this mode."
       }
     },
     "unlinking": {
       "steps": [
         {
           "text": "If the responder is a multi-scene device, tap the scene button you want to remove until its LED turns on.",
+          "device": "other",
           "action": "tap"
         },
         {

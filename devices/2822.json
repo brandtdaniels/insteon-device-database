@@ -99,7 +99,7 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x03, for group 3: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
               "action": "send",
               "command": "Enter Linking Mode"
             },
@@ -118,7 +118,7 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "This links the Hub's group 0 to the device as a responder, and the device's group 3 to the Hub as a controller, so the Hub receives the device's reports.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
@@ -149,16 +149,16 @@
               "action": "other"
             },
             {
-              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x03, for group 3, as an extended message if the device is i2CS.",
               "action": "send",
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 3 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 3 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

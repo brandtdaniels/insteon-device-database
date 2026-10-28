@@ -87,7 +87,18 @@
     "multiLinking": {
       "steps": [
         {
-          "text": "Click the group's button in the SeriaLinc Downloader application, press and hold the next responder's SET button for 3 seconds, and repeat for each responder and group.",
+          "text": "Click the group's button in the SeriaLinc Downloader application.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the next responder's SET button for 3 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Repeat for each responder and group.",
           "action": "other"
         }
       ]

@@ -96,6 +96,18 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
               "text": "Have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
@@ -103,12 +115,12 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps and the Insteon Developer's Guide (2009)'s Start ALL-Linking, ID Request and Ping commands; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking steps and the Insteon Developer's Guide (2009)'s Start ALL-Linking, ID Request, Enter Linking Mode and Ping commands; no document describes adding this product to a Hub. The device's group 1 is read from the Thermostat Adapter 2441V profile's groups, since it has the 2441V's board built in."
           }
         }
       ]
@@ -198,6 +210,18 @@
               "action": "other"
             },
             {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
               "device": "other",
               "action": "send",
@@ -217,7 +241,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from the Insteon Developer's Guide (2009)'s Start ALL-Linking and Enter Linking Mode commands; no document describes removing this product from a Hub."
+            "note": "Assembled from the Insteon Developer's Guide (2009)'s Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode commands; no document describes removing this product from a Hub. The device's group 1 is read from the Thermostat Adapter 2441V profile's groups, since it has the 2441V's board built in."
           }
         }
       ]

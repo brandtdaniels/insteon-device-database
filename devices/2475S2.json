@@ -67,8 +67,16 @@
           "action": "other"
         },
         {
-          "text": "Turn on the circuit breaker, identify the line, load, neutral and ground wires with a voltage meter, then turn off the circuit breaker again.",
+          "text": "Turn on the circuit breaker.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Identify the line, load, neutral and ground wires with a voltage meter.",
           "action": "other"
+        },
+        {
+          "text": "Turn off the circuit breaker again.",
+          "action": "powerOff"
         },
         {
           "text": "With the included wire nuts, connect the fixture's line, load, neutral, ground and (if used) sense wires to the module's corresponding wires: line black, load red, neutral white, ground bare copper, sense yellow. A neutral connection is required.",
@@ -305,11 +313,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

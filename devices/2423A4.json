@@ -30,7 +30,11 @@
           "action": "other"
         },
         {
-          "text": "In Smarthome Connect, go to Settings, then iGateways, click Add New iGateway, enter the requested information and click Add.",
+          "text": "In Smarthome Connect, go to Settings, then iGateways, and click Add New iGateway.",
+          "action": "other"
+        },
+        {
+          "text": "Enter the requested information and click Add.",
           "action": "other",
           "expect": "Within about a minute the portal shows that iGateway has been successfully added"
         },
@@ -141,13 +145,17 @@
           "action": "other"
         },
         {
-          "text": "Delete iGateway from Smarthome Connect, then perform a registration reset; deleting it from the portal does not remove the registration ID.",
+          "text": "Delete iGateway from Smarthome Connect.",
+          "action": "other"
+        },
+        {
+          "text": "Perform a registration reset; deleting iGateway from the portal does not remove the registration ID.",
           "action": "other"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "Assembled from the iGateway 2423A4 Owner's Manual's reset section; the manual has no separate removal procedure."
+        "note": "Assembled from the iGateway 2423A4 Owner's Manual's reset section; it has no separate removal procedure."
       }
     }
   },

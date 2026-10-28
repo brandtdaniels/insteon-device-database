@@ -246,7 +246,7 @@
       ],
       "notes": [
         "Then press and hold the responder's SET button; the Wireless Zone Thermostat double-beeps and its LED turns off.",
-        "The manual recommends software for managing scene memberships whenever possible."
+        "The Wireless Zone Thermostat 2441ZTH Owner's Manual recommends software for managing scene memberships whenever possible."
       ]
     },
     "waking": {
@@ -355,11 +355,11 @@
               "control": "Up or Down arrow"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes the chosen group's link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+              "expect": "The device deletes the chosen group's link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "When done, have the Hub send Set Operating Flags (cmd1 0x20, extended) with cmd2 0x07 to let the Wireless Zone Thermostat sleep again.",

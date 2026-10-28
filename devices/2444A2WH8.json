@@ -198,7 +198,12 @@
           "expect": "LED double-blinks green"
         },
         {
-          "text": "For each responder, adjust it to the state you want, then press and hold its SET button until the Mini Remote double-beeps.",
+          "text": "For each responder, adjust it to the state you want.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until the Mini Remote double-beeps.",
           "device": "other",
           "action": "hold",
           "control": "SET button",
@@ -328,11 +333,11 @@
               "expect": "Beep; LED blinks red"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",
@@ -343,7 +348,7 @@
             }
           ],
           "notes": [
-            "Starting from the button that sends group 1 unlinks the remote's group 1 to the Hub."
+            "Starting from the button that sends group 1 unlinks the remote's group 1 from the Hub."
           ],
           "verification": {
             "status": "inferred",

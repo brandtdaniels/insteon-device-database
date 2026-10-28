@@ -206,7 +206,7 @@
       ],
       "notes": [
         "Requires a 24V HVAC system with at least 5 wires that runs up to 2 stages of heat and cool; it is not for 120/240V electric radiant heat or millivolt systems. A 4-wire system needs the Add-A-Wire adapter.",
-        "For heat pumps, the manual points to Thermostat for Heat Pump 2732-242 and lists heat pump terminals (O/B, AUX, Y1, Y2, G, RH, C).",
+        "For heat pumps, the Thermostat 2441TH Owner's Manual points to Thermostat for Heat Pump 2732-242 and lists heat pump terminals (O/B, AUX, Y1, Y2, G, RH, C).",
         "Wire colors vary; match the wires to the labels printed on the Thermostat."
       ]
     },
@@ -310,7 +310,7 @@
       "notes": [
         "Then press and hold the responder's SET button; the Thermostat double-beeps when done.",
         "To remove the Thermostat as a responder: press and hold the controller's scene button until it beeps, press and hold it again until it beeps again, then press and hold the Thermostat's SET button (or the SET button and the Down arrow together for an off-command link).",
-        "The manual recommends using software to manage scene memberships whenever possible."
+        "The Thermostat 2441TH Owner's Manual recommends using software to manage scene memberships whenever possible."
       ]
     },
     "reset": {
@@ -381,11 +381,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

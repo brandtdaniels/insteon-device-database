@@ -123,7 +123,7 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
@@ -222,7 +222,7 @@
         }
       ],
       "notes": [
-        "The manual says to unlink the timer from all controllers before you stop using it, and to unlink responders it no longer uses, otherwise devices keep retrying commands and slow the system."
+        "The Timer Module 2456S3T Owner's Manual says to unlink the timer from all controllers before you stop using it, and to unlink responders it no longer uses, otherwise devices keep retrying commands and slow the system."
       ],
       "alternatives": [
         {

@@ -65,7 +65,7 @@
         }
       ],
       "notes": [
-        "As an RF-only device it needs at least one Access Point 2443 or other dual-band Insteon device; the manual recommends at least two.",
+        "As an RF-only device it needs at least one Access Point 2443 or other dual-band Insteon device; the Remote Control 2440 Owner's Manual recommends at least two.",
         "Use alkaline or high-quality rechargeable batteries; a fresh alkaline set gives about 1,500 to 2,000 button taps."
       ]
     },
@@ -167,11 +167,11 @@
       ],
       "notes": [
         "Multi-linking mode times out after 4 minutes of inactivity.",
-        "The manual gives these steps for controllers in general (\"if the controller does not have a SET button, tap the same On or Scene button\") and does not list the Remote Control's beeps or LED for this mode."
+        "The Remote Control 2440 Owner's Manual gives these steps for controllers in general (\"if the controller does not have a SET button, tap the same On or Scene button\") and does not list the Remote Control's beeps or LED for this mode."
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the manual's generic multi-linking steps for controllers without a SET button."
+        "note": "Read from the Remote Control 2440 Owner's Manual's generic multi-linking steps for controllers without a SET button."
       }
     },
     "unlinking": {
@@ -272,11 +272,11 @@
               "expect": "Beep; status LED keeps blinking"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes the button pair's link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+              "expect": "The device deletes the button pair's link to the Hub, and the Hub reports the device's Insteon ID"
             }
           ],
           "verification": {

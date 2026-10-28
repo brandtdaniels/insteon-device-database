@@ -81,8 +81,16 @@
           "action": "other"
         },
         {
-          "text": "Turn on the circuit breaker, use a voltage meter to identify the line, load, neutral and ground wires, then turn the breaker off again.",
+          "text": "Turn on the circuit breaker.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the line, load, neutral and ground wires.",
           "action": "other"
+        },
+        {
+          "text": "Turn the breaker off again.",
+          "action": "powerOff"
         },
         {
           "text": "Using the included wire nuts, connect the dimmer's bare copper wire to ground, white to neutral, red to load and black to line.",
@@ -126,7 +134,7 @@
           "text": "With the controller in linking mode, press and hold the SET button until the dimmer double-beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+          "expect": "Double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
         }
       ],
       "notes": [
@@ -147,7 +155,7 @@
               "text": "With the controller in linking mode, press and hold the SET button until the dimmer double-beeps.",
               "action": "hold",
               "control": "SET button",
-              "expect": "double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+              "expect": "Double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -169,7 +177,7 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
@@ -185,7 +193,7 @@
           "text": "With the controller in unlinking mode, press and hold the SET button until the dimmer double-beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+          "expect": "Double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
         }
       ],
       "notes": [

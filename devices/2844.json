@@ -215,18 +215,6 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0xFF, for group 255, as an extended message if the sensor is i2CS.",
-              "action": "send",
-              "command": "Enter Linking Mode"
-            },
-            {
-              "text": "Have the Hub start ALL-Linking as the responder again.",
-              "device": "other",
-              "action": "send",
-              "command": "Start ALL-Linking",
-              "expect": "The Hub reports ALL-Linking Completed for the sensor's group 255"
-            },
-            {
               "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
@@ -240,12 +228,11 @@
             }
           ],
           "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device.",
-            "The Hub also needs a link from the sensor's group 255 (0xFF), made the same way while the sensor is still in linking mode."
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -267,7 +254,12 @@
           "expect": "LED double-blinks green"
         },
         {
-          "text": "Adjust each device to its scene state and, one at a time, press and hold its SET button until it double-beeps.",
+          "text": "Adjust each device to its scene state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "One at a time, press and hold each responder's SET button until it double-beeps.",
           "device": "other",
           "action": "hold",
           "control": "SET button"
@@ -362,23 +354,11 @@
               "expect": "LED blinks red"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
-            },
-            {
-              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0xFF, for group 255, as an extended message if the sensor is i2CS.",
-              "action": "send",
-              "command": "Enter Unlinking Mode"
-            },
-            {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0, again.",
-              "device": "other",
-              "action": "send",
-              "command": "Start ALL-Linking",
-              "expect": "The sensor deletes its group 255 link to the Hub, and the Hub reports the sensor's Insteon ID"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",
@@ -388,12 +368,9 @@
               "expect": "LED stops blinking"
             }
           ],
-          "notes": [
-            "The sensor's group 255 link to the Hub is removed in a second pass, while the sensor is still awake."
-          ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's unlinking steps and the standard Insteon commands Start ALL-Linking and Enter Unlinking Mode; no document describes removing this product from a Hub."
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
           }
         }
       ]

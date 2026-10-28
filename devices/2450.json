@@ -148,7 +148,7 @@
               "command": "Get Operating Flags"
             },
             {
-              "text": "If bit 6 changed, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x0E to set it or 0x0F to clear it, as it was before linking.",
+              "text": "If bit 6 changed, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x0E to set it or 0x0F to clear it, as it was before linking: linking records the sensor's state, which can change this flag.",
               "action": "send",
               "command": "Set Operating Flags"
             },
@@ -272,11 +272,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

@@ -98,7 +98,7 @@
       ],
       "notes": [
         "The module links as a responder: set the controller to linking mode first (for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds), then press and hold this module's SET button.",
-        "Pressing and holding the SET button for 3 seconds on its own puts the module in linking mode (Status LED blinks) for four minutes; the manual uses this to assign an X10 address."
+        "Pressing and holding the SET button for 3 seconds on its own puts the module in linking mode (Status LED blinks) for four minutes; the On/Off Module 2456S3 Owner's Manual uses this to assign an X10 address."
       ],
       "alternatives": [
         {
@@ -137,7 +137,7 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
@@ -208,7 +208,7 @@
         }
       ],
       "notes": [
-        "The manual says to unlink the module from all controllers before you stop using it; otherwise the controllers keep retrying commands and slow the system.",
+        "The On/Off Module 2456S3 Owner's Manual says to unlink the module from all controllers before you stop using it; otherwise the controllers keep retrying commands and slow the system.",
         "If an X10 primary address was assigned, remove it as well so the module does not keep responding to X10 commands."
       ],
       "alternatives": [

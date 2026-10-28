@@ -112,7 +112,11 @@
           "action": "other"
         },
         {
-          "text": "Clean out the shavings, test the fit, then insert the sensor and fasten it with the included screw.",
+          "text": "Clean out the shavings and test the fit.",
+          "action": "other"
+        },
+        {
+          "text": "Insert the sensor and fasten it with the included screw.",
           "action": "mount"
         },
         {
@@ -122,7 +126,7 @@
       ],
       "notes": [
         "Tools: power drill, 3/4-inch spade or auger bit, Phillips screwdriver. Uses one AAA battery.",
-        "It also works in casement window frames; for sash windows the manual recommends Open/Close Sensor 2843."
+        "It also works in casement window frames; for sash windows the Hidden Door Sensor 2845 Owner's Manual recommends Open/Close Sensor 2843."
       ]
     },
     "linking": {
@@ -211,7 +215,12 @@
           "count": 1
         },
         {
-          "text": "Adjust each scene member to its state and, one at a time, press and hold its SET button until it double-beeps.",
+          "text": "Adjust each scene member to its state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "One at a time, press and hold each scene member's SET button until it double-beeps.",
           "device": "other",
           "action": "hold",
           "control": "SET button",
@@ -330,11 +339,11 @@
               "expect": "Beep"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",

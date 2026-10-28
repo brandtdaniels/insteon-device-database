@@ -70,7 +70,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the 2413S documents; no document names the 2413SH."
+        "note": "Read from the Serial Modem 2413S Quick Start Guide, the HouseLinc Owner's Manual and the Insteon Modem Developer's Guide, as for the 2413S; no document names the 2413SH."
       }
     },
     "linking": {
@@ -91,7 +91,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the 2413S documents; no document names the 2413SH."
+        "note": "Read from the Serial Modem 2413S Quick Start Guide, the HouseLinc Owner's Manual and the Insteon Modem Developer's Guide, as for the 2413S; no document names the 2413SH."
       },
       "alternatives": [
         {
@@ -166,7 +166,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the 2413S documents; no document names the 2413SH."
+        "note": "Read from the Serial Modem 2413S Quick Start Guide, the HouseLinc Owner's Manual and the Insteon Modem Developer's Guide, as for the 2413S; no document names the 2413SH."
       }
     },
     "resetErases": [

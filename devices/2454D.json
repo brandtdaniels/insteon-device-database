@@ -80,7 +80,7 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub."
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls."
           ],
           "verification": {
             "status": "inferred",
@@ -92,7 +92,7 @@
     "removal": {
       "steps": [
         {
-          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "text": "Remove the device from every scene, as a responder.",
           "action": "other"
         }
       ],

@@ -53,7 +53,11 @@
           "action": "wire"
         },
         {
-          "text": "Make sure the wires are firm and no bare wire is exposed, then turn on the breaker or fuse.",
+          "text": "Make sure the wires are firm and no bare wire is exposed.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the breaker or fuse.",
           "action": "powerOn",
           "control": "breaker",
           "expect": "After a few seconds the LED turns green"
@@ -82,9 +86,35 @@
           "expect": "Double beep"
         },
         {
-          "text": "Calibrate the travel time: press and hold the SET button until it beeps four times in turn (LED blinks green, red, green, red), slowly tap it twice, press and hold it until it beeps (the motor starts), tap it as soon as the load is fully lowered or raised (the motor reverses), and tap it again when fully raised or lowered.",
-          "action": "other",
+          "text": "Calibrate the travel time: press and hold the SET button until it beeps four times in turn.",
+          "action": "hold",
           "control": "SET button",
+          "expect": "Four beeps; LED blinks green, red, green, red"
+        },
+        {
+          "text": "Slowly tap the SET button twice.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Press and hold the SET button until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; the motor starts"
+        },
+        {
+          "text": "Tap the SET button as soon as the load is fully lowered or raised.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "The motor reverses"
+        },
+        {
+          "text": "Tap the SET button again when the load is fully raised or lowered.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
           "expect": "Double beep when calibrated"
         }
       ],
@@ -186,7 +216,12 @@
           "expect": "LED double-blinks green"
         },
         {
-          "text": "For each responder, adjust it to the scene state and press and hold its SET button until it double-beeps.",
+          "text": "For each responder, adjust it to the scene state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
           "device": "other",
           "action": "hold",
           "control": "SET button"
@@ -298,11 +333,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

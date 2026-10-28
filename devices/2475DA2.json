@@ -79,7 +79,11 @@
           "action": "wire"
         },
         {
-          "text": "Make sure the wires are firmly connected with no exposed wire, then turn on the breaker or fuse.",
+          "text": "Make sure the wires are firmly connected with no exposed wire.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the breaker or fuse.",
           "action": "powerOn",
           "expect": "After a few seconds the load turns on."
         },
@@ -93,7 +97,7 @@
           "action": "tap",
           "control": "SET button",
           "count": 2,
-          "expect": "beeps once; LED stops blinking"
+          "expect": "Beeps once; LED stops blinking"
         },
         {
           "text": "Tap the SET button a couple of times to test the connection.",
@@ -134,7 +138,7 @@
           "text": "Press and hold the SET button until the module beeps.",
           "action": "hold",
           "control": "SET button",
-          "expect": "beep; LED blinks green"
+          "expect": "Beep; LED blinks green"
         }
       ],
       "notes": [
@@ -157,7 +161,7 @@
               "text": "Press and hold the SET button until the module beeps.",
               "action": "hold",
               "control": "SET button",
-              "expect": "beep; LED blinks green"
+              "expect": "Beep; LED blinks green"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -243,7 +247,7 @@
           "text": "While holding down the SET button, reconnect power to the module. Don't let go of the SET button.",
           "action": "powerOn",
           "control": "SET button",
-          "expect": "beep; status LED turns solid green"
+          "expect": "Beep; status LED turns solid green"
         },
         {
           "text": "Keep holding the SET button for 3 seconds.",
@@ -255,7 +259,7 @@
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "double beep; the load turns on"
+          "expect": "Double beep; the load turns on"
         }
       ]
     },
@@ -296,11 +300,11 @@
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its group 1 link to the Hub"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",

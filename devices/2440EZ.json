@@ -33,13 +33,6 @@
               "expect": "LED blinks"
             },
             {
-              "text": "Tap the SET button.",
-              "action": "tap",
-              "control": "SET button",
-              "count": 1,
-              "expect": "LED double-blinks"
-            },
-            {
               "text": "Have the Hub start ALL-Linking as the responder.",
               "device": "other",
               "action": "send",
@@ -51,13 +44,6 @@
               "action": "send",
               "command": "Ping",
               "expect": "The device acknowledges the Ping"
-            },
-            {
-              "text": "If the LED is still blinking, tap the SET button until it stops.",
-              "action": "tap",
-              "control": "SET button",
-              "count": 1,
-              "expect": "LED stops blinking"
             }
           ],
           "notes": [
@@ -73,7 +59,7 @@
     "removal": {
       "steps": [
         {
-          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "text": "Remove the device from every scene.",
           "action": "other"
         }
       ],
@@ -91,35 +77,30 @@
               "action": "other"
             },
             {
-              "text": "Press and hold the SET button until the LED starts blinking.",
+              "text": "Press and hold the SET button for 5 seconds.",
               "action": "hold",
               "control": "SET button",
+              "seconds": 5,
               "expect": "LED blinks"
             },
             {
-              "text": "Press and hold the SET button again for 5 seconds.",
+              "text": "Press and hold the SET button for 5 seconds again.",
               "action": "hold",
               "control": "SET button",
-              "seconds": 5
+              "seconds": 5,
+              "expect": "LED keeps blinking"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
-            },
-            {
-              "text": "If the LED is still blinking, tap the SET button until it stops.",
-              "action": "tap",
-              "control": "SET button",
-              "count": 1,
-              "expect": "LED stops blinking"
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
             }
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+            "note": "Assembled from the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub. The unlinking steps are assumed from the Motion Sensor 2842 profile's; no document describes this product's."
           }
         }
       ]

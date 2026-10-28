@@ -71,9 +71,13 @@
           "control": "Battery compartment door"
         },
         {
-          "text": "Observing the polarity markings, install two AAA batteries, then replace the battery compartment door.",
+          "text": "Observing the polarity markings, install two AAA batteries.",
           "action": "insertBatteries",
           "expect": "The screen turns on with all LCD segments lit, and after a few seconds goes to Display Mode"
+        },
+        {
+          "text": "Replace the battery compartment door.",
+          "action": "mount"
         }
       ],
       "notes": [
@@ -154,7 +158,8 @@
             }
           ],
           "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device.",
+            "The Hub takes the meter position chosen with the 1-2-3/Down button and replaces the meter linked there, since each position holds one device. For temperature reports, the Energy Display Developer Notes link group 4 to a modem; the SET button links only groups 1 to 3."
           ],
           "verification": {
             "status": "inferred",
@@ -328,11 +333,11 @@
               "expect": "Status LED blinks red"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes the selected meter position's link to the Hub.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+              "expect": "The device deletes the selected meter position's link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "When done, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x07 (Stayawake Off) to let Energy Display sleep again.",

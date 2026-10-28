@@ -98,12 +98,14 @@ out of service, so an app can guide a person through each, or do the steps it ca
 "lifecycle": {
   "linking": { "steps": [
     { "text": "Press and hold the SET button until the switch beeps.",
-      "action": "hold", "control": "SET button", "seconds": 3, "expect": "Beep" } ] },
-  "linkingTimeoutSeconds": 240,
+      "action": "hold", "control": "SET button", "expect": "Beep" } ] },
   "reset": { "steps": [
-    { "text": "Pull the SET button out until the LEDs turn off.", "action": "pullTab", "control": "SET button" },
-    { "text": "Wait about 10 seconds.", "action": "wait", "seconds": 10 },
-    { "text": "Push in and hold the SET button until the long beep stops.", "action": "hold", "control": "SET button", "expect": "Long beep" } ] },
+    { "text": "Pull the SET button out from the switch until the status LEDs turn off.",
+      "action": "pullTab", "control": "SET button", "expect": "Status LEDs turn off" },
+    { "text": "Wait about ten seconds.", "action": "wait", "seconds": 10 },
+    { "text": "Push in and hold the SET button until the long beep stops.",
+      "action": "hold", "control": "SET button", "expect": "Long beep" },
+    { "text": "Release the SET button.", "action": "release", "control": "SET button", "expect": "Double beep" } ] },
   "resetErases": ["links", "settings"]
 }
 ```
@@ -126,7 +128,7 @@ out of service, so an app can guide a person through each, or do the steps it ca
   | --- | --- |
   | `hold` | Press and hold `control`, for `seconds` or until `expect` happens. |
   | `tap` | Press and release `control` quickly, `count` times. |
-  | `press` | Press `control` once, as a click rather than a tap or hold. |
+  | `press` | Press `control` once, as a click rather than a tap or hold; `seconds`, where given, is how long the press lasts. |
   | `release` | Let go of a held `control`. |
   | `turn` | Turn a knob, dial or other control. |
   | `plugIn`, `unplug` | Plug the product in or unplug it. |
@@ -134,7 +136,7 @@ out of service, so an app can guide a person through each, or do the steps it ca
   | `wire` | Connect or disconnect wires. |
   | `mount` | Mount or fasten the product or a part of it. |
   | `insertBatteries`, `removeBatteries` | Put batteries in or take them out. |
-  | `pullTab` | Pull something out to cut power: the SET button, to open an air gap, or a battery isolation tab. |
+  | `pullTab` | Pull something out: the SET button, to open an air gap and cut power, or a battery tab, which may connect the battery. |
   | `wait` | Wait, for `seconds` or until `expect` happens. |
   | `send` | Send the Insteon `command` the step names, by its Insteon Developer's Guide name. |
   | `other` | Anything else, such as choosing a button or removing a cover. |
@@ -146,10 +148,9 @@ out of service, so an app can guide a person through each, or do the steps it ca
   `other` device for the Hub's own commands, such as Start ALL-Linking, and on `this` device for
   the commands the Hub sends the product, such as Enter Linking Mode or Ping. Steps a person
   takes on the product keep their own actions. A line-powered product is linked as a responder to
-  the Hub, so the Hub can control it, and, where it's also a controller, back to the Hub, so the
-  Hub hears it; a battery-powered
-  product is put in linking mode first, after waking it where its profile says how, and links to
-  the Hub as a controller. No document describes these procedures, so their `verification` says
+  the Hub, so the Hub can control it, and, where its profile lists a group it controls, from that
+  group back to the Hub, so the Hub hears it; a battery-powered product is put in linking mode
+  first, after waking it where its profile says how, and links to the Hub as a controller. No document describes these procedures, so their `verification` says
   what each is assembled from.
 - `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
   battery device stays awake, and `resetErases` what a factory reset clears.

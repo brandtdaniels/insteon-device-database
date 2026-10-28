@@ -73,8 +73,16 @@
           "action": "other"
         },
         {
-          "text": "Identify the line, neutral and ground wires: turn the power back on, find the line wire with a voltage meter, then turn the breaker off again.",
+          "text": "Turn the power back on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Find the line wire with a voltage meter, and identify the neutral and ground wires.",
           "action": "other"
+        },
+        {
+          "text": "Turn the breaker off again.",
+          "action": "powerOff"
         },
         {
           "text": "With the included wire nuts, connect the outlet's bare copper ground wire to ground, its white wire to neutral and its black wire to line. A neutral connection is required.",
@@ -121,7 +129,7 @@
       ],
       "notes": [
         "The outlet links as a responder: set the controller to linking mode first (for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds), then press and hold the outlet's SET button.",
-        "Pressing and holding the SET button for 3 seconds on its own puts the outlet in linking mode (Status LED blinks) for four minutes; the manual uses this to assign an X10 address.",
+        "Pressing and holding the SET button for 3 seconds on its own puts the outlet in linking mode (Status LED blinks) for four minutes; the On/Off Outlet 2473SWH Owner's Manual uses this to assign an X10 address.",
         "With the Hub, follow the app's instructions and press and hold the outlet's SET button when prompted."
       ],
       "alternatives": [
@@ -161,7 +169,7 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
@@ -237,7 +245,7 @@
         }
       ],
       "notes": [
-        "The manual says to unlink the outlet from all controllers before you stop using it; otherwise the controllers keep retrying commands and slow the system."
+        "The On/Off Outlet 2473SWH Owner's Manual says to unlink the outlet from all controllers before you stop using it; otherwise the controllers keep retrying commands and slow the system."
       ],
       "alternatives": [
         {
