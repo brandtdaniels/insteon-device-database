@@ -1,0 +1,42 @@
+{
+  "model": "2243",
+  "name": "Hub Pro",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x18"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x2C"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x2D"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "modem"
+    },
+    {
+      "kind": "hub",
+      "port": 25105
+    },
+    {
+      "kind": "hubPro",
+      "port": 80
+    }
+  ],
+  "notes": [
+    "HouseLinc names it Central Controller.",
+    "Sold as a HomeKit bridge, which current versions of HomeKit no longer support.",
+    "Its hub interface on port 25105 is expected to match the other Hubs' but hasn't been verified."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon for Hub app source"
+  ]
+}

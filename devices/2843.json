@@ -1,0 +1,59 @@
+{
+  "model": "2843",
+  "name": "Open/Close Sensor",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x02"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x06"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x07"
+    }
+  ],
+  "radio": "rf",
+  "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Open/close",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Heartbeat",
+      "role": "controller"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "opened"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "closed"
+        }
+      ]
+    },
+    {
+      "kind": "heartbeat",
+      "group": "0x04",
+      "intervalMinutes": 1428
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon command workbook, HeartBeat Status sheet"
+  ]
+}

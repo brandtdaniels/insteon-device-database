@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brandtdaniels.github.io/insteon-device-database/v1/device-profile.schema.json",
+  "title": "INSTEON device profile",
+  "description": "What one INSTEON product is and can do, keyed by the category and subcategory it reports.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["model", "name", "identities", "radio", "role", "capabilities", "sources"],
+  "properties": {
+    "model": {
+      "description": "The model number printed on the product, such as 2477D.",
+      "type": "string",
+      "pattern": "^[0-9A-Z][0-9A-Z-]*$"
+    },
+    "name": {
+      "description": "The product's name.",
+      "type": "string",
+      "minLength": 1
+    },
+    "identities": {
+      "description": "The category, subcategory and, where they differ, firmware versions the product reports in its ID request reply.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/identity" }
+    },
+    "radio": {
+      "description": "How the product communicates: powerline, RF, or both.",
+      "enum": ["powerline", "rf", "dual"]
+    },
+    "role": {
+      "description": "Whether the product can be an ALL-Link controller, a responder, or both.",
+      "enum": ["controller", "responder", "both"]
+    },
+    "batteryPowered": {
+      "description": "Whether the product runs on batteries and sleeps between messages.",
+      "type": "boolean",
+      "default": false
+    },
+    "groups": {
+      "description": "The product's ALL-Link groups.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/group" }
+    },
+    "capabilities": {
+      "description": "What the product can do. Each kind appears at most once.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/capability" }
+    },
+    "notes": {
+      "description": "Behavior worth knowing that no capability describes.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "sources": {
+      "description": "The documents the profile's values come from.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "byte": {
+      "description": "A byte, written as 0x followed by two uppercase hexadecimal digits.",
+      "type": "string",
+      "pattern": "^0x[0-9A-F]{2}$"
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "subcategory"],
+      "properties": {
+        "category": { "$ref": "#/$defs/byte" },
+        "subcategory": { "$ref": "#/$defs/byte" },
+        "firmware": {
+          "description": "The firmware versions this identity covers, inclusive. Omitted, it covers every version.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["from", "through"],
+          "properties": {
+            "from": { "$ref": "#/$defs/byte" },
+            "through": { "$ref": "#/$defs/byte" }
+          }
+        },
+        "region": {
+          "description": "Where the variant was sold, when the subcategory tells regions apart.",
+          "type": "string"
+        }
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["number", "name", "role"],
+      "properties": {
+        "number": { "$ref": "#/$defs/byte" },
+        "name": { "type": "string", "minLength": 1 },
+        "role": { "enum": ["controller", "responder", "both"] },
+        "linkable": {
+          "description": "How the group can be linked: from the device's buttons, or only by software.",
+          "enum": ["device", "software"],
+          "default": "device"
+        }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "required": ["kind"],
+      "oneOf": [
+        {
+          "description": "Turns a load on and off.",
+          "additionalProperties": false,
+          "properties": { "kind": { "const": "onOff" } }
+        },
+        {
+          "description": "Dims a load.",
+          "additionalProperties": false,
+          "properties": { "kind": { "const": "dimmable" } }
+        },
+        {
+          "description": "A modem: a PowerLinc Modem, USB Adapter or Hub's own modem.",
+          "additionalProperties": false,
+          "properties": { "kind": { "const": "modem" } }
+        },
+        {
+          "description": "A Hub's local HTTP interface, through which its modem is driven.",
+          "additionalProperties": false,
+          "required": ["port"],
+          "properties": {
+            "kind": { "const": "hub" },
+            "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+          }
+        },
+        {
+          "description": "The Hub Pro's own HTTP interface for adding and removing devices and updating its software.",
+          "additionalProperties": false,
+          "required": ["port"],
+          "properties": {
+            "kind": { "const": "hubPro" },
+            "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+          }
+        },
+        {
+          "description": "A thermostat, with the mode values it uses in mode status reports.",
+          "additionalProperties": false,
+          "required": ["modeValues"],
+          "properties": {
+            "kind": { "const": "thermostat" },
+            "modeValues": { "enum": ["commandTable", "tempLinc"] },
+            "humidity": { "type": "boolean", "default": false }
+          }
+        },
+        {
+          "description": "What the product means by the commands it sends to its groups.",
+          "additionalProperties": false,
+          "required": ["events"],
+          "properties": {
+            "kind": { "const": "groupEvents" },
+            "events": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["group", "command1", "event"],
+                "properties": {
+                  "group": { "$ref": "#/$defs/byte" },
+                  "command1": { "$ref": "#/$defs/byte" },
+                  "event": { "type": "string", "pattern": "^[a-z][A-Za-z]*$" }
+                }
+              }
+            }
+          }
+        },
+        {
+          "description": "A periodic heartbeat to a group, for noticing a product that has gone quiet.",
+          "additionalProperties": false,
+          "required": ["group", "intervalMinutes"],
+          "properties": {
+            "kind": { "const": "heartbeat" },
+            "group": { "$ref": "#/$defs/byte" },
+            "intervalMinutes": { "type": "integer", "minimum": 1 }
+          }
+        }
+      ]
+    }
+  }
+}

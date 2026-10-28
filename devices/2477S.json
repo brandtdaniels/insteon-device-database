@@ -1,0 +1,27 @@
+{
+  "model": "2477S",
+  "name": "SwitchLinc Relay",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x2A"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

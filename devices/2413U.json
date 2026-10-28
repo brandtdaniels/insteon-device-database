@@ -1,0 +1,24 @@
+{
+  "model": "2413U",
+  "name": "PowerLinc USB Modem",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x15"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x1A"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}
