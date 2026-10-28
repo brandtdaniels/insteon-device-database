@@ -1,6 +1,10 @@
 {
   "model": "2452",
-  "name": "DIN Rail Dimmer",
+  "name": "Dimmer DIN Rail Module",
+  "aliases": [
+    "DIN Rail Dimmer"
+  ],
+  "description": "A dimmer module that mounts on a DIN rail in an electrical panel to dim and switch lighting circuits remotely. It supports adjustable brightness levels and ramp rates.",
   "identities": [
     {
       "category": "0x01",
@@ -24,7 +28,8 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ],
   "notes": [
     "HouseLinc also lists its identity under 2252-222."

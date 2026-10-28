@@ -1,6 +1,10 @@
 {
   "model": "2472DWH",
-  "name": "OutletLinc Dimmer",
+  "name": "Dimmer Outlet",
+  "aliases": [
+    "OutletLinc Dimmer"
+  ],
+  "description": "An in-wall duplex outlet whose top receptacle can be dimmed and switched remotely over Insteon while the bottom receptacle stays always on. It controls plug-in lamps from Insteon keypads, remotes, or the Hub.",
   "identities": [
     {
       "category": "0x01",
@@ -13,6 +17,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

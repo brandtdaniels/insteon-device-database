@@ -1,6 +1,10 @@
 {
   "model": "2442-222",
-  "name": "Micro Dimmer",
+  "name": "Micro Dimmer Switch Module",
+  "aliases": [
+    "Micro Dimmer"
+  ],
+  "description": "A small dimmer module that installs at a light fixture or behind an existing wall switch. It adds Insteon remote dimming control without replacing the original switch.",
   "identities": [
     {
       "category": "0x01",
@@ -27,6 +31,7 @@
     "HouseLinc lists the regional versions as the 2442-222, 2442-422 and 2442-522."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

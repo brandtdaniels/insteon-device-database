@@ -1,6 +1,10 @@
 {
   "model": "2413U",
-  "name": "PowerLinc USB Modem",
+  "name": "USB Modem",
+  "aliases": [
+    "PowerLinc USB Modem"
+  ],
+  "description": "A USB powerline modem that connects a computer to an Insteon network, so home automation software can send and receive Insteon messages.",
   "identities": [
     {
       "category": "0x03",
@@ -19,6 +23,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }
