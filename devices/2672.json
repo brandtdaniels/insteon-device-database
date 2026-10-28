@@ -128,6 +128,160 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off your lamp or light fixture and install the bulb.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Turn the lamp or light fixture on and leave it on.",
+          "action": "powerOn"
+        }
+      ],
+      "notes": [
+        "Don't connect the bulb to a dimmer; link it to Insteon remotes and switches to dim it.",
+        "If the switch or fixture is off, the bulb can't be controlled. If a wall switch controls the fixture, consider wiring it always on, for example by replacing it with an Insteon dimmer switch with its red load wire capped, then linking that switch to the bulb."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode and the fixture on, unscrew the bulb for a moment if it's already in the socket.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Screw in the bulb.",
+          "action": "powerOn"
+        }
+      ],
+      "notes": [
+        "The bulb has no SET button and links only as a responder: it goes into linking mode each time it is powered up. Put the controller in linking mode first (press and hold its SET button until it beeps; on a multi-button controller, tap the button first).",
+        "The bulb stays in linking mode for 5 seconds after power-up; the 5 seconds come from the LED Bulb Developer Notes, and the LED Bulb A19 2672 Owner's Manual gives no timeout.",
+        "Linking on power-up can be turned off with software (Disable Linking on Power-up); it is on by default.",
+        "For a scene, put the controller in multi-linking mode (hold its SET button until it beeps, then tap it), screw in each bulb one at a time, then tap the controller's SET button to finish."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb A19 2672 Owner's Manual says the bulb double-beeps when it is linked or unlinked; the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper. The catalog follows the LED Bulb Developer Notes and gives no confirmation from the bulb. The 5-second linking window after power-up is from the LED Bulb Developer Notes; the LED Bulb A19 2672 Owner's Manual gives no timeout."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in linking mode and the fixture on, unscrew the bulb for a moment if it's already in the socket.",
+              "action": "powerOff"
+            },
+            {
+              "text": "Screw in the bulb.",
+              "action": "powerOn"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 5,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Reinsert the bulb.",
+          "action": "powerOn"
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first: press and hold its SET button until it beeps (on a multi-button controller, tap the button first), then press and hold it again until it beeps."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The LED Bulb A19 2672 Owner's Manual says the bulb double-beeps when it is linked or unlinked; the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper. The catalog follows the LED Bulb Developer Notes and gives no confirmation from the bulb."
+      }
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment.",
+              "action": "powerOff"
+            },
+            {
+              "text": "Reinsert the bulb.",
+              "action": "powerOn"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Has no buttons or LED.",
     "Powers up on by default, and can be set to power up to its last state instead.",
@@ -135,7 +289,8 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "LED Bulb 2672 Owner's Manual",
-    "LED Bulb Developer Notes"
+    "LED Bulb A19 2672 Owner's Manual",
+    "LED Bulb Developer Notes",
+    "LED Bulb A19 2672 Quick Start Guide"
   ]
 }

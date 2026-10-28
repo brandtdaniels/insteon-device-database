@@ -90,6 +90,212 @@
       "intervalMinutes": 1428
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Place the Leak Sensor flat on the floor where a leak may occur.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "It runs on one AA battery (included).",
+        "To test alerts from a Hub, set the sensor on a wet sponge or in water no more than 1/8 inch deep; after the alert, tap the SET button to reset it and put it back."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for about 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green"
+        }
+      ],
+      "notes": [
+        "Then place the sensor in its location, adjust the responder to the state you want and press and hold the responder's SET button until it double-beeps; the Leak Sensor's LED stops blinking. Test by tapping the Leak Sensor's SET button; the responder turns on.",
+        "To add it to a Hub, when the app prompts, press and hold the SET button.",
+        "The Leak Sensor is a controller only and doesn't turn responders off when the leak dries."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button for about 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks green"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "While the sensor is still awake, have the Hub send extended Set (cmd1 0x2E, cmd2 0x00) with D1 0x01, D2 0x04 (stay awake) and D3 the number of seconds to stay awake.",
+              "action": "send",
+              "command": "Extended Set"
+            },
+            {
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking and waking steps and the standard Insteon commands Start ALL-Linking, Extended Set and Ping; no document describes adding this product to a Hub. The extended Set that keeps the sensor awake is read from the Leak Sensor Developer Notes."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the status LED starts blinking.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the blink pattern changes.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED keeps blinking in a new pattern"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button until it double-beeps; the Leak Sensor's LED stops blinking."
+      ]
+    },
+    "waking": {
+      "steps": [
+        {
+          "text": "While the sensor is awake, send extended Set (cmd1 0x2E, cmd2 0x00) with D1 0x01, D2 0x04 (stay awake) and D3 the number of seconds to stay awake.",
+          "action": "send",
+          "command": "Extended Set"
+        }
+      ],
+      "notes": [
+        "The Leak Sensor Developer Notes say the sensor must be awake to send or receive messages. Their example asks for 0xF0 seconds, about 4 minutes; the maximum is 0xFF.",
+        "The documents don't say how to wake the sensor before sending the command."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Only the Leak Sensor Developer Notes cover staying awake, and they give no button step to wake the sensor first."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Carefully open the bottom case with a small flat-blade screwdriver.",
+          "action": "other"
+        },
+        {
+          "text": "Pull out the battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait 5 seconds.",
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "text": "Press and hold the SET button and don't let go.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Reinstall the battery while still holding the SET button.",
+          "action": "insertBatteries",
+          "control": "SET button",
+          "expect": "LED turns solid green for a few seconds, then off"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Erases all settings and scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Press and hold the SET button until the status LED starts blinking.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "LED blinks green"
+            },
+            {
+              "text": "Press and hold the SET button again until the blink pattern changes.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "LED keeps blinking in a new pattern"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Its heartbeat sends on when dry and off when wet.",
     "Once wet, it ignores further changes until its SET button is pressed.",
@@ -99,6 +305,8 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Leak Sensor Developer Notes"
+    "Leak Sensor Developer Notes",
+    "Leak Sensor 2852 Owner's Manual",
+    "Leak Sensor 2852 Quick Start Guide"
   ]
 }

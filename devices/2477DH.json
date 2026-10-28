@@ -50,12 +50,264 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the electrical panel, turn off the circuit breakers or remove the fuses feeding the wall box, and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the wall plate from the old switch, unscrew the switch and gently pull it out.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the switch.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on power.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the line and load wires that were connected to the switch, and identify the neutral and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off power.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Connect the wires: the bare switch wire to ground, white to neutral, red to load and black to line. Make sure the connections are firm with no exposed wire.",
+          "action": "wire"
+        },
+        {
+          "text": "With the LEDs on the left, gently place the switch into the wall box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn on power.",
+          "action": "powerOn",
+          "expect": "The switch and its load turn on"
+        },
+        {
+          "text": "Tap the switch on and off to check that it works.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "The switch and its load turn on and off"
+        },
+        {
+          "text": "Reinstall the wall plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required.",
+        "In a multi-gang box next to another switch you may need to remove one or both pairs of metal heat sink tabs. Removing one pair derates the switch from 1000W to 800W; removing both pairs derates it to 600W.",
+        "In 3-way and 4-way circuits every switch must be replaced by an Insteon device. In the line box, the black wire goes to line plus one traveler and the red wire is capped; in the load box, the black wire goes to the line-carrying traveler and the red wire to load. Then link all the switches as a group."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: after the switch beeps, set the responder to the desired brightness or state and press and hold its SET button until it double-beeps. The switch double-beeps and its LED stops blinking. Repeat for each responder.",
+        "As a responder: press and hold the controller button until it beeps, set the switch to the desired brightness, then press and hold the switch's SET button until it double-beeps.",
+        "A link is one way. To keep two switches in sync (a group, as in a 3-way circuit), link them in both directions."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the switch beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "The switch double-beeps and its LED stops blinking"
+        }
+      ],
+      "notes": [
+        "To remove the switch as a responder: press and hold the controller button until it beeps, press and hold it again until it beeps, then press and hold the switch's SET button until it double-beeps."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull out the SET button to remove power.",
+          "action": "pullTab",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 5 seconds.",
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "text": "Push in the SET button and hold it. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Long beep"
+        },
+        {
+          "text": "When the long beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the switch double-beeps and the load turns on"
+        }
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Dimmer Switch 2477DH Owner's Manual (rev 7.0+) says to wait 5 seconds with the SET button pulled out; the later Dimmer Switch 2477D Owner's Manual, which covers the 2477S, 2477D and 2477DH, says about ten seconds. The catalog uses the Dimmer Switch 2477DH Owner's Manual's 5 seconds."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the switch as a responder from every controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Take the switch out of use.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise its controllers will keep retrying commands, creating network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
-    "Its owner's manual prints subcategory 0x20, the 2477D's; Insteon Device Categories (January 2014) gives the 2477DH 0x01/0x2D for every revision."
+    "The Dimmer Switch 2477DH Owner's Manual prints subcategory 0x20, the 2477D's; Insteon Device Categories (January 2014) gives the 2477DH 0x01/0x2D for every revision."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Dimmer Switch 2477DH Owner's Manual"
+    "Dimmer Switch 2477DH Owner's Manual",
+    "Dimmer Switch 2477DH Quick Start Guide",
+    "Dimmer Switch 2477D Owner's Manual"
   ]
 }

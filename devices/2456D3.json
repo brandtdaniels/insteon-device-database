@@ -52,7 +52,196 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the lamp or device you want to control (the load) into the outlet on the bottom of the module.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the module into an unswitched wall outlet.",
+          "action": "plugIn",
+          "expect": "The status LED and the load turn on"
+        },
+        {
+          "text": "If the load doesn't turn on, turn it on with its own switch.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The pass-through outlet on the front can be used as an ordinary uncontrolled outlet, but don't plug another home automation product into it.",
+        "For incandescent lamps up to 300W.",
+        "Don't plug the module into a switched outlet, a filtered power strip or an AC line filter, and don't stack modules by plugging them into one another.",
+        "Turn the lamp's own switch on, and any built-in dimmer to full. After installation the lamp's switch controls the load only if load sensing is enabled (it is by default)."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice"
+        }
+      ],
+      "notes": [
+        "The documents describe linking the module only as a responder. Put the controller in linking mode first; for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds. Setup modes time out after 4 minutes.",
+        "Holding the SET button for 3 seconds on its own puts the module in linking mode: the status LED blinks and the load flashes once. Linking mode times out after 4 minutes of inactivity."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in linking mode, press and hold the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED flashes twice, then turns on solid; the load flashes twice"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode, press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice"
+        }
+      ],
+      "notes": [
+        "Put the controller in unlinking mode first; for most controllers, press and hold an On or scene button for 10 seconds twice or the SET button for 3 seconds twice."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If a controller controls the module, unlink it from the controller first.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the module.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug the module back in. Don't let go of the SET button.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Status LED flashes once and turns off; after a few seconds the status LED and the load turn on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the module from every controller it is linked to.",
+          "action": "other"
+        },
+        {
+          "text": "Stop using the module.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise the controllers keep retrying commands, slowing down the system."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Dimmer Module 2456D3 Owner's Manual",
+    "Dimmer Module 2456D3 Quick Start Guide"
   ]
 }

@@ -35,12 +35,80 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the appliance you want to measure into the outlet on the bottom of iMeter Solo.",
+          "action": "other"
+        },
+        {
+          "text": "Plug iMeter Solo into an unswitched outlet.",
+          "action": "plugIn",
+          "expect": "IMeter Solo beeps and its status LED turns on solid green; after about 20 seconds it beeps again"
+        }
+      ],
+      "notes": [
+        "Don't plug iMeter Solo into a switched outlet."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until iMeter Solo beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "IMeter Solo beeps; the iMeter Developer Notes say the LED blinks green until it links or 4 minutes pass"
+        }
+      ],
+      "notes": [
+        "To add iMeter Solo to HouseLinc, first start Auto Link in HouseLinc (the Linking time remaining countdown begins), then hold iMeter Solo's SET button; iMeter Solo appears in the Auto Link list, and clicking OK adds it to the Devices list."
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug iMeter Solo.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug iMeter Solo back in, making sure not to let go of the SET button.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "IMeter Solo beeps and its status LED turns on solid red"
+        },
+        {
+          "text": "Continue to hold down the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Status LED turns solid green; after a few seconds iMeter Solo double-beeps"
+        }
+      ]
+    },
+    "resetErases": [
+      "links"
+    ]
+  },
   "notes": [
     "Rated for 15 A."
   ],
   "sources": [
     "HouseLinc device catalog",
     "iMeter Developer Notes",
-    "Power Meter 2423A1 Owner's Manual"
+    "Power Meter 2423A1 Owner's Manual",
+    "Power Meter 2423A1 Quick Start Guide"
   ]
 }

@@ -16,8 +16,198 @@
   ],
   "radio": "powerline",
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Lock Controller in within five feet of the door lock; use an extension cord if necessary.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Open the door lock cover and tap its S button.",
+          "action": "tap",
+          "control": "door lock S button",
+          "count": 1
+        },
+        {
+          "text": "Tap the SET button on the Lock Controller.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Door lock double-beeps; status LED turns red"
+        },
+        {
+          "text": "After setup, place the Lock Controller up to 30 feet from the door lock.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "It converts Insteon commands to the MiLock's one-way RF, so an Insteon system can't confirm that the lock received a command.",
+        "Tap the SET button to toggle the lock."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the status LED starts blinking.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks"
+        }
+      ],
+      "notes": [
+        "The Lock Controller 2862 Owner's Manual gives this step only for adding the Lock Controller to a Hub 2245, and advises against manual linking when a central controller such as a Hub is used."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The Lock Controller 2862 Owner's Manual gives no steps for linking the Lock Controller as a controller; this is the step it gives when adding the Lock Controller to a Hub, read here as how it enters linking mode."
+      },
+      "alternatives": [
+        {
+          "description": "As a responder",
+          "steps": [
+            {
+              "text": "Tap the SET button to set the door lock to locked or unlocked.",
+              "action": "tap",
+              "control": "SET button"
+            },
+            {
+              "text": "On the controller, press and hold the SET button until it beeps.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller beeps"
+            },
+            {
+              "text": "Press and hold the Lock Controller's SET button until it double-beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Double beep"
+            }
+          ]
+        },
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the status LED starts blinking.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Status LED blinks"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "description": "As a responder",
+      "steps": [
+        {
+          "text": "On the controller, press and hold the SET button until it beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller beeps"
+        },
+        {
+          "text": "Press and hold the controller's SET button again until it beeps and its status LED blinks red.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller beeps and its status LED blinks red"
+        },
+        {
+          "text": "Press and hold the Lock Controller's SET button until it double-beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep"
+        }
+      ],
+      "notes": [
+        "The Lock Controller 2862 Owner's Manual gives unlinking only with the Lock Controller as the responder."
+      ]
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "Lock Controller 2862 Owner's Manual"
+    "Lock Controller 2862 Owner's Manual",
+    "Lock Controller 2862 Quick Start Guide"
   ]
 }

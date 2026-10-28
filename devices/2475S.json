@@ -50,10 +50,309 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the Insteon ID and the location of the fixture you will control.",
+          "action": "other"
+        },
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying power to the fixture and verify that the power is off.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the wallplate from the fixture, unscrew the fixture and pull it out from the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the fixture and make sure you have 1/2 in. of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the power.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Find the energized line wire with a voltage detector, and identify the neutral and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the power off again.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Connect the module's wires per the wiring diagram: black to line, red to load, white to neutral and copper to ground. A neutral connection is required.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure the wire connectors are firmly attached and no copper is exposed except the ground wire.",
+          "action": "other"
+        },
+        {
+          "text": "Before reinstalling the fixture, turn on the circuit breaker supplying power to the fixture.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Use the module's On and Off buttons to test that it controls the load.",
+          "action": "tap",
+          "control": "On and Off buttons",
+          "expect": "Fixture turns on and off"
+        },
+        {
+          "text": "Link the module to the desired Insteon devices.",
+          "action": "other"
+        },
+        {
+          "text": "Gently place the module into the junction box, making sure nothing could accidentally press any of the buttons on its face.",
+          "action": "mount"
+        },
+        {
+          "text": "Reinstall the fixture.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "Use a non-conductive probe to press the SET button."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the In-LineLinc On/Off 2475SDB Owner's Manual, the In-LineLinc On/Off 2475SDB Quick Start Guide and the 2475SDB Developer Notes, which describe its sibling the 2475SDB; no document describes the 2475S."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks"
+        }
+      ],
+      "notes": [
+        "As a responder: set the load with the On and Off buttons to the state the controller should activate, press and hold the controller's scene button until it beeps, then press and hold the module's SET button until it double-beeps; the module's status LED flashes once and then turns on steady, and the controller double-beeps and its LED stops blinking.",
+        "With the Hub, follow the app's instructions and press and hold the module's SET button when prompted.",
+        "Software can send the Enter Linking Mode command for the same result.",
+        "The 2475SDB Developer Notes' description of the Enter Linking Mode command says the LED blinks red, apparently copied from the unlinking command; their Assign to ALL-Link Group description says it blinks green. The catalog doesn't name a color."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the In-LineLinc On/Off 2475SDB Owner's Manual, the In-LineLinc On/Off 2475SDB Quick Start Guide and the 2475SDB Developer Notes, which describe its sibling the 2475SDB; no document describes the 2475S. The In-LineLinc On/Off 2475SDB Owner's Manual describes linking only as a responder. That holding the SET button for 3 seconds puts the module in linking mode for four minutes comes from the 2475SDB Developer Notes."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the module beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks; the module is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "As a responder: press and hold the controller's scene button until it beeps, press and hold it again until it beeps again, then press and hold the module's SET button until it double-beeps; the status LED flashes once and then turns on bright if the load is off or dim if it is on.",
+        "Software can send the Enter Unlinking Mode command for the same result."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the In-LineLinc On/Off 2475SDB Owner's Manual, the In-LineLinc On/Off 2475SDB Quick Start Guide and the 2475SDB Developer Notes, which describe its sibling the 2475SDB; no document describes the 2475S. The In-LineLinc On/Off 2475SDB Owner's Manual gives this double press only as the start of its factory reset; the 2475SDB Developer Notes say it puts the module in unlinking mode for four minutes."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove the module from all scenes first.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button until the module beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks"
+        },
+        {
+          "text": "Double-tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Immediately press and hold the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED turns off and the module emits a long beep"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the In-LineLinc On/Off 2475SDB Owner's Manual, the In-LineLinc On/Off 2475SDB Quick Start Guide and the 2475SDB Developer Notes, which describe its sibling the 2475SDB; no document describes the 2475S."
+      },
+      "alternatives": [
+        {
+          "description": "With two people",
+          "steps": [
+            {
+              "text": "If possible, remove the module from all scenes first.",
+              "action": "other"
+            },
+            {
+              "text": "Turn the circuit breaker off.",
+              "action": "powerOff",
+              "control": "breaker"
+            },
+            {
+              "text": "Press and hold the SET button while a helper turns the breaker back on.",
+              "action": "powerOn",
+              "control": "SET button",
+              "expect": "Module beeps"
+            },
+            {
+              "text": "Keep holding the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED turns on solid white and then dims; after a few seconds the module double-beeps"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the In-LineLinc On/Off 2475SDB Owner's Manual, the In-LineLinc On/Off 2475SDB Quick Start Guide and the 2475SDB Developer Notes, which describe its sibling the 2475SDB; no document describes the 2475S."
+          }
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module from all of its scene controllers.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The In-LineLinc On/Off 2475SDB Owner's Manual says to remove the module from all scene controllers before you stop using it; otherwise the controllers keep retrying commands and create network delays."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the In-LineLinc On/Off 2475SDB Owner's Manual, the In-LineLinc On/Off 2475SDB Quick Start Guide and the 2475SDB Developer Notes, which describe its sibling the 2475SDB; no document describes the 2475S."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Linked by holding SET for 10 seconds."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "In-LineLinc On/Off 2475SDB Owner's Manual",
+    "In-LineLinc On/Off 2475SDB Quick Start Guide",
+    "2475SDB Developer Notes"
   ]
 }

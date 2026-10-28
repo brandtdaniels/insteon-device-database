@@ -46,6 +46,327 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off power to the outlet at the electrical service panel.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the old outlet and disconnect the wires, leaving 1/2 in. (12 mm) of bare wire.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on power at the circuit breaker.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Use a voltage detector to identify the line wire; line will be energized.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off power at the circuit breaker.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Connect the outlet's wires to the line, neutral and ground wires in the junction box per the installation diagram for an end-of-run, middle-of-run or switched outlet. Verify that the wire nuts are secure and no copper is exposed.",
+          "action": "wire"
+        },
+        {
+          "text": "Mount the outlet into the junction box.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn power on to the outlet at the circuit breaker panel.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Test the outlet by tapping one of the SET buttons to turn it on and off.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The outlet turns on and off"
+        },
+        {
+          "text": "Reattach the wall plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "Replacing a switched outlet requires removing the wall switch from the circuit; the switch can be replaced by an Insteon switch or keypad if control is still wanted.",
+        "The upper SET button controls the upper outlet and the lower SET button the lower outlet."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button of the outlet you want to link (upper or lower) until it beeps.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks green; the outlet stays in linking mode until a link is made"
+        }
+      ],
+      "notes": [
+        "The first device put into linking mode becomes the controller and the second becomes the responder.",
+        "Each outlet has its own SET button and links separately.",
+        "With the Hub, follow the app's instructions and press and hold one of the SET buttons when prompted.",
+        "Software can use the Enter Linking Mode command (On/Off Outlet Developer Notes)."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "When adding the outlet to the Hub, the On/Off Outlet 2663-222 Owner's Manual says to hold a SET button until the outlet beeps; the On/Off Outlet 2663-222 Quick Start Guide says until it double-beeps. The catalog uses the owner's manual's single beep."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button of the outlet you want to link (upper or lower) until it beeps.",
+              "action": "hold",
+              "control": "upper or lower SET button",
+              "expect": "Status LED blinks green; the outlet stays in linking mode until a link is made"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet beeps.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "upper or lower SET button",
+          "expect": "Status LED double-blinks green; multi-linking mode lasts four minutes or until the SET button is tapped"
+        },
+        {
+          "text": "Link each responder in turn: on most devices, press and hold its SET button.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Tap the SET button to exit.",
+          "action": "tap",
+          "control": "upper or lower SET button"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet beeps.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again.",
+          "action": "hold",
+          "control": "upper or lower SET button",
+          "expect": "Status LED blinks red; the outlet stays in unlinking mode until a link is removed"
+        }
+      ],
+      "notes": [
+        "For multi-unlinking, tap the SET button after entering unlinking mode (Status LED double-blinks red); the outlet stays in multi-unlinking mode for four minutes or until the SET button is tapped."
+      ]
+    },
+    "reset": {
+      "description": "Soft factory reset",
+      "steps": [
+        {
+          "text": "Press and hold the upper SET button for 3 seconds.",
+          "action": "hold",
+          "control": "upper SET button",
+          "seconds": 3,
+          "expect": "Outlet beeps and its status LED blinks green"
+        },
+        {
+          "text": "While the status LED blinks green, press and hold the upper SET button again for 3 seconds.",
+          "action": "hold",
+          "control": "upper SET button",
+          "seconds": 3,
+          "expect": "Outlet beeps and its status LED blinks red"
+        },
+        {
+          "text": "Quickly tap the upper SET button twice and wait for the beep.",
+          "action": "tap",
+          "control": "upper SET button",
+          "count": 2,
+          "expect": "Outlet beeps"
+        },
+        {
+          "text": "Immediately press and hold the upper SET button until the long beep stops.",
+          "action": "hold",
+          "control": "upper SET button"
+        },
+        {
+          "text": "Release the upper SET button.",
+          "action": "release",
+          "control": "upper SET button",
+          "expect": "Outlet double-beeps and both the top and bottom status LEDs turn on green"
+        }
+      ],
+      "notes": [
+        "A soft factory reset erases all device settings, including links made with the top and bottom outlets.",
+        "The On/Off Outlet 2663-222 Owner's Manual's flow chart shows that tapping the SET button instead of holding it at the last step exits without resetting.",
+        "If the outlet does not respond, use the alternate procedure."
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The On/Off Outlet 2663-222 Owner's Manual gives the soft factory reset only as a flow chart labeled with the upper and lower SET buttons; the Factory Resetting Insteon Devices (Insteon support article) gives it in words for dual on/off wall outlets, using the top button, with the beeps and LED colors."
+      },
+      "alternatives": [
+        {
+          "description": "Alternate procedure",
+          "steps": [
+            {
+              "text": "Turn off power to the outlet at the electrical service panel.",
+              "action": "powerOff",
+              "control": "breaker"
+            },
+            {
+              "text": "Press and hold the upper SET button.",
+              "action": "hold",
+              "control": "upper SET button"
+            },
+            {
+              "text": "While you keep holding the SET button, have an assistant turn power back on at the service panel.",
+              "action": "powerOn",
+              "control": "breaker",
+              "expect": "Outlet emits a long beep"
+            },
+            {
+              "text": "When the long beep ends, release the SET button.",
+              "action": "release",
+              "control": "upper SET button",
+              "expect": "Outlet double-beeps"
+            }
+          ],
+          "notes": [
+            "An assistant is needed to turn power off and on at the service panel while you hold the SET button."
+          ]
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the outlet's links from every controller that controls it, using the unlinking steps or software.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The On/Off Outlet 2663-222 Owner's Manual's troubleshooting says that links to devices removed from the network must be removed from their controllers; otherwise the controllers keep repeating commands and slow the network."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Taken from the On/Off Outlet 2663-222 Owner's Manual's troubleshooting section, not a removal procedure."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Both outlets are switched, each by its own group.",
     "An August 2014 owner's manual prints subcategory 0x29, the 2476ST's; the December 2014 manual gives 0x39."
@@ -54,6 +375,8 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "On/Off Outlet Developer Notes",
-    "On/Off Outlet 2663-222 Owner's Manual"
+    "On/Off Outlet 2663-222 Owner's Manual",
+    "On/Off Outlet 2663-222 Quick Start Guide",
+    "Factory Resetting Insteon Devices (Insteon support article)"
   ]
 }

@@ -88,6 +88,279 @@
       "intervalMinutes": 1440
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the battery isolation tab before first use.",
+          "action": "pullTab"
+        },
+        {
+          "text": "Hold the sensor in its intended spot and try linking it to the Hub or a responder to test the location; if linking fails, reposition it or add a Range Extender.",
+          "action": "other"
+        },
+        {
+          "text": "Do all linking now, because installing the sensor covers its SET button.",
+          "action": "other"
+        },
+        {
+          "text": "Choose a spot on the hinge side of the door frame or of the door itself; higher is better for range.",
+          "action": "other"
+        },
+        {
+          "text": "Protect nearby surfaces with masking tape and drill a hole 4 inches deep and 3/4 inch in diameter.",
+          "action": "other"
+        },
+        {
+          "text": "Clean out the shavings and test the fit.",
+          "action": "other"
+        },
+        {
+          "text": "Insert the sensor and fasten it with the included screw.",
+          "action": "mount"
+        },
+        {
+          "text": "If the gap between door and frame is too wide to press the contact plunger, slide the spacer over the sensor and fasten it with the provided screw.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "Tools: power drill, 3/4-inch spade or auger bit, Phillips screwdriver. Uses one AAA battery.",
+        "It also works in casement window frames; for sash windows the Hidden Door Sensor 2845 Owner's Manual recommends Open/Close Sensor 2843."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Hidden Door Sensor beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep"
+        }
+      ],
+      "notes": [
+        "The first device put into linking mode becomes the controller and the second the responder. Linking mode ends once a link is made.",
+        "To control a device: adjust it to the state you want, then press and hold its SET button until it double-beeps.",
+        "When already installed (five-tap linking): with the door open, press and release the contact plunger twice, then hold it until the sensor beeps; or with the door closed, open it and press and release the plunger twice, and after a pause the sensor beeps. Repeating five-tap linking cycles between linking, unlinking and exit; the door can be opened or closed while in linking mode.",
+        "To add it to a Hub, when the app prompts, press and hold the SET button until the sensor beeps."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button until the Hidden Door Sensor beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep"
+            },
+            {
+              "text": "Tap the SET button.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "While the sensor is still awake, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x18 (stay awake on).",
+              "action": "send",
+              "command": "Set Operating Flags"
+            },
+            {
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            },
+            {
+              "text": "Tap the SET button once to finish the scene.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1
+            },
+            {
+              "text": "When done, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x19 (stay awake off) to let the sensor sleep again.",
+              "action": "send",
+              "command": "Set Operating Flags"
+            }
+          ],
+          "notes": [
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's multi-linking and waking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Hidden Door Sensor beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        },
+        {
+          "text": "Adjust each scene member to its state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "One at a time, press and hold each scene member's SET button until it double-beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Scene member double-beeps"
+        },
+        {
+          "text": "Tap the SET button once to finish the scene.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Multi-linking mode lasts 4 minutes or until the SET button is tapped."
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Hidden Door Sensor beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep"
+        }
+      ],
+      "notes": [
+        "Then press and hold the controlled device's SET button until it double-beeps.",
+        "For several devices, tap the SET button after the second beep, press and hold each device's SET button until it double-beeps, then tap the SET button to leave multi-unlinking mode (it also ends after 4 minutes)."
+      ]
+    },
+    "waking": {
+      "steps": [
+        {
+          "text": "While the sensor is awake, send Set Operating Flags with cmd2 0x18 (stay awake on) to keep it awake; cmd2 0x19 turns it off.",
+          "action": "send",
+          "command": "Set Operating Flags"
+        }
+      ],
+      "notes": [
+        "The Hidden Door Sensor Developer Notes say the sensor sleeps quickly to save battery and must be awake to receive commands; stay awake on uses 0xFF for the awake interval.",
+        "The documents don't give a button step to wake the sensor before sending the command."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Only the Hidden Door Sensor Developer Notes cover staying awake."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Remove the Hidden Door Sensor from the door frame and take out its battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Press and hold the SET button while reinstalling the battery.",
+          "action": "insertBatteries",
+          "control": "SET button",
+          "expect": "Long beep"
+        },
+        {
+          "text": "Keep holding the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Double beep"
+        }
+      ],
+      "notes": [
+        "Erases all links and customized properties."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Press and hold the SET button until the Hidden Door Sensor beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep"
+            },
+            {
+              "text": "Press and hold the SET button again until it beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Sends closed to group 2 only when set to.",
     "Sends a heartbeat to group 4 every 24 hours by default. Software can set it to 5 to 1275 minutes, in 5-minute steps.",

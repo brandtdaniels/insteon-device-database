@@ -37,7 +37,39 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "If needed, connect the power supply to TouchLinc and plug it into an outlet.",
+          "action": "plugIn",
+          "control": "Power port"
+        },
+        {
+          "text": "Press and hold the Power button on the left edge until TouchLinc begins to boot up.",
+          "action": "hold",
+          "control": "Power button",
+          "expect": "TouchLinc boots up and a network setup dialog box opens"
+        },
+        {
+          "text": "Download and install the latest OS firmware and native app to TouchLinc.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Typical battery life is 3 to 4 hours; keep the charger plugged in when TouchLinc is not in use.",
+        "Settings changes are lost when TouchLinc is powered off, and only files in the My Computer > NAND folder are kept."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Touchscreen Controller 2448 Owner's Manual and Touchscreen Controller 2448 Quick Start Guide, which print the model as 2448 and the name TouchLinc. The catalog's 2448A7T is the TouchLinc these documents describe: the Insteon Device Categories (January 2014) list names the 2448A7T TouchLinc."
+      }
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)",
+    "Touchscreen Controller 2448 Owner's Manual",
+    "Touchscreen Controller 2448 Quick Start Guide"
   ]
 }

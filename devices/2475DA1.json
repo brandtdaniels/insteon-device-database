@@ -39,12 +39,313 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the electrical panel, turn off the circuit breakers or remove the fuses feeding the wall box, and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the fixture's wall plate, unscrew the fixture and pull it out from the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the fixture and make sure there is 1/2 inch of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Making sure the wires are not touching, turn the breakers back on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the line and load wires connected to the fixture, then identify the neutral and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breakers.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Connect the dimmer's bare copper wire to ground, white to neutral, red to load and black to line (100 to 277V). Make sure the connections are firm with no exposed wire.",
+          "action": "wire"
+        },
+        {
+          "text": "Before reinstalling the fixture, turn on the circuit breaker supplying power to it.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use the dimmer's ON and OFF buttons to test load control.",
+          "action": "tap",
+          "control": "ON button",
+          "expect": "The load turns on and off"
+        },
+        {
+          "text": "Add the dimmer to scenes as a responder of the Insteon devices you want.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breakers.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Gently place the dimmer into the junction box, making sure nothing can accidentally press the buttons on its face.",
+          "action": "mount"
+        },
+        {
+          "text": "Reinstall the fixture.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn on the breakers.",
+          "action": "powerOn"
+        }
+      ],
+      "notes": [
+        "A neutral connection is required.",
+        "Controls incandescent loads up to 400W at 100 to 277VAC, 50/60Hz."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to start linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a responder: set the load with the ON and OFF buttons to the state the scene should recall, press and hold the controller's scene button until it beeps, then press and hold the dimmer's SET button until it double-beeps. The status LED flashes, then turns green if the load is on or red if off.",
+        "Linking mode times out after 4 minutes of inactivity. To leave it, tap any button except the SET button.",
+        "A double-beep means a successful link or unlink; continuous beeps for 3 seconds mean an unsuccessful link or the 4-minute setup timeout."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The In-Line Dimmer Module (Dual-Band) 2475DA1 Owner's Manual describes linking only as a responder; that holding the SET button starts linking mode comes from its button table and LED table."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button to start linking mode.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Status LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the dimmer beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the dimmer beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks red"
+        }
+      ],
+      "notes": [
+        "To remove the dimmer as a responder: press and hold the controller's scene button until it beeps, press and hold it again until it beeps, then press and hold the dimmer's SET button until it double-beeps."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The In-Line Dimmer Module (Dual-Band) 2475DA1 Owner's Manual gives these presses as the first steps of a factory reset; its LED table says blinking red is unlinking mode."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove all scene memberships first.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button until the dimmer beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the dimmer beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Double-tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Then press and hold the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Long beep; LED turns off and the load turns on"
+        }
+      ],
+      "notes": [
+        "Continuous beeps for 10 seconds warn that a factory reset is coming."
+      ],
+      "alternatives": [
+        {
+          "description": "With a partner",
+          "steps": [
+            {
+              "text": "Turn off the circuit breaker.",
+              "action": "powerOff",
+              "control": "breaker"
+            },
+            {
+              "text": "Press and hold the SET button.",
+              "action": "hold",
+              "control": "SET button"
+            },
+            {
+              "text": "While you keep holding the SET button, have the partner turn the breaker back on.",
+              "action": "powerOn",
+              "control": "breaker"
+            },
+            {
+              "text": "Keep holding until the long beep stops.",
+              "action": "hold",
+              "control": "SET button"
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "Dimmer double-beeps, its LED turns green and the load turns on"
+            }
+          ]
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the dimmer from all of its scene controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Uninstall the dimmer.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers experience delays and may show flashing error indications."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Returns its load and LEDs to their states before a power outage.",
     "Its owner's manual describes linking it only as a responder."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "In-LineLinc Dimmer 2475DA1 Owner's Manual"
+    "In-Line Dimmer Module (Dual-Band) 2475DA1 Owner's Manual",
+    "In-Line Dimmer Module (Dual-Band) 2475DA1 Quick Start Guide"
   ]
 }

@@ -89,6 +89,75 @@ The device itself is the surest source: it reports its engine in reply to a get 
 command (cmd1 `0x0D`). The catalog's entries are for deciding before asking, or for a device
 that doesn't answer.
 
+## A product's lifecycle
+
+A profile's `lifecycle` says how to install the product, link it, wake it, reset it and take it
+out of service, so an app can guide a person through each, or do the steps it can itself:
+
+```json
+"lifecycle": {
+  "linking": { "steps": [
+    { "text": "Press and hold the SET button until the switch beeps.",
+      "action": "hold", "control": "SET button", "expect": "Beep" } ] },
+  "reset": { "steps": [
+    { "text": "Pull the SET button out from the switch until the status LEDs turn off.",
+      "action": "pullTab", "control": "SET button", "expect": "Status LEDs turn off" },
+    { "text": "Wait about ten seconds.", "action": "wait", "seconds": 10 },
+    { "text": "Push in and hold the SET button until the long beep stops.",
+      "action": "hold", "control": "SET button", "expect": "Long beep" },
+    { "text": "Release the SET button.", "action": "release", "control": "SET button", "expect": "Double beep" } ] },
+  "resetErases": ["links", "settings"]
+}
+```
+
+- `installation`, `linking`, `multiLinking`, `unlinking`, `waking`, `reset` and `removal` are each
+  a procedure: `steps` in order, with `notes` and a `verification` like any other value.
+- A procedure's `alternatives` are other whole procedures for the same thing, such as from a Hub
+  instead of with the SET button; an app follows one. Each alternative's `description` names it,
+  such as From a Hub or Soft factory reset.
+- A step's `text` is what a person reads. `action`, `control`, `seconds`, `count` and `expect`
+  say the same in a form an app can use: which button to hold and for how long, how many taps,
+  and the beep or LED that shows it worked. Each step does one thing; a step that holds a button
+  and then releases it is two steps.
+- A step's `device` is `this`, the product the profile describes, unless it says `other`: the
+  other device being linked or unlinked, such as the responder a controller links to, or the Hub.
+  It defaults to `this`.
+- A step's `action` is one of:
+
+  | Action | What the step does |
+  | --- | --- |
+  | `hold` | Press and hold `control`, for `seconds` or until `expect` happens. |
+  | `tap` | Press and release `control` quickly, `count` times. |
+  | `press` | Press `control` once, as a click rather than a tap or hold; `seconds`, where given, is how long the press lasts. |
+  | `release` | Let go of a held `control`. |
+  | `turn` | Turn a knob, dial or other control. |
+  | `plugIn`, `unplug` | Plug the product in or unplug it. |
+  | `powerOff`, `powerOn` | Turn power off or on, at a breaker or switch, or by unscrewing a bulb and screwing it back in. |
+  | `wire` | Connect or disconnect wires. |
+  | `mount` | Mount or fasten the product or a part of it. |
+  | `insertBatteries`, `removeBatteries` | Put batteries in or take them out. |
+  | `pullTab` | Pull something out: the SET button, to open an air gap and cut power, or a battery tab, which may connect the battery. |
+  | `wait` | Wait, for `seconds` or until `expect` happens. |
+  | `send` | Send the Insteon `command` the step names, by its Insteon Developer's Guide name. |
+  | `other` | Anything else, such as choosing a button or removing a cover. |
+
+- Linking with the SET button is written for the device alone: two devices link when one goes
+  into linking mode and then the other, and the first becomes the controller.
+- Linking and removal can have an alternative described as From a Hub, for adding the product
+  to a Hub, or to a modem, and removing it. Its Hub or modem steps are `send` steps: on the
+  `other` device for the Hub's own commands, such as Start ALL-Linking, and on `this` device for
+  the commands the Hub sends the product, such as Enter Linking Mode or Ping. Steps a person
+  takes on the product keep their own actions. A line-powered product is linked as a responder to
+  the Hub, so the Hub can control it, and, where its profile lists a group it controls, from that
+  group back to the Hub, so the Hub hears it; a battery-powered product is put in linking mode
+  first and links to the Hub as a controller. Where its profile says how to keep it awake, the
+  steps do so: before linking mode for some products, such as the Wireless Zone Thermostat
+  2441ZTH, and right after the Hub starts ALL-Linking for others, such as the Open/Close Sensor
+  2843 and the Leak Sensor 2852, which the Hub keeps awake with extended Set. No document
+  describes these procedures, so their `verification` says what each is assembled from.
+- `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
+  battery device stays awake, and `resetErases` what a factory reset clears.
+
 ## Command sets
 
 Many products share the same settings, so the catalog describes them once, as command sets, and

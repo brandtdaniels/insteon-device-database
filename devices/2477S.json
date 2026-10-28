@@ -40,9 +40,303 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the electrical panel, turn off the circuit breaker or remove the fuse feeding the wall box, and verify that the power is off.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the wallplate, unscrew the old switch and gently pull it out.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the switch; if they cannot be unscrewed, cut them where they enter the switch and strip 1/2 in. of insulation off the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the power.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the line and load wires, and identify the neutral and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the power.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Connect the switch's black wire to line, red wire to the load, white wire to neutral and bare copper wire to ground, with firm connections and no exposed wire. A neutral connection is required.",
+          "action": "wire"
+        },
+        {
+          "text": "With the LEDs on the left, gently place the switch into the wall box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn on the power.",
+          "action": "powerOn",
+          "control": "breaker",
+          "expect": "Switch and its connected load turn on"
+        },
+        {
+          "text": "Verify the switch works by tapping it on and off.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "Switch and its connected load turn on and off"
+        },
+        {
+          "text": "Reinstall the wallplate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "If the box lacks neutral wires, stop and contact support.",
+        "For a circuit with two or more switches, every switch must be replaced by an Insteon device: in the line box the switch's black wire joins line and one traveler and its red wire is capped; in the load box the black wire joins that traveler and the red wire connects to the load; then add all the switches to a group. The On/Off Switch 2477S Owner's Manual gives the full multi-way wiring.",
+        "Pull the SET button out to open the air gap and remove power from the switch and its load."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "LED blinks green; the switch stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: put the switch in linking mode first, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the switch's LED stops blinking.",
+        "As a responder: press and hold the controller button until it beeps, tap the switch on (or off), then press and hold the switch's SET button until it double-beeps; the controller's LED stops blinking.",
+        "With the Insteon app, press and hold the SET button until the switch double-beeps when the app prompts you.",
+        "The 3-second hold time and four-minute timeout come from the 2477S Developer Notes; software can use the Enter Linking Mode command."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the switch beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED blinks green; the switch stays in linking mode for four minutes"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the desired state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it beeps or its LED flashes.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Switch double-beeps"
+        },
+        {
+          "text": "After adding all responders, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED stops blinking"
+        },
+        {
+          "text": "Test by tapping the switch on and off a couple of times.",
+          "action": "tap",
+          "control": "paddle",
+          "expect": "All the added responders respond"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the switch beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until the switch beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red; the switch is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "As a controller: after entering unlinking mode, press and hold the responder's SET button until it double-beeps or its LED blinks; the switch double-beeps and its LED stops blinking.",
+        "As a responder: put the controller in unlinking mode first (hold its SET button until it beeps, then again until it beeps again), then press and hold the switch's SET button until it double-beeps.",
+        "To remove several responders at once, tap the SET button after entering unlinking mode (LED double-blinks red), press and hold each responder's SET button until it beeps or its LED flashes, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull out the SET button to open the air gap.",
+          "action": "pullTab",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Switch emits a long beep"
+        },
+        {
+          "text": "Keep holding the SET button until the beeping stops.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the switch double-beeps, the load turns on and the LED returns to default brightness"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the switch as a responder from every controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Remove every responder link from the switch, one responder at a time or with the multiple-responder unlinking steps.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The On/Off Switch 2477S Owner's Manual says that before uninstalling the switch you must remove all of its responder links, otherwise controllers keep retrying commands and create network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "2477S Developer Notes"
+    "2477S Developer Notes",
+    "On/Off Switch 2477S Owner's Manual",
+    "On/Off Switch 2477S Quick Start Guide"
   ]
 }

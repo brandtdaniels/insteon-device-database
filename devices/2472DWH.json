@@ -55,10 +55,276 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Turn off the circuit breaker or remove the fuse supplying power to the outlet location.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the wall plate from the outlet you are replacing, unscrew the outlet and pull it out from the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the old outlet. If they can't be unscrewed, cut them where they enter the outlet and strip 1/2 inch of insulation off the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the bare copper outlet wire to the ground wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the white outlet wire to the neutral wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the black outlet wire to the line wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all connections are solid with no exposed copper other than ground.",
+          "action": "other"
+        },
+        {
+          "text": "Carefully install and screw the outlet into the electrical box, then install the Decora trim plate.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the circuit breaker back on.",
+          "action": "powerOn",
+          "expect": "LED blinks red for about 1 minute, then turns solid red"
+        },
+        {
+          "text": "Slip the Outlet Dimmer Key over the prongs of the lamp's plug so its circular magnet faces the plug.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the lamp into the top outlet.",
+          "action": "plugIn",
+          "expect": "The lamp turns on and the LED turns green"
+        },
+        {
+          "text": "If the lamp doesn't turn on, turn it on with the lamp's own switch.",
+          "action": "other"
+        },
+        {
+          "text": "Tap the SET button to check that it toggles the lamp.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "LED is green when the lamp is on and red when it is off"
+        }
+      ],
+      "notes": [
+        "Neutral is required: the outlet has black (line), white (neutral) and bare copper (ground) wires.",
+        "The top outlet is dimmable and needs the Outlet Dimmer Key fitted to any plug in it; the bottom outlet is always on."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: before entering linking mode, set the responder to the state it should take when the scene is activated; after the outlet beeps, press and hold the responder's SET button until it beeps or its LED flashes. The outlet double-beeps and its LED stops blinking.",
+        "As a responder: plug a lamp fitted with the Dimmer Key into the top outlet and turn it on, press and hold the controller's scene button until it beeps, then press and hold the outlet's SET button until it double-beeps. The outlet's LED flashes once and returns to green.",
+        "Continuous beeps for 3 seconds mean an unsuccessful scene change or the 4-minute setup timeout."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "When adding the outlet to the Hub, the OutletLinc Dimmer 2472D Quick Start Guide says to hold the SET button until you hear a double-beep; the OutletLinc Dimmer 2472D Owner's Manual describes a single beep when the outlet enters linking mode itself and a double-beep when it links as a responder. The catalog uses the owner's manual's single beep."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the outlet beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the outlet beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the outlet beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "The outlet double-beeps and its LED stops blinking"
+        }
+      ],
+      "notes": [
+        "To remove the outlet as a responder: press and hold the controller's scene button until it beeps, press and hold it again until it beeps, then press and hold the outlet's SET button until it double-beeps. The outlet's LED flashes once and returns to steady green or red."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove all scene memberships first.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the circuit breaker.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Press and hold the SET button. Do not let go.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Have someone turn the circuit breaker back on while you keep holding.",
+          "action": "powerOn",
+          "expect": "Long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "The LED turns solid green and then off; after a few seconds the outlet double-beeps"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the outlet from every scene controller it responds to.",
+          "action": "other"
+        },
+        {
+          "text": "Remove each responder the outlet controls that will no longer be used.",
+          "action": "other"
+        },
+        {
+          "text": "Stop using the outlet.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise its controllers keep retrying commands, creating network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "2472D Developer Notes",
-    "OutletLinc Dimmer 2472D Owner's Manual"
+    "OutletLinc Dimmer 2472D Owner's Manual",
+    "OutletLinc Dimmer 2472D Quick Start Guide"
   ]
 }

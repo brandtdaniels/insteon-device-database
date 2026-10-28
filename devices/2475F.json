@@ -56,12 +56,346 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the module's Insteon ID for reference.",
+          "action": "other"
+        },
+        {
+          "text": "Using the fan's pull chains, set the fan to its highest speed and turn the light on.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker or remove the fuse supplying power to the fan.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the ceiling fan from the electrical box.",
+          "action": "other"
+        },
+        {
+          "text": "Identify the line and neutral wires and the load wires for the fan and the light separately.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the ceiling fan and light.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the module's white wire and the fixture's neutral wire to the house neutral with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the module's red wire to the fixture's fan wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the module's blue wire to the fixture's light wire. If the fixture has no light, cap the blue wire.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the module's black wire to line with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all connections are secure with no exposed copper.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the breaker back on.",
+          "action": "powerOn",
+          "expect": "Light LED turns green and fan LED turns red"
+        },
+        {
+          "text": "If you will set up scenes with the SET buttons rather than software, do it now.",
+          "action": "other"
+        },
+        {
+          "text": "Carefully remount the cowling with the module inside, or put it in the electrical box. Secure it to the fan bracket with the cable tie aligned with the notch on the case so the tie and wires stay clear of moving parts.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "For ceiling fans only. Neutral is required. Loads: up to 300W incandescent light and 1A fan, 120VAC.",
+        "Once installed, the module controls all fan and light functions, so leave the pull chains at highest speed and light on.",
+        "Optionally cover the LEDs with black electrical tape to avoid a visible glow through the cowling at night."
+      ]
+    },
+    "linking": {
+      "description": "Light",
+      "steps": [
+        {
+          "text": "Press and hold the scene controller's SET button until it beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller LED blinks"
+        },
+        {
+          "text": "Tap the light SET button until the ceiling fan light is on.",
+          "action": "tap",
+          "control": "light SET button",
+          "expect": "Light LED is green"
+        },
+        {
+          "text": "Press and hold the light SET button until the module double-beeps.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "Light LED flashes once and returns to green; the controller double-beeps and its LED stops blinking"
+        }
+      ],
+      "notes": [
+        "The documents describe linking the module only as a responder.",
+        "Fan speed set by tapping the fan SET button: 1st tap low (single beep, LED blinks green slowly), 2nd medium (double beep, blinks green medium), 3rd high (fast double beep, blinks green fast), 4th off (no beep, LED red). The fan does not spin while you tap the fan SET button.",
+        "A 3-second beep means the module returned to ready mode after a setup timeout or a SET button tap."
+      ],
+      "alternatives": [
+        {
+          "description": "Fan",
+          "steps": [
+            {
+              "text": "Tap the fan SET button until the beeper and fan LED show the fan speed the scene should recall.",
+              "action": "tap",
+              "control": "fan SET button"
+            },
+            {
+              "text": "Press and hold the scene controller's SET button until it beeps.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller LED blinks"
+            },
+            {
+              "text": "Press and hold the fan SET button until the module double-beeps.",
+              "action": "hold",
+              "control": "fan SET button",
+              "expect": "Module double-beeps and the fan LED returns to its previous state; the controller double-beeps and its LED stops blinking"
+            }
+          ]
+        },
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the light SET button until the module double-beeps.",
+              "action": "hold",
+              "control": "light SET button",
+              "expect": "Light LED flashes once and returns to green; the controller double-beeps and its LED stops blinking"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "description": "Fan",
+      "steps": [
+        {
+          "text": "Use the pull chain to turn the fan motor off.",
+          "action": "other",
+          "control": "pull chain"
+        },
+        {
+          "text": "Tap the controller's scene button.",
+          "device": "other",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the controller's SET button until it beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller LED blinks"
+        },
+        {
+          "text": "Press and hold the controller's SET button until it beeps again.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller LED keeps blinking"
+        },
+        {
+          "text": "Press and hold the fan SET button until the module double-beeps.",
+          "action": "hold",
+          "control": "fan SET button",
+          "expect": "Module double-beeps; the controller LED stops blinking"
+        }
+      ],
+      "notes": [
+        "If the module has both fan and light links to a controller, removing one also removes the other; re-create the one you want to keep."
+      ],
+      "alternatives": [
+        {
+          "description": "Light",
+          "steps": [
+            {
+              "text": "Use the pull chain to turn the fan motor off.",
+              "action": "other",
+              "control": "pull chain"
+            },
+            {
+              "text": "Tap the controller's scene button.",
+              "device": "other",
+              "action": "tap",
+              "control": "scene button"
+            },
+            {
+              "text": "Press and hold the controller's SET button until it beeps.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller LED blinks"
+            },
+            {
+              "text": "Press and hold the controller's SET button until it beeps again.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller LED keeps blinking"
+            },
+            {
+              "text": "Press and hold the light SET button until the module double-beeps.",
+              "action": "hold",
+              "control": "light SET button",
+              "expect": "Module double-beeps; the controller LED stops blinking"
+            }
+          ]
+        }
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove all links first.",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the light SET button until the module beeps.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the light SET button until it beeps again.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Quickly double-tap the light SET button and release it.",
+          "action": "tap",
+          "control": "light SET button",
+          "count": 2
+        },
+        {
+          "text": "Then quickly press and hold the light SET button.",
+          "action": "hold",
+          "control": "light SET button",
+          "expect": "Module beeps, the LEDs and light turn off, then the module beeps for 5 seconds"
+        },
+        {
+          "text": "Release after the beeping stops.",
+          "action": "release",
+          "control": "light SET button",
+          "expect": "The light LED turns green, then off; the module double-beeps, the light LED turns green and the fan's light turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module's scene memberships from all controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the module from use.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers retry commands repeatedly, creating network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "It takes a standard On for the light, and an extended On with 0x02 in D1 for the fan."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "FanLinc Developer Notes"
+    "FanLinc Developer Notes",
+    "Ceiling Fan and Light Control Module 2475F Owner's Manual",
+    "Ceiling Fan and Light Control Module 2475F Quick Start Guide"
   ]
 }

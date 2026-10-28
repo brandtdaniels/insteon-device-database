@@ -61,10 +61,231 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "If you will configure the dimmer with software, write down its Insteon ID and the fixture it is installed in.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the circuit breaker or fuse supplying power to the fixture. Check that the power is off by toggling the load from its local switch.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the wall plate from the fixture, unscrew it and remove it from the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the fixture. If they can't be unscrewed, cut them and strip 1/2 inch of insulation off the ends. Make sure the wires aren't touching anything.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the circuit breaker.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use a voltage meter to identify the line, load, neutral and ground wires.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the breaker off again.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Using the included wire nuts, connect the dimmer's bare copper wire to ground, white to neutral, red to load and black to line.",
+          "action": "wire"
+        },
+        {
+          "text": "Turn power back on at the circuit breaker or fuse panel.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Use the dimmer's On and Off buttons to test the installation.",
+          "action": "tap",
+          "control": "On button",
+          "expect": "The load turns on and off"
+        },
+        {
+          "text": "Set the local on-level and ramp rate for the connected load.",
+          "action": "other"
+        },
+        {
+          "text": "Link the dimmer to an Insteon controller.",
+          "action": "other"
+        },
+        {
+          "text": "Gently place the dimmer into the junction box, making sure nothing can accidentally press the buttons on its face.",
+          "action": "mount"
+        },
+        {
+          "text": "Reinstall the fixture.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "A neutral connection is required.",
+        "Link the dimmer before you finish installing the fixture, while its buttons are still reachable."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "With the controller in linking mode, press and hold the SET button until the dimmer double-beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+        }
+      ],
+      "notes": [
+        "The dimmer links only as a responder. First put the controller in linking mode; for most controllers, press and hold the SET button for 3 seconds or the On or scene button for 10 seconds. The controller stays in linking mode for 4 minutes.",
+        "Pressing and holding the dimmer's SET button starts linking mode."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "With the controller in linking mode, press and hold the SET button until the dimmer double-beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "With the controller in unlinking mode, press and hold the SET button until the dimmer double-beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep; status LED flashes once, then turns on if the load is off or off if the load is on"
+        }
+      ],
+      "notes": [
+        "First put the controller in unlinking mode; for most controllers, press and hold the SET button for 3 seconds twice or the On or scene button for 10 seconds twice. The controller stays in unlinking mode for 4 minutes."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Make sure the dimmer is unlinked from all controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker supplying power to the dimmer's fixture.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push in the SET button and hold it while a partner turns the circuit breaker back on.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the dimmer double-beeps and the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the dimmer from every controller it was linked to.",
+          "action": "other"
+        },
+        {
+          "text": "Stop using the dimmer.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise the controllers retry commands and cause network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Linked by holding SET for 10 seconds."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "In-Line Dimmer Module 2475D Owner's Manual"
   ]
 }

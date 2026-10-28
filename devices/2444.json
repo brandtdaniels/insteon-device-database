@@ -32,9 +32,342 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the Insteon ID printed on the back of the module.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker or fuse and verify that the power is off.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Disconnect the wires from the existing switch, fixture or outlet and strip 3/16 inch (5 mm) of bare wire on each end.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the wires following the wiring diagram for your installation; sense wire 1 (yellow) is up and sense wire 2 (purple) is down.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure the wires are firm and no bare wire is exposed.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the breaker or fuse.",
+          "action": "powerOn",
+          "control": "breaker",
+          "expect": "After a few seconds the LED turns green"
+        },
+        {
+          "text": "Test by tapping the module's up and down buttons.",
+          "action": "tap",
+          "control": "up and down buttons",
+          "expect": "Motor moves; LED green when moving up/open, red when moving down/closed"
+        },
+        {
+          "text": "If wired behind a single or dual momentary switch, set the switch operation mode: press and hold the SET button until it beeps three times.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Three beeps; LED blinks green, red, green"
+        },
+        {
+          "text": "Slowly tap the SET button four times for single momentary or five for dual momentary.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button until it double-beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep"
+        },
+        {
+          "text": "Calibrate the travel time: press and hold the SET button until it beeps four times in turn.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Four beeps; LED blinks green, red, green, red"
+        },
+        {
+          "text": "Slowly tap the SET button twice.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Press and hold the SET button until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; the motor starts"
+        },
+        {
+          "text": "Tap the SET button as soon as the load is fully lowered or raised.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "The motor reverses"
+        },
+        {
+          "text": "Tap the SET button again when the load is fully raised or lowered.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Double beep when calibrated"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required.",
+        "Determine the switch type first (latching, the default; single momentary; or dual momentary); switch operation mode doesn't apply when installed behind an outlet or in a fixture.",
+        "Stay with the module during calibration; your taps set the timing.",
+        "Sense wires carry very low current (about 0.17 mA at 120 V, 0.35 mA at 240 V)."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As controller: adjust the responder to the state you want, then press and hold its SET button until it double-beeps. The module double-beeps and its LED stops blinking.",
+        "Instead of the SET button you can quickly tap the connected wall switch exactly five times in under four seconds (alternate directions on a latching or dual momentary switch), then wait two seconds; the module beeps.",
+        "As responder: put the controller in linking mode, move the load up or down to the state you want, then press and hold the module's SET button (or tap the switch five times) until it double-beeps.",
+        "Do the SET button steps before reinstalling the wall switch or fixture.",
+        "If either device's LED keeps blinking, the link failed; tap its SET button until the LED stops and try again."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the module beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the scene state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Tap the SET button to finish.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Beep; LED stops blinking"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button until it double-beeps; the module double-beeps and its LED stops blinking.",
+        "To unlink several responders, tap the SET button after the LED blinks red (it double-blinks red), press and hold each responder's SET button until it double-beeps, then tap the SET button to finish.",
+        "To remove the module as a responder, put the controller in unlinking mode (hold its button until it beeps, then again until it beeps and its LED blinks red) and press and hold the module's SET button until it double-beeps."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button a third time until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button 3 times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button and don't let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Long beep"
+        },
+        {
+          "text": "When the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds, a double beep"
+        }
+      ],
+      "notes": [
+        "Erases all settings, links and scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module as a controller from each of its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove all of the module's responder links from its controllers.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers keep retrying commands and cause network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Micro Open/Close 2444 Owner's Manual"
+    "Micro Open/Close Module 2444 Owner's Manual"
   ]
 }

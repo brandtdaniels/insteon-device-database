@@ -30,7 +30,262 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Write down the Insteon ID on the front of the unit.",
+          "action": "other"
+        },
+        {
+          "text": "Turn off the breaker or fuse and make sure the power is off.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Disconnect the wires from the existing switch and connect them per the diagram.",
+          "action": "wire"
+        },
+        {
+          "text": "At the ballast location, disconnect the wires from the fixture you will control and make sure there is 1/2 inch of bare wire on the ends.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the module's line, neutral and load wires and, for a dimmable ballast, its 0-10VDC + and DC ground wires; for dual-relay mode, connect line, load 1, load 2 and neutral and cap the unused 0-10V wires.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure the wires are firmly connected with no exposed wire.",
+          "action": "other"
+        },
+        {
+          "text": "Turn on the breaker or fuse.",
+          "action": "powerOn",
+          "expect": "After a few seconds the load turns on"
+        },
+        {
+          "text": "For dual-relay mode only: press and hold the SET button until it beeps.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Quickly tap the SET button twice.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2,
+          "expect": "Beeps once; LED stops blinking"
+        },
+        {
+          "text": "Tap the SET button a couple of times to test the connection.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The load responds"
+        },
+        {
+          "text": "Link the module to your keypad or other Insteon controller.",
+          "action": "other"
+        },
+        {
+          "text": "Gently place the module into the fixture box, making sure nothing can accidentally press the SET button.",
+          "action": "mount"
+        },
+        {
+          "text": "Reinstall the fixture.",
+          "action": "mount"
+        },
+        {
+          "text": "Use the included Insteon ID stickers to keep track of the module's location.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "A neutral connection is required. Use with branch circuit breakers of 15 amps or less; 100 to 277VAC, 50/60Hz.",
+        "The existing wall switch is replaced by a keypad or other Insteon controller wired to the same constant hot, so both devices stay powered.",
+        "The module ships in dimmer mode, for 0-10VDC dimmable ballasts. Dual-relay mode controls two non-dimmable ballasts up to 5A each. To return to dimmer mode, press and hold the SET button until it beeps, then quickly tap it three times; it double-beeps. Tap the SET button 4 times to see the mode: red, green, red, green is dimmer mode and red, green, green, green is relay mode."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The documents disagree on the 0-10V wire colors: the Ballast Dimmer 2446 Quick Start Guide labels purple 0-10VDC + and gray DC ground, while the Ballast Dimmer 2446 Owner's Manual specifications list gray as Analog + and purple as Analog -. The catalog names the wires by function and gives no colors; check the label on the unit."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "As a controller: after the module beeps, adjust the responder to the desired state and press and hold its SET button until it double-beeps. The module double-beeps and its LED stops blinking. Do this before reinstalling the module.",
+        "As a responder: use the module's SET button to set the load to the state to recall, press and hold the controller's scene button until it beeps, then press and hold the module's SET button until it double-beeps.",
+        "A link is one way; to control the other way, link again in the other direction.",
+        "If either LED keeps blinking, linking failed; tap that device's SET button until the LED stops blinking and try again."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the module beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the module beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "The module double-beeps and its LED stops blinking"
+        }
+      ],
+      "notes": [
+        "To remove the module as a responder: press and hold the controller button until it beeps, press and hold it again until it beeps a second time, then press and hold the module's SET button until it double-beeps."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Disconnect the module from power.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, reconnect power to the module. Don't let go of the SET button.",
+          "action": "powerOn",
+          "control": "SET button",
+          "expect": "Beep; status LED turns solid green"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Double beep; the load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the module as a controller of each of its responders.",
+          "action": "other"
+        },
+        {
+          "text": "Remove all of the module's responder links from its controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Uninstall the module.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers retry commands repeatedly, creating network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Ballast Dimmer 2446 Owner's Manual",
+    "Ballast Dimmer 2446 Quick Start Guide"
   ]
 }

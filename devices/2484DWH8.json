@@ -35,12 +35,212 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Disconnect power at the service panel.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the trim plate and the existing switch or dimmer.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the timer's copper wire to ground with a wire nut or screw.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the timer's white wire to neutral with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the timer's black wire to the hot wire with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the timer's red wire to the switch leg with a wire nut. Controlling a local load is optional.",
+          "action": "wire"
+        },
+        {
+          "text": "Carefully screw the timer into the electrical box and replace the trim plate.",
+          "action": "mount"
+        },
+        {
+          "text": "Restore power at the service panel.",
+          "action": "powerOn",
+          "expect": "The timer returns to its last on or off state"
+        },
+        {
+          "text": "Test the timer by pressing the 2 min button.",
+          "action": "press",
+          "control": "2 min button",
+          "expect": "The lights turn on, flash after 1 minute and turn off after 2 minutes"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required. Identify all wires before you begin; for 3-way wiring diagrams the Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide refers to another document."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold any button on the timer until its LED begins blinking.",
+          "action": "hold",
+          "expect": "Button LED blinks"
+        }
+      ],
+      "notes": [
+        "As a controller: then press and hold the SET button on the responder until its LED flashes (on a multi-button device, hold the button of choice until its LED or load flashes). Linked devices turn on when the timer turns on and off when it expires.",
+        "As a responder: put the controller in linking mode, then press and hold the timer button for the time the lights should stay on until the lights flash."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold any button on the timer until its LED begins blinking.",
+              "action": "hold",
+              "expect": "Button LED blinks"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the corresponding button on the timer until its LED begins blinking.",
+          "action": "hold",
+          "expect": "Button LED blinks"
+        },
+        {
+          "text": "Press and hold the same button again for 15 seconds.",
+          "action": "hold",
+          "seconds": 15
+        },
+        {
+          "text": "Press and hold the SET button on the responder until its LED flashes; on a multi-button device, hold the button of choice until its LED or load flashes.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Responder LED flashes"
+        }
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull the SET button out.",
+          "action": "pullTab",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 15 seconds.",
+          "action": "wait",
+          "seconds": 15
+        },
+        {
+          "text": "Push the SET button in and hold it in for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "The lights turn on after 3 seconds"
+        }
+      ],
+      "notes": [
+        "All programmed links are removed and features return to the factory defaults."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Buttons A to H start 2, 5, 10, 15 and 30 minute and 1 and 2 hour timers, and turn the load off.",
     "Turns its load off for a second a minute before a timer ends, unless that's turned off.",
     "Has one ALL-Link group."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide"
   ]
 }

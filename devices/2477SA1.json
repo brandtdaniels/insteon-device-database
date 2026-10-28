@@ -38,8 +38,329 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "If you will use Insteon software, write down the Load Controller's Insteon ID and the location of the appliance it will control.",
+          "action": "other"
+        },
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying the junction box wired to the appliance you want to control.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Remove the junction box cover and disconnect the two supply lines coming from the circuit breaker, leaving 1/2 inch of bare, clean copper wire on the ends.",
+          "action": "wire"
+        },
+        {
+          "text": "Connect the Load Controller to the load and the junction box as shown in the wiring diagram; its wires are Line 1, Line 2, Load and Load. The ground wire is not connected to the Load Controller; cap it with a wire nut.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all wire connectors are firmly attached and no copper is exposed except the ground wire.",
+          "action": "wire"
+        },
+        {
+          "text": "Turn the circuit back on at the circuit breaker or fuse panel.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Test the Load Controller: press the SET button to turn the load on.",
+          "action": "press",
+          "control": "SET button",
+          "expect": "Status LED turns solid green"
+        },
+        {
+          "text": "Press the SET button again to turn the load off.",
+          "action": "press",
+          "control": "SET button",
+          "expect": "Status LED turns solid red"
+        }
+      ],
+      "notes": [
+        "The Load Controller must be connected through a 2-pole tandem circuit breaker rated for no more than 30 amps, as it has no over-current protection.",
+        "It does not require a neutral connection. Use only copper or copper-clad wire.",
+        "Installation by a qualified electrician is recommended.",
+        "The 240V Load Controller 2477SA Owner's Manual lists tools to mount the Load Controller to a wall but gives no mounting steps."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "At each responder, set it to the state you want the Load Controller to activate. If the responder is a multi-scene device, tap the scene button you want to control until its LED turns on.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button until the Load Controller beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Load Controller double-beeps and its status LED turns solid green if the load is on, or solid red if it is off"
+        }
+      ],
+      "notes": [
+        "The device that goes into linking mode first becomes the controller. For most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds.",
+        "Linking mode times out after 4 minutes.",
+        "To link several responders, repeat the controller steps for each one."
+      ],
+      "description": "As a controller",
+      "alternatives": [
+        {
+          "description": "As a responder",
+          "steps": [
+            {
+              "text": "Use the SET button to set the load to the state you want.",
+              "action": "press",
+              "control": "SET button"
+            },
+            {
+              "text": "Put the controller in linking mode: for most controllers, press and hold the SET button for 3 seconds.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Press and hold the Load Controller's SET button until it double-beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED flashes once, then turns solid green if the load is on, or solid red if it is off"
+            }
+          ]
+        },
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the Load Controller beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "If the responder is a multi-scene device, tap the scene button to remove until its LED turns on.",
+          "device": "other",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button until the Load Controller beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until it beeps (3 seconds).",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks red"
+        },
+        {
+          "text": "Within 4 minutes, press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Load Controller double-beeps and its status LED turns solid green or red to show the load state"
+        }
+      ],
+      "description": "Unlinking a responder",
+      "alternatives": [
+        {
+          "description": "Unlinking from a controller",
+          "steps": [
+            {
+              "text": "Put the controller in unlinking mode: for most controllers, press and hold the SET button for 3 seconds.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Press and hold the controller's SET button for 3 seconds again.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Press and hold the Load Controller's SET button until it double-beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED flashes once, then turns solid green if the load is on, or solid red if it is off"
+            }
+          ],
+          "notes": [
+            "For most controllers, unlinking mode is entered by pressing and holding an On or scene button for 10 seconds twice, or the SET button for 3 seconds twice."
+          ]
+        }
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the Load Controller from any controllers, and unlink any responders it controls.",
+          "action": "other"
+        },
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying the junction box.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, turn the circuit back on, making sure not to let go of the SET button.",
+          "action": "powerOn",
+          "control": "SET button",
+          "expect": "Load Controller beeps"
+        },
+        {
+          "text": "Continue to hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "A few seconds later the Load Controller double-beeps, its status LED turns solid green and the load turns on"
+        }
+      ],
+      "notes": [
+        "Depending on where the breaker panel is, you may need a helper."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the Load Controller from every controller linked to it; otherwise the controllers retry their commands and slow down the system.",
+          "action": "other"
+        }
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "240V Load Controller 2477SA Owner's Manual"
+    "240V Load Controller 2477SA Owner's Manual",
+    "240V Load Controller 2477SA Quick Start Guide"
   ]
 }

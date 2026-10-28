@@ -123,6 +123,304 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "At the circuit breaker or fuse panel, turn off the power for all circuits in the switch junction box, and verify that the power is off by trying to turn on the lights controlled by the switches.",
+          "action": "powerOff",
+          "control": "breaker"
+        },
+        {
+          "text": "Remove the trim plate, unscrew the switch you are replacing and pull it out of the junction box.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the old switch; if they cannot be unscrewed, cut them where they enter the switch and strip 1/2 in. of insulation off the ends.",
+          "action": "other"
+        },
+        {
+          "text": "For a circuit with one switch, identify and connect the line, load, neutral and ground wires per the wiring diagram: the keypad's black wire to line, red wire to the load, white wire to neutral and bare copper wire to ground. A neutral connection is required; the load connection is optional.",
+          "action": "wire"
+        },
+        {
+          "text": "Make sure all wire connectors are firmly attached and no copper is exposed except the ground wire.",
+          "action": "other"
+        },
+        {
+          "text": "With the SET button at the bottom, gently place the keypad into the junction box and screw it into place.",
+          "action": "mount"
+        },
+        {
+          "text": "Turn the power back on at the circuit breaker or fuse panel.",
+          "action": "powerOn",
+          "control": "breaker"
+        },
+        {
+          "text": "Verify the keypad works by turning the light on and off.",
+          "action": "tap",
+          "control": "On and Off buttons",
+          "expect": "Light turns on and off"
+        },
+        {
+          "text": "Reinstall the trim plate.",
+          "action": "mount"
+        }
+      ],
+      "notes": [
+        "If there is no neutral wire in the junction box, consult an electrician.",
+        "In a virtual multi-way circuit only the primary keypad connects to the load; secondaries connect to line, neutral and ground and their red load wire is capped. The On/Off Keypad 2487S Owner's Manual gives the full multi-way wiring; then set up a control group so all the switches stay in sync.",
+        "Pull the SET button out about 1/8 in. to open the air gap and remove power from the keypad and its load; when pushing it back in, do not hold it in for more than a second or you may perform a factory reset."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Tap the scene button you want to link.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds, until the keypad beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "The scene button's LED blinks and all lit LEDs brighten to 100%; the keypad stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "As a controller: after putting the keypad in linking mode, adjust the responder to the desired state, then press and hold the responder's SET button until it beeps or its LED or load flashes; the keypad double-beeps, the scene button's LED stops blinking and the LEDs return to normal brightness.",
+        "As a responder: press and hold the controller's button until it beeps, tap the keypad's scene button until its LED is in the desired state (for the On and Off buttons, tap the desired load state), then press and hold the keypad's SET button until it double-beeps; the scene button's LED flashes once.",
+        "With the Insteon app, press and hold the keypad's SET button until it double-beeps when the app prompts you.",
+        "The 3-second hold time comes from the KeypadLinc Line Developer Notes; software can send the Enter Linking Mode command for the same result."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds, until the keypad beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "The scene button's LED blinks and all lit LEDs brighten to 100%; the keypad stays in linking mode for four minutes"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Set each responder to the desired scene state.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Tap the scene button on the keypad.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button until the keypad beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "The scene button's LED blinks and all lit LEDs brighten to 100%"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The scene button's LED keeps blinking"
+        },
+        {
+          "text": "For each responder, tap its button if it is a multi-button device.",
+          "device": "other",
+          "action": "tap"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it beeps or its LED flashes (about 3 seconds).",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "expect": "The scene button's LED stops blinking and the LEDs return to normal brightness"
+        },
+        {
+          "text": "Test the scene by tapping the scene button a couple of times.",
+          "action": "tap",
+          "control": "scene button",
+          "expect": "All the added responders respond"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Tap the scene button on the keypad.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button until the keypad beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "The scene button's LED blinks and all lit LEDs brighten to 100%"
+        },
+        {
+          "text": "Press and hold the SET button until the keypad beeps again.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "The scene button's LED keeps blinking; the keypad is in unlinking mode"
+        }
+      ],
+      "notes": [
+        "As a controller: then, if the responder has several buttons, tap the one to remove, and press and hold the responder's SET button until it double-beeps; the keypad double-beeps and its scene LED stops blinking.",
+        "As a responder: put the controller in unlinking mode first, tap the keypad button you are removing, then press and hold the keypad's SET button until it double-beeps.",
+        "To remove several responders at once, tap the SET button after entering unlinking mode, press and hold each responder's SET button until it beeps (about 3 seconds), then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Pull the SET button out to open the air gap.",
+          "action": "pullTab",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Push the SET button in and hold it in.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Keypad beeps"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a couple of seconds the keypad double-beeps, the LEDs return to normal brightness and the connected load turns on"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the keypad from all of its scene controllers.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the scene memberships of every responder the keypad controls.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The On/Off Keypad 2487S Owner's Manual says to remove the keypad from all of its scene controllers before you stop using it, and to remove responders you no longer use from its scenes, otherwise devices keep retrying commands and create network delays."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "HouseLinc also lists its identity under 2487S-50.",
     "Group 1 is the On and Off buttons, which control the load. In the 8-button layout, which software can set, groups 1 to 8 are buttons A to H.",
@@ -131,6 +429,8 @@
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "KeypadLinc Line Developer Notes"
+    "KeypadLinc Line Developer Notes",
+    "On/Off Keypad 2487S Owner's Manual",
+    "On/Off Keypad 2487S Quick Start Guide"
   ]
 }

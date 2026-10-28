@@ -94,6 +94,227 @@
       ]
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Siren into an unswitched wall outlet.",
+          "action": "plugIn"
+        }
+      ],
+      "notes": [
+        "The Siren is loud; leave the protective film over the speaker to lower the volume, and use hearing protection when testing up close."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        }
+      ],
+      "notes": [
+        "The first device put into linking mode becomes the controller and the second the responder. Linking mode ends after a link is made or after four minutes without one.",
+        "To be triggered by a device: put that device in linking mode, tap the Siren's SET button until you hear the alert tone you want (siren or chime), then press and hold the SET button until it double-beeps.",
+        "To be armed and disarmed by a device: tap the chosen button on that device and put it in linking mode, tap the Siren's SET button until its status LED glows red, then press and hold the SET button until it double-beeps. Arming takes 45 seconds, during which the Siren beeps.",
+        "To add the Siren to a Hub, press and hold its SET button when the app prompts. The Siren 2868-222 Owner's Manual says to hold it until the Siren double-beeps; the Siren 2868-222 Quick Start Guide says until it beeps. Don't use local programming if a Hub or other central controller manages the Siren."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Siren 2868-222 Owner's Manual's local programming flow chart (press and hold the SET button to move to Linking Mode) and its legend (status LED blinks green). Its written steps give the Siren's SET button only for the Siren's side as a responder or when adding it to a Hub, where it is held until the Siren double-beeps."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Status LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Tap the SET button to enter multi-linking mode.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Status LED double-blinks green"
+        }
+      ],
+      "notes": [
+        "Multi-linking mode lasts four minutes, restarting after each link, or until the SET button is tapped."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Siren 2868-222 Owner's Manual's local programming flow chart; the LED pattern is from its legend."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again to enter unlinking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks red"
+        }
+      ],
+      "notes": [
+        "Unlinking mode ends after a link is removed or after four minutes."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Siren 2868-222 Owner's Manual's local programming flow chart; the LED pattern is from its legend."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the Siren from its outlet.",
+          "action": "unplug"
+        },
+        {
+          "text": "Press and hold the SET button while plugging the Siren back in.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button until the Siren stops beeping.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep when the reset is complete"
+        }
+      ],
+      "notes": [
+        "Erases all links and customized properties."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "As a controller, group 1 is the alert: it broadcasts while the siren sounds.",
     "The Siren Module Developer Notes document firmware 0xE1; their title gives 0xE2.",
@@ -105,6 +326,7 @@
   ],
   "sources": [
     "Siren Module Developer Notes",
-    "Siren 2868-222 Owner's Manual"
+    "Siren 2868-222 Owner's Manual",
+    "Siren 2868-222 Quick Start Guide"
   ]
 }

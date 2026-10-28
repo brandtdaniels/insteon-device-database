@@ -35,9 +35,223 @@
       "humidity": false
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Install the thermostat by following the enclosed Venstar documentation.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "It is powered through the thermostat wiring; no batteries needed.",
+        "It is not compatible with Venstar accessories that connect through the phone-style jack on the bottom of Venstar products."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "To link as a controller, choose the mode to report: for A/C tap the Mode button until only the cool setpoint shows, for heat until only the heat setpoint shows, or for fan open the door and tap the Fan button until \"Fan On\" shows.",
+          "action": "tap",
+          "control": "Mode button"
+        },
+        {
+          "text": "Press and hold the SET button until the display flashes.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Display flashes; Insteon LED blinks green"
+        }
+      ],
+      "notes": [
+        "Then adjust the responder to the scene state and press and hold its SET button until it beeps or its LED flashes. The Thermostat double-beeps and its LED stops blinking.",
+        "As responder: put the controller in linking mode, adjust the mode and setpoints to the scene settings, double-tap the SET button first if linking to the controller's off command, then press and hold the SET button until it double-beeps. The display flashes all characters twice and the Insteon LED flashes once and returns to green. Link scene on and scene off separately.",
+        "To enable change reports to an automation controller, set the mode to off, press and hold the SET button for 3 seconds (LED blinks green), then press and hold the controller's SET button for 3 seconds. Reports go only to the last device linked this way."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the display flashes.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Display flashes; Insteon LED blinks green"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the Insteon Developer's Guide (2009)'s Start ALL-Linking, ID Request, Enter Linking Mode and Ping commands; no document describes adding this product to a Hub. The device's group 1 is read from the Thermostat Adapter 2441V profile's groups, since it has the 2441V's board built in."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Choose the same controller mode (cool, heat or Fan On) as when linking.",
+          "action": "tap",
+          "control": "Mode button"
+        },
+        {
+          "text": "Press and hold the SET button until the display flashes.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Insteon LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again until the display flashes a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Insteon LED keeps blinking green"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button until it beeps or its LED flashes; the Insteon LED stops blinking.",
+        "To remove the Thermostat as a responder: press and hold the controller's scene button until it beeps, again until it beeps again, then press and hold the Thermostat's SET button until it double-beeps (about 3 seconds). Removing either the on or the off membership erases both."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, remove all scene memberships first.",
+          "action": "other"
+        },
+        {
+          "text": "Carefully remove the thermostat from its wall-mount bracket.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While pressing and holding the SET button, remount the thermostat on the bracket.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Insteon LED turns on after about 20 seconds; display flashes all characters three times; LED flickers, then turns solid"
+        }
+      ],
+      "notes": [
+        "Clears all settings, including Insteon scenes."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the Thermostat from every scene it belongs to, as responder and as controller.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "Otherwise controllers keep retrying commands and responders keep broken scene memberships."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the Insteon Developer's Guide (2009)'s Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode commands; no document describes removing this product from a Hub. The device's group 1 is read from the Thermostat Adapter 2441V profile's groups, since it has the 2441V's board built in."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Developer's Guide (2009)"
+    "Insteon Developer's Guide (2009)",
+    "Integrated Remote Control Thermostat 2491T1E Owner's Manual"
   ],
   "notes": [
     "A Venstar thermostat with the 2441V's board built in, so it uses the same commands."

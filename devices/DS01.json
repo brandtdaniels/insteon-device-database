@@ -40,11 +40,206 @@
       "kind": "dimmable"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Connect the white wire to neutral, the black wire to line, the green wire to ground and the red wire to the load.",
+          "action": "wire"
+        }
+      ],
+      "notes": [
+        "A neutral wire is required.",
+        "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) say a press and hold of the On/Off button on power cycle selects relay or dimmer mode; they name the On button (dimmer) and Off button (relay), which on the dial is a single push-in button."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) give only the wire functions; they have no installation procedure."
+      }
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Software can do the same by sending Enter Link Mode (cmd1 0x09) with the group number in cmd2.",
+        "Pressing and holding any button, including the SET button, broadcasts Button Held (Link Mode), which completes manual linking and identifies the device to controllers."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No owner's manual or quick start guide was found; these steps are read from the i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025), which describe the SET button only briefly."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button to enter linking mode.",
+              "action": "hold",
+              "control": "SET button"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button again to enter unlinking mode.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Software can do the same by sending Enter Unlink Mode (cmd1 0x0A) with the group number in cmd2."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No owner's manual or quick start guide was found; these steps are read from the i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025), which describe the SET button only briefly."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Turn off power to the switch.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Turn power back on.",
+          "action": "powerOn"
+        },
+        {
+          "text": "Long-press the SET button after power is restored.",
+          "action": "hold",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Software can do the same by sending the Factory Reset extended command, which works only if its data carries the device's category and subcategory.",
+        "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) say a factory reset returns the switch's properties to their defaults; they don't say whether links are erased."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The i3 Paddle/Dial (Insteon Developer Documentation, December 2023) and i3 Paddle/Dial (Insteon Developer Documentation, October 2025) say only that a factory reset is the same as long-pressing the SET button after a power cycle; they give no durations or confirmation."
+      }
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "The documented firmware is 0x54.",
     "It replies 0x02 to Get Insteon Engine Version (cmd1 0x0D), as i2CS devices do, and broadcasts Button Held (cmd1 0x01), with its hardware version in cmd2, when any button is held, even with programming locked."
   ],
   "sources": [
+    "i3 Paddle/Dial (Insteon Developer Documentation, December 2023)",
     "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)"
   ]
 }

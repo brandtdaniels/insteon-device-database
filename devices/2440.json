@@ -46,7 +46,250 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the battery compartment door from the back of the Remote Control.",
+          "action": "other",
+          "control": "battery compartment door"
+        },
+        {
+          "text": "Install four AAA batteries, observing the polarity markings.",
+          "action": "insertBatteries"
+        },
+        {
+          "text": "Replace the battery compartment door.",
+          "action": "other",
+          "control": "battery compartment door"
+        }
+      ],
+      "notes": [
+        "As an RF-only device it needs at least one Access Point 2443 or other dual-band Insteon device; the Remote Control 2440 Owner's Manual recommends at least two.",
+        "Use alkaline or high-quality rechargeable batteries; a fresh alkaline set gives about 1,500 to 2,000 button taps."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Choose the On/Off button pair (scene A to F) to use.",
+          "action": "other",
+          "control": "On/Off button pair"
+        },
+        {
+          "text": "Press and hold the On button of that pair until the Remote Control beeps, about 10 seconds.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED blinks"
+        }
+      ],
+      "notes": [
+        "Set the responder to the state you want first, then, after putting the Remote Control in linking mode, press and hold the responder's SET button for 3 seconds. The Remote Control beeps and its status LED stops blinking and turns off.",
+        "Any accidental button press ends linking mode early."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the On button of the pair for 10 seconds to enter linking mode.",
+              "action": "hold",
+              "control": "On button",
+              "seconds": 10,
+              "expect": "Beep; status LED blinks"
+            },
+            {
+              "text": "Tap the same On button.",
+              "action": "tap",
+              "control": "On button",
+              "count": 1
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            },
+            {
+              "text": "When done, tap the same On button to leave multi-linking mode.",
+              "action": "tap",
+              "control": "On button",
+              "count": 1
+            }
+          ],
+          "notes": [
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Press and hold the On button of the pair for 10 seconds to enter linking mode.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED blinks"
+        },
+        {
+          "text": "Tap the same On button.",
+          "action": "tap",
+          "control": "On button",
+          "count": 1
+        },
+        {
+          "text": "One at a time, press and hold each responder's SET button for 3 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "When done, tap the same On button to leave multi-linking mode.",
+          "action": "tap",
+          "control": "On button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Multi-linking mode times out after 4 minutes of inactivity.",
+        "The Remote Control 2440 Owner's Manual gives these steps for controllers in general (\"if the controller does not have a SET button, tap the same On or Scene button\") and does not list the Remote Control's beeps or LED for this mode."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the Remote Control 2440 Owner's Manual's generic multi-linking steps for controllers without a SET button."
+      }
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the On button of the pair to unlink until the Remote Control beeps, about 10 seconds.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED blinks"
+        },
+        {
+          "text": "Press and hold the same On button again until it beeps, about 10 seconds.",
+          "action": "hold",
+          "control": "On button",
+          "seconds": 10,
+          "expect": "Beep; status LED keeps blinking"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds within 4 minutes. The Remote Control beeps and its status LED stops blinking and turns off.",
+        "Unlink responders you no longer use; otherwise the Remote Control keeps retrying commands and slows the system."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink any devices the Remote Control controls.",
+          "action": "other"
+        },
+        {
+          "text": "Remove one battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the Bright button, reinsert the battery.",
+          "action": "insertBatteries",
+          "control": "Bright button",
+          "expect": "Beep; status LED turns on solid"
+        },
+        {
+          "text": "Keep holding the Bright button for about 10 seconds.",
+          "action": "hold",
+          "control": "Bright button",
+          "seconds": 10
+        },
+        {
+          "text": "Release the Bright button.",
+          "action": "release",
+          "control": "Bright button",
+          "expect": "Continuous beep while held; double beep and status LED turns off on release"
+        }
+      ],
+      "notes": [
+        "The factory reset clears all Insteon links."
+      ]
+    },
+    "resetErases": [
+      "links"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Press and hold the On button of the pair to unlink until the Remote Control beeps, about 10 seconds.",
+              "action": "hold",
+              "control": "On button",
+              "seconds": 10,
+              "expect": "Beep; status LED blinks"
+            },
+            {
+              "text": "Press and hold the same On button again until it beeps, about 10 seconds.",
+              "action": "hold",
+              "control": "On button",
+              "seconds": 10,
+              "expect": "Beep; status LED keeps blinking"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes the button pair's link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes the button pair's link to the Hub, and the Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Remote Control 2440 Owner's Manual",
+    "Remote Control 2440 Quick Start Guide"
   ]
 }

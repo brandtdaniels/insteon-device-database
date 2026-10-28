@@ -34,7 +34,234 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Remove the plastic film from the LCD screen.",
+          "action": "other"
+        },
+        {
+          "text": "Pull the battery isolation tab to engage the backup battery.",
+          "action": "pullTab",
+          "control": "battery isolation tab",
+          "expect": "LCD turns on and 12:00 blinks"
+        },
+        {
+          "text": "Optionally, set the clock and date while the timer is still unplugged.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the lamp or appliance (the load) into the outlet on the bottom of the timer, with the load's own switch in the on position; skip this step if you use the timer only to control other devices.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the timer into an unswitched wall outlet.",
+          "action": "plugIn"
+        },
+        {
+          "text": "If the load does not turn on, tap the On/Off button.",
+          "action": "tap",
+          "control": "On/Off button",
+          "expect": "Load turns on and the LCD reads Active"
+        }
+      ],
+      "notes": [
+        "Do not plug the timer into a switched outlet, a filtered power strip or an AC line filter.",
+        "The timer cannot power its load or communicate with Insteon devices while unplugged."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks; the timer stays in linking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "To make the timer a controller, set the responder to the desired state, put the timer in linking mode, then press and hold the responder's SET button for 3 seconds; the timer's Status LED stops blinking and turns on solid.",
+        "To make the timer a responder, tap its On/Off button until the load turns off, put the controller in linking mode (for most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds), then press and hold the timer's SET button for 3 seconds; the load turns on and the Status LED turns off and back on solid.",
+        "Repeat the controller steps for each additional responder."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED blinks; the timer stays in linking mode for four minutes"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 240,
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED blinks"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds again.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Status LED keeps blinking; the timer stays in unlinking mode for four minutes"
+        }
+      ],
+      "notes": [
+        "Then press and hold the responder's SET button for 3 seconds; the timer's Status LED stops blinking and turns on solid.",
+        "To remove the timer from a controller, put the controller in unlinking mode first, then press and hold the timer's SET button for 3 seconds."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Timer Module 2456S3T Owner's Manual says to hold the SET button for 3 seconds again for unlinking mode; the Timer Module 2456S3T Quick Start Guide says to hold it again for an additional 5 seconds. The catalog uses the owner's manual's 3 seconds."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unlink the timer from any controller that controls it, and unlink any responders it controls.",
+          "action": "other"
+        },
+        {
+          "text": "Unplug the timer.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug the timer back in without letting go of the button.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Status LED flashes once and turns off; after a few seconds the Status LED and the load turn on"
+        },
+        {
+          "text": "Wait 10 seconds before doing anything else.",
+          "action": "wait",
+          "seconds": 10
+        }
+      ],
+      "notes": [
+        "Tapping the Reset button on the front (you may need a probe) resets only the clock."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Timer Module 2456S3T Owner's Manual says to hold the SET button for 3 seconds after plugging in; the Timer Module 2456S3T Quick Start Guide says to hold it about 5 seconds until the LED flashes once. The catalog uses the owner's manual's 3 seconds; the final 10-second wait comes from the Timer Module 2456S3T Quick Start Guide."
+      }
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the timer from every controller that controls it.",
+          "action": "other"
+        },
+        {
+          "text": "Unlink every responder the timer controls.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "The Timer Module 2456S3T Owner's Manual says to unlink the timer from all controllers before you stop using it, and to unlink responders it no longer uses, otherwise devices keep retrying commands and slow the system."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Timer Module 2456S3T Owner's Manual",
+    "Timer Module 2456S3T Quick Start Guide"
   ]
 }

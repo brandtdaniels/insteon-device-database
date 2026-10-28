@@ -10,11 +10,153 @@
   "radio": "dual",
   "role": "responder",
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Plug the Range Extender into an unswitched wall outlet, near the Insteon RF devices whose reach it extends.",
+          "action": "plugIn"
+        },
+        {
+          "text": "To bridge the two legs of the electrical supply, quickly tap the SET button four times to start phase detection.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 4,
+          "expect": "Range Extender beeps"
+        },
+        {
+          "text": "Plug a second Range Extender into an outlet on the other side of the home.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Check the status LED of the second Range Extender or any dual-band Insteon device. If it is solid, the phases are not bridged; try a different outlet.",
+          "action": "other"
+        },
+        {
+          "text": "Tap the SET button on the first Range Extender to leave phase detection.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        }
+      ],
+      "notes": [
+        "Bridging the electrical legs is optional.",
+        "Avoid switched outlets, power strips, surge suppressors, backup batteries and AC line filters.",
+        "The Range Extender 2992-222 Owner's Manual shows the LED patterns for phase detection only as pictures; its text says only that a solid LED on the second device means the phases are not bridged."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button until the Range Extender beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Beep"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Assumed from the SET button linking used across Insteon wall and plug-in devices; no document describes this product's."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button until the Range Extender beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Beep"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a responder.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Repeats Insteon messages between powerline and RF, and bridges the two powerline phases.",
     "Answers status requests and beeps; it has no load to control."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Range Extender 2992-222 Owner's Manual",
+    "Range Extender 2992-222 Quick Start Guide"
   ]
 }

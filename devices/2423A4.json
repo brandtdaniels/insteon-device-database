@@ -8,7 +8,160 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Record the iGateway's Insteon ID, printed on its label in the XX.XX.XX format.",
+          "action": "other"
+        },
+        {
+          "text": "Plug one end of the included Ethernet cable into your internet router and the other end into the jack on the bottom of iGateway.",
+          "action": "other",
+          "control": "Ethernet jack"
+        },
+        {
+          "text": "Plug iGateway into an unswitched outlet.",
+          "action": "plugIn",
+          "expect": "Status LED turns on solid blue, the Ethernet status LED turns on solid green and the Ethernet jack LED blinks yellow"
+        },
+        {
+          "text": "Log on to the Smarthome Connect portal, creating an account if you don't have one.",
+          "action": "other"
+        },
+        {
+          "text": "In Smarthome Connect, go to Settings, then iGateways, and click Add New iGateway.",
+          "action": "other"
+        },
+        {
+          "text": "Enter the requested information and click Add.",
+          "action": "other",
+          "expect": "Within about a minute the portal shows that iGateway has been successfully added"
+        },
+        {
+          "text": "Click the Devices tab and follow the instructions to add responders to iGateway.",
+          "action": "other"
+        }
+      ],
+      "notes": [
+        "You can use the pass-through outlet as an ordinary uncontrolled outlet, but avoid stacking Insteon devices or other heat-generating power supplies on it.",
+        "It may be easier to add devices while they are next to iGateway and move them to their final locations afterward; they keep their settings while unplugged."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Remove any devices linked to iGateway through Smarthome Connect.",
+          "action": "other"
+        },
+        {
+          "text": "Database reset: unplug iGateway.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "While holding down the SET button, plug iGateway back in, making sure not to let go of the SET button.",
+          "action": "plugIn",
+          "control": "SET button",
+          "expect": "Blue status LED turns on solid"
+        },
+        {
+          "text": "Continue to hold down the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds, the blue status LED flashes once and then turns on solid"
+        },
+        {
+          "text": "Registration reset: unplug iGateway.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Plug iGateway back in.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
+        },
+        {
+          "text": "Tap the SET button five times quickly.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 5
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Unplug iGateway.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Plug iGateway back in.",
+          "action": "plugIn"
+        }
+      ],
+      "notes": [
+        "A full factory reset needs both procedures, starting with the database reset. The database reset erases all links; the registration reset deletes the Smarthome Connect registration ID.",
+        "Each reset can also be done on its own: a database reset when a responder can't be unlinked manually, a registration reset before re-registering an iGateway already deleted from Smarthome Connect."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Delete the devices linked to iGateway in Smarthome Connect.",
+          "action": "other"
+        },
+        {
+          "text": "Perform a database reset.",
+          "action": "other"
+        },
+        {
+          "text": "Delete iGateway from Smarthome Connect.",
+          "action": "other"
+        },
+        {
+          "text": "Perform a registration reset; deleting iGateway from the portal does not remove the registration ID.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Assembled from the iGateway 2423A4 Owner's Manual's reset section; it has no separate removal procedure."
+      }
+    }
+  },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "iGateway 2423A4 Owner's Manual",
+    "iGateway 2423A4 Quick Start Guide"
   ]
 }

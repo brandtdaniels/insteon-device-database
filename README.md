@@ -26,6 +26,8 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
   identity: its operating flags, extended settings, other standard and extended commands, and
   the direct messages it sends, which [`commandSets/`](commandSets) describes once for every
   product that shares them.
+- **Lifecycle:** how to install the product, link and unlink it, wake it, reset it and take it
+  out of service, as steps a person or an app follows.
 - **Sources:** the documents its values come from.
 
 [`schema/device-profile.schema.json`](schema/device-profile.schema.json) and
@@ -66,11 +68,22 @@ the catalog and treat downloading a newer one as optional.
    the forms it rules out.
 4. Open a pull request. CI runs the same check.
 
+### Lifecycle steps
+
+Write each procedure in `lifecycle` as the product's documents give it, one action per step: a
+step that holds the SET button and then releases it is two steps. Mark a step done on the other
+device being linked with `"device": "other"`. Put another way of doing the same thing, such as
+from a Hub, in the procedure's `alternatives`, with a `description` that names it. A Hub's
+commands are `send` steps naming their Insteon `command`: the Hub's own commands, such as Start
+ALL-Linking, are on the `other` device, and the commands the Hub sends the product, such as Enter
+Linking Mode or Ping, are on `this` one. [API.md](API.md#a-products-lifecycle)
+lists every `action`.
+
 ### How sure a value is
 
 A value with no `verification` is documented: an Insteon document gives it, and none of the
 catalog's sources disagree. Where that isn't so, give the profile, identity, engine, command set
-entry or group, or the command set's flag, reading, value, write, field, command or direct
+entry, group or lifecycle procedure, or the command set's flag, reading, value, write, field, command or direct
 message, value table, group type or link data byte, a `verification` with a `status` and a `note`:
 
 | Status | Meaning | The note says |
@@ -83,7 +96,7 @@ message, value table, group type or link data byte, a `verification` with a `sta
 ```json
 "verification": {
   "status": "conflicting",
-  "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; another source gives 0x7D."
+  "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; the <other document's title> gives 0x7D. The catalog uses 0x63."
 }
 ```
 

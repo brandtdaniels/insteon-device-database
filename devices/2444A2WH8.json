@@ -75,10 +75,296 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Fully charge the Mini Remote with a Type A to Micro-B USB cable before programming; the red charging LED turns off when the battery is fully charged.",
+          "action": "other",
+          "control": "Micro-USB charging jack",
+          "expect": "Charging LED turns off"
+        },
+        {
+          "text": "Slide the power switch to the on position (right).",
+          "action": "powerOn",
+          "control": "power switch"
+        }
+      ],
+      "notes": [
+        "Charging takes about one hour.",
+        "The Mini Remote needs an Insteon dual-band or RF device nearby to talk to the rest of the Insteon network.",
+        "The Mini Remote beeps quietly during setup, so program it in a quiet area."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Tap the on side of the scene button you want to use.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds, until the Mini Remote beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks green"
+        }
+      ],
+      "notes": [
+        "To make a Mini Remote button a scene controller: put the Mini Remote in linking mode, adjust the responder to the state you want, then press and hold the responder's SET button until it beeps or its LED flashes. The Mini Remote double-beeps and its LED stops blinking.",
+        "Test the link by tapping the button on and off; the responder toggles between the scene on-level and off."
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Mini Remote - 8 Scene 2444A2WH8 Owner's Manual says setup mode times out after more than 3 minutes with a long beep; the RemoteLinc 2 Developer Notes say the LED blinks green for 4 minutes or until linked. The catalog uses the owner's manual's 3 minutes (180 seconds)."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Tap the B button, which sends group 1.",
+              "action": "tap",
+              "control": "B button",
+              "count": 1
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds, until it beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Tap the SET button.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED double-blinks green"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            },
+            {
+              "text": "Tap the SET button to end linking mode.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "Double beep; LED turns off"
+            }
+          ],
+          "notes": [
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device.",
+            "Starting from the button that sends group 1 links the remote's group 1 to the Hub."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "linkingTimeoutSeconds": 180,
+    "multiLinking": {
+      "steps": [
+        {
+          "text": "Tap the scene button you want to use; either side of it works.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds, until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks green"
+        },
+        {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "LED double-blinks green"
+        },
+        {
+          "text": "For each responder, adjust it to the state you want.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the responder's SET button until the Mini Remote double-beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Double beep; LED keeps double-blinking green"
+        },
+        {
+          "text": "When all responders are added, tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1,
+          "expect": "Double beep; LED turns off"
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Tap the scene button you want to use; either side of it works.",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the SET button for 3 seconds, until the Mini Remote beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again for 3 seconds, until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
+          "expect": "Beep; LED blinks red"
+        },
+        {
+          "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Mini Remote double-beeps and its LED stops blinking"
+        }
+      ],
+      "notes": [
+        "Remove responders you no longer use; otherwise the Mini Remote retries every scene command, which causes delays and shortens battery life.",
+        "To unlink several responders in one session, tap the SET button after the LED starts blinking red (it double-blinks red), press and hold each responder's SET button until the Mini Remote double-beeps, then tap the SET button to finish."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "If possible, unlink all scene responders first.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the Mini Remote off by sliding the power switch to the left.",
+          "action": "powerOff",
+          "control": "power switch"
+        },
+        {
+          "text": "Press and hold the SET button.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "While still holding the SET button, turn the Mini Remote back on by sliding the power switch to the right.",
+          "action": "powerOn",
+          "control": "power switch",
+          "expect": "Beep, LED stays solid green, then a long beep"
+        },
+        {
+          "text": "Keep holding the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "LED turns solid red"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "Double beep; LED turns off"
+        }
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device from every scene, as a controller.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Tap the B button, which sends group 1.",
+              "action": "tap",
+              "control": "B button",
+              "count": 1
+            },
+            {
+              "text": "Press and hold the SET button for 3 seconds, until the Mini Remote beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Beep; LED blinks green"
+            },
+            {
+              "text": "Press and hold the SET button again for 3 seconds, until it beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Beep; LED blinks red"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its group 1 link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
+            }
+          ],
+          "notes": [
+            "Starting from the button that sends group 1 unlinks the remote's group 1 from the Hub."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Groups 1 and 2 are buttons B and A, 3 and 4 are D and C, 5 and 6 are F and E, and 7 and 8 are H and G."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Mini Remote - 8 Scene 2444A2WH8 Owner's Manual",
+    "Mini Remote - 8 Scene 2444A2WH8 Quick Start Guide",
+    "RemoteLinc 2 Developer Notes"
   ]
 }
