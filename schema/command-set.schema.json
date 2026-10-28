@@ -1014,6 +1014,102 @@
             }
           }
         },
+        "linkData": {
+          "description": "What Data 1 to 3 of an ALL-Link database record hold for the group: in a responder's record, the state the group goes to when its controller's group command arrives; in a controller's record, what it keeps about the responder.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "responder": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/linkDataByte"
+              },
+              "maxItems": 3
+            },
+            "controller": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/linkDataByte"
+              },
+              "maxItems": 3
+            }
+          }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
+    },
+    "linkDataByte": {
+      "description": "What one data byte of an ALL-Link database record holds.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "byte",
+        "name",
+        "description"
+      ],
+      "properties": {
+        "byte": {
+          "description": "Data 1, 2 or 3 of the record.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "label": {
+          "$ref": "#/$defs/label"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/byte",
+          "description": "The value to write, when it's fixed, such as the button a keypad record is for or a byte the device doesn't use."
+        },
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "from",
+            "through"
+          ],
+          "properties": {
+            "from": {
+              "$ref": "#/$defs/byte"
+            },
+            "through": {
+              "$ref": "#/$defs/byte"
+            }
+          }
+        },
+        "unit": {
+          "enum": [
+            "percent",
+            "celsius",
+            "fahrenheit",
+            "seconds",
+            "minutes",
+            "hours"
+          ]
+        },
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "table": {
+          "description": "The value table that names each value, such as the ramp rate's.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "perGroup": {
+          "description": "Whether the value is the record's group, or the button or part of the device the group is, rather than a fixed value.",
+          "type": "boolean",
+          "default": false
+        },
         "verification": {
           "$ref": "#/$defs/verification"
         }

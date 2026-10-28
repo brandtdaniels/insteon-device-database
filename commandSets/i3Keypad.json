@@ -1391,7 +1391,37 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate"
+          },
+          {
+            "byte": 3,
+            "name": "button",
+            "label": "Button",
+            "description": "The button whose LED the record controls, 0x01 to 0x04.",
+            "perGroup": true
+          }
+        ]
+      }
     },
     {
       "name": "button",
@@ -1400,6 +1430,33 @@
       "state": {
         "command": "readLeds",
         "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "Whether the button's LED turns on (any value but 0x00) or off when its controller's On arrives.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157,
+            "verification": {
+              "status": "inferred",
+              "note": "Read from the i3 Keypad's records, where a button's record sets its LED."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "button",
+            "label": "Button",
+            "description": "The button whose LED the record controls, 0x01 to 0x04.",
+            "perGroup": true
+          }
+        ]
       }
     }
   ],

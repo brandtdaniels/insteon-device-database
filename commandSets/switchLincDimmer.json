@@ -590,7 +590,38 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157,
+            "verification": {
+              "status": "conflicting",
+              "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list Data 1 to 3 as not used; the Insteon Developer's Guide gives Data 1 as the on-level and Data 2 as the ramp rate, as examples, and other dimmers' Developer Notes agree, as used here."
+            }
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate",
+            "verification": {
+              "status": "conflicting",
+              "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list Data 2 as not used; other dimmers use it for the ramp rate, as here."
+            }
+          }
+        ]
+      }
     }
   ],
   "notes": [

@@ -800,7 +800,25 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On or off",
+            "description": "0x00 turns the load off when the controller's On arrives; any other value turns it on.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "verification": {
+              "status": "inferred",
+              "note": "Read from other on/off products' Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
+            }
+          }
+        ]
+      }
     }
   ],
   "notes": [

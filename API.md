@@ -213,6 +213,27 @@ names one in `type`, which every command set its identities use must have:
 - A group with `activeWhen` is in use only while that operating flag is `set` or clear: a
   keypad's detached load, group 9, while `detachedLoad` is set, and its group 1 while it's clear.
 
+**ALL-Link record data.** A group type's `linkData` says what Data 1 to 3 hold in the ALL-Link
+database records for the group, so an app adding it to a scene writes the right bytes:
+
+```json
+"linkData": { "responder": [
+  { "byte": 1, "name": "onLevel", "label": "On-level", "unit": "percent", "scale": 0.392157,
+    "range": { "from": "0x00", "through": "0xFF" } },
+  { "byte": 2, "name": "rampRate", "label": "Ramp rate", "table": "rampRate" },
+  { "byte": 3, "name": "button", "label": "Button", "perGroup": true } ] }
+```
+
+- `responder` describes the record in the responder: the state the group goes to when its
+  controller's group command arrives. `controller` describes the controller's record, where a
+  product documents one; otherwise its data bytes don't matter.
+- Each byte can carry a `range`, a `unit` and `scale` or a `table`, as settings do, or a fixed
+  `value` to write. With `perGroup`, the byte is the group, or the button or part of the device
+  the group is.
+- A byte a list leaves out isn't used; write `0x00`.
+- A device linked with its SET button keeps its present state as the record's data, so a light
+  should be at the level wanted when it's linked.
+
 **Settings.** Operating flags, readings and extended settings values can carry:
 
 - `label`: what to call the setting, such as "Beep on button press".

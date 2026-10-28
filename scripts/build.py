@@ -257,6 +257,21 @@ def presentation_problems(command_set):
         if any(low > high for low, high in ranges) or any(a[1] >= b[0] for a, b in zip(sorted(ranges), sorted(ranges)[1:])):
             problems.append(f"{label}'s state ranges are reversed or overlap")
 
+        for side, entries in group_type.get("linkData", {}).items():
+            numbers = [entry["byte"] for entry in entries]
+
+            if len(numbers) != len(set(numbers)):
+                problems.append(f"{label}'s {side} record data names a byte twice")
+
+            for entry in entries:
+                if entry.get("table") is not None and entry["table"] not in tables:
+                    problems.append(f"{label}'s {side} record data names the value table {entry['table']!r}, which doesn't exist")
+
+                bounds = entry.get("range")
+
+                if "value" in entry and bounds and not int(bounds["from"], 16) <= int(entry["value"], 16) <= int(bounds["through"], 16):
+                    problems.append(f"{label}'s {side} record data {entry['name']} is outside its range")
+
         names = [action["name"] for action in group_type.get("actions", [])]
 
         if len(names) != len(set(names)):

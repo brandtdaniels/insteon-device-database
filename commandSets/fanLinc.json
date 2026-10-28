@@ -553,7 +553,36 @@
           "label": "Off",
           "command": "lightOff"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The level the group goes to when its controller's On arrives, 0x00 (off) to 0xFF (full). 0x00 makes the link off only.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "unit": "percent",
+            "scale": 0.392157
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "How fast the group goes to its on-level.",
+            "table": "rampRate"
+          },
+          {
+            "byte": 3,
+            "name": "button",
+            "description": "The light's button number.",
+            "value": "0x01"
+          }
+        ]
+      }
     },
     {
       "name": "fan",
@@ -605,7 +634,31 @@
           "label": "High",
           "command": "fanHigh"
         }
-      ]
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "speed",
+            "label": "Speed",
+            "description": "The speed the fan goes to: 0x00 off, 0x01 to 0x7F low, 0x80 to 0xFE medium, 0xFF high.",
+            "range": {
+              "from": "0x00",
+              "through": "0xFF"
+            },
+            "verification": {
+              "status": "inferred",
+              "note": "The FanLinc Developer Notes give Data 1 as the on-level; the speeds are read from its fan commands."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "button",
+            "description": "The fan's button number.",
+            "value": "0x02"
+          }
+        ]
+      }
     }
   ],
   "notes": [
