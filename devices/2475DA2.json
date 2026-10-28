@@ -85,7 +85,7 @@
         {
           "text": "Turn on the breaker or fuse.",
           "action": "powerOn",
-          "expect": "After a few seconds the load turns on."
+          "expect": "After a few seconds the load turns on"
         },
         {
           "text": "For dual-relay mode only: press and hold the SET button until it beeps.",
@@ -103,7 +103,7 @@
           "text": "Tap the SET button a couple of times to test the connection.",
           "action": "tap",
           "control": "SET button",
-          "expect": "The load responds."
+          "expect": "The load responds"
         },
         {
           "text": "Link the module to your keypad or other Insteon controller.",
@@ -225,7 +225,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The module double-beeps and its LED stops blinking."
+          "expect": "The module double-beeps and its LED stops blinking"
         }
       ],
       "notes": [

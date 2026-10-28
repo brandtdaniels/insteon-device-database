@@ -154,11 +154,12 @@
         {
           "text": "Turn the breaker on.",
           "action": "powerOn",
-          "expect": "The keypad's LEDs light."
+          "expect": "The keypad's LEDs light"
         },
         {
-          "text": "Turn the light on and off to check that the keypad works.",
-          "action": "tap"
+          "text": "Turn the light on and off with the main scene button to check that the keypad works.",
+          "action": "tap",
+          "control": "main scene button"
         },
         {
           "text": "Reinstall the trim plate.",
@@ -175,7 +176,8 @@
       "steps": [
         {
           "text": "Tap the keypad button that will control the scene. On a 6-button keypad, use ON for the main scene.",
-          "action": "tap"
+          "action": "tap",
+          "control": "scene button"
         },
         {
           "text": "Press and hold the SET button until the keypad beeps.",
@@ -280,7 +282,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The keypad double-beeps."
+          "expect": "The keypad double-beeps"
         },
         {
           "text": "After adding all responders, tap the SET button.",
@@ -313,7 +315,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The keypad double-beeps and its LEDs stop blinking."
+          "expect": "The keypad double-beeps and its LEDs stop blinking"
         }
       ],
       "notes": [
@@ -343,7 +345,7 @@
           "text": "When the beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a couple of seconds the keypad double-beeps, its LEDs return to normal brightness and the load turns on."
+          "expect": "After a couple of seconds the keypad double-beeps, its LEDs return to normal brightness and the load turns on"
         }
       ],
       "notes": [

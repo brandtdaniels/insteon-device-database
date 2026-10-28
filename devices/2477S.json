@@ -113,7 +113,7 @@
         "As a controller: put the switch in linking mode first, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the switch's LED stops blinking.",
         "As a responder: press and hold the controller button until it beeps, tap the switch on (or off), then press and hold the switch's SET button until it double-beeps; the controller's LED stops blinking.",
         "With the Insteon app, press and hold the SET button until the switch double-beeps when the app prompts you.",
-        "The 3-second hold time and four-minute timeout come from the 2477S Developer Notes; software can use the Remote Enter Linking Mode command."
+        "The 3-second hold time and four-minute timeout come from the 2477S Developer Notes; software can use the Enter Linking Mode command."
       ],
       "alternatives": [
         {

@@ -181,7 +181,7 @@
           "control": "scene button"
         },
         {
-          "text": "Press and hold the SET button until the keypad beeps.",
+          "text": "Press and hold the SET button for 3 seconds, until the keypad beeps.",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -205,7 +205,7 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "Press and hold the SET button until the keypad beeps.",
+              "text": "Press and hold the SET button for 3 seconds, until the keypad beeps.",
               "action": "hold",
               "control": "SET button",
               "seconds": 3,

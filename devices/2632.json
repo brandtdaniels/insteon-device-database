@@ -101,7 +101,7 @@
         {
           "text": "Plug the dimmer module into an unswitched wall outlet.",
           "action": "plugIn",
-          "expect": "The lamp turns on and the module's LED turns green."
+          "expect": "The lamp turns on and the module's LED turns green"
         }
       ],
       "notes": [
@@ -212,7 +212,7 @@
           "text": "Tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "The module beeps and its LED stops blinking."
+          "expect": "The module beeps and its LED stops blinking"
         }
       ]
     },
@@ -235,7 +235,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The module double-beeps and its LED stops blinking."
+          "expect": "The module double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
@@ -280,7 +280,7 @@
           "text": "After the beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a few seconds the module double-beeps."
+          "expect": "After a few seconds the module double-beeps"
         }
       ]
     },

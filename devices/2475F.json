@@ -106,7 +106,7 @@
         {
           "text": "Turn the breaker back on.",
           "action": "powerOn",
-          "expect": "Light LED turns green and fan LED turns red."
+          "expect": "Light LED turns green and fan LED turns red"
         },
         {
           "text": "If you will set up scenes with the SET buttons rather than software, do it now.",
@@ -331,7 +331,7 @@
           "text": "Release after the beeping stops.",
           "action": "release",
           "control": "light SET button",
-          "expect": "The light LED turns green, then off; the module double-beeps, the light LED turns green and the fan's light turns on."
+          "expect": "The light LED turns green, then off; the module double-beeps, the light LED turns green and the fan's light turns on"
         }
       ]
     },

@@ -114,7 +114,7 @@
         "The first device put into linking mode becomes the controller and the second becomes the responder.",
         "Each outlet has its own SET button and links separately.",
         "With the Hub, follow the app's instructions and press and hold one of the SET buttons when prompted.",
-        "Software can use the Remote Enter Linking Mode command (On/Off Outlet Developer Notes)."
+        "Software can use the Enter Linking Mode command (On/Off Outlet Developer Notes)."
       ],
       "verification": {
         "status": "conflicting",

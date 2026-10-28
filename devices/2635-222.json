@@ -63,7 +63,7 @@
     "linking": {
       "steps": [
         {
-          "text": "Press and hold the SET button until the module beeps.",
+          "text": "Press and hold the SET button for 3 seconds, until the module beeps.",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -74,7 +74,7 @@
         "The first device put into linking mode becomes the controller and the second becomes the responder.",
         "As a responder: put the controller in linking mode (press and hold its SET button until it beeps; on a multi-button controller, tap the desired button first), make sure the module is on, then press and hold the module's SET button until it double-beeps.",
         "With the Hub, select Plug-In Module in the app and, when prompted, press and hold the SET button until the module double-beeps.",
-        "The 3-second hold time comes from the On/Off Module, Dual-Band Developer Notes; software can use the Remote Enter Linking Mode command."
+        "The 3-second hold time comes from the On/Off Module, Dual-Band Developer Notes; software can use the Enter Linking Mode command."
       ],
       "verification": {
         "status": "conflicting",
@@ -91,11 +91,10 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "Press and hold the SET button until the module beeps.",
+              "text": "Press and hold the SET button until the module double-beeps.",
               "action": "hold",
               "control": "SET button",
-              "seconds": 3,
-              "expect": "Status LED blinks green; the module stays in linking mode until a link is made or four minutes pass"
+              "expect": "Module double-beeps"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -134,7 +133,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. The SET button's double-beep for adding it to a Hub is read from the On/Off Plug 2635-222 Owner's Manual."
           }
         }
       ]

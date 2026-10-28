@@ -109,6 +109,10 @@
               "command": "Start ALL-Linking"
             },
             {
+              "text": "Set the thermostat to Off mode, so the link also enables change reports to the Hub.",
+              "action": "other"
+            },
+            {
               "text": "Press and hold the SET button for 3 seconds.",
               "action": "hold",
               "control": "SET button",
@@ -148,11 +152,12 @@
           ],
           "notes": [
             "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Change reports go only to the last device linked with the thermostat in Off mode."
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps and the Insteon Developer's Guide (2009)'s Start ALL-Linking, ID Request, Enter Linking Mode and Ping commands; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking steps and the Insteon Developer's Guide (2009)'s Start ALL-Linking, ID Request, Enter Linking Mode and Ping commands; no document describes adding this product to a Hub. The Off mode step for change reports is read from this profile's linking notes."
           }
         }
       ]

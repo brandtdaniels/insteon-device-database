@@ -119,7 +119,7 @@
           ],
           "notes": [
             "This links the Hub's group 0 to the device as a responder, and the device's group 3 to the Hub as a controller, so the Hub receives the device's reports.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x03; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
             "status": "inferred",
@@ -167,7 +167,7 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x03, for group 3, as an extended message if the device is i2CS.",
               "action": "send",
               "command": "Enter Linking Mode"
             },

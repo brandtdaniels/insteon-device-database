@@ -166,7 +166,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps, its command set's Reverse the sensor and Momentary relay flags, and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking steps, its command set's Reverse the sensor and Momentary relay flags, and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. The sensor input's group 1 is assumed: neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives its group number."
           }
         }
       ]
@@ -298,7 +298,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from the standard Insteon commands Start ALL-Linking, Enter Linking Mode and Enter Unlinking Mode; no document describes removing this product from a Hub."
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking, Enter Linking Mode and Enter Unlinking Mode; no document describes removing this product from a Hub. The sensor input's group 1 is assumed: neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives its group number."
           }
         }
       ]

@@ -84,8 +84,8 @@
           "action": "unplug"
         },
         {
-          "text": "Press and hold the SET button while reconnecting power.",
-          "action": "hold",
+          "text": "While holding the SET button, reconnect power to the Hub.",
+          "action": "plugIn",
           "control": "SET button",
           "expect": "Hub emits a long beep"
         },

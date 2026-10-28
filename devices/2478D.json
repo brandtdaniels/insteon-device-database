@@ -88,7 +88,7 @@
         {
           "text": "Turn the breakers back on.",
           "action": "powerOn",
-          "expect": "The LED bar and the connected light turn on."
+          "expect": "The LED bar and the connected light turn on"
         },
         {
           "text": "Tap the paddle to turn the light on and off to check that the switch works.",
@@ -206,7 +206,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The switch double-beeps."
+          "expect": "The switch double-beeps"
         },
         {
           "text": "After adding all responders, tap the SET button.",
@@ -235,7 +235,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The switch double-beeps and its LED stops blinking."
+          "expect": "The switch double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
@@ -265,7 +265,7 @@
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a couple of seconds the switch double-beeps, the LEDs return to normal brightness and the load turns on."
+          "expect": "After a couple of seconds the switch double-beeps, the LEDs return to normal brightness and the load turns on"
         }
       ]
     },

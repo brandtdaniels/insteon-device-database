@@ -69,13 +69,13 @@
         {
           "text": "Restore power at the service panel.",
           "action": "powerOn",
-          "expect": "The timer returns to its last on or off state."
+          "expect": "The timer returns to its last on or off state"
         },
         {
           "text": "Test the timer by pressing the 2 min button.",
           "action": "press",
           "control": "2 min button",
-          "expect": "The lights turn on, flash after 1 minute and turn off after 2 minutes."
+          "expect": "The lights turn on, flash after 1 minute and turn off after 2 minutes"
         }
       ],
       "notes": [
@@ -177,7 +177,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 5,
-          "expect": "The lights turn on after 3 seconds."
+          "expect": "The lights turn on after 3 seconds"
         }
       ],
       "notes": [

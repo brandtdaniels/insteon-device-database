@@ -97,13 +97,13 @@
         {
           "text": "Turn on the breaker or fuse.",
           "action": "powerOn",
-          "expect": "After a few seconds the load turns on and the module's LED turns green."
+          "expect": "After a few seconds the load turns on and the module's LED turns green"
         },
         {
           "text": "Tap the module's on and off buttons to test it.",
           "action": "tap",
           "control": "On button",
-          "expect": "The load turns on and off; LED green when on, red when off."
+          "expect": "The load turns on and off; LED green when on, red when off"
         },
         {
           "text": "For a single or dual momentary switch, set the switch operation mode: press and hold the SET button until it beeps three times.",
@@ -234,7 +234,7 @@
           "text": "Tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "The module beeps and its LED stops blinking."
+          "expect": "The module beeps and its LED stops blinking"
         }
       ]
     },
@@ -257,7 +257,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The module double-beeps and its LED stops blinking."
+          "expect": "The module double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
@@ -302,7 +302,7 @@
           "text": "After the beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a few seconds the LED flashes white, the module double-beeps and the load turns on."
+          "expect": "After a few seconds the LED flashes white, the module double-beeps and the load turns on"
         }
       ]
     },

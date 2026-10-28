@@ -12,25 +12,27 @@
     "linking": {
       "steps": [
         {
-          "text": "Press and hold the SET button until the LED starts blinking.",
+          "text": "Press and hold the SET button for 5 seconds.",
           "action": "hold",
           "control": "SET button",
-          "expect": "LED blinks"
+          "seconds": 5,
+          "expect": "LED behind the lens blinks red"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "Assumed from the SET button linking used across Insteon devices; no document describes this product's."
+        "note": "Assumed from the Motion Sensor 2842 profile's steps; no document describes this product's."
       },
       "alternatives": [
         {
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Press and hold the SET button until the LED starts blinking.",
+              "text": "Press and hold the SET button for 5 seconds.",
               "action": "hold",
               "control": "SET button",
-              "expect": "LED blinks"
+              "seconds": 5,
+              "expect": "LED behind the lens blinks red"
             },
             {
               "text": "Have the Hub start ALL-Linking as the responder.",
@@ -50,6 +52,13 @@
               "action": "send",
               "command": "Ping",
               "expect": "The device acknowledges the Ping"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
             }
           ],
           "notes": [
@@ -57,7 +66,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub. The linking steps are assumed from the Motion Sensor 2842 profile's; no document describes this product's."
           }
         }
       ]
@@ -102,6 +111,13 @@
               "action": "send",
               "command": "Start ALL-Linking",
               "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "If the LED is still blinking, tap the SET button until it stops.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1,
+              "expect": "LED stops blinking"
             }
           ],
           "verification": {

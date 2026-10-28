@@ -78,7 +78,7 @@
           "text": "Use the dimmer's ON and OFF buttons to test load control.",
           "action": "tap",
           "control": "ON button",
-          "expect": "The load turns on and off."
+          "expect": "The load turns on and off"
         },
         {
           "text": "Add the dimmer to scenes as a responder of the Insteon devices you want.",

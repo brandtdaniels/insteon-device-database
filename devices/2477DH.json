@@ -88,13 +88,13 @@
         {
           "text": "Turn on power.",
           "action": "powerOn",
-          "expect": "The switch and its load turn on."
+          "expect": "The switch and its load turn on"
         },
         {
           "text": "Tap the switch on and off to check that it works.",
           "action": "tap",
           "control": "paddle",
-          "expect": "The switch and its load turn on and off."
+          "expect": "The switch and its load turn on and off"
         },
         {
           "text": "Reinstall the wall plate.",
@@ -198,7 +198,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The switch double-beeps and its LED stops blinking."
+          "expect": "The switch double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
@@ -227,7 +227,7 @@
           "text": "When the long beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a few seconds the switch double-beeps and the load turns on."
+          "expect": "After a few seconds the switch double-beeps and the load turns on"
         }
       ],
       "verification": {

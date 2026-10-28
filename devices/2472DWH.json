@@ -102,7 +102,7 @@
         {
           "text": "Plug the lamp into the top outlet.",
           "action": "plugIn",
-          "expect": "The lamp turns on and the LED turns green."
+          "expect": "The lamp turns on and the LED turns green"
         },
         {
           "text": "If the lamp doesn't turn on, turn it on with the lamp's own switch.",
@@ -216,7 +216,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The outlet double-beeps and its LED stops blinking."
+          "expect": "The outlet double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
@@ -247,7 +247,7 @@
           "text": "When the beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "The LED turns solid green and then off; after a few seconds the outlet double-beeps."
+          "expect": "The LED turns solid green and then off; after a few seconds the outlet double-beeps"
         }
       ]
     },

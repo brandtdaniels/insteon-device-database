@@ -38,13 +38,17 @@
     "linking": {
       "steps": [
         {
-          "text": "With the controller in linking mode and the fixture on, screw in the Socket Dimmer, or unscrew it for a moment and reinsert it.",
+          "text": "With the controller in linking mode and the fixture on, unscrew the Socket Dimmer for a moment if it's already in the socket.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Screw in the Socket Dimmer.",
           "action": "powerOn"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "Assumed from the power-up linking of the Insteon LED bulbs; no document describes this product's."
+        "note": "Assumed from the LED Bulb A19 2672 profile's power-up linking; no document describes this product's."
       },
       "alternatives": [
         {
@@ -57,7 +61,11 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "With the controller in linking mode and the fixture on, screw in the Socket Dimmer, or unscrew it for a moment and reinsert it.",
+              "text": "With the controller in linking mode and the fixture on, unscrew the Socket Dimmer for a moment if it's already in the socket.",
+              "action": "powerOff"
+            },
+            {
+              "text": "Screw in the Socket Dimmer.",
               "action": "powerOn"
             },
             {
@@ -116,7 +124,11 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "With the controller in unlinking mode and the fixture on, unscrew the Socket Dimmer for a moment and reinsert it.",
+              "text": "With the controller in unlinking mode and the fixture on, unscrew the Socket Dimmer for a moment.",
+              "action": "powerOff"
+            },
+            {
+              "text": "Reinsert the Socket Dimmer.",
               "action": "powerOn"
             },
             {

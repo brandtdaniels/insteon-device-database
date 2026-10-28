@@ -148,7 +148,11 @@
     "linking": {
       "steps": [
         {
-          "text": "With the controller in linking mode and the fixture on, screw in the bulb, or unscrew it for a moment and reinsert it.",
+          "text": "With the controller in linking mode and the fixture on, unscrew the bulb for a moment if it's already in the socket.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Screw in the bulb.",
           "action": "powerOn"
         }
       ],
@@ -173,7 +177,11 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "With the controller in linking mode and the fixture on, screw in the bulb, or unscrew it for a moment and reinsert it.",
+              "text": "With the controller in linking mode and the fixture on, unscrew the bulb for a moment if it's already in the socket.",
+              "action": "powerOff"
+            },
+            {
+              "text": "Screw in the bulb.",
               "action": "powerOn"
             },
             {
@@ -209,7 +217,11 @@
     "unlinking": {
       "steps": [
         {
-          "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment and reinsert it.",
+          "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Reinsert the bulb.",
           "action": "powerOn"
         }
       ],
@@ -248,7 +260,11 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment and reinsert it.",
+              "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment.",
+              "action": "powerOff"
+            },
+            {
+              "text": "Reinsert the bulb.",
               "action": "powerOn"
             },
             {

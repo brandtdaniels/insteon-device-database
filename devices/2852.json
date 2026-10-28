@@ -137,9 +137,9 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "While the sensor is still awake, have the Hub send the Stay Awake command (extended, cmd1 0x2E, cmd2 0x00, data 2 0x04, data 3 the number of seconds to stay awake).",
+              "text": "While the sensor is still awake, have the Hub send extended Set (cmd1 0x2E, cmd2 0x00) with D1 0x01, D2 0x04 (stay awake) and D3 the number of seconds to stay awake.",
               "action": "send",
-              "command": "Stay Awake"
+              "command": "Extended Set"
             },
             {
               "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
@@ -160,7 +160,7 @@
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking and waking steps and the standard Insteon commands Start ALL-Linking, Stay Awake and Ping; no document describes adding this product to a Hub."
+            "note": "Assembled from this profile's linking and waking steps and the standard Insteon commands Start ALL-Linking, Extended Set and Ping; no document describes adding this product to a Hub. The extended Set that keeps the sensor awake is read from the Leak Sensor Developer Notes."
           }
         }
       ]
@@ -187,9 +187,9 @@
     "waking": {
       "steps": [
         {
-          "text": "While the sensor is awake, send the Stay Awake command (extended, cmd1 0x2E, cmd2 0x00, data 2 0x04, data 3 the number of seconds to stay awake).",
+          "text": "While the sensor is awake, send extended Set (cmd1 0x2E, cmd2 0x00) with D1 0x01, D2 0x04 (stay awake) and D3 the number of seconds to stay awake.",
           "action": "send",
-          "command": "Stay Awake"
+          "command": "Extended Set"
         }
       ],
       "notes": [

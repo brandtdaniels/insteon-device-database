@@ -138,13 +138,13 @@
         {
           "text": "Turn on power.",
           "action": "powerOn",
-          "expect": "The LED of the ON button and the connected light turn on."
+          "expect": "The LED of the ON button and the connected light turn on"
         },
         {
           "text": "Tap the ON button on and off to check that the keypad works.",
           "action": "tap",
           "control": "ON button",
-          "expect": "The button LED and the load turn on and off."
+          "expect": "The button LED and the load turn on and off"
         },
         {
           "text": "Reinstall the wall plate.",
@@ -263,7 +263,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The keypad beeps."
+          "expect": "The keypad beeps"
         },
         {
           "text": "After adding all responders, tap the SET button.",
@@ -296,7 +296,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The keypad double-beeps and the scene button LED stops blinking."
+          "expect": "The keypad double-beeps and the scene button LED stops blinking"
         }
       ],
       "notes": [
@@ -326,7 +326,7 @@
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a couple of seconds the keypad double-beeps, the LEDs return to normal brightness and the load turns on."
+          "expect": "After a couple of seconds the keypad double-beeps, the LEDs return to normal brightness and the load turns on"
         }
       ]
     },

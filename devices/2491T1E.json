@@ -171,8 +171,9 @@
           "control": "SET button"
         },
         {
-          "text": "Wait 5 seconds.",
-          "action": "wait",
+          "text": "Keep holding the SET button for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
           "seconds": 5
         },
         {

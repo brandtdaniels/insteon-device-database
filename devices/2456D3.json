@@ -62,7 +62,7 @@
         {
           "text": "Plug the module into an unswitched wall outlet.",
           "action": "plugIn",
-          "expect": "The status LED and the load turn on."
+          "expect": "The status LED and the load turn on"
         },
         {
           "text": "If the load doesn't turn on, turn it on with its own switch.",
@@ -83,7 +83,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice."
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice"
         }
       ],
       "notes": [
@@ -105,7 +105,7 @@
               "action": "hold",
               "control": "SET button",
               "seconds": 3,
-              "expect": "Status LED flashes twice, then turns on solid; the load flashes twice."
+              "expect": "Status LED flashes twice, then turns on solid; the load flashes twice"
             },
             {
               "text": "Wait for the Hub to report the new link.",
@@ -145,7 +145,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice."
+          "expect": "Status LED flashes twice, then turns on solid; the load flashes twice"
         }
       ],
       "notes": [
@@ -182,7 +182,7 @@
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "Status LED flashes once and turns off; after a few seconds the status LED and the load turn on."
+          "expect": "Status LED flashes once and turns off; after a few seconds the status LED and the load turn on"
         }
       ]
     },

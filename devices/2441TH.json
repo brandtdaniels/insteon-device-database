@@ -166,11 +166,23 @@
           "control": "furnace breaker"
         },
         {
-          "text": "Remove the cover of the existing thermostat, photograph the wiring if needed, and label each wire, starting with the C wire.",
+          "text": "Remove the cover of the existing thermostat.",
           "action": "other"
         },
         {
-          "text": "Disconnect the wires and remove the existing thermostat's back plate from the wall.",
+          "text": "If needed, photograph the wiring.",
+          "action": "other"
+        },
+        {
+          "text": "Label each wire, starting with the C wire.",
+          "action": "other"
+        },
+        {
+          "text": "Disconnect the wires from the existing thermostat.",
+          "action": "other"
+        },
+        {
+          "text": "Remove the existing thermostat's back plate from the wall.",
           "action": "other"
         },
         {
@@ -178,12 +190,20 @@
           "action": "wire"
         },
         {
-          "text": "Slide the wires through the large hole in the back of the Thermostat and mount it to the wall.",
+          "text": "Slide the wires through the large hole in the back of the Thermostat.",
+          "action": "other"
+        },
+        {
+          "text": "Mount the Thermostat to the wall.",
           "action": "mount"
         },
         {
-          "text": "Slide the wires through the black grommet (draft shield), peel off its backing and press it in place.",
+          "text": "Slide the wires through the black grommet (draft shield).",
           "action": "other"
+        },
+        {
+          "text": "Peel off the grommet's backing and press it in place.",
+          "action": "mount"
         },
         {
           "text": "Connect each wire to the matching terminal: common 24V to C (24V COM), 24V power to RH, heat 1 to W1, heat 2 to W2, fan to G, cooling 1 to Y1, cooling 2 to Y2.",
@@ -341,7 +361,12 @@
           "expect": "Long beep; display blinks all segments"
         },
         {
-          "text": "When the blinking and beeping stop, release the SET button and wait 10 seconds.",
+          "text": "When the blinking and beeping stop, release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 10 seconds.",
           "action": "wait",
           "seconds": 10,
           "expect": "Self tests run, then the display returns to normal"

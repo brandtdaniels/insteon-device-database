@@ -192,7 +192,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The switch double-beeps."
+          "expect": "The switch double-beeps"
         },
         {
           "text": "After adding all responders, tap the SET button.",
@@ -228,7 +228,7 @@
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
-          "expect": "The switch double-beeps and its status LED stops blinking."
+          "expect": "The switch double-beeps and its status LED stops blinking"
         }
       ],
       "notes": [
@@ -263,7 +263,7 @@
           "text": "When the beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a few seconds the switch double-beeps, the LEDs return to normal brightness and the load turns on."
+          "expect": "After a few seconds the switch double-beeps, the LEDs return to normal brightness and the load turns on"
         }
       ],
       "verification": {

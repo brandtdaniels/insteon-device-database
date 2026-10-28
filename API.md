@@ -150,8 +150,11 @@ out of service, so an app can guide a person through each, or do the steps it ca
   takes on the product keep their own actions. A line-powered product is linked as a responder to
   the Hub, so the Hub can control it, and, where its profile lists a group it controls, from that
   group back to the Hub, so the Hub hears it; a battery-powered product is put in linking mode
-  first, after waking it where its profile says how, and links to the Hub as a controller. No document describes these procedures, so their `verification` says
-  what each is assembled from.
+  first and links to the Hub as a controller. Where its profile says how to keep it awake, the
+  steps do so: before linking mode for some products, such as the Wireless Zone Thermostat
+  2441ZTH, and right after the Hub starts ALL-Linking for others, such as the Open/Close Sensor
+  2843 and the Leak Sensor 2852, which the Hub keeps awake with extended Set. No document
+  describes these procedures, so their `verification` says what each is assembled from.
 - `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
   battery device stays awake, and `resetErases` what a factory reset clears.
 

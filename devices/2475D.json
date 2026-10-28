@@ -104,7 +104,7 @@
           "text": "Use the dimmer's On and Off buttons to test the installation.",
           "action": "tap",
           "control": "On button",
-          "expect": "The load turns on and off."
+          "expect": "The load turns on and off"
         },
         {
           "text": "Set the local on-level and ramp rate for the connected load.",
@@ -224,7 +224,7 @@
           "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a few seconds the dimmer double-beeps and the load turns on."
+          "expect": "After a few seconds the dimmer double-beeps and the load turns on"
         }
       ]
     },

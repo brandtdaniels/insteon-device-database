@@ -236,6 +236,11 @@
           "action": "hold",
           "control": "SET button",
           "expect": "LED turns off and the module emits a long beep"
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
         }
       ],
       "alternatives": [

@@ -77,7 +77,7 @@
         {
           "text": "Turn the breaker on.",
           "action": "powerOn",
-          "expect": "The light turns on and the LED shows its brightness."
+          "expect": "The light turns on and the LED shows its brightness"
         },
         {
           "text": "Toggle the light on and off to check that the switch works.",
@@ -197,7 +197,7 @@
           "text": "Tap the SET button.",
           "action": "tap",
           "control": "SET button",
-          "expect": "The switch beeps and its LED stops blinking."
+          "expect": "The switch beeps and its LED stops blinking"
         }
       ]
     },
@@ -220,7 +220,7 @@
           "device": "other",
           "action": "hold",
           "control": "SET button",
-          "expect": "The switch double-beeps and its LED stops blinking."
+          "expect": "The switch double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
@@ -245,7 +245,7 @@
           "text": "When the beep stops, release the SET button.",
           "action": "release",
           "control": "SET button",
-          "expect": "After a few seconds the switch double-beeps, turns on and its LED turns white."
+          "expect": "After a few seconds the switch double-beeps, turns on and its LED turns white"
         }
       ]
     },
