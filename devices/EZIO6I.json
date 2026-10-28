@@ -1,0 +1,165 @@
+{
+  "model": "EZIO6I",
+  "name": "EZIO6I",
+  "description": "An Insteon controller with 6 inputs, in the EZIOxx line. Its inputs send Insteon group commands when they change.",
+  "identities": [
+    {
+      "category": "0x07",
+      "subcategory": "0x07",
+      "verification": {
+        "status": "conflicting",
+        "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x07 to the EZIO6I (6 inputs); the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x07, the model's own entry."
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "ezio",
+      "category": "0x07",
+      "subcategory": "0x07",
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details cover the whole EZIOxx line, from inputs-only to outputs-only models, and warn that a model may not support every command."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Input 1",
+      "role": "both",
+      "type": "input1",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
+      }
+    },
+    {
+      "number": "0x02",
+      "name": "Input 2",
+      "role": "both",
+      "type": "input2",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
+      }
+    },
+    {
+      "number": "0x03",
+      "name": "Input 3",
+      "role": "both",
+      "type": "input3",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
+      }
+    },
+    {
+      "number": "0x04",
+      "name": "Input 4",
+      "role": "both",
+      "type": "input4",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
+      }
+    },
+    {
+      "number": "0x05",
+      "name": "Input 5",
+      "role": "both",
+      "type": "input5",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
+      }
+    },
+    {
+      "number": "0x06",
+      "name": "Input 6",
+      "role": "both",
+      "type": "input6",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the EZIO6I's groups; input N as group N is read from the EZIOxx line's other models, and the EZIOxx Advanced Details let each input's group number be changed. That an input can be triggered as a responder is read from the EZIOxx Advanced Details, which give it for inputs 1 to 7."
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x05",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x05",
+          "command1": "0x13",
+          "event": "inputOff"
+        },
+        {
+          "group": "0x06",
+          "command1": "0x11",
+          "event": "inputOn"
+        },
+        {
+          "group": "0x06",
+          "command1": "0x13",
+          "event": "inputOff"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "No document gives a model number; the profile is named for the product.",
+    "As a responder, a record whose Data 2 is 0x01 triggers the input in Data 3 (0x00 for input 1) as if it had turned on, so the input sends its own group command. No document gives a way to link one from the device.",
+    "It has opto-isolated inputs and analog inputs: the Product Guide EZEye Ambient Light Sensor —Model #1011A wires an EZEye to it as to the EZIO8SA, its digital output to an opto-isolated input (I1) and its analog output to an analog input (AN1)."
+  ],
+  "sources": [
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "EZIOxx Advanced Details",
+    "Product Guide EZEye Ambient Light Sensor —Model #1011A"
+  ]
+}

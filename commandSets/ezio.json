@@ -1,0 +1,1427 @@
+{
+  "id": "ezio",
+  "name": "EZIOxx",
+  "description": "The EZIOxx I/O controllers from Compacta International, sold as SimpleHomeNet and later Smartenit products: EZIO8SA, EZIO2X4 5010D, EZIO4O 5010J, EZIO6I and EZIO8T. The line runs from inputs-only to outputs-only models, and a model supports only the commands its inputs and outputs need. Inputs send group commands, outputs are relays or other switches, and settings are read and written with the device's own commands and Peek and Poke rather than operating flags.",
+  "valueTables": [
+    {
+      "name": "responderAction",
+      "description": "What a responder record's middle data byte has the device do when its controller's group On arrives.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "Turn on one output, 0x00 through 0x07 in the lower byte for outputs 1 to 8"
+        },
+        {
+          "value": "0x01",
+          "label": "Trigger one input as if it went from off to on, 0x00 through 0x06 in the lower byte for inputs 1 to 7"
+        },
+        {
+          "value": "0x80",
+          "label": "Set the outputs to the pattern in the lower byte, 1 on and 0 off"
+        },
+        {
+          "value": "0x81",
+          "label": "Turn on the outputs set in the lower byte, leaving the rest"
+        }
+      ]
+    }
+  ],
+  "standardCommands": [
+    {
+      "name": "outputOn",
+      "description": "Output ON: turns on the output in cmd2.",
+      "command1": "0x45",
+      "parameter": {
+        "name": "output",
+        "description": "The output, 0x00 through 0x07 for outputs 1 through 8.",
+        "range": {
+          "from": 0,
+          "through": 7
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "The EZIOxx Advanced Details print 45 and 46 without a prefix; the catalog reads them as hexadecimal, like the table's other codes."
+      }
+    },
+    {
+      "name": "outputOff",
+      "description": "Output OFF: turns off the output in cmd2.",
+      "command1": "0x46",
+      "parameter": {
+        "name": "output",
+        "description": "The output, 0x00 through 0x07 for outputs 1 through 8.",
+        "range": {
+          "from": 0,
+          "through": 7
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "The EZIOxx Advanced Details print 45 and 46 without a prefix; the catalog reads them as hexadecimal, like the table's other codes."
+      }
+    },
+    {
+      "name": "writeOutputPort",
+      "description": "Write Output Port: sets every output at once. Only the bits of outputs the model has take effect.",
+      "command1": "0x48",
+      "parameter": {
+        "name": "outputs",
+        "description": "The outputs to turn on; the rest turn off.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "output1",
+            "description": "Output 1 is on."
+          },
+          {
+            "mask": "0x02",
+            "name": "output2",
+            "description": "Output 2 is on."
+          },
+          {
+            "mask": "0x04",
+            "name": "output3",
+            "description": "Output 3 is on."
+          },
+          {
+            "mask": "0x08",
+            "name": "output4",
+            "description": "Output 4 is on."
+          },
+          {
+            "mask": "0x10",
+            "name": "output5",
+            "description": "Output 5 is on."
+          },
+          {
+            "mask": "0x20",
+            "name": "output6",
+            "description": "Output 6 is on."
+          },
+          {
+            "mask": "0x40",
+            "name": "output7",
+            "description": "Output 7 is on."
+          },
+          {
+            "mask": "0x80",
+            "name": "output8",
+            "description": "Output 8 is on."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details say the byte holds the outputs but not which bit is which; output 1 in bit 0 is read from the outputs' numbering, 0x00 through 0x07 for outputs 1 through 8."
+        }
+      },
+      "reply": {
+        "name": "outputs",
+        "description": "The byte as written to the output port.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "output1",
+            "description": "Output 1 is on."
+          },
+          {
+            "mask": "0x02",
+            "name": "output2",
+            "description": "Output 2 is on."
+          },
+          {
+            "mask": "0x04",
+            "name": "output3",
+            "description": "Output 3 is on."
+          },
+          {
+            "mask": "0x08",
+            "name": "output4",
+            "description": "Output 4 is on."
+          },
+          {
+            "mask": "0x10",
+            "name": "output5",
+            "description": "Output 5 is on."
+          },
+          {
+            "mask": "0x20",
+            "name": "output6",
+            "description": "Output 6 is on."
+          },
+          {
+            "mask": "0x40",
+            "name": "output7",
+            "description": "Output 7 is on."
+          },
+          {
+            "mask": "0x80",
+            "name": "output8",
+            "description": "Output 8 is on."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details say the byte holds the outputs but not which bit is which; output 1 in bit 0 is read from the outputs' numbering, 0x00 through 0x07 for outputs 1 through 8."
+        }
+      }
+    },
+    {
+      "name": "readInputPort",
+      "description": "Read Input Port: reads the inputs. An analog or 1-Wire input reads as on while its value is past its alarm point.",
+      "command1": "0x49",
+      "command2": "0x00",
+      "reply": {
+        "name": "inputs",
+        "description": "The byte read from the input port.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "input1",
+            "description": "Input 1 is on."
+          },
+          {
+            "mask": "0x02",
+            "name": "input2",
+            "description": "Input 2 is on."
+          },
+          {
+            "mask": "0x04",
+            "name": "input3",
+            "description": "Input 3 is on."
+          },
+          {
+            "mask": "0x08",
+            "name": "input4",
+            "description": "Input 4 is on."
+          },
+          {
+            "mask": "0x10",
+            "name": "input5",
+            "description": "Input 5 is on."
+          },
+          {
+            "mask": "0x20",
+            "name": "input6",
+            "description": "Input 6 is on."
+          },
+          {
+            "mask": "0x40",
+            "name": "input7",
+            "description": "Input 7 is on."
+          },
+          {
+            "mask": "0x80",
+            "name": "input8",
+            "description": "Input 8 is on."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details say the byte holds the inputs but not which bit is which; input 1 in bit 0 is read from the inputs' numbering."
+        }
+      }
+    },
+    {
+      "name": "readSensor",
+      "description": "Get Sensor Value: reads a sensor's value.",
+      "command1": "0x4A",
+      "parameter": {
+        "name": "sensor",
+        "description": "The sensor, 0x00 through 0x03.",
+        "range": {
+          "from": 0,
+          "through": 3
+        }
+      },
+      "reply": {
+        "name": "value",
+        "description": "The sensor's value."
+      }
+    },
+    {
+      "name": "setSensor1OnAlarm",
+      "description": "Set Sensor 1 OFF -> ON Alarm: sets the value at which sensor 1 goes from off to on and alarms.",
+      "command1": "0x4B",
+      "parameter": {
+        "name": "alarm",
+        "description": "The alarm value, 0x00 through 0xFF.",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "setSensor1OffAlarm",
+      "description": "Set Sensor 1 ON -> OFF Alarm: sets the value at which sensor 1 goes from on to off and alarms.",
+      "command1": "0x4C",
+      "parameter": {
+        "name": "alarm",
+        "description": "The alarm value, 0x00 through 0xFF.",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "writeConfigurationPort",
+      "description": "Write Configuration Port: sets how the device responds to commands.",
+      "command1": "0x4D",
+      "parameter": {
+        "name": "configuration",
+        "description": "The Configuration Port byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "analogInputUsed",
+            "description": "The analog inputs are used (bits 0 and 1 are 01 or 11); clear, they aren't."
+          },
+          {
+            "mask": "0x02",
+            "name": "analogFixedInterval",
+            "description": "With bit 0 set, the analog inputs are converted at a fixed interval (11) rather than on command (01)."
+          },
+          {
+            "mask": "0x04",
+            "name": "broadcastOnSensorAlarm",
+            "description": "The device sends a broadcast on a sensor alarm."
+          },
+          {
+            "mask": "0x08",
+            "name": "debounceInputs",
+            "description": "The inputs are debounced."
+          },
+          {
+            "mask": "0x10",
+            "name": "oneWireEnabled",
+            "description": "The 1-Wire port is enabled."
+          },
+          {
+            "mask": "0x20",
+            "name": "outputTimersInSeconds",
+            "description": "The output timers count seconds; clear, minutes."
+          },
+          {
+            "mask": "0x40",
+            "name": "broadcastPortChanges",
+            "description": "The device broadcasts changes of its output and input ports."
+          },
+          {
+            "mask": "0x80",
+            "name": "outputTimersEnabled",
+            "description": "Output timers greater than 0 are used."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details give bit 5 set as seconds; that clear means minutes is read from the timers' range, 1 second to 255 minutes."
+        }
+      },
+      "reply": {
+        "name": "configuration",
+        "description": "The new Configuration Port byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "analogInputUsed",
+            "description": "The analog inputs are used (bits 0 and 1 are 01 or 11); clear, they aren't."
+          },
+          {
+            "mask": "0x02",
+            "name": "analogFixedInterval",
+            "description": "With bit 0 set, the analog inputs are converted at a fixed interval (11) rather than on command (01)."
+          },
+          {
+            "mask": "0x04",
+            "name": "broadcastOnSensorAlarm",
+            "description": "The device sends a broadcast on a sensor alarm."
+          },
+          {
+            "mask": "0x08",
+            "name": "debounceInputs",
+            "description": "The inputs are debounced."
+          },
+          {
+            "mask": "0x10",
+            "name": "oneWireEnabled",
+            "description": "The 1-Wire port is enabled."
+          },
+          {
+            "mask": "0x20",
+            "name": "outputTimersInSeconds",
+            "description": "The output timers count seconds; clear, minutes."
+          },
+          {
+            "mask": "0x40",
+            "name": "broadcastPortChanges",
+            "description": "The device broadcasts changes of its output and input ports."
+          },
+          {
+            "mask": "0x80",
+            "name": "outputTimersEnabled",
+            "description": "Output timers greater than 0 are used."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details give bit 5 set as seconds; that clear means minutes is read from the timers' range, 1 second to 255 minutes."
+        }
+      }
+    },
+    {
+      "name": "readConfigurationPort",
+      "description": "Read Configuration Port: reads the Configuration Port byte.",
+      "command1": "0x4E",
+      "command2": "0x00",
+      "reply": {
+        "name": "configuration",
+        "description": "The Configuration Port byte.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "analogInputUsed",
+            "description": "The analog inputs are used (bits 0 and 1 are 01 or 11); clear, they aren't."
+          },
+          {
+            "mask": "0x02",
+            "name": "analogFixedInterval",
+            "description": "With bit 0 set, the analog inputs are converted at a fixed interval (11) rather than on command (01)."
+          },
+          {
+            "mask": "0x04",
+            "name": "broadcastOnSensorAlarm",
+            "description": "The device sends a broadcast on a sensor alarm."
+          },
+          {
+            "mask": "0x08",
+            "name": "debounceInputs",
+            "description": "The inputs are debounced."
+          },
+          {
+            "mask": "0x10",
+            "name": "oneWireEnabled",
+            "description": "The 1-Wire port is enabled."
+          },
+          {
+            "mask": "0x20",
+            "name": "outputTimersInSeconds",
+            "description": "The output timers count seconds; clear, minutes."
+          },
+          {
+            "mask": "0x40",
+            "name": "broadcastPortChanges",
+            "description": "The device broadcasts changes of its output and input ports."
+          },
+          {
+            "mask": "0x80",
+            "name": "outputTimersEnabled",
+            "description": "Output timers greater than 0 are used."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details give bit 5 set as seconds; that clear means minutes is read from the timers' range, 1 second to 255 minutes."
+        }
+      }
+    },
+    {
+      "name": "loadInitializationValues",
+      "description": "EZIO Control, Load Initialization Values: resets the device to its factory settings.",
+      "command1": "0x4F",
+      "command2": "0x00"
+    },
+    {
+      "name": "updateEeprom",
+      "description": "EZIO Control, Update EEPROM: saves the parameters in RAM to EEPROM, as after a Poke One Byte.",
+      "command1": "0x4F",
+      "command2": "0x01"
+    },
+    {
+      "name": "statusRequest",
+      "description": "EZIO Control, Status Request: reads the outputs.",
+      "command1": "0x4F",
+      "command2": "0x02",
+      "reply": {
+        "name": "outputs",
+        "description": "The outputs that are on.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "output1",
+            "description": "Output 1 is on."
+          },
+          {
+            "mask": "0x02",
+            "name": "output2",
+            "description": "Output 2 is on."
+          },
+          {
+            "mask": "0x04",
+            "name": "output3",
+            "description": "Output 3 is on."
+          },
+          {
+            "mask": "0x08",
+            "name": "output4",
+            "description": "Output 4 is on."
+          },
+          {
+            "mask": "0x10",
+            "name": "output5",
+            "description": "Output 5 is on."
+          },
+          {
+            "mask": "0x20",
+            "name": "output6",
+            "description": "Output 6 is on."
+          },
+          {
+            "mask": "0x40",
+            "name": "output7",
+            "description": "Output 7 is on."
+          },
+          {
+            "mask": "0x80",
+            "name": "output8",
+            "description": "Output 8 is on."
+          }
+        ],
+        "verification": {
+          "status": "inferred",
+          "note": "The EZIOxx Advanced Details say the byte holds the outputs but not which bit is which; output 1 in bit 0 is read from the outputs' numbering, 0x00 through 0x07 for outputs 1 through 8."
+        }
+      }
+    },
+    {
+      "name": "readFirmwareVersion",
+      "description": "EZIO Control, Get Firmware Version: reads the firmware version, which Peek One Byte also reads at address 0x48.",
+      "command1": "0x4F",
+      "command2": "0x05"
+    },
+    {
+      "name": "readOutputTimers",
+      "description": "EZIO Control, Get Output Timers: reads the output timers. They arrive in an extended message with cmd1 0x4F and cmd2 0x04, D1 through D8 the timers of outputs 1 through 8.",
+      "command1": "0x4F",
+      "command2": "0x06",
+      "verification": {
+        "status": "inferred",
+        "note": "The EZIOxx Advanced Details list Get Output Timers both as this EZIO Control sub-command and as an extended message with cmd1 0x4F and cmd2 0x04 carrying D1 through D8; that the message answers the sub-command is read from their names."
+      }
+    },
+    {
+      "name": "enableStatusChangeMessage",
+      "description": "EZIO Control, Enable status change message: the device broadcasts when its output port changes.",
+      "command1": "0x4F",
+      "command2": "0x09"
+    },
+    {
+      "name": "disableStatusChangeMessage",
+      "description": "EZIO Control, Disable status change message: the device stops broadcasting output port changes.",
+      "command1": "0x4F",
+      "command2": "0x0A"
+    },
+    {
+      "name": "diagnosticsOn",
+      "description": "EZIO Control, Diagnostics ON: cycles the outputs on for 1 second each.",
+      "command1": "0x4F",
+      "command2": "0x0E"
+    },
+    {
+      "name": "diagnosticsOff",
+      "description": "EZIO Control, Diagnostics OFF: takes the device out of diagnostics.",
+      "command1": "0x4F",
+      "command2": "0x0F"
+    },
+    {
+      "name": "setAddressMsb",
+      "description": "Set Address MSB: sets the high byte of the address Peek and Poke use. It must be 0x00 for the addresses the notes list.",
+      "command1": "0x28",
+      "parameter": {
+        "name": "addressMsb",
+        "description": "The address's high byte."
+      }
+    },
+    {
+      "name": "poke",
+      "description": "Poke One Byte: writes cmd2 to the parameter RAM at the address Peek One Byte last set. A location marked rw keeps the value once Update EEPROM saves it.",
+      "command1": "0x29",
+      "parameter": {
+        "name": "value",
+        "description": "The value to store."
+      }
+    },
+    {
+      "name": "peek",
+      "description": "Peek One Byte: sets the address to cmd2, and reads the byte there. The notes list the addresses.",
+      "command1": "0x2B",
+      "parameter": {
+        "name": "address",
+        "description": "The address's low byte, 0x00 through 0x5F.",
+        "range": {
+          "from": 0,
+          "through": 95
+        }
+      },
+      "reply": {
+        "name": "value",
+        "description": "The byte at the address."
+      }
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "setOutputTimers",
+      "description": "Set Output Timers: sets the timers of outputs 1 through 8. A timer greater than 0 turns its output off when it runs out, while the Configuration Port's outputTimersEnabled bit is set; the outputTimersInSeconds bit picks seconds or minutes.",
+      "command1": "0x4D",
+      "command2": "0x00",
+      "parameters": [
+        {
+          "name": "output1Timer",
+          "description": "Output 1's timer, 0 for none.",
+          "byte": 1
+        },
+        {
+          "name": "output2Timer",
+          "description": "Output 2's timer, 0 for none.",
+          "byte": 2
+        },
+        {
+          "name": "output3Timer",
+          "description": "Output 3's timer, 0 for none.",
+          "byte": 3
+        },
+        {
+          "name": "output4Timer",
+          "description": "Output 4's timer, 0 for none.",
+          "byte": 4
+        },
+        {
+          "name": "output5Timer",
+          "description": "Output 5's timer, 0 for none.",
+          "byte": 5
+        },
+        {
+          "name": "output6Timer",
+          "description": "Output 6's timer, 0 for none.",
+          "byte": 6
+        },
+        {
+          "name": "output7Timer",
+          "description": "Output 7's timer, 0 for none.",
+          "byte": 7
+        },
+        {
+          "name": "output8Timer",
+          "description": "Output 8's timer, 0 for none.",
+          "byte": 8
+        }
+      ]
+    },
+    {
+      "name": "setAlarms0",
+      "description": "Set Sensor/Analog Alarms for sensor or analog input 0x00: D1 through D4 hold the alarm values, 2 bytes for sensors S1 to S4 or 4 bytes for analog inputs AN1 to AN3.",
+      "command1": "0x4B",
+      "command2": "0x00",
+      "parameters": [
+        {
+          "name": "alarmByte1",
+          "description": "Byte 1 of the alarm values.",
+          "byte": 1
+        },
+        {
+          "name": "alarmByte2",
+          "description": "Byte 2 of the alarm values.",
+          "byte": 2
+        },
+        {
+          "name": "alarmByte3",
+          "description": "Byte 3 of the alarm values.",
+          "byte": 3
+        },
+        {
+          "name": "alarmByte4",
+          "description": "Byte 4 of the alarm values.",
+          "byte": 4
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details give cmd2 as the sensor or analog input number, 0x00 through 0x03, but not the order of the alarm values in D1 through D4."
+      }
+    },
+    {
+      "name": "setAlarms1",
+      "description": "Set Sensor/Analog Alarms for sensor or analog input 0x01: D1 through D4 hold the alarm values, 2 bytes for sensors S1 to S4 or 4 bytes for analog inputs AN1 to AN3.",
+      "command1": "0x4B",
+      "command2": "0x01",
+      "parameters": [
+        {
+          "name": "alarmByte1",
+          "description": "Byte 1 of the alarm values.",
+          "byte": 1
+        },
+        {
+          "name": "alarmByte2",
+          "description": "Byte 2 of the alarm values.",
+          "byte": 2
+        },
+        {
+          "name": "alarmByte3",
+          "description": "Byte 3 of the alarm values.",
+          "byte": 3
+        },
+        {
+          "name": "alarmByte4",
+          "description": "Byte 4 of the alarm values.",
+          "byte": 4
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details give cmd2 as the sensor or analog input number, 0x00 through 0x03, but not the order of the alarm values in D1 through D4."
+      }
+    },
+    {
+      "name": "setAlarms2",
+      "description": "Set Sensor/Analog Alarms for sensor or analog input 0x02: D1 through D4 hold the alarm values, 2 bytes for sensors S1 to S4 or 4 bytes for analog inputs AN1 to AN3.",
+      "command1": "0x4B",
+      "command2": "0x02",
+      "parameters": [
+        {
+          "name": "alarmByte1",
+          "description": "Byte 1 of the alarm values.",
+          "byte": 1
+        },
+        {
+          "name": "alarmByte2",
+          "description": "Byte 2 of the alarm values.",
+          "byte": 2
+        },
+        {
+          "name": "alarmByte3",
+          "description": "Byte 3 of the alarm values.",
+          "byte": 3
+        },
+        {
+          "name": "alarmByte4",
+          "description": "Byte 4 of the alarm values.",
+          "byte": 4
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details give cmd2 as the sensor or analog input number, 0x00 through 0x03, but not the order of the alarm values in D1 through D4."
+      }
+    },
+    {
+      "name": "setAlarms3",
+      "description": "Set Sensor/Analog Alarms for sensor or analog input 0x03: D1 through D4 hold the alarm values, 2 bytes for sensors S1 to S4 or 4 bytes for analog inputs AN1 to AN3.",
+      "command1": "0x4B",
+      "command2": "0x03",
+      "parameters": [
+        {
+          "name": "alarmByte1",
+          "description": "Byte 1 of the alarm values.",
+          "byte": 1
+        },
+        {
+          "name": "alarmByte2",
+          "description": "Byte 2 of the alarm values.",
+          "byte": 2
+        },
+        {
+          "name": "alarmByte3",
+          "description": "Byte 3 of the alarm values.",
+          "byte": 3
+        },
+        {
+          "name": "alarmByte4",
+          "description": "Byte 4 of the alarm values.",
+          "byte": 4
+        }
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "The EZIOxx Advanced Details give cmd2 as the sensor or analog input number, 0x00 through 0x03, but not the order of the alarm values in D1 through D4."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "output1",
+      "label": "Output 1",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x00"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x00"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x00 for output 1.",
+            "value": "0x00",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output2",
+      "label": "Output 2",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x01"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x01"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x01 for output 2.",
+            "value": "0x01",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output3",
+      "label": "Output 3",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x02"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x02"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x02 for output 3.",
+            "value": "0x02",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output4",
+      "label": "Output 4",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x03"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x03"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x03 for output 4.",
+            "value": "0x03",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output5",
+      "label": "Output 5",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x04"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x04"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x04 for output 5.",
+            "value": "0x04",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output6",
+      "label": "Output 6",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x05"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x05"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x05 for output 6.",
+            "value": "0x05",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output7",
+      "label": "Output 7",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x06"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x06"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x06 for output 7.",
+            "value": "0x06",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "output8",
+      "label": "Output 8",
+      "kind": "relay",
+      "state": {
+        "command": "statusRequest",
+        "bitPerGroup": true
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "outputOn",
+          "value": "0x07"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "outputOff",
+          "value": "0x07"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x00 turns on the output Data 3 names.",
+            "value": "0x00",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "output",
+            "label": "Output",
+            "description": "The output to turn on, 0x07 for output 8.",
+            "value": "0x07",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x07 for outputs 1 through 8 when the middle byte is 0x00; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input1",
+      "label": "Input 1",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x00 for input 1.",
+            "value": "0x00",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input2",
+      "label": "Input 2",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x01 for input 2.",
+            "value": "0x01",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input3",
+      "label": "Input 3",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x02 for input 3.",
+            "value": "0x02",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input4",
+      "label": "Input 4",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x03 for input 4.",
+            "value": "0x03",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input5",
+      "label": "Input 5",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x04 for input 5.",
+            "value": "0x04",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input6",
+      "label": "Input 6",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x05 for input 6.",
+            "value": "0x05",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "input7",
+      "label": "Input 7",
+      "kind": "sensor",
+      "state": {
+        "command": "readInputPort",
+        "bitPerGroup": true
+      },
+      "linkData": {
+        "responder": [
+          {
+            "byte": 2,
+            "name": "action",
+            "label": "Action",
+            "description": "What a controller's group On does: 0x01 triggers the input Data 3 names, as if it went from off to on.",
+            "value": "0x01",
+            "table": "responderAction",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte and the next the middle and lower data bytes of the ALL-Link database record; the catalog reads them as Data 2 and Data 3."
+            }
+          },
+          {
+            "byte": 3,
+            "name": "input",
+            "label": "Input",
+            "description": "The input to trigger, 0x06 for input 7.",
+            "value": "0x06",
+            "verification": {
+              "status": "inferred",
+              "note": "The EZIOxx Advanced Details call this byte the lower data byte, and give 0x00 through 0x06 for inputs 1 through 7 when the middle byte is 0x01; the catalog reads it as Data 3."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "The EZIOxx Advanced Details (Rev 2.3, 2016) apply to firmware 2.0 and above. They give EZIO the category 0x07 and subcategory 0x02; Insteon Device Categories and Product Keys (October 2008) gives each model its own subcategory.",
+    "Each input sends a group command when it changes, to the group stored for it at addresses 0x40 through 0x47 (inputs 1 to 8), which needn't match the input's number; several inputs can share a group. An input that isn't linked sends a broadcast instead, when broadcasts are enabled. The commands sent on the off-to-on and on-to-off transitions default to Insteon On and Off and can be changed, at addresses 0x20 through 0x3F.",
+    "An input can have a timer, 1 second to 255 minutes, that starts when the input turns on and sends the on-to-off command when it runs out; the device can ignore the input turning off while the timer runs. An input can also switch its corresponding output directly (the inputs-to-outputs crosslink at address 0x1A).",
+    "Inputs are digital, analog or 1-Wire (one DS18B20 temperature sensor). An analog or 1-Wire input reads as on while its value is past its alarm point; its off-to-on and on-to-off alarm points are separate counts from 0 to 1023, which gives it hysteresis. Analog inputs read 0 to 5 V or 0 to 3.3 V depending on the model.",
+    "Besides the Configuration Port, software can set a Configuration Register: Enable Analog Inputs, Continuous A/D Conversion (once a second rather than when read), Debounce the Inputs, Enable 1-W Sensor, Set Timers in Seconds and Broadcast on Status Change.",
+    "As a responder, the device reads the middle and lower data bytes of its ALL-Link database record when a group On arrives: it turns on one output, sets or turns on a pattern of outputs (the snapshot taken when the link was made), or triggers one of its inputs as if it had turned on, which then sends that input's group command if the input is linked. With output timers enabled, an output turns off when its timer runs out, for pulses as short as 1 second.",
+    "Status Changed broadcast (cmd1 0x27): when broadcasts are enabled, the device sends the output or input port's byte in cmd2 when it changes, with 00 in the To Address's low byte for the output port and 01 for the input port.",
+    "The device answers an ID Request with an acknowledgment and a SET Button Pressed broadcast, without entering linking mode. ALL-Link Recall (cmd1 0x11, an ALL-Link command) recalls groups 0 to 15.",
+    "Peek and Poke addresses, with Set Address MSB 0x00: 0x00 to 0x07 output timers (rw); 0x08 X10 house code (rw); 0x09 Configuration Port (rw); 0x0A to 0x11 sensor 1 to 4 alarms, 2 bytes each (rw); 0x12 to 0x19 analog inputs 1 and 2 alarms, 4 bytes each (rw); 0x1A inputs-to-outputs crosslink bitmap (rw); 0x1B to 0x1F reserved; 0x20 to 0x3F the group command on/off sequence for inputs 1 to 8 (rw); 0x40 to 0x47 group numbers for inputs 1 to 8 (rw); 0x48 firmware version (r); 0x49 EEPROM loaded flag (r); 0x4A output port status (r); 0x4B input port status (r); 0x4C analog data, 2 bytes for each of 2 inputs (r); 0x50 1-Wire raw data (r); 0x58 to 0x5F input timers (rw). A Poke to an rw location lasts once Update EEPROM saves it.",
+    "X10: units 1 to 8 turn outputs 1 to 8 on and off, and unit 16 On and Off enable and disable the output timers. To enable X10, pick a house code (A to P) on an X10 controller, hold the SET button at least 4 seconds and release it so the LED blinks, then send 3 On commands (any unit) until the LED stops blinking; 3 Off commands disable it. The Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller and the Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller give one On or Off command instead of 3."
+  ],
+  "sources": [
+    "EZIOxx Advanced Details"
+  ]
+}
