@@ -50,128 +50,352 @@
       ]
     }
   ],
+  "valueTables": [
+    {
+      "name": "rampRate",
+      "description": "How long each ramp rate takes to go from off to full on.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "2 s",
+          "seconds": 2
+        },
+        {
+          "value": "0x01",
+          "label": "8 min",
+          "seconds": 480
+        },
+        {
+          "value": "0x02",
+          "label": "7 min",
+          "seconds": 420
+        },
+        {
+          "value": "0x03",
+          "label": "6 min",
+          "seconds": 360
+        },
+        {
+          "value": "0x04",
+          "label": "5 min",
+          "seconds": 300
+        },
+        {
+          "value": "0x05",
+          "label": "4 min 30 s",
+          "seconds": 270
+        },
+        {
+          "value": "0x06",
+          "label": "4 min",
+          "seconds": 240
+        },
+        {
+          "value": "0x07",
+          "label": "3 min 30 s",
+          "seconds": 210
+        },
+        {
+          "value": "0x08",
+          "label": "3 min",
+          "seconds": 180
+        },
+        {
+          "value": "0x09",
+          "label": "2 min 30 s",
+          "seconds": 150
+        },
+        {
+          "value": "0x0A",
+          "label": "2 min",
+          "seconds": 120
+        },
+        {
+          "value": "0x0B",
+          "label": "1 min 30 s",
+          "seconds": 90
+        },
+        {
+          "value": "0x0C",
+          "label": "1 min",
+          "seconds": 60
+        },
+        {
+          "value": "0x0D",
+          "label": "47 s",
+          "seconds": 47
+        },
+        {
+          "value": "0x0E",
+          "label": "43 s",
+          "seconds": 43
+        },
+        {
+          "value": "0x0F",
+          "label": "38.5 s",
+          "seconds": 38.5
+        },
+        {
+          "value": "0x10",
+          "label": "34 s",
+          "seconds": 34
+        },
+        {
+          "value": "0x11",
+          "label": "32 s",
+          "seconds": 32
+        },
+        {
+          "value": "0x12",
+          "label": "30 s",
+          "seconds": 30
+        },
+        {
+          "value": "0x13",
+          "label": "28 s",
+          "seconds": 28
+        },
+        {
+          "value": "0x14",
+          "label": "26 s",
+          "seconds": 26
+        },
+        {
+          "value": "0x15",
+          "label": "23.5 s",
+          "seconds": 23.5
+        },
+        {
+          "value": "0x16",
+          "label": "21.5 s",
+          "seconds": 21.5
+        },
+        {
+          "value": "0x17",
+          "label": "19 s",
+          "seconds": 19
+        },
+        {
+          "value": "0x18",
+          "label": "8.5 s",
+          "seconds": 8.5
+        },
+        {
+          "value": "0x19",
+          "label": "6.5 s",
+          "seconds": 6.5
+        },
+        {
+          "value": "0x1A",
+          "label": "4.5 s",
+          "seconds": 4.5
+        },
+        {
+          "value": "0x1B",
+          "label": "2 s",
+          "seconds": 2
+        },
+        {
+          "value": "0x1C",
+          "label": "0.5 s",
+          "seconds": 0.5
+        },
+        {
+          "value": "0x1D",
+          "label": "0.3 s",
+          "seconds": 0.3
+        },
+        {
+          "value": "0x1E",
+          "label": "0.2 s",
+          "seconds": 0.2
+        },
+        {
+          "value": "0x1F",
+          "label": "0.1 s",
+          "seconds": 0.1
+        }
+      ]
+    }
+  ],
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking from the SET button is locked out.",
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
-      "off": "0x01"
+      "off": "0x01",
+      "default": false
     },
     {
       "name": "resumeDim",
+      "label": "Holding sets the on-level",
+      "section": "Load",
       "description": "Brightening or dimming the load by holding its button also sets its on-level. Clear by default.",
       "query": "0x00",
       "bit": "0x04",
       "on": "0x04",
-      "off": "0x05"
+      "off": "0x05",
+      "default": false
     },
     {
       "name": "keyBeep",
+      "label": "Beep on button press",
+      "section": "Buttons",
       "description": "The device beeps when a button is pressed.",
       "query": "0x00",
       "bit": "0x20",
       "on": "0x0A",
-      "off": "0x0B"
+      "off": "0x0B",
+      "default": false
     },
     {
       "name": "radioOff",
+      "label": "Turn off radio",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device doesn't transmit over RF, which can help several switches in one box.",
       "query": "0x00",
       "bit": "0x40",
       "on": "0x0C",
-      "off": "0x0D"
+      "off": "0x0D",
+      "default": false
     },
     {
       "name": "errorBlink",
+      "label": "Blink LED on errors",
+      "section": "LEDs",
       "description": "After a press, the LED flashes green if every cleanup succeeded and red if one failed.",
       "query": "0x05",
       "bit": "0x04",
       "on": "0x15",
-      "off": "0x14"
+      "off": "0x14",
+      "default": false
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "After a press, the device broadcasts a cleanup report (cmd1 0x06) with the number of cleanups that failed. Set by default.",
       "query": "0x05",
       "bit": "0x08",
       "on": "0x17",
-      "off": "0x16"
+      "off": "0x16",
+      "default": true
     },
     {
       "name": "nightMode",
+      "label": "Night mode",
+      "section": "Night",
       "description": "It's night: the device uses its night on-level limit, ramp rate and LED brightness. Night mode on (cmd1 0x3B) sets it and night mode off (cmd1 0x3C) clears it, as direct or group commands.",
       "query": "0x05",
-      "bit": "0x02"
+      "bit": "0x02",
+      "default": false,
+      "onCommand": "nightModeOn",
+      "offCommand": "nightModeOff"
     },
     {
       "name": "lockButtons",
+      "label": "Lock buttons",
+      "section": "Buttons",
       "description": "The buttons do nothing.",
       "query": "0x05",
       "bit": "0x10",
       "on": "0x19",
-      "off": "0x18"
+      "off": "0x18",
+      "default": false
     },
     {
       "name": "detachedLoad",
+      "label": "Detach load from buttons",
+      "section": "Load",
       "description": "No button controls the load; only other devices do.",
       "query": "0x05",
       "bit": "0x20",
       "on": "0x1B",
-      "off": "0x1A"
+      "off": "0x1A",
+      "default": false
     },
     {
       "name": "dimmerMode",
+      "label": "Dimmer mode",
+      "section": "Load",
       "description": "The device dims the load with its triac. Clear, it only switches the load with its relay. Set by default.",
       "query": "0x05",
       "bit": "0x80",
       "on": "0x1F",
-      "off": "0x1E"
+      "off": "0x1E",
+      "default": true
     },
     {
       "name": "pushHopsToRadio",
+      "label": "Repeat powerline over radio",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device repeats every powerline message over RF, for an RF-only device that only one powerline device can reach. Clear, it repeats a message over RF only if it heard it over RF or sent it.",
       "query": "0x07",
       "bit": "0x04",
       "on": "0x2A",
-      "off": "0x2B"
+      "off": "0x2B",
+      "default": false
     },
     {
       "name": "relayAtFullOn",
+      "label": "Relay at full on",
+      "section": "Load",
       "description": "At full on, the device closes its relay to shed heat, even as a dimmer.",
       "query": "0x07",
       "bit": "0x40",
       "on": "0x06",
-      "off": "0x07"
+      "off": "0x07",
+      "default": false
     },
     {
       "name": "nightLed",
+      "label": "Night LED colors",
+      "section": "Night",
       "description": "The LEDs use their night colors for on and off.",
       "query": "0x09",
       "bit": "0x01",
       "on": "0x2D",
-      "off": "0x2C"
+      "off": "0x2C",
+      "default": false
     }
   ],
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {
       "name": "crcErrorCount",
+      "label": "CRC errors",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The number of messages received with a CRC error. It rolls over from 255 to 0.",
       "query": "0x02"
     },
     {
       "name": "failureCount",
+      "label": "Failed messages",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The number of times the device heard what looked like the start of a message but wasn't one. It rolls over from 255 to 0.",
       "query": "0x03"
     },
     {
       "name": "triggerMask",
+      "label": "Buttons that trigger another device's group",
+      "section": "Buttons",
+      "advanced": true,
       "description": "The groups that send a trigger command (cmd1 0x30) when pressed, one bit per group with group 1 in bit 0.",
       "query": "0x08"
     }
@@ -188,70 +412,99 @@
     "values": [
       {
         "name": "onMask",
+        "label": "Buttons that turn on with this one",
+        "section": "Buttons",
         "description": "The other LEDs that turn on when this button is pressed, for buttons that control the same load.",
         "byte": 3,
-        "kind": "buttons"
+        "kind": "buttons",
+        "default": "0x00"
       },
       {
         "name": "offMask",
+        "label": "Buttons that turn off with this one",
+        "section": "Buttons",
         "description": "The other LEDs that turn off when this button is pressed.",
         "byte": 4,
-        "kind": "buttons"
+        "kind": "buttons",
+        "default": "0x00"
       },
       {
         "name": "rampRate",
+        "label": "Ramp rate",
+        "section": "Load",
         "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds. 0x1F by default.",
         "byte": 7,
         "range": {
           "from": "0x00",
           "through": "0x1F"
-        }
+        },
+        "table": "rampRate",
+        "default": "0x1F"
       },
       {
         "name": "onLevel",
+        "label": "On-level",
+        "section": "Load",
         "description": "The level the load turns on to, from 0x00 (off) to 0xFF (full). 0xFF by default.",
         "byte": 8,
         "range": {
           "from": "0x00",
           "through": "0xFF"
-        }
+        },
+        "unit": "percent",
+        "scale": 0.392157,
+        "default": "0xFF"
       },
       {
         "name": "ledBrightness",
+        "label": "LED brightness",
+        "section": "LEDs",
         "description": "The brightness of the LEDs, on and off, from 0x11 (dimmest) to 0x7F (brightest). Not per button. 0x3F by default.",
         "byte": 9,
         "range": {
           "from": "0x11",
           "through": "0x7F"
-        }
+        },
+        "default": "0x3F"
       },
       {
         "name": "nonToggleMask",
+        "label": "Buttons that send one command",
+        "section": "Buttons",
         "description": "The buttons that send only one command instead of toggling between on and off. Not per button.",
         "byte": 10,
-        "kind": "buttons"
+        "kind": "buttons",
+        "default": "0x00"
       },
       {
         "name": "ledMask",
+        "label": "LEDs that are on",
+        "section": "LEDs",
         "description": "The LEDs that are on, apart from the load's. A toggling button's next command follows its LED. Not per button.",
         "byte": 11,
         "kind": "buttons"
       },
       {
         "name": "nonToggleOffMask",
+        "label": "Non-toggle buttons that send off",
+        "section": "Buttons",
         "description": "Of the non-toggling buttons, the ones that send off instead of on. Not per button.",
         "byte": 13,
         "kind": "buttons",
         "verification": {
           "status": "inferred",
           "note": "No document states which value sends off; this reading follows the property's name. The KeypadLinc's byte 13 is named for the opposite."
-        }
+        },
+        "default": "0x00"
       },
       {
         "name": "groupMask",
+        "label": "Radio-button groups",
+        "section": "Buttons",
         "description": "With the LED off mask, the buttons that act as radio buttons, with only one LED on at a time.",
         "byte": 14,
-        "kind": "buttons"
+        "kind": "buttons",
+        "default": "0x00"
       }
     ],
     "writes": [
@@ -1116,6 +1369,37 @@
       "verification": {
         "status": "conflicting",
         "note": "The command's heading gives cmd1 0x34, which is on at ramp rate; its table and its example, whose checksum only works for 0x36, give 0x36."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "light",
+      "label": "Light",
+      "kind": "dimmer",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "label": "Button",
+      "kind": "button",
+      "state": {
+        "command": "readLeds",
+        "bitPerGroup": true
       }
     }
   ],

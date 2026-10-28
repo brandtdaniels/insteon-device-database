@@ -1,17 +1,17 @@
 # The catalog API
 
-The catalog is three static JSON files on GitHub Pages. There's no server, no query
+The catalog is four static JSON files on GitHub Pages. There's no server, no query
 parameters and no authentication: a client downloads the catalog and looks devices up itself.
 
 ## Files
 
-Every file is under `https://brandtdaniels.github.io/insteon-device-catalog/v1/` and is fetched
+Every file is under `https://brandtdaniels.github.io/insteon-device-catalog/v0/` and is fetched
 with a plain `GET` over HTTPS.
 
 | File | Contents |
 | --- | --- |
-| `manifest.json` | The schema version, the number of profiles, the catalog's file name and its SHA-256 |
-| `catalog.json` | The schema version, every profile sorted by model, and every command set |
+| `manifest.json` | The catalog's version, when it was built, the number of profiles, the catalog's file name and its SHA-256 |
+| `catalog.json` | Every profile sorted by model, and every command set |
 | `device-profile.schema.json` | The JSON Schema every profile follows |
 | `command-set.schema.json` | The JSON Schema every command set follows |
 
@@ -19,10 +19,11 @@ with a plain `GET` over HTTPS.
 
 ```json
 {
+  "built": "2026-10-28T22:00:00Z",
   "catalog": "catalog.json",
-  "devices": 14,
-  "schemaVersion": 1,
-  "sha256": "8d824948278c3c03ffc12ccc994c3f78981de410ebaa3650b174e030de77cfe6"
+  "devices": 140,
+  "sha256": "8d824948278c3c03ffc12ccc994c3f78981de410ebaa3650b174e030de77cfe6",
+  "version": "0.2.3"
 }
 ```
 
@@ -31,8 +32,7 @@ with a plain `GET` over HTTPS.
 ```json
 {
   "commandSets": [ { "id": "keypadLinc", "name": "KeypadLinc", "…": "…" }, "…" ],
-  "devices": [ { "model": "2242", "name": "Hub", "…": "…" }, "…" ],
-  "schemaVersion": 1
+  "devices": [ { "model": "2242", "name": "Hub", "…": "…" }, "…" ]
 }
 ```
 
@@ -192,10 +192,88 @@ message whose cmd1 is `0x6E` and whose cmd2 is the temperature in half degrees o
 displays. Its `readStatus` extended command asks for its status, and the reply carries the
 temperature in D9 and D10, in tenths of a degree Celsius whatever the display shows.
 
+## Settings pages and device controls
+
+A device is addressed by its Insteon ID, but most of what an app shows belongs to one of its
+groups: a FanLinc's light and fan, a dual outlet's top and bottom outlets, a keypad's buttons.
+The catalog says what each group is and how to show each setting, so an app can build its pages
+from the catalog alone.
+
+**Group types.** A command set's `groupTypes` say what its groups can be, and each profile group
+names one in `type`, which every command set its identities use must have:
+
+```json
+"groupTypes": [
+  { "name": "light", "label": "Light", "kind": "dimmer",
+    "state": { "command": "readStatus" },
+    "actions": [
+      { "name": "on", "label": "On", "command": "lightOn" },
+      { "name": "off", "label": "Off", "command": "lightOff" } ] },
+  { "name": "fan", "label": "Fan", "kind": "fan",
+    "state": { "command": "readFanSpeed", "ranges": [
+      { "from": "0x00", "through": "0x00", "label": "Off" },
+      { "from": "0x01", "through": "0x7F", "label": "Low" },
+      { "from": "0x80", "through": "0xFE", "label": "Medium" },
+      { "from": "0xFF", "through": "0xFF", "label": "High" } ] },
+    "actions": [
+      { "name": "off", "label": "Off", "command": "fanOff" },
+      { "name": "low", "label": "Low", "command": "fanLow" },
+      { "name": "medium", "label": "Medium", "command": "fanMedium" },
+      { "name": "high", "label": "High", "command": "fanHigh" } ] }
+]
+```
+
+```json
+"groups": [
+  { "number": "0x01", "name": "Light", "role": "both", "type": "light" },
+  { "number": "0x02", "name": "Fan", "role": "responder", "type": "fan" }
+]
+```
+
+- `kind` is `dimmer`, `relay`, `fan`, `sensor` or `button`.
+- `state` names the standard command whose acknowledgment carries the group's state in cmd2.
+  With `bitPerGroup`, the reply holds one bit per group, group 1 in bit 0, as a keypad's LEDs or
+  a dual outlet's outlets do; `ranges` name ranges of the value, such as a fan's speeds.
+- `actions` are what an app can tell the group to do, for controls, scenes and schedules. Each
+  names a standard or extended command and, when the command takes a parameter, either a fixed
+  `value` (`0xFF` to switch a relay on) or nothing, for the caller to give, such as a dimmer's
+  level. An action with `schedulable` false stays out of schedules.
+- Only a responder can be told to do something, so a group whose type has actions has the role
+  `responder` or `both`. A controller-only group, such as a sensor's, has no actions; it's
+  something an app watches for, through the profile's `groupEvents`.
+- A group with `activeWhen` is in use only while that operating flag is `set` or clear: a
+  keypad's detached load, group 9, while `detachedLoad` is set, and its group 1 while it's clear.
+
+**Settings.** Operating flags, readings and extended settings values can carry:
+
+- `label`: what to call the setting, such as "Beep on button press".
+- `section`: the heading to show it under, one of Load, Relay, Sensor, Buttons, LEDs, Night,
+  Timer, Alarm, Display, Battery, Linking, Communication, X10 and Diagnostics, in that order.
+- `advanced`: true for a setting to keep out of sight unless asked, such as the powerline's
+  timing or X10.
+- `default`: the value as the device leaves the factory, where a document gives it: true or
+  false for a flag, a byte for a value.
+- For a value, `unit` and `scale` to show it as a number, such as an on-level as a percentage,
+  or `table`, the command set's `valueTables` entry that names each raw value, such as the ramp
+  rate's durations. A table can carry a `verification` like any other value.
+
+The control follows from the setting:
+
+- A flag with both `on` and `off` is a switch. A flag set by standard commands instead names them
+  in `onCommand` and `offCommand`, such as the i3 products' night mode. A flag with only one of
+  them can be set only that way, such as the Siren's disarmed flag, which the arm command clears.
+  Any other flag, and every reading, is read-only.
+- A value with a `table` is a picker, a `buttons` value is a choice of buttons, and a value with a
+  `range` is a slider or stepper. A value is writable when an extended settings write sets it, or
+  when it names the extended command that does in `write`; otherwise it's read-only.
+- A value is per group when the write that sets it is `perButton`; everything else is the whole
+  device's.
+
 ## Keeping a copy up to date
 
 1. Fetch `manifest.json`.
-2. If its `schemaVersion` isn't one the client understands, keep the copy it has.
+2. If its `version` isn't one the client understands, keep the copy it has: below 1.0, one
+   with the same MAJOR.MINOR as the client was built for; from 1.0, the same MAJOR.
 3. If its `sha256` matches the copy the client has, stop: nothing changed.
 4. Otherwise fetch `catalog.json`, check that its bytes hash to `sha256`, and only then replace
    the copy.
@@ -219,6 +297,19 @@ working.
 
 ## Versions
 
-The `v1` in the path is the format's version. Adding profiles, or optional fields a `v1` client
-can ignore, keeps `v1`. A change that would break a `v1` client is published under `v2`, and `v1`
-stays where it is.
+The catalog follows semantic versioning, MAJOR.MINOR.PATCH, and the path names its MAJOR version:
+`v0` now, `v1` once the format is final. The manifest carries the version and when the catalog
+was built; the catalog itself doesn't, so its SHA-256 changes only when its data does.
+
+- PATCH: the data changed but not the format, such as a new profile or a corrected value. The
+  publishing workflow counts it: the commits since `VERSION` last changed that changed
+  `devices/` or `commandSets/`.
+- MINOR: the format changed, in the schemas or in the files' layout. From 1.0, only by adding
+  optional fields a client can ignore.
+- MAJOR: from 1.0, a change that would break a client built for the earlier format. It will be
+  published under a new path, with the earlier MAJOR's files kept beside it.
+
+Below 1.0 the format can still change in any MINOR, so a client should only take a catalog with
+the MAJOR.MINOR it was built for. `VERSION` in the repository holds MAJOR.MINOR; the build fails
+a pull request that changes the schemas without raising it, or that lowers it. A change to the
+files' layout in `scripts/build.py` must raise it too.

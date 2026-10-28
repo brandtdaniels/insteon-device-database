@@ -39,30 +39,41 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the display itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
-      "off": "0x01"
+      "off": "0x01",
+      "default": false
     },
     {
       "name": "beeperOn",
+      "label": "Beeper",
+      "section": "Buttons",
       "description": "The display beeps.",
       "query": "0x00",
       "bit": "0x02",
       "on": "0x02",
-      "off": "0x03"
+      "off": "0x03",
+      "default": false
     },
     {
       "name": "categoryCheck",
+      "label": "Link only to meters",
+      "section": "Linking",
       "description": "Only devices of category 0x09 can link to the display.",
       "query": "0x00",
       "bit": "0x04",
       "on": "0x08",
-      "off": "0x09"
+      "off": "0x09",
+      "default": false
     },
     {
       "name": "displayFahrenheit",
+      "label": "Show Fahrenheit",
+      "section": "Display",
       "description": "The display shows temperature in degrees Fahrenheit.",
       "query": "0x00",
       "bit": "0x08",

@@ -50,9 +50,179 @@
       ]
     }
   ],
+  "valueTables": [
+    {
+      "name": "rampRate",
+      "description": "How long each ramp rate takes to go from off to full on.",
+      "values": [
+        {
+          "value": "0x00",
+          "label": "2 s",
+          "seconds": 2
+        },
+        {
+          "value": "0x01",
+          "label": "8 min",
+          "seconds": 480
+        },
+        {
+          "value": "0x02",
+          "label": "7 min",
+          "seconds": 420
+        },
+        {
+          "value": "0x03",
+          "label": "6 min",
+          "seconds": 360
+        },
+        {
+          "value": "0x04",
+          "label": "5 min",
+          "seconds": 300
+        },
+        {
+          "value": "0x05",
+          "label": "4 min 30 s",
+          "seconds": 270
+        },
+        {
+          "value": "0x06",
+          "label": "4 min",
+          "seconds": 240
+        },
+        {
+          "value": "0x07",
+          "label": "3 min 30 s",
+          "seconds": 210
+        },
+        {
+          "value": "0x08",
+          "label": "3 min",
+          "seconds": 180
+        },
+        {
+          "value": "0x09",
+          "label": "2 min 30 s",
+          "seconds": 150
+        },
+        {
+          "value": "0x0A",
+          "label": "2 min",
+          "seconds": 120
+        },
+        {
+          "value": "0x0B",
+          "label": "1 min 30 s",
+          "seconds": 90
+        },
+        {
+          "value": "0x0C",
+          "label": "1 min",
+          "seconds": 60
+        },
+        {
+          "value": "0x0D",
+          "label": "47 s",
+          "seconds": 47
+        },
+        {
+          "value": "0x0E",
+          "label": "43 s",
+          "seconds": 43
+        },
+        {
+          "value": "0x0F",
+          "label": "38.5 s",
+          "seconds": 38.5
+        },
+        {
+          "value": "0x10",
+          "label": "34 s",
+          "seconds": 34
+        },
+        {
+          "value": "0x11",
+          "label": "32 s",
+          "seconds": 32
+        },
+        {
+          "value": "0x12",
+          "label": "30 s",
+          "seconds": 30
+        },
+        {
+          "value": "0x13",
+          "label": "28 s",
+          "seconds": 28
+        },
+        {
+          "value": "0x14",
+          "label": "26 s",
+          "seconds": 26
+        },
+        {
+          "value": "0x15",
+          "label": "23.5 s",
+          "seconds": 23.5
+        },
+        {
+          "value": "0x16",
+          "label": "21.5 s",
+          "seconds": 21.5
+        },
+        {
+          "value": "0x17",
+          "label": "19 s",
+          "seconds": 19
+        },
+        {
+          "value": "0x18",
+          "label": "8.5 s",
+          "seconds": 8.5
+        },
+        {
+          "value": "0x19",
+          "label": "6.5 s",
+          "seconds": 6.5
+        },
+        {
+          "value": "0x1A",
+          "label": "4.5 s",
+          "seconds": 4.5
+        },
+        {
+          "value": "0x1B",
+          "label": "2 s",
+          "seconds": 2
+        },
+        {
+          "value": "0x1C",
+          "label": "0.5 s",
+          "seconds": 0.5
+        },
+        {
+          "value": "0x1D",
+          "label": "0.3 s",
+          "seconds": 0.3
+        },
+        {
+          "value": "0x1E",
+          "label": "0.2 s",
+          "seconds": 0.2
+        },
+        {
+          "value": "0x1F",
+          "label": "0.1 s",
+          "seconds": 0.1
+        }
+      ]
+    }
+  ],
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -61,6 +231,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The status LED blinks when the device sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -69,6 +241,8 @@
     },
     {
       "name": "resumeDim",
+      "label": "Resume dim",
+      "section": "Load",
       "description": "Turning the load on at the device restores its last level instead of the on-level. Dimmers only.",
       "query": "0x00",
       "bit": "0x04",
@@ -77,12 +251,16 @@
     },
     {
       "name": "loadSense",
+      "label": "Load sense",
+      "section": "Load",
       "description": "Load sense is on: the device turns its load on when it senses the attached lamp being switched on. Dimmers only, and the Global Line Developer Notes give no command that sets it.",
       "query": "0x00",
       "bit": "0x08"
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The status LED is off.",
       "query": "0x00",
       "bit": "0x10",
@@ -95,6 +273,8 @@
     },
     {
       "name": "keyBeep",
+      "label": "Beep on button press",
+      "section": "Buttons",
       "description": "The device beeps when a button is pressed.",
       "query": "0x00",
       "bit": "0x20",
@@ -107,6 +287,9 @@
     },
     {
       "name": "radioOff",
+      "label": "Turn off radio",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
       "query": "0x00",
       "bit": "0x40",
@@ -115,6 +298,9 @@
     },
     {
       "name": "powerLineOff",
+      "label": "Turn off powerline",
+      "section": "Communication",
+      "advanced": true,
       "description": "Insteon communication over the powerline is off. The device turns it back on whenever it powers up.",
       "query": "0x00",
       "bit": "0x80",
@@ -123,6 +309,9 @@
     },
     {
       "name": "applicationRetries",
+      "label": "Application retries",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device retries application messages as many times as its ALL-Link database says, and reports cleanup errors.",
       "query": "0x05",
       "bit": "0x01",
@@ -131,6 +320,9 @@
     },
     {
       "name": "x10Off",
+      "label": "Turn off X10",
+      "section": "X10",
+      "advanced": true,
       "description": "X10 sending and receiving are off.",
       "query": "0x05",
       "bit": "0x02",
@@ -139,6 +331,8 @@
     },
     {
       "name": "errorBlink",
+      "label": "Blink LED on errors",
+      "section": "LEDs",
       "description": "The status LED blinks when a communication error occurs.",
       "query": "0x05",
       "bit": "0x04",
@@ -147,6 +341,9 @@
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device sends a success report after the cleanup messages that follow a group command.",
       "query": "0x05",
       "bit": "0x08",
@@ -155,6 +352,9 @@
     },
     {
       "name": "checksumRequired",
+      "label": "Require checksums",
+      "section": "Communication",
+      "advanced": true,
       "description": "Extended Set and ALL-Link database write messages must carry a checksum in D14.",
       "query": "0x05",
       "bit": "0x10",
@@ -163,6 +363,9 @@
     },
     {
       "name": "longHoldoff",
+      "label": "Long holdoff",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device holds off 8 times as long before sending, 16 to 72 zero crossings rather than 2 to 9.",
       "query": "0x05",
       "bit": "0x20",
@@ -171,6 +374,9 @@
     },
     {
       "name": "smartHops",
+      "label": "Smart hops",
+      "section": "Communication",
+      "advanced": true,
       "description": "Each message starts with the hop count of the last acknowledgment received (smart hops). When the bit is 0, each message starts with one hop.",
       "query": "0x05",
       "bit": "0x40",
@@ -179,6 +385,8 @@
     },
     {
       "name": "dualLine",
+      "label": "Dual line",
+      "section": "Relay",
       "description": "The module has two sense lines. A dual sense line is always momentary. Micro and DIN rail modules only.",
       "query": "0x06",
       "bit": "0x01",
@@ -187,6 +395,8 @@
     },
     {
       "name": "momentaryLine",
+      "label": "Momentary line",
+      "section": "Relay",
       "description": "The sense line input is momentary rather than latching. Micro and DIN rail modules only.",
       "query": "0x06",
       "bit": "0x02",
@@ -195,6 +405,8 @@
     },
     {
       "name": "lineLevelSetsLoad",
+      "label": "Line level sets the load",
+      "section": "Load",
       "description": "The sense line sets the load directly: line high turns it on and line low turns it off. When the bit is 0, every change of the line toggles the load, as a 3-way switch does. Micro and DIN rail modules only.",
       "query": "0x06",
       "bit": "0x04",
@@ -205,11 +417,17 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {
       "name": "crcErrorCount",
+      "label": "CRC errors",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The number of messages received with a CRC error.",
       "query": "0x02",
       "verification": {
@@ -219,6 +437,9 @@
     },
     {
       "name": "signalToNoiseFailureCount",
+      "label": "Signal-to-noise failures",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The number of signal-to-noise failures.",
       "query": "0x03"
     }
@@ -260,24 +481,37 @@
     "values": [
       {
         "name": "rampRate",
+        "label": "Ramp rate",
+        "section": "Load",
         "description": "The ramp rate, from 0x01 (8 minutes) to 0x1F (0.1 second). 0x00 is 2 seconds. Dimmers only.",
         "byte": 7,
         "range": {
           "from": "0x00",
           "through": "0x1F"
+        },
+        "table": "rampRate",
+        "verification": {
+          "status": "conflicting",
+          "note": "Earlier sources give ramp rate 0x00 as 9 minutes; the table uses the later reading, 2 seconds."
         }
       },
       {
         "name": "onLevel",
+        "label": "On-level",
+        "section": "Load",
         "description": "The level the load turns on to, from 0x00 (off) to 0xFF (full). Dimmers only.",
         "byte": 8,
         "range": {
           "from": "0x00",
           "through": "0xFF"
-        }
+        },
+        "unit": "percent",
+        "scale": 0.392157
       },
       {
         "name": "ledBrightness",
+        "label": "LED brightness",
+        "section": "LEDs",
         "description": "The brightness of the status LED, from 0x11 (dimmest) to 0x7F (brightest).",
         "byte": 9,
         "range": {
@@ -468,6 +702,49 @@
           "byte": 6,
           "kind": "enumeration",
           "enumeration": "triggerRampRate"
+        }
+      ]
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "light",
+      "label": "Light",
+      "kind": "dimmer",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "label": "Load",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
         }
       ]
     }

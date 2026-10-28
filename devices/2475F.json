@@ -37,12 +37,18 @@
     {
       "number": "0x01",
       "name": "Light",
-      "role": "both"
+      "role": "responder",
+      "type": "light",
+      "verification": {
+        "status": "inferred",
+        "note": "The HouseLinc device catalog makes the FanLinc a responder only; no document says its light group controls other devices."
+      }
     },
     {
       "number": "0x02",
       "name": "Fan",
-      "role": "responder"
+      "role": "responder",
+      "type": "fan"
     }
   ],
   "capabilities": [

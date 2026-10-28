@@ -14,6 +14,18 @@
       "subcategory": "0x17"
     }
   ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "responder",
+      "type": "load",
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the product having one load, which its group 1 controls, as on other one-load products."
+      }
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"

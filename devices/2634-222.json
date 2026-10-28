@@ -31,7 +31,8 @@
     {
       "number": "0x01",
       "name": "Load",
-      "role": "responder"
+      "role": "responder",
+      "type": "load"
     }
   ],
   "capabilities": [

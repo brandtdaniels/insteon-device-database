@@ -5,14 +5,19 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "The SET button can't be used for linking.",
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
-      "off": "0x01"
+      "off": "0x01",
+      "default": false
     },
     {
       "name": "blinkOnTraffic",
+      "label": "Blink LED on traffic",
+      "section": "LEDs",
       "description": "The LED blinks whenever the siren hears Insteon traffic, which may be a message it repeats.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,10 +26,13 @@
       "verification": {
         "status": "conflicting",
         "note": "The Siren Module Developer Notes' operating flags chart makes 0 on and 1 off; their property table, used here, makes 1 on."
-      }
+      },
+      "default": false
     },
     {
       "name": "disarmed",
+      "label": "Disarmed",
+      "section": "Alarm",
       "description": "The siren is disarmed. The arm command clears it.",
       "query": "0x00",
       "bit": "0x04",
@@ -36,6 +44,9 @@
     },
     {
       "name": "memoryFull",
+      "label": "Database full",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The last add or modify of an ALL-Link database record failed because the database is full. It clears when the siren powers up.",
       "query": "0x00",
       "bit": "0x08",
@@ -46,23 +57,34 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The LED is off.",
       "query": "0x00",
       "bit": "0x10",
       "on": "0x08",
-      "off": "0x09"
+      "off": "0x09",
+      "default": false
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The siren sends a cleanup report after each group command it sends. Set by default.",
       "query": "0x00",
-      "bit": "0x40"
+      "bit": "0x40",
+      "default": true
     },
     {
       "name": "hopPowerlineOnRadio",
+      "label": "Repeat powerline over radio",
+      "section": "Communication",
+      "advanced": true,
       "description": "The siren repeats every powerline message over RF, whatever its hop count, which can cause collisions. Clear, it repeats only messages it heard first over the powerline.",
       "query": "0x00",
-      "bit": "0x80"
+      "bit": "0x80",
+      "default": false
     }
   ],
   "extendedSettings": {
@@ -70,6 +92,8 @@
     "values": [
       {
         "name": "alertType",
+        "label": "Alert sound",
+        "section": "Alarm",
         "description": "The sound an alert makes: 0x00 a chime, 0x01 a siren.",
         "byte": 7,
         "range": {
@@ -79,6 +103,8 @@
       },
       {
         "name": "delayAndDuration",
+        "label": "Delay and duration",
+        "section": "Alarm",
         "description": "Bit 7 and the duration in bits 0 through 6, 0 to 127, roughly in seconds. For an alert, bit 7 delays sounding by 30 seconds; for arming, it makes the 45-second countdown silent.",
         "byte": 8,
         "verification": {

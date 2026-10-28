@@ -5,6 +5,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -13,6 +15,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The status LED blinks when the device sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,6 +25,8 @@
     },
     {
       "name": "resumeDim",
+      "label": "Resume dim",
+      "section": "Load",
       "description": "Turning the load on at the device restores its last level instead of the on-level.",
       "query": "0x00",
       "bit": "0x04",
@@ -29,6 +35,8 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The status LED is off.",
       "query": "0x00",
       "bit": "0x10",
@@ -41,6 +49,8 @@
     },
     {
       "name": "loadSense",
+      "label": "Load sense",
+      "section": "Load",
       "description": "Load sense is on: the device turns its load on when it senses the attached lamp or appliance being switched on.",
       "query": "0x00",
       "bit": "0x20",
@@ -49,6 +59,9 @@
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device sends a success report after the cleanup messages that follow a group command. Only dealer firmware has this setting.",
       "query": "0x00",
       "bit": "0x40"
@@ -57,6 +70,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
@@ -78,21 +94,33 @@
     "values": [
       {
         "name": "x10HouseCode",
+        "label": "X10 house code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 house code, or 0x20 for no X10 address.",
         "byte": 5
       },
       {
         "name": "x10UnitCode",
+        "label": "X10 unit code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 unit code.",
         "byte": 6
       },
       {
         "name": "signalToNoiseCount",
+        "label": "Signal-to-noise count",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The signal-to-noise count.",
         "byte": 12
       },
       {
         "name": "signalToNoiseLastFailure",
+        "label": "Last signal-to-noise failure",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The signal-to-noise value of the last failure.",
         "byte": 13
       }
@@ -116,6 +144,59 @@
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on. The device doesn't read cmd2; send 0xFF.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "Ignored; send 0xFF.",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off.",
+      "command1": "0x13"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads whether the load is on. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "0x00 when off, 0xFF when on."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "load",
+      "label": "Load",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus"
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ]
+    }
+  ],
   "notes": [
     "The Insteon Developer's Guide lists 0x0A and above as unused on this code base; later sources add the cleanup report commands 0x0A and 0x0B.",
     "Earlier sources give D12 as the signal-to-noise ratio and D13 as a count of messages with CRC errors."

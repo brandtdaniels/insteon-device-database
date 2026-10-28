@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json",
+  "$id": "https://brandtdaniels.github.io/insteon-device-catalog/v0/device-profile.schema.json",
   "title": "Insteon device profile",
   "description": "What one Insteon product is and can do, keyed by the category and subcategory it reports.",
   "type": "object",
@@ -238,6 +238,29 @@
             "responder",
             "both"
           ]
+        },
+        "type": {
+          "description": "The group type, in every command set the profile's identities use, that says what the group is.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "activeWhen": {
+          "description": "The operating flag state the group is in use under, such as a keypad's detached load (group 9), in use only while detachedLoad is set.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "flag",
+            "set"
+          ],
+          "properties": {
+            "flag": {
+              "type": "string",
+              "pattern": "^[a-z][A-Za-z0-9]*$"
+            },
+            "set": {
+              "type": "boolean"
+            }
+          }
         },
         "linkable": {
           "description": "How the group can be linked: from the device's buttons, or only by software.",
