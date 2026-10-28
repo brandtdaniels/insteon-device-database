@@ -1,7 +1,7 @@
 {
   "id": "switchLincDimmerLegacy",
   "name": "SwitchLinc Dimmer (legacy)",
-  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the older SwitchLinc and ToggleLinc dimmers and the ToggleLinc relays. The relays ignore the ramp rate and on-level.",
+  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the older SwitchLinc and ToggleLinc dimmers.",
   "operatingFlags": [
     {
       "name": "programmingLock",

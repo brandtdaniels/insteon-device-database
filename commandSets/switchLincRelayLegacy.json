@@ -1,7 +1,7 @@
 {
   "id": "switchLincRelayLegacy",
   "name": "SwitchLinc Relay (legacy)",
-  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the older SwitchLinc relays.",
+  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the older SwitchLinc, ToggleLinc and In-LineLinc relays.",
   "operatingFlags": [
     {
       "name": "programmingLock",

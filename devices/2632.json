@@ -27,11 +27,6 @@
     {
       "commandSet": "plugInModule",
       "category": "0x01",
-      "subcategory": "0x0B"
-    },
-    {
-      "commandSet": "plugInModule",
-      "category": "0x01",
       "subcategory": "0x0F"
     },
     {
@@ -58,6 +53,9 @@
     {
       "kind": "dimmable"
     }
+  ],
+  "notes": [
+    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base, but the 2632's product requirements give it the newer layout, so no command set is named for it."
   ],
   "sources": [
     "HouseLinc device catalog",

@@ -30,7 +30,7 @@
   ],
   "commandSets": [
     {
-      "commandSet": "lampLinc",
+      "commandSet": "switchLincRelayLegacy",
       "category": "0x02",
       "subcategory": "0x10"
     }

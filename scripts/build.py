@@ -32,6 +32,11 @@ def load_profiles():
         profile = json.loads(path.read_text())
         problems = [f"{path.name}: {error.json_path}: {error.message}" for error in validator.iter_errors(profile)]
 
+        # The checks below read fields the schema requires, so they wait until it passes.
+        if problems:
+            errors += problems
+            continue
+
         if path.stem != profile.get("model"):
             problems.append(f"{path.name}: the file name must be the model, {profile.get('model')!r}")
 
@@ -73,7 +78,7 @@ def scoped_entry_problems(profile, field, label):
         key = (entry["category"], entry["subcategory"])
 
         if key not in identities:
-            problems.append(f"an {label} entry names {key[0]}/{key[1]}, which the product doesn't report")
+            problems.append(f"the {label} entry for {key[0]}/{key[1]} names an identity the product doesn't report")
             continue
 
         versions = selected_firmware(entry.get("firmware"))
@@ -96,7 +101,12 @@ def load_command_sets(profiles):
 
     for path in sorted((ROOT / "commandSets").glob("*.json")):
         command_set = json.loads(path.read_text())
-        errors += [f"{path.name}: {error.json_path}: {error.message}" for error in validator.iter_errors(command_set)]
+        schema_errors = [f"{path.name}: {error.json_path}: {error.message}" for error in validator.iter_errors(command_set)]
+
+        # The checks below read fields the schema requires, so they wait until it passes.
+        if schema_errors:
+            errors += schema_errors
+            continue
 
         if path.stem != command_set.get("id"):
             errors.append(f"{path.name}: the file name must be the id, {command_set.get('id')!r}")
@@ -115,8 +125,8 @@ def load_command_sets(profiles):
 
 
 def command_set_problems(command_set):
-    """Reports names used twice, flags sharing a bit or a command, and writes of values that
-    don't exist or of the same byte twice."""
+    """Reports names used twice, flags sharing a bit or a command, values sharing a byte, writes
+    sharing a selector, and writes that fill a byte twice."""
     problems = []
     flags = command_set.get("operatingFlags", [])
     flag_commands = command_set.get("flagCommands", [])
@@ -328,7 +338,16 @@ def index_page(profiles, command_sets):
             for entry in profile.get("commandSets", []):
                 if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):
                     command_set = names[entry["commandSet"]]
-                    engines += f' <small class="engine" title="{escape(command_set["description"])}">{escape(command_set["name"])} settings</small>'
+                    label = f'{command_set["name"]} settings'
+                    title = command_set["description"]
+
+                    if "firmware" in entry:
+                        selection = entry["firmware"]
+                        versions = ", ".join(selection.get("only", selection.get("except", [])))
+                        label += " on some firmware" if "only" in selection else " on most firmware"
+                        title += f" Firmware {versions}." if "only" in selection else f" Every firmware version except {versions}."
+
+                    engines += f' <small class="engine" title="{escape(title)}">{escape(label)}</small>'
 
             for entry in profile.get("engines", []):
                 if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):

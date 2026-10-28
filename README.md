@@ -35,7 +35,7 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 Every change to `main` publishes the profiles to GitHub Pages:
 
 - `https://brandtdaniels.github.io/insteon-device-catalog/v1/catalog.json`: every profile,
-  sorted by model
+  sorted by model, and every command set
 - `https://brandtdaniels.github.io/insteon-device-catalog/v1/manifest.json`: the schema version,
   the number of profiles and the catalog's SHA-256
 - `https://brandtdaniels.github.io/insteon-device-catalog/v1/device-profile.schema.json` and

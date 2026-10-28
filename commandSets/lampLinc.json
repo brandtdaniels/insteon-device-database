@@ -1,7 +1,7 @@
 {
   "id": "lampLinc",
   "name": "LampLinc",
-  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the LampLinc, the other plug-in and socket dimmers, and the older In-LineLinc dimmers and relays. The relays ignore the ramp rate and on-level.",
+  "description": "The SwitchLinc, LampLinc and ApplianceLinc code base as used by the LampLinc, the other plug-in and socket dimmers, and the older In-LineLinc dimmers.",
   "operatingFlags": [
     {
       "name": "programmingLock",
