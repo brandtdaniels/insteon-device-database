@@ -1,8 +1,8 @@
 {
   "model": "2245",
-  "name": "Hub 2",
+  "name": "Hub",
   "aliases": [
-    "Hub"
+    "Hub 2"
   ],
   "description": "The central controller for an Insteon system. It drives its built-in modem over the local network, and runs scenes, schedules and alerts.",
   "identities": [
