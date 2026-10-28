@@ -31,22 +31,26 @@
     {
       "number": "0x01",
       "name": "Button 1",
-      "role": "both"
+      "role": "both",
+      "type": "light"
     },
     {
       "number": "0x02",
       "name": "Button 2",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x03",
       "name": "Button 3",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     },
     {
       "number": "0x04",
       "name": "Button 4",
-      "role": "both"
+      "role": "both",
+      "type": "button"
     }
   ],
   "capabilities": [

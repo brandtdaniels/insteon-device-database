@@ -84,6 +84,18 @@
   ],
   "radio": "dual",
   "role": "responder",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both",
+      "type": "light",
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the product having one load, which its group 1 controls, as on other one-load products."
+      }
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"

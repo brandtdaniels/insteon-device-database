@@ -39,6 +39,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -47,6 +49,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The status LED blinks when the device sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -55,6 +59,8 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The status LED is off.",
       "query": "0x00",
       "bit": "0x10",
@@ -63,6 +69,8 @@
     },
     {
       "name": "keyBeep",
+      "label": "Beep on button press",
+      "section": "Buttons",
       "description": "The device beeps when a button is pressed.",
       "query": "0x00",
       "bit": "0x20",
@@ -71,6 +79,9 @@
     },
     {
       "name": "radioOff",
+      "label": "Turn off radio",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
       "query": "0x00",
       "bit": "0x40",
@@ -79,6 +90,9 @@
     },
     {
       "name": "powerLineOff",
+      "label": "Turn off powerline",
+      "section": "Communication",
+      "advanced": true,
       "description": "Insteon communication over the powerline is off. The device turns it back on whenever it powers up.",
       "query": "0x00",
       "bit": "0x80",
@@ -87,6 +101,9 @@
     },
     {
       "name": "applicationRetries",
+      "label": "Application retries",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device retries application messages as many times as its ALL-Link database says, and reports cleanup errors.",
       "query": "0x05",
       "bit": "0x01",
@@ -95,6 +112,9 @@
     },
     {
       "name": "x10Off",
+      "label": "Turn off X10",
+      "section": "X10",
+      "advanced": true,
       "description": "X10 sending and receiving are off.",
       "query": "0x05",
       "bit": "0x02",
@@ -103,6 +123,8 @@
     },
     {
       "name": "errorBlink",
+      "label": "Blink LED on errors",
+      "section": "LEDs",
       "description": "The status LED blinks when a communication error occurs.",
       "query": "0x05",
       "bit": "0x04",
@@ -111,6 +133,9 @@
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device sends a success report after the cleanup messages that follow a group command.",
       "query": "0x05",
       "bit": "0x08",
@@ -119,6 +144,9 @@
     },
     {
       "name": "smartHops",
+      "label": "Smart hops",
+      "section": "Communication",
+      "advanced": true,
       "description": "Each message starts with the hop count of the last acknowledgment received (smart hops). When the bit is 0, each message starts with one hop.",
       "query": "0x05",
       "bit": "0x40",
@@ -129,16 +157,25 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {
       "name": "crcErrorCount",
+      "label": "CRC errors",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The number of messages received with a CRC error.",
       "query": "0x02"
     },
     {
       "name": "signalToNoiseFailureCount",
+      "label": "Signal-to-noise failures",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "The number of signal-to-noise failures.",
       "query": "0x03"
     }
@@ -148,16 +185,24 @@
     "values": [
       {
         "name": "x10HouseCode",
+        "label": "X10 house code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 house code, or 0x20 for no X10 address.",
         "byte": 5
       },
       {
         "name": "x10UnitCode",
+        "label": "X10 unit code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 unit code.",
         "byte": 6
       },
       {
         "name": "ledBrightness",
+        "label": "LED brightness",
+        "section": "LEDs",
         "description": "The brightness of the status LED, from 0x11 (dimmest) to 0x7F (brightest).",
         "byte": 9,
         "range": {
@@ -292,6 +337,18 @@
           "enumeration": "triggerRampRate"
         }
       ]
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "load",
+      "label": "Load",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus"
+      },
+      "on": "lightOn",
+      "off": "lightOff"
     }
   ],
   "notes": [

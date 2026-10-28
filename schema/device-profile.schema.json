@@ -183,6 +183,11 @@
             "both"
           ]
         },
+        "type": {
+          "description": "The group type, in one of the profile's command sets, that says what the group is.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
         "linkable": {
           "description": "How the group can be linked: from the device's buttons, or only by software.",
           "enum": [

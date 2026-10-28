@@ -116,11 +116,18 @@ def load_command_sets(profiles):
         command_sets.append(command_set)
 
     ids = {command_set.get("id") for command_set in command_sets}
+    group_types = {command_set["id"]: {group_type["name"] for group_type in command_set.get("groupTypes", [])} for command_set in command_sets}
 
     for profile in profiles:
         for entry in profile.get("commandSets", []):
             if entry["commandSet"] not in ids:
                 errors.append(f"{profile['model']}.json: it names the command set {entry['commandSet']!r}, which doesn't exist")
+
+        available = set().union(*[group_types.get(entry["commandSet"], set()) for entry in profile.get("commandSets", [])])
+
+        for group in profile.get("groups", []):
+            if "type" in group and group["type"] not in available:
+                errors.append(f"{profile['model']}.json: group {group['number']} names the group type {group['type']!r}, which none of its command sets has")
 
     return command_sets, errors
 
@@ -163,7 +170,57 @@ def command_set_problems(command_set):
         if len(positions) != len(set(positions)):
             problems.append(f"the {write['name']} write fills a byte twice")
 
-    return problems + message_problems(command_set)
+    return problems + message_problems(command_set) + presentation_problems(command_set)
+
+
+def presentation_problems(command_set):
+    """Reports value tables and group types that are named twice or name what doesn't exist, and
+    defaults outside a value's range or table."""
+    problems = []
+    tables = {table["name"]: table for table in command_set.get("valueTables", [])}
+    group_types = command_set.get("groupTypes", [])
+    commands = {command["name"] for key in ("standardCommands", "extendedCommands") for command in command_set.get(key, [])}
+    standard = {command["name"] for command in command_set.get("standardCommands", [])}
+
+    if len(tables) != len(command_set.get("valueTables", [])):
+        problems.append("a value table name appears more than once")
+
+    for table in tables.values():
+        values = [entry["value"] for entry in table["values"]]
+
+        if len(values) != len(set(values)):
+            problems.append(f"the {table['name']} value table names a value twice")
+
+    for value in command_set.get("extendedSettings", {}).get("values", []):
+        table = value.get("table")
+
+        if table is not None and table not in tables:
+            problems.append(f"the {value['name']} value names the value table {table!r}, which doesn't exist")
+
+        if "default" in value:
+            default = int(value["default"], 16)
+            bounds = value.get("range")
+
+            if bounds and not int(bounds["from"], 16) <= default <= int(bounds["through"], 16):
+                problems.append(f"the {value['name']} value's default is outside its range")
+
+            if table in tables and value["default"] not in {entry["value"] for entry in tables[table]["values"]}:
+                problems.append(f"the {value['name']} value's default isn't in its value table")
+
+    if len({group_type["name"] for group_type in group_types}) != len(group_types):
+        problems.append("a group type name appears more than once")
+
+    for group_type in group_types:
+        state = group_type.get("state", {}).get("command")
+
+        if state is not None and state not in standard:
+            problems.append(f"the {group_type['name']} group type reads its state with {state!r}, which isn't a standard command")
+
+        for name in [group_type.get("on"), group_type.get("off")] + group_type.get("speeds", []):
+            if name is not None and name not in commands:
+                problems.append(f"the {group_type['name']} group type names the command {name!r}, which doesn't exist")
+
+    return problems
 
 
 def message_problems(command_set):
@@ -387,7 +444,7 @@ def term_problems(label, value, key=None):
     elif isinstance(value, list):
         for child in value:
             problems += term_problems(label, child, key)
-    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources"} or (key == "name" and " " in value)):
+    elif isinstance(value, str) and (key in {"description", "note", "notes", "sources", "label", "section"} or (key == "name" and " " in value)):
         prose = re.sub(r"`[^`]*`", "", value)
 
         for pattern, replacement in RULED_OUT_TERMS:

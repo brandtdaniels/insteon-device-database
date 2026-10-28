@@ -5,6 +5,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -13,6 +15,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The status LED blinks when the device sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,6 +25,8 @@
     },
     {
       "name": "relayFollowsInput",
+      "label": "Relay follows input",
+      "section": "Relay",
       "description": "The relay follows the sensor input.",
       "query": "0x00",
       "bit": "0x04",
@@ -29,6 +35,8 @@
     },
     {
       "name": "momentary",
+      "label": "Momentary relay",
+      "section": "Relay",
       "description": "The relay is momentary (momentary A): it closes for the momentary time and then opens.",
       "query": "0x00",
       "bit": "0x08",
@@ -37,6 +45,8 @@
     },
     {
       "name": "momentaryOnBothCommands",
+      "label": "Momentary on On and Off",
+      "section": "Relay",
       "description": "Both On and Off commands close the momentary relay (momentary B).",
       "query": "0x00",
       "bit": "0x10",
@@ -45,6 +55,8 @@
     },
     {
       "name": "triggerReversed",
+      "label": "Reverse the sensor",
+      "section": "Sensor",
       "description": "The I/O Linc sends On when the sensor input opens rather than when it closes.",
       "query": "0x00",
       "bit": "0x40",
@@ -53,6 +65,8 @@
     },
     {
       "name": "momentaryFollowsSensor",
+      "label": "Momentary follows sensor",
+      "section": "Relay",
       "description": "Whether the momentary relay closes depends on the state of the sensor input (momentary C).",
       "query": "0x00",
       "bit": "0x80",
@@ -61,6 +75,8 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The status LED is off.",
       "query": "0x02",
       "bit": "0x01",
@@ -69,6 +85,8 @@
     },
     {
       "name": "keyBeep",
+      "label": "Beep on button press",
+      "section": "Buttons",
       "description": "The I/O Linc beeps when its SET button is pressed.",
       "query": "0x02",
       "bit": "0x02",
@@ -79,6 +97,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
@@ -110,6 +131,9 @@
     "values": [
       {
         "name": "momentaryPrescaler",
+        "label": "Momentary time multiplier",
+        "section": "Relay",
+        "advanced": true,
         "description": "The multiplier for the momentary time. With 0x46 and a momentary time of 0xFF, the relay stays closed for about 30 minutes.",
         "byte": 3,
         "range": {
@@ -119,6 +143,8 @@
       },
       {
         "name": "momentaryTime",
+        "label": "Momentary time",
+        "section": "Relay",
         "description": "How long the relay stays closed in momentary mode, in tenths of a second.",
         "byte": 4,
         "range": {
@@ -128,26 +154,41 @@
       },
       {
         "name": "x10InputHouseCode",
+        "label": "Sensor X10 house code",
+        "section": "X10",
+        "advanced": true,
         "description": "The input's X10 house code, or 0x20 for no X10 address.",
         "byte": 5
       },
       {
         "name": "x10InputUnitCode",
+        "label": "Sensor X10 unit code",
+        "section": "X10",
+        "advanced": true,
         "description": "The input's X10 unit code.",
         "byte": 6
       },
       {
         "name": "x10OutputHouseCode",
+        "label": "Relay X10 house code",
+        "section": "X10",
+        "advanced": true,
         "description": "The output's X10 house code, or 0x20 for no X10 address.",
         "byte": 7
       },
       {
         "name": "x10OutputUnitCode",
+        "label": "Relay X10 unit code",
+        "section": "X10",
+        "advanced": true,
         "description": "The output's X10 unit code.",
         "byte": 8
       },
       {
         "name": "signalToNoise",
+        "label": "Signal-to-noise",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The powerline's signal-to-noise value.",
         "byte": 9
       }

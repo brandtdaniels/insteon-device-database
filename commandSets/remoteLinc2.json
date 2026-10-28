@@ -5,6 +5,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the remote itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -13,6 +15,8 @@
     },
     {
       "name": "ledOn",
+      "label": "LED on",
+      "section": "LEDs",
       "description": "The LED is on.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,6 +25,8 @@
     },
     {
       "name": "beeperOn",
+      "label": "Beeper",
+      "section": "Buttons",
       "description": "The beeper is on.",
       "query": "0x00",
       "bit": "0x04",
@@ -29,6 +35,9 @@
     },
     {
       "name": "stayAwake",
+      "label": "Stay awake",
+      "section": "Sensor",
+      "advanced": true,
       "description": "The remote stays awake, with 0xFF as its awake interval.",
       "query": "0x00",
       "bit": "0x08",
@@ -37,12 +46,17 @@
     },
     {
       "name": "listenOnly",
+      "label": "Listen only",
+      "section": "Communication",
+      "advanced": true,
       "description": "The remote only listens.",
       "query": "0x00",
       "bit": "0x10"
     },
     {
       "name": "noImAlive",
+      "label": "No heartbeat",
+      "section": "Sensor",
       "description": "The remote doesn't wake up on its own to send I'm Alive broadcasts.",
       "query": "0x00",
       "bit": "0x20",
@@ -51,6 +65,8 @@
     },
     {
       "name": "grouped",
+      "label": "Pair on and off buttons",
+      "section": "Buttons",
       "description": "Each row's on and off buttons share a group, 1 to 4 from the top. Otherwise each button has its own group, 1 to 8.",
       "query": "0x00",
       "bit": "0x40",
@@ -61,6 +77,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes. It clears when the device loses power.",
       "query": "0x01"
     }
@@ -70,42 +89,65 @@
     "values": [
       {
         "name": "awakeInterval",
+        "label": "Awake interval",
+        "section": "Sensor",
+        "advanced": true,
         "description": "How long the remote stays awake, in seconds.",
         "byte": 3
       },
       {
         "name": "sleepInterval",
+        "label": "Sleep interval",
+        "section": "Sensor",
+        "advanced": true,
         "description": "How long the remote sleeps, in steps of 755.2 seconds.",
         "byte": 4
       },
       {
         "name": "broadcastCount",
+        "label": "Broadcasts per event",
+        "section": "Sensor",
+        "advanced": true,
         "description": "How many times the remote sends its I'm Alive broadcast.",
         "byte": 5
       },
       {
         "name": "triggerGroups",
+        "label": "Groups that trigger another device's group",
+        "section": "Buttons",
+        "advanced": true,
         "description": "The buttons that are trigger buttons.",
         "byte": 6,
         "kind": "buttons"
       },
       {
         "name": "sleepIntervalLow",
+        "label": "Sleep interval, low battery",
+        "section": "Sensor",
+        "advanced": true,
         "description": "The low byte of the sleep interval, in steps of 2.3 seconds.",
         "byte": 7
       },
       {
         "name": "appRetries",
+        "label": "Application retries",
+        "section": "Communication",
+        "advanced": true,
         "description": "How many times the remote retries a message: 0x01 by default, 0x00 for none, or 0xFF to send broadcasts only.",
         "byte": 8
       },
       {
         "name": "configuration",
+        "label": "Configuration",
+        "section": "Communication",
+        "advanced": true,
         "description": "A configuration byte the RemoteLinc 2 Developer Notes don't explain.",
         "byte": 9
       },
       {
         "name": "batteryLevel",
+        "label": "Battery level",
+        "section": "Battery",
         "description": "The battery level.",
         "byte": 10
       }

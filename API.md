@@ -160,6 +160,57 @@ message whose cmd1 is `0x6E` and whose cmd2 is the temperature in half degrees o
 displays. Its `readStatus` extended command asks for its status, and the reply carries the
 temperature in D9 and D10, in tenths of a degree Celsius whatever the display shows.
 
+## Settings pages and device controls
+
+A device is addressed by its Insteon ID, but most of what an app shows belongs to one of its
+groups: a FanLinc's light and fan, a dual outlet's top and bottom outlets, a keypad's buttons.
+The catalog says what each group is and how to show each setting, so an app can build its pages
+from the catalog alone.
+
+**Group types.** A command set's `groupTypes` say what its groups can be, and each profile group
+names one in `type`:
+
+```json
+"groupTypes": [
+  { "name": "light", "label": "Light", "kind": "dimmer",
+    "state": { "command": "readStatus" }, "on": "lightOn", "off": "lightOff" },
+  { "name": "fan", "label": "Fan", "kind": "fan",
+    "state": { "command": "readFanSpeed" },
+    "speeds": ["fanOff", "fanLow", "fanMedium", "fanHigh"] }
+]
+```
+
+```json
+"groups": [
+  { "number": "0x01", "name": "Light", "role": "both", "type": "light" },
+  { "number": "0x02", "name": "Fan", "role": "responder", "type": "fan" }
+]
+```
+
+A group type's `kind` is `dimmer`, `relay`, `fan`, `sensor` or `button`. `state` names the
+standard command whose reply holds its state; with `bitPerGroup`, the reply holds one bit per
+group, group 1 in bit 0, as a keypad's LEDs or a dual outlet's outlets do. `on`, `off` and a
+fan's `speeds` name the standard or extended commands that drive it; a dimmer's `on` takes the
+level.
+
+**Settings.** Operating flags, readings and extended settings values can carry:
+
+- `label`: what to call the setting, such as "Beep on button press".
+- `section`: the heading to show it under, such as Load, Buttons, LEDs, Linking, Night,
+  Communication, X10 or Diagnostics.
+- `advanced`: true for a setting to keep out of sight unless asked, such as the powerline's
+  timing or X10.
+- `default`: the value as the device leaves the factory, where a document gives it: true or
+  false for a flag, a byte for a value.
+- For a value, `unit` and `scale` to show it as a number, such as an on-level as a percentage,
+  or `table`, the command set's `valueTables` entry that names each raw value, such as the ramp
+  rate's durations.
+
+The control follows from the setting: a flag with `on` and `off` is a switch, one without them
+or a reading is read-only, a value with a `table` or an enumeration is a picker, a `buttons` value
+is a choice of buttons, and a value with a `range` is a slider or stepper. A value is per group
+when its extended settings are `perButton`; everything else is the whole device's.
+
 ## Keeping a copy up to date
 
 1. Fetch `manifest.json`.

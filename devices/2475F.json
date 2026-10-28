@@ -37,12 +37,14 @@
     {
       "number": "0x01",
       "name": "Light",
-      "role": "both"
+      "role": "both",
+      "type": "light"
     },
     {
       "number": "0x02",
       "name": "Fan",
-      "role": "responder"
+      "role": "responder",
+      "type": "fan"
     }
   ],
   "capabilities": [

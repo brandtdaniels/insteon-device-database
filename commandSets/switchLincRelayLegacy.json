@@ -5,6 +5,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -13,6 +15,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The status LED blinks when the device sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,6 +25,8 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The status LED is off.",
       "query": "0x00",
       "bit": "0x10",
@@ -33,6 +39,8 @@
     },
     {
       "name": "loadSense",
+      "label": "Load sense",
+      "section": "Load",
       "description": "Load sense is on: the device turns its load on when it senses the attached lamp or appliance being switched on.",
       "query": "0x00",
       "bit": "0x20",
@@ -41,6 +49,9 @@
     },
     {
       "name": "cleanupReport",
+      "label": "Send cleanup reports",
+      "section": "Communication",
+      "advanced": true,
       "description": "The device sends a success report after the cleanup messages that follow a group command. Only dealer firmware has this setting.",
       "query": "0x00",
       "bit": "0x40"
@@ -49,6 +60,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
@@ -70,6 +84,8 @@
     "values": [
       {
         "name": "ledDimming",
+        "label": "LED brightness",
+        "section": "LEDs",
         "description": "How much the status LED is dimmed: 0x00 is no dimming (brightest), 0x01 the most dimming and 0xFF the least.",
         "byte": 3,
         "range": {
@@ -79,21 +95,33 @@
       },
       {
         "name": "x10HouseCode",
+        "label": "X10 house code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 house code, or 0x20 for no X10 address.",
         "byte": 5
       },
       {
         "name": "x10UnitCode",
+        "label": "X10 unit code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 unit code.",
         "byte": 6
       },
       {
         "name": "signalToNoiseCount",
+        "label": "Signal-to-noise count",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The signal-to-noise count.",
         "byte": 12
       },
       {
         "name": "signalToNoiseLastFailure",
+        "label": "Last signal-to-noise failure",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The signal-to-noise value of the last failure.",
         "byte": 13
       }

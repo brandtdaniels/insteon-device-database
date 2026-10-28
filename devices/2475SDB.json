@@ -38,7 +38,8 @@
     {
       "number": "0x01",
       "name": "Load",
-      "role": "both"
+      "role": "both",
+      "type": "load"
     }
   ],
   "capabilities": [

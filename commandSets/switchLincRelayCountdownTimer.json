@@ -5,6 +5,8 @@
   "operatingFlags": [
     {
       "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
       "bit": "0x01",
@@ -13,6 +15,8 @@
     },
     {
       "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
       "description": "The status LED blinks when the device sends an Insteon message.",
       "query": "0x00",
       "bit": "0x02",
@@ -21,6 +25,8 @@
     },
     {
       "name": "timerOff",
+      "label": "Turn off the countdown",
+      "section": "Timer",
       "description": "The countdown timer is off, and the switch works as an ordinary switch.",
       "query": "0x00",
       "bit": "0x04",
@@ -29,6 +35,9 @@
     },
     {
       "name": "triggerGroupOff",
+      "label": "Turn off group triggers",
+      "section": "Buttons",
+      "advanced": true,
       "description": "The trigger group is off.",
       "query": "0x00",
       "bit": "0x08",
@@ -37,6 +46,8 @@
     },
     {
       "name": "ledOff",
+      "label": "LED off",
+      "section": "LEDs",
       "description": "The status LED is off.",
       "query": "0x00",
       "bit": "0x10",
@@ -45,6 +56,8 @@
     },
     {
       "name": "noLocalWarning",
+      "label": "No warning before the countdown ends",
+      "section": "Alarm",
       "description": "The switch gives no local warning before its countdown ends.",
       "query": "0x00",
       "bit": "0x20",
@@ -55,6 +68,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
@@ -64,41 +80,61 @@
     "values": [
       {
         "name": "ledLevel",
+        "label": "LED brightness",
+        "section": "LEDs",
         "description": "The status LED's brightness.",
         "byte": 3
       },
       {
         "name": "defaultOnTime",
+        "label": "Default on time",
+        "section": "Load",
         "description": "How long, in minutes, a single press keeps the load on.",
         "byte": 4
       },
       {
         "name": "x10HouseCode",
+        "label": "X10 house code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 house code, or 0x20 for no X10 address.",
         "byte": 5
       },
       {
         "name": "x10UnitCode",
+        "label": "X10 unit code",
+        "section": "X10",
+        "advanced": true,
         "description": "The X10 unit code.",
         "byte": 6
       },
       {
         "name": "timerHours",
+        "label": "Timer hours",
+        "section": "Timer",
         "description": "The hours of the countdown.",
         "byte": 7
       },
       {
         "name": "timerMinutes",
+        "label": "Timer minutes",
+        "section": "Timer",
         "description": "The minutes of the countdown.",
         "byte": 8
       },
       {
         "name": "signalToNoiseCount",
+        "label": "Signal-to-noise count",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The signal-to-noise count.",
         "byte": 12
       },
       {
         "name": "signalToNoiseLastFailure",
+        "label": "Last signal-to-noise failure",
+        "section": "Diagnostics",
+        "advanced": true,
         "description": "The signal-to-noise value of the last failure.",
         "byte": 13
       }

@@ -105,6 +105,9 @@
   "operatingFlags": [
     {
       "name": "extendedCommandsOnly",
+      "label": "Extended commands only",
+      "section": "Communication",
+      "advanced": true,
       "description": "The adapter takes change commands only as extended messages that repeat cmd1 and cmd2 in D1 and D2.",
       "query": "0x00",
       "bit": "0x02",
@@ -114,6 +117,8 @@
     },
     {
       "name": "humidityReportsOn",
+      "label": "Report humidity",
+      "section": "Display",
       "description": "The adapter reports humidity when it changes.",
       "query": "0x00",
       "bit": "0x04",
@@ -123,6 +128,8 @@
     },
     {
       "name": "ledOn",
+      "label": "LED on",
+      "section": "LEDs",
       "description": "The adapter's LED is on.",
       "query": "0x00",
       "bit": "0x20",
@@ -132,6 +139,8 @@
     },
     {
       "name": "autoLinkOff",
+      "label": "Turn off automatic linking",
+      "section": "Linking",
       "description": "The adapter doesn't link on its own.",
       "query": "0x00",
       "bit": "0x80"
@@ -140,6 +149,9 @@
   "readings": [
     {
       "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
