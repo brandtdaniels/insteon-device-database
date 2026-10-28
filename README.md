@@ -62,7 +62,9 @@ treat downloading a newer one as optional.
    no two of its flags share a bit or a command, no two values share a byte, no two writes
    share a selector, no two commands or direct messages share a command, no message fills a
    byte's bits twice, and every flag and enumeration it names exists.
-3. Open a pull request. CI runs the same check.
+3. Follow [CONVENTIONS.md](CONVENTIONS.md) for names, terms and citations; the build fails on
+   the forms it rules out.
+4. Open a pull request. CI runs the same check.
 
 ### How sure a value is
 

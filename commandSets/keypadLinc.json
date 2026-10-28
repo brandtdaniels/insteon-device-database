@@ -117,7 +117,7 @@
     },
     {
       "name": "powerLineOff",
-      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "description": "Insteon communication over the powerline is off. The device turns it back on whenever it powers up.",
       "query": "0x00",
       "bit": "0x80",
       "on": "0x0E",
@@ -125,7 +125,7 @@
     },
     {
       "name": "applicationRetries",
-      "description": "The device retries application messages as many times as its link database says, and reports cleanup errors.",
+      "description": "The device retries application messages as many times as its ALL-Link database says, and reports cleanup errors.",
       "query": "0x05",
       "bit": "0x01",
       "on": "0x10",
@@ -157,7 +157,7 @@
     },
     {
       "name": "checksumRequired",
-      "description": "Extended Set and link database write messages must carry a checksum in D14.",
+      "description": "Extended Set and ALL-Link database write messages must carry a checksum in D14.",
       "query": "0x05",
       "bit": "0x10",
       "on": "0x19",
@@ -183,7 +183,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {
@@ -229,12 +229,12 @@
     },
     {
       "name": "pushHopsToRadioOn",
-      "description": "The device repeats every power line hop over RF.",
+      "description": "The device repeats every powerline hop over RF.",
       "command2": "0x2A"
     },
     {
       "name": "pushHopsToRadioOff",
-      "description": "The device doesn't repeat every power line hop over RF.",
+      "description": "The device doesn't repeat every powerline hop over RF.",
       "command2": "0x2B"
     }
   ],
@@ -541,7 +541,7 @@
     },
     {
       "name": "readStatus",
-      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "description": "Reads the load's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
       "command1": "0x19",
       "command2": "0x00",
       "reply": {
@@ -551,7 +551,7 @@
     },
     {
       "name": "readLeds",
-      "description": "Reads which button LEDs are on. The acknowledgement's cmd1 carries the link database delta.",
+      "description": "Reads which button LEDs are on. The acknowledgment's cmd1 carries the ALL-Link database delta.",
       "command1": "0x19",
       "command2": "0x01",
       "reply": {
@@ -648,7 +648,7 @@
     },
     {
       "name": "beep",
-      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "description": "Beeps once, as pressing the SET button does. The device ignores cmd2.",
       "command1": "0x30"
     }
   ],
