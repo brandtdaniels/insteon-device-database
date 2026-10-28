@@ -1,10 +1,21 @@
 {
-  "model": "2852-222",
+  "model": "2852",
   "name": "Leak Sensor",
   "identities": [
     {
       "category": "0x10",
-      "subcategory": "0x08"
+      "subcategory": "0x08",
+      "region": "US"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x0D",
+      "region": "Europe"
+    },
+    {
+      "category": "0x10",
+      "subcategory": "0x0E",
+      "region": "Australia and New Zealand"
     }
   ],
   "radio": "rf",
@@ -49,8 +60,13 @@
       "intervalMinutes": 1428
     }
   ],
+  "notes": [
+    "Its heartbeat sends on when dry and off when wet.",
+    "Once wet, it ignores further changes until its SET button is pressed."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon command workbook, HeartBeat Status sheet"
+    "Insteon command workbook, HeartBeat Status sheet",
+    "2852-222 Leak Sensor PRD"
   ]
 }

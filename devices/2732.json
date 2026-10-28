@@ -1,0 +1,32 @@
+{
+  "model": "2732",
+  "name": "Thermostat for Heat Pump",
+  "identities": [
+    {
+      "category": "0x05",
+      "subcategory": "0x13",
+      "region": "US and Canada"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x14",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x15",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "radio": "rf",
+  "role": "both",
+  "capabilities": [],
+  "notes": [
+    "The 2441TH's hardware with heat pump firmware.",
+    "HouseLinc labels these subcategories 2732-232, 2732-432 and 2732-532."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "2732-xxx Thermostat for Heat Pump PRD"
+  ]
+}
