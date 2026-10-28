@@ -524,49 +524,74 @@ def capability_descriptions():
 
 
 def index_page(profiles, command_sets):
-    """The landing page: what the catalog is, its files, and a table of the profiles to search,
-    sort and filter."""
+    """The landing page: what the catalog is, how to download it, and a card for each profile to
+    search and filter."""
     escape = html.escape
     descriptions = capability_descriptions()
-    names = {command_set["id"]: command_set for command_set in command_sets}
-    rows = []
+    names = {command_set["id"]: command_set["name"] for command_set in command_sets}
+    radios = {"powerline": "Powerline", "rf": "RF", "dual": "Dual-band"}
+    roles = {"controller": "Controller", "responder": "Responder", "both": "Controller and responder"}
+    cards = {}
 
-    for profile in profiles:
+    def natural(text):
+        return [int(part) if part.isdigit() else part.lower() for part in re.split(r"(\d+)", text)]
+
+    for profile in sorted(profiles, key=lambda profile: natural(profile["model"])):
         category = profile["identities"][0]["category"]
         kinds = [capability["kind"] for capability in profile["capabilities"]]
         aliases = profile.get("aliases", [])
-        subcategories = []
+        rows = []
 
         for identity in profile["identities"]:
-            notes = [identity["region"]] if "region" in identity else []
+            key = (identity["category"], identity["subcategory"])
+            code = identity["subcategory"] if identity["category"] == category else f"{identity['category']}/{identity['subcategory']}"
+            where = [identity["region"]] if "region" in identity else []
 
             if "firmware" in identity:
-                notes.append(f"firmware {identity['firmware']['from']}–{identity['firmware']['through']}")
+                where.append(f"firmware {identity['firmware']['from']} to {identity['firmware']['through']}")
 
-            code = identity["subcategory"] if identity["category"] == category else f"{identity['category']}/{identity['subcategory']}"
-            engines = ""
+            settings = [names[entry["commandSet"]] + (" (some firmware)" if "firmware" in entry else "") for entry in profile.get("commandSets", []) if (entry["category"], entry["subcategory"]) == key]
+            engines = [engine_note(entry)[0] for entry in profile.get("engines", []) if (entry["category"], entry["subcategory"]) == key]
+            rows.append((code, ", ".join(where), ", ".join(settings), ", ".join(engines)))
 
-            for entry in profile.get("commandSets", []):
-                if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):
-                    command_set = names[entry["commandSet"]]
-                    label = f'{command_set["name"]} settings'
-                    title = command_set["description"]
+        # A column every identity shares is shown once, above the table.
+        columns = ["Subcategory", "Sold in", "Settings", "Engine"]
+        shared = []
+        keep = [0]
 
-                    if "firmware" in entry:
-                        selection = entry["firmware"]
-                        versions = ", ".join(selection.get("only", selection.get("except", [])))
-                        label += " on some firmware" if "only" in selection else " on most firmware"
-                        title += f" Firmware {versions}." if "only" in selection else f" Every firmware version except {versions}."
+        for column in (1, 2, 3):
+            values = {row[column] for row in rows}
 
-                    engines += f' <small class="engine" title="{escape(title)}">{escape(label)}</small>'
+            if values == {""}:
+                continue
 
-            for entry in profile.get("engines", []):
-                if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):
-                    label, title = engine_note(entry)
-                    engines += f' <small class="engine" title="{escape(title)}">{escape(label)}</small>'
+            if len(values) == 1 and len(rows) > 1 or len(rows) == 1:
+                shared.append(f"{columns[column]}: {escape(rows[0][column])}") if rows[0][column] else None
+            else:
+                keep.append(column)
 
-            subcategories.append(code + (f" <small>{escape(', '.join(notes))}</small>" if notes else "") + engines)
+        table = ""
 
+        if len(keep) > 1 or len(rows) > 1:
+            table = "<table><tr>" + "".join(f"<th>{columns[c]}</th>" for c in keep) + "</tr>"
+            table += "".join("<tr>" + "".join(f'<td{" class=\"mono\"" if c == 0 else ""}>{escape(row[c])}</td>' for c in keep) + "</tr>" for row in rows)
+            table += "</table>"
+        else:
+            shared.insert(0, f'Subcategory: <span class="mono">{escape(rows[0][0])}</span>')
+
+        # The card shows three lines of the description; a longer one is also given in full here.
+        if len(profile.get("description", "")) > 150:
+            shared.insert(0, escape(profile["description"]))
+
+        details = ""
+
+        if table or shared:
+            details = "<details><summary>Details</summary>" + "".join(f"<p>{line}</p>" for line in shared) + table + "</details>"
+
+        facts = [radios[profile["radio"]] for _ in [0] if "radio" in profile]
+        facts += [roles[profile["role"]]] if "role" in profile else []
+        facts += ["Battery powered"] if profile.get("batteryPowered") else []
+        chips = "".join(f'<span class="chip" title="{escape(descriptions.get(kind, ""))}">{escape(CAPABILITY_LABELS.get(kind, kind))}</span>' for kind in kinds)
         search = " ".join([
             profile["model"],
             profile["name"],
@@ -574,45 +599,27 @@ def index_page(profiles, command_sets):
             *(f"{i['category']}/{i['subcategory']}" for i in profile["identities"]),
             *(entry["engine"] for entry in profile.get("engines", [])),
         ]).lower()
-        name = escape(profile["name"])
-
-        if aliases:
-            name += '<div class="aliases">Also known as ' + ", ".join(f'<span class="alias">{escape(alias)}</span>' for alias in aliases) + "</div>"
-
-        if "description" in profile:
-            name += f'<p class="description">{escape(profile["description"])}</p>'
-
-        chips = ""
-
-        for kind in kinds:
-            title = descriptions.get(kind, "")
-            chips += f'<span class="chip" title="{escape(title)}">{escape(CAPABILITY_LABELS.get(kind, kind))}</span>'
-
         attributes = {
             "search": search,
-            "model": profile["model"],
-            "name": profile["name"],
             "capabilities": " ".join(kinds),
             "engines": " ".join(sorted({entry["engine"] for entry in profile.get("engines", [])})),
             "radio": profile.get("radio", ""),
             "battery": "true" if profile.get("batteryPowered") else "false",
         }
         data = " ".join(f'data-{key}="{escape(value)}"' for key, value in attributes.items())
-        rows.append(
-            f"<tr {data}>"
-            f'<td class="model">{escape(profile["model"])}</td>'
-            f"<td>{name}</td>"
-            f'<td class="ids">{"".join(f"<span>{subcategory}</span>" for subcategory in subcategories)}</td>'
-            f"<td>{chips}</td>"
-            "</tr>"
+        card = (
+            f'<article class="card" {data}>'
+            f'<div class="top"><span class="model mono">{escape(profile["model"])}</span><span class="chips">{chips}</span></div>'
+            f'<h3>{escape(profile["name"])}</h3>'
+            + (f'<p class="aliases">Also known as {escape(", ".join(aliases))}</p>' if aliases else "")
+            + (f'<p class="description">{escape(profile["description"])}</p>' if "description" in profile else "")
+            + (f'<p class="facts">{" · ".join(facts)}</p>' if facts else '<p class="facts"></p>')
+            + details
+            + "</article>"
         )
+        cards.setdefault(category, []).append(card)
 
-    by_category = {}
-
-    for profile, row in zip(profiles, rows):
-        by_category.setdefault(profile["identities"][0]["category"], []).append(row)
-
-    categories = sorted(by_category)
+    categories = sorted(cards)
     sections = []
 
     for category in categories:
@@ -620,14 +627,9 @@ def index_page(profiles, command_sets):
         description = CATEGORY_DESCRIPTIONS.get(category)
         sections.append(
             f'<section class="category" id="category-{category}" data-category="{category}">'
-            f"<h3>{name}</h3>"
-            f'<p class="category-code">Category {category}</p>'
-            + (f'<p class="category-description">{escape(description)}</p>' if description else "")
-            + f'<p class="category-count"><span class="products">{len(by_category[category])} products</span></p>'
-            '<div class="table-wrap"><table>'
-            "<thead><tr><th>Model</th><th>Name</th><th>Subcategory</th><th>Capabilities</th></tr></thead>"
-            f"<tbody>{''.join(by_category[category])}</tbody>"
-            "</table></div></section>"
+            f'<h2>{name}<span class="n">{len(cards[category])}</span></h2>'
+            + (f'<p class="category-description">{escape(description)} Category <span class="mono">{category}</span>.</p>' if description else f'<p class="category-description">Category <span class="mono">{category}</span>.</p>')
+            + f'<div class="grid">{"".join(cards[category])}</div></section>'
         )
 
     kinds = sorted({capability["kind"] for profile in profiles for capability in profile["capabilities"]})
@@ -637,7 +639,6 @@ def index_page(profiles, command_sets):
         version=SCHEMA_VERSION,
         count=len(profiles),
         sections="\n".join(sections),
-        jump_links="".join(f'<a href="#category-{c}">{escape(CATEGORY_NAMES.get(c, c))}</a>' for c in categories),
         category_options="".join(f'<option value="{c}">{escape(CATEGORY_NAMES.get(c, c))}</option>' for c in categories),
         engine_options="".join(
             f'<option value="{e}">{ENGINE_LABELS[e]}</option>'
@@ -646,7 +647,6 @@ def index_page(profiles, command_sets):
         ),
         capability_options="".join(f'<option value="{k}">{escape(CAPABILITY_LABELS.get(k, k))}</option>' for k in kinds),
     )
-
 
 if __name__ == "__main__":
     main()

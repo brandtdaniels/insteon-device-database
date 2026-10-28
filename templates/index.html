@@ -9,9 +9,10 @@
   :root {
     color-scheme: light dark;
     --text: #1d1d1f;
-    --muted: #5f6368;
-    --line: #d9dce1;
+    --muted: #62666d;
+    --line: #e2e4e8;
     --surface: #ffffff;
+    --raised: #f6f7f9;
     --chip: #eef1f5;
     --accent: #2457c5;
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -21,157 +22,147 @@
     :root {
       --text: #ececf0;
       --muted: #a0a4ab;
-      --line: #3a3d44;
-      --surface: #16171a;
+      --line: #33363c;
+      --surface: #121315;
+      --raised: #1b1d20;
       --chip: #2a2d33;
       --accent: #8fb0ff;
     }
   }
+  * { box-sizing: border-box; }
   body { margin: 0; background: var(--surface); color: var(--text); }
-  main { max-width: 72rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  main { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
   a { color: var(--accent); }
-  h1 { margin: 0 0 0.5rem; font-size: 1.75rem; }
-  .intro { max-width: 46rem; color: var(--muted); }
-  .files { padding-left: 1.25rem; }
-  .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; margin: 1.5rem 0 0.75rem; }
-  .controls label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85rem; color: var(--muted); }
-  .controls .check { flex-direction: row; align-items: center; gap: 0.4rem; padding-bottom: 0.4rem; }
-  input[type=search], select {
-    font: inherit; color: var(--text); background: var(--surface);
-    border: 1px solid var(--line); border-radius: 6px; padding: 0.35rem 0.5rem;
+  code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; }
+  header h1 { margin: 0 0 0.5rem; font-size: 2rem; letter-spacing: -0.01em; }
+  .intro { margin: 0; max-width: 44rem; color: var(--muted); font-size: 1.05rem; }
+  .developers { margin-top: 1rem; font-size: 0.9rem; }
+  .developers summary { cursor: pointer; color: var(--accent); }
+  .developers ul { margin: 0.5rem 0 0; padding-left: 1.25rem; color: var(--muted); }
+
+  .toolbar {
+    position: sticky; top: 0; z-index: 1; margin: 2rem -1rem 0; padding: 0.75rem 1rem;
+    background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
   }
-  input[type=search] { min-width: min(22rem, 100%); }
-  .count { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
-  .table-wrap { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; }
-  th, td { text-align: left; padding: 0.55rem 0.75rem 0.55rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { font-size: 0.85rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
-  th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-  th button::after { content: " ↕"; opacity: 0.4; }
-  th[aria-sort=ascending] button::after { content: " ↑"; opacity: 1; }
-  th[aria-sort=descending] button::after { content: " ↓"; opacity: 1; }
-  .model { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
-  .aliases { color: var(--muted); font-size: 0.85rem; }
-  .alias { color: var(--text); font-weight: 500; }
-  .description { margin: 0.25rem 0 0; font-size: 0.9rem; }
-  .ids { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; }
-  .ids span { display: block; white-space: nowrap; }
-  .ids small { font-family: system-ui, sans-serif; color: var(--muted); }
-  .chip { display: inline-block; margin: 0 0.25rem 0.25rem 0; padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--chip); font-size: 0.8rem; white-space: nowrap; }
-  .ids .engine { margin-left: 0.4rem; padding: 0 0.35rem; border: 1px solid var(--line); border-radius: 4px; }
-  .jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0 0 1rem; font-size: 0.9rem; }
-  section.category { margin-top: 2rem; }
-  section.category h3 { margin: 0; font-size: 1.2rem; }
-  .category-code { margin: 0; color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
-  .category-description { margin: 0.25rem 0 0.25rem; color: var(--muted); max-width: 46rem; }
-  .category-count { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.85rem; }
+  .toolbar .row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .toolbar input[type=search] { flex: 1 1 16rem; }
+  input[type=search], select {
+    font: inherit; font-size: 0.9rem; color: var(--text); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 8px; padding: 0.4rem 0.6rem;
+  }
+  .toolbar .check { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; color: var(--muted); }
+  .count { margin: 0.5rem 0 0; color: var(--muted); font-size: 0.85rem; }
+
+  section.category { margin-top: 2.5rem; }
+  section.category h2 { margin: 0; font-size: 1.25rem; }
+  section.category h2 .n { color: var(--muted); font-weight: 400; font-size: 0.95rem; margin-left: 0.4rem; }
+  .category-description { margin: 0.2rem 0 1rem; color: var(--muted); max-width: 44rem; font-size: 0.9rem; }
+
+  .grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+  .card {
+    display: flex; flex-direction: column; gap: 0.35rem; padding: 0.9rem 1rem;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--raised);
+  }
+  .card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+  .card .model { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .card h3 { margin: 0; font-size: 1rem; font-weight: 600; }
+  .card .aliases { margin: 0; color: var(--muted); font-size: 0.85rem; }
+  .card .description {
+    margin: 0; font-size: 0.875rem; color: var(--muted);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .chip { padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--chip); font-size: 0.75rem; white-space: nowrap; }
+  .facts { margin: auto 0 0; padding-top: 0.35rem; color: var(--muted); font-size: 0.8rem; }
+  .card details { font-size: 0.8rem; }
+  .card details summary { cursor: pointer; color: var(--accent); }
+  .card table { width: 100%; margin-top: 0.4rem; border-collapse: collapse; }
+  .card td, .card th { padding: 0.2rem 0.5rem 0.2rem 0; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
+  .card th { font-weight: 500; color: var(--muted); }
+  .card details p { margin: 0.4rem 0 0; color: var(--muted); }
   [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <main>
+<header>
 <h1>Insteon Device Catalog</h1>
 <p class="intro">What each Insteon product is and what it can do, keyed by the category, subcategory and
-firmware version a device reports. Software downloads the catalog and looks devices up itself.</p>
-<ul class="files">
-  <li><a href="v$version/manifest.json"><code>v$version/manifest.json</code></a>: the schema version, the number of profiles and the catalog's SHA-256</li>
-  <li><a href="v$version/catalog.json"><code>v$version/catalog.json</code></a>: every profile and command set</li>
-  <li><a href="v$version/device-profile.schema.json"><code>v$version/device-profile.schema.json</code></a>: the JSON Schema each profile follows</li>
-  <li><a href="v$version/command-set.schema.json"><code>v$version/command-set.schema.json</code></a>: the JSON Schema each command set follows</li>
-  <li><a href="https://github.com/brandtdaniels/insteon-device-catalog/blob/main/API.md">How to use the catalog</a> and <a href="https://github.com/brandtdaniels/insteon-device-catalog">the source</a></li>
-</ul>
+firmware version a device reports.</p>
+<details class="developers">
+  <summary>Use the catalog in software</summary>
+  <ul>
+    <li><a href="v$version/catalog.json"><code>v$version/catalog.json</code></a>: every profile and command set</li>
+    <li><a href="v$version/manifest.json"><code>v$version/manifest.json</code></a>: the schema version, the number of profiles and the catalog's SHA-256</li>
+    <li><a href="v$version/device-profile.schema.json"><code>device-profile.schema.json</code></a> and <a href="v$version/command-set.schema.json"><code>command-set.schema.json</code></a>: the JSON Schemas</li>
+    <li><a href="https://github.com/brandtdaniels/insteon-device-catalog/blob/main/API.md">How to use the catalog</a> and <a href="https://github.com/brandtdaniels/insteon-device-catalog">its source</a></li>
+  </ul>
+</details>
+</header>
 
-<h2>Products</h2>
-<div class="controls" hidden>
-  <label>Search
-    <input type="search" id="search" placeholder="Model, name or 0x01/0x20" autocomplete="off">
-  </label>
-  <label>Category
-    <select id="category"><option value="">All</option>$category_options</select>
-  </label>
-  <label>Capability
-    <select id="capability"><option value="">All</option>$capability_options</select>
-  </label>
-  <label>Engine
-    <select id="engine"><option value="">All</option>$engine_options</select>
-  </label>
-  <label>Radio
-    <select id="radio"><option value="">All</option><option value="powerline">Powerline</option><option value="rf">RF</option><option value="dual">Dual-band</option></select>
-  </label>
-  <label>Sort by
-    <select id="sort"><option value="model">Model</option><option value="name">Name</option></select>
-  </label>
-  <label class="check"><input type="checkbox" id="battery"> Battery powered</label>
+<div class="toolbar" hidden>
+  <div class="row">
+    <input type="search" id="search" placeholder="Search by model, name or 0x01/0x20" aria-label="Search" autocomplete="off">
+    <select id="category" aria-label="Category"><option value="">All categories</option>$category_options</select>
+    <select id="capability" aria-label="Capability"><option value="">Any capability</option>$capability_options</select>
+    <select id="radio" aria-label="Radio"><option value="">Any radio</option><option value="powerline">Powerline</option><option value="rf">RF</option><option value="dual">Dual-band</option></select>
+    <select id="engine" aria-label="Engine"><option value="">Any engine</option>$engine_options</select>
+    <label class="check"><input type="checkbox" id="battery"> Battery powered</label>
+  </div>
+  <p class="count" id="count">$count products</p>
 </div>
-<p class="count" id="count">$count products</p>
-<nav class="jump" aria-label="Categories">$jump_links</nav>
+
 $sections
 </main>
 <script>
 (() => {
   const sections = Array.from(document.querySelectorAll("section.category"));
-  const rows = Array.from(document.querySelectorAll("section.category tbody tr"));
-  const controls = document.querySelector(".controls");
+  const cards = Array.from(document.querySelectorAll(".card"));
+  const toolbar = document.querySelector(".toolbar");
   const search = document.getElementById("search");
   const category = document.getElementById("category");
   const capability = document.getElementById("capability");
   const engine = document.getElementById("engine");
   const radio = document.getElementById("radio");
   const battery = document.getElementById("battery");
-  const sortKey = document.getElementById("sort");
   const count = document.getElementById("count");
-  const total = rows.length;
 
-  controls.hidden = false;
+  toolbar.hidden = false;
 
   function apply() {
     const terms = search.value.toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;
 
     for (const section of sections) {
-      const sectionRows = Array.from(section.querySelectorAll("tbody tr"));
+      const sectionCards = Array.from(section.querySelectorAll(".card"));
       let sectionShown = 0;
 
-      for (const row of sectionRows) {
+      for (const card of sectionCards) {
         const visible =
-          terms.every((term) => row.dataset.search.includes(term)) &&
+          terms.every((term) => card.dataset.search.includes(term)) &&
           (!category.value || section.dataset.category === category.value) &&
-          (!capability.value || row.dataset.capabilities.split(" ").includes(capability.value)) &&
-          (!engine.value || row.dataset.engines.split(" ").includes(engine.value)) &&
-          (!radio.value || row.dataset.radio === radio.value) &&
-          (!battery.checked || row.dataset.battery === "true");
+          (!capability.value || card.dataset.capabilities.split(" ").includes(capability.value)) &&
+          (!engine.value || card.dataset.engines.split(" ").includes(engine.value)) &&
+          (!radio.value || card.dataset.radio === radio.value) &&
+          (!battery.checked || card.dataset.battery === "true");
 
-        row.hidden = !visible;
+        card.hidden = !visible;
         sectionShown += visible ? 1 : 0;
       }
 
       section.hidden = sectionShown === 0;
-      section.querySelector(".category-count .products").textContent =
-        sectionShown === sectionRows.length ? sectionRows.length + " products" : sectionShown + " of " + sectionRows.length + " products";
-      document.querySelector('.jump a[href="#' + section.id + '"]').hidden = sectionShown === 0;
+      section.querySelector("h2 .n").textContent = sectionShown === sectionCards.length ? sectionCards.length : sectionShown + " of " + sectionCards.length;
       shown += sectionShown;
     }
 
-    count.textContent = shown === total ? total + " products" : shown + " of " + total + " products";
-  }
-
-  function sort() {
-    const key = sortKey.value;
-
-    for (const body of document.querySelectorAll("section.category tbody")) {
-      const sorted = Array.from(body.children).sort((a, b) =>
-        a.dataset[key].localeCompare(b.dataset[key], undefined, { numeric: true, sensitivity: "base" }));
-      body.append(...sorted);
-    }
+    count.textContent = shown === cards.length ? cards.length + " products" : shown + " of " + cards.length + " products";
   }
 
   for (const control of [search, category, capability, engine, radio, battery]) {
     control.addEventListener("input", apply);
   }
 
-  sortKey.addEventListener("input", sort);
-
-  sort();
   apply();
 })();
 </script>
