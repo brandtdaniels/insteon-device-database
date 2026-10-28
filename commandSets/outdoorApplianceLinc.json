@@ -5,7 +5,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
   ],
@@ -52,12 +52,12 @@
     },
     {
       "name": "powerLineOff",
-      "description": "Turns Insteon communication over the power line off. The device turns it back on whenever it powers up.",
+      "description": "Turns Insteon communication over the powerline off. The device turns it back on whenever it powers up.",
       "command2": "0x0E"
     },
     {
       "name": "powerLineOn",
-      "description": "Turns Insteon communication over the power line on.",
+      "description": "Turns Insteon communication over the powerline on.",
       "command2": "0x0F"
     },
     {
@@ -92,12 +92,12 @@
     },
     {
       "name": "checksumOff",
-      "description": "Extended Set and link database write messages needn't carry a checksum in D14.",
+      "description": "Extended Set and ALL-Link database write messages needn't carry a checksum in D14.",
       "command2": "0x18"
     },
     {
       "name": "checksumOn",
-      "description": "Extended Set and link database write messages must carry a checksum in D14.",
+      "description": "Extended Set and ALL-Link database write messages must carry a checksum in D14.",
       "command2": "0x19"
     }
   ],
@@ -147,7 +147,7 @@
     },
     {
       "name": "readStatus",
-      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "description": "Reads the load's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
       "command1": "0x19",
       "command2": "0x00",
       "reply": {

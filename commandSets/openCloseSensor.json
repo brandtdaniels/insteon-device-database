@@ -55,7 +55,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes. It clears when the device loses power.",
+      "description": "A count that goes up whenever the ALL-Link database changes. It clears when the device loses power.",
       "query": "0x01"
     }
   ],
@@ -221,7 +221,7 @@
   ],
   "notes": [
     "The sensors sleep to save their batteries, and hear commands only while awake.",
-    "Direct commands from a device that isn't in the sensor's link database get a NAK with 0xFF in cmd2.",
+    "Direct commands from a device that isn't in the sensor's ALL-Link database get a NAK with 0xFF in cmd2.",
     "The Open/Close Sensor's configuration byte is 0x43 by default, and the Leak Sensor's is 0x4F.",
     "The guides give D4 and D5 of the extended Get reply as 0x01 and 0x23 without saying what they hold.",
     "The guides document no Set Operating Flags commands for these sensors. Write the configuration byte with an extended Set instead."

@@ -83,7 +83,7 @@
     },
     {
       "name": "powerLineOff",
-      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "description": "Insteon communication over the powerline is off. The device turns it back on whenever it powers up.",
       "query": "0x00",
       "bit": "0x80",
       "on": "0x0E",
@@ -133,7 +133,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {
@@ -222,7 +222,7 @@
     },
     {
       "name": "readStatus",
-      "description": "Reads the top outlet's level. The acknowledgement's cmd1 carries the link database delta.",
+      "description": "Reads the top outlet's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
       "command1": "0x19",
       "command2": "0x00",
       "reply": {
@@ -232,7 +232,7 @@
     },
     {
       "name": "readOutlets",
-      "description": "Reads which outlets are on. The acknowledgement's cmd1 carries the link database delta.",
+      "description": "Reads which outlets are on. The acknowledgment's cmd1 carries the ALL-Link database delta.",
       "command1": "0x19",
       "command2": "0x01",
       "reply": {
@@ -253,7 +253,7 @@
     },
     {
       "name": "beep",
-      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "description": "Beeps once, as pressing the SET button does. The device ignores cmd2.",
       "command1": "0x30"
     },
     {

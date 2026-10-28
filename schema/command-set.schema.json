@@ -578,7 +578,7 @@
         },
         "reply": {
           "$ref": "#/$defs/field",
-          "description": "The value the acknowledgement carries in cmd2."
+          "description": "The value the acknowledgment carries in cmd2."
         },
         "extendedWhen": {
           "description": "An operating flag that, while set, has the command sent as an extended message instead, with cmd1 and cmd2 again in D1 and D2 and the other user data bytes 0x00.",
@@ -587,7 +587,7 @@
         },
         "followUp": {
           "$ref": "#/$defs/field",
-          "description": "A value that one more standard direct message with the same cmd1 may carry after the acknowledgement, such as a second setpoint. The device sends it only when it has that value."
+          "description": "A value that one more standard direct message with the same cmd1 may carry after the acknowledgment, such as a second setpoint. The device sends it only when it has that value."
         },
         "verification": {
           "$ref": "#/$defs/verification"
@@ -647,7 +647,7 @@
           "$ref": "#/$defs/integrity"
         },
         "reply": {
-          "description": "The extended direct message that answers the command, after its acknowledgement.",
+          "description": "The extended direct message that answers the command, after its acknowledgment.",
           "type": "object",
           "additionalProperties": false,
           "required": [

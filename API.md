@@ -104,7 +104,7 @@ versions use it. A command set is organized by Insteon's own message types:
 - **Operating flags**: bits of the reply to Get Operating Flags (cmd1 `0x1F`), each with the
   `query` that cmd2 asks for and the `bit` that holds it, and the Set Operating Flags (cmd1
   `0x20`) cmd2 values `on` and `off` that set it to 1 and 0. `readings` are queries whose whole
-  reply is a value, such as the link database's delta, and `flagCommands` are Set Operating
+  reply is a value, such as the ALL-Link database's delta, and `flagCommands` are Set Operating
   Flags values with no documented bit to read back.
 - **Extended settings**: the `values` in the reply to an extended Get (cmd1 `0x2E`, D2 `0x00`),
   which arrives with `0x01` in D2, each at a `byte` from D3 to D14, and the `writes` that set
@@ -112,7 +112,7 @@ versions use it. A command set is organized by Insteon's own message types:
   `perButton` is true, D1 chooses the button or group; otherwise D1 is `0x01`.
 - **Standard commands**: other standard direct commands, each a `command1` with a fixed
   `command2`, a `parameter` the caller puts in cmd2, or neither for `0x00`. A `reply` is the
-  value the acknowledgement carries in cmd2, and `followUp` the value one more direct message
+  value the acknowledgment carries in cmd2, and `followUp` the value one more direct message
   with the same cmd1 may carry, when the device has it. While the operating flag `extendedWhen`
   names is set, the command goes as an extended message with cmd1 and cmd2 again in D1 and D2
   and the other user data bytes `0x00`. Operating flags and flag commands can carry

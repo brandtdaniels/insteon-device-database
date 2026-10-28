@@ -140,7 +140,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     }
   ],
@@ -197,7 +197,7 @@
     },
     {
       "name": "readSetpoints",
-      "description": "Reads the setpoints. The acknowledgement carries the heat setpoint, or the only one, and in a mode with two setpoints a second message carries the cool setpoint.",
+      "description": "Reads the setpoints. The acknowledgment carries the heat setpoint, or the only one, and in a mode with two setpoints a second message carries the cool setpoint.",
       "command1": "0x6A",
       "command2": "0x20",
       "reply": {

@@ -374,7 +374,7 @@
       }
     },
     "engine": {
-      "description": "The Insteon engine a product runs under one of its identities: i1, i2, or i2cs, which rejects an extended message whose D14 checksum is wrong. A device also reports its engine in reply to a get engine version command (cmd1 0x0D).",
+      "description": "The Insteon engine a product runs under one of its identities: i1, i2, or i2CS, which rejects an extended message whose D14 checksum is wrong. A device also reports its engine in reply to a get engine version command (cmd1 0x0D).",
       "type": "object",
       "additionalProperties": false,
       "required": [

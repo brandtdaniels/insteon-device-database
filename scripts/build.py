@@ -13,6 +13,7 @@ import hashlib
 import html
 import json
 import pathlib
+import re
 import string
 import sys
 
@@ -359,6 +360,42 @@ def overlapping_identities(profiles):
     return errors
 
 
+# Forms CONVENTIONS.md rules out of the catalog's prose, and what to write instead.
+RULED_OUT_TERMS = [
+    (r"\bINSTEON\b", "Insteon"),
+    (r"(?<![.\w])[iI]2cs\b|\bI2CS\b", "i2CS"),
+    (r"\b[Aa]cknowledgement", "acknowledgment"),
+    (r"\b[Pp]ower line", "powerline"),
+    (r"\bon level\b", "on-level"),
+    (r"\b(2242|2245) Hub\b", "Hub 2242, Hub 2245"),
+    (r"\bAll-Link|\ball-link", "ALL-Link"),
+    (r"(?<!ALL-)\b[Ll]ink database", "ALL-Link database"),
+    (r"\bclean-up", "cleanup"),
+    (r"\b[Ss]et button\b", "SET button"),
+]
+
+
+def term_problems(label, value, key=None):
+    """The ruled-out terms in a profile's or command set's descriptions, notes and names."""
+
+    problems = []
+
+    if isinstance(value, dict):
+        for child_key, child in value.items():
+            problems += term_problems(label, child, child_key)
+    elif isinstance(value, list):
+        for child in value:
+            problems += term_problems(label, child, key)
+    elif isinstance(value, str) and (key in {"description", "note", "notes"} or (key == "name" and " " in value)):
+        prose = re.sub(r"`[^`]*`", "", value)
+
+        for pattern, replacement in RULED_OUT_TERMS:
+            if found := re.search(pattern, prose):
+                problems.append(f"{label}: {found.group(0)!r} in {key}; use {replacement}")
+
+    return problems
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--output", type=pathlib.Path, help="where to write v1/catalog.json and v1/manifest.json")
@@ -367,6 +404,12 @@ def main():
     profiles, errors = load_profiles()
     command_sets, command_set_errors = load_command_sets(profiles)
     errors += command_set_errors
+
+    for profile in profiles:
+        errors += term_problems(f"{profile['model']}.json", profile)
+
+    for command_set in command_sets:
+        errors += term_problems(f"{command_set['id']}.json", command_set)
 
     for error in errors:
         print(error, file=sys.stderr)

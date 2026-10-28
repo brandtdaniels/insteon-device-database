@@ -1,7 +1,7 @@
 {
   "id": "inLineLinc0To10V",
-  "name": "In-LineLinc 0-10 V Ballast Dimmer",
-  "description": "The In-LineLinc 0-10 V ballast dimmer, which runs the KeypadLinc code base and works as a 0-10 V dimmer or two relays. Its two input lines trigger groups 1 through 4, which use the on masks, on-levels and ramp rates of groups 2 through 5.",
+  "name": "In-LineLinc 0-10V Ballast Dimmer",
+  "description": "The In-LineLinc 0-10V ballast dimmer, which runs the KeypadLinc code base and works as a 0-10V dimmer or two relays. Its two input lines trigger groups 1 through 4, which use the on masks, on-levels and ramp rates of groups 2 through 5.",
   "enumerations": [
     {
       "name": "manualChangeDirection",
@@ -65,7 +65,7 @@
     },
     {
       "name": "powerLineOff",
-      "description": "Insteon communication over the power line is off. The device turns it back on whenever it powers up.",
+      "description": "Insteon communication over the powerline is off. The device turns it back on whenever it powers up.",
       "query": "0x00",
       "bit": "0x80",
       "on": "0x0E",
@@ -73,7 +73,7 @@
     },
     {
       "name": "applicationRetries",
-      "description": "The device retries application messages as many times as its link database says, and reports cleanup errors.",
+      "description": "The device retries application messages as many times as its ALL-Link database says, and reports cleanup errors.",
       "query": "0x05",
       "bit": "0x01",
       "on": "0x10",
@@ -105,7 +105,7 @@
     },
     {
       "name": "relayMode",
-      "description": "The dimmer works as a relay rather than a 0-10 V dimmer.",
+      "description": "The dimmer works as a relay rather than a 0-10V dimmer.",
       "query": "0x05",
       "bit": "0x80",
       "on": "0x1F",
@@ -115,7 +115,7 @@
   "readings": [
     {
       "name": "databaseDelta",
-      "description": "A count that goes up whenever the link database changes.",
+      "description": "A count that goes up whenever the ALL-Link database changes.",
       "query": "0x01"
     },
     {
@@ -230,7 +230,7 @@
       },
       {
         "name": "dacRange",
-        "description": "Sets the range of the 0-10 V output: D3 points to the start of the DAC table (the minimum) and D4 to its end (the maximum).",
+        "description": "Sets the range of the 0-10V output: D3 points to the start of the DAC table (the minimum) and D4 to its end (the maximum).",
         "selector": "0x0D",
         "perButton": false,
         "bytes": [
@@ -323,7 +323,7 @@
     },
     {
       "name": "readStatus",
-      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "description": "Reads the load's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
       "command1": "0x19",
       "command2": "0x00",
       "reply": {
@@ -333,14 +333,14 @@
     },
     {
       "name": "beep",
-      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "description": "Beeps once, as pressing the SET button does. The device ignores cmd2.",
       "command1": "0x30"
     }
   ],
   "extendedCommands": [
     {
       "name": "readLimits",
-      "description": "Reads the retry count and the 0-10 V output's range with a second extended Get, which has 0x04 in D3.",
+      "description": "Reads the retry count and the 0-10V output's range with a second extended Get, which has 0x04 in D3.",
       "command1": "0x2E",
       "command2": "0x00",
       "perButton": true,
