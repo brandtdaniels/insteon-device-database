@@ -89,6 +89,38 @@ The device itself is the surest source: it reports its engine in reply to a get 
 command (cmd1 `0x0D`). The catalog's entries are for deciding before asking, or for a device
 that doesn't answer.
 
+## A product's lifecycle
+
+A profile's `lifecycle` says how to install the product, link it, wake it, reset it and take it
+out of service, so an app can guide a person through each, or do the steps it can itself:
+
+```json
+"lifecycle": {
+  "linking": { "steps": [
+    { "text": "Press and hold the SET button until the switch beeps.",
+      "action": "hold", "control": "SET button", "seconds": 3, "expect": "Beep" } ] },
+  "linkingTimeoutSeconds": 240,
+  "reset": { "steps": [
+    { "text": "Pull the SET button out until the LEDs turn off.", "action": "pullTab", "control": "SET button" },
+    { "text": "Wait about 10 seconds.", "action": "wait", "seconds": 10 },
+    { "text": "Push in and hold the SET button until the long beep stops.", "action": "hold", "control": "SET button", "expect": "Long beep" } ] },
+  "resetErases": ["links", "settings"]
+}
+```
+
+- `installation`, `linking`, `multiLinking`, `unlinking`, `waking`, `reset` and `removal` are each
+  steps in order, with `notes` and a `verification` like any other value.
+- A step's `text` is what a person reads. `action`, `control`, `seconds`, `count` and `expect`
+  say the same in a form an app can use: which button to hold and for how long, how many taps,
+  and the beep or LED that shows it worked. A step an app sends instead names its Insteon
+  `command`.
+- Linking is written for the device alone, not for a Hub or app: two devices link when one goes
+  into linking mode and then the other, and the first becomes the controller. An app linking a
+  device to its modem follows the same steps for the device, and can send Enter Linking Mode
+  instead where the device takes it.
+- `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
+  battery device stays awake, and `resetErases` what a factory reset clears.
+
 ## Command sets
 
 Many products share the same settings, so the catalog describes them once, as command sets, and
