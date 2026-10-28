@@ -1,5 +1,10 @@
 # INSTEON Device Database
 
+[![Database](https://github.com/brandtdaniels/insteon-device-database/actions/workflows/database.yml/badge.svg?branch=main)](https://github.com/brandtdaniels/insteon-device-database/actions/workflows/database.yml)
+[![Device profiles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fbrandtdaniels.github.io%2Finsteon-device-database%2Fv1%2Fmanifest.json&query=%24.devices&label=device%20profiles)](https://brandtdaniels.github.io/insteon-device-database/v1/database.json)
+[![Schema](https://img.shields.io/badge/schema-v1-blue.svg)](schema/device-profile.schema.json)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 What each INSTEON product is and what it can do, as data, so software can support a device by
 looking it up instead of carrying code for it.
 
