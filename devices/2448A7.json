@@ -27,8 +27,8 @@
   ],
   "notes": [
     "Has no SET button: start linking from software with Start ALL-Linking (0x64).",
-    "Reaches powerline devices only through a dual-band device, such as an Access Point or LampLinc Dual Band.",
+    "Reaches powerline devices only through a dual-band device, such as the Access Point 2443 or a dual-band LampLinc.",
     "Has no X10: it answers Send X10 (0x63) with a NAK, and never sends X10 Received (0x52).",
-    "The USB Adapter Developer Notes say it uses the PowerLinc USB 2414U's protocol, but the commands they name are the PowerLinc Modem's."
+    "The USB Adapter Developer Notes say it uses the PowerLinc USB 2414U's protocol, but the commands they name are the PowerLinc Modem 2413's."
   ]
 }

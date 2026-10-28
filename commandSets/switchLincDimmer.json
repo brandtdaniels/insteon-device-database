@@ -1,7 +1,7 @@
 {
   "id": "switchLincDimmer",
   "name": "SwitchLinc Dimmer",
-  "description": "The dual-band SwitchLinc dimmers, which run the KeypadLinc code base with a single load and no button masks.",
+  "description": "The SwitchLinc dimmers, which run the KeypadLinc code base with a single load and no button masks.",
   "enumerations": [
     {
       "name": "triggerLevel",
@@ -32,6 +32,20 @@
           "value": "0x01",
           "name": "instant",
           "description": "Instantly."
+        }
+      ]
+    },
+    {
+      "name": "setButtonTap",
+      "description": "What a remote SET button tap sets.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "onLevel"
+        },
+        {
+          "value": "0x02",
+          "name": "rampRate"
         }
       ]
     }
@@ -82,7 +96,7 @@
       "off": "0x0B",
       "verification": {
         "status": "conflicting",
-        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list bit 5 of the 0x00 reply as load sense, but set key beep with 0x0A and 0x0B; other sources make bit 5 the key beep on this code base, as used here."
+        "note": "The Insteon Developer's Guide gives bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07, and the SwitchLinc 2-Wire Dimmer Developer Notes also call it load sense but set key beep with 0x0A and 0x0B; the KeypadLinc Line Developer Notes make bit 5 key beep on the code base these dimmers run, as used here."
       }
     },
     {
@@ -142,23 +156,25 @@
       "off": "0x18"
     },
     {
-      "name": "bigHoldOff",
-      "description": "The bit the SwitchLinc 2-Wire Dimmer Developer Notes call BigHoldOff, which they don't explain.",
+      "name": "longHoldoff",
+      "description": "The device holds off 8 times as long before sending, 16 to 72 zero crossings rather than 2 to 9.",
       "query": "0x05",
       "bit": "0x20",
       "verification": {
-        "status": "documented",
-        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes list this bit; no command sets it."
+        "status": "inferred",
+        "note": "Only the SwitchLinc 2-Wire Dimmer Developer Notes list this bit for a SwitchLinc, as BigHoldOff, and they list cmd2 0x1A and 0x1B as unused; its meaning is read from the Global Line Developer Notes, which set it with 0x1B. On the KeypadLinc the same bit is detach load."
       }
     },
     {
-      "name": "startHopsFromLastAck",
-      "description": "Messages start with the hop count of the last acknowledgment received; smart hops on (cmd2 0x1C) and off (cmd2 0x1D) set and clear it.",
+      "name": "smartHops",
+      "description": "Each message starts with the hop count of the last acknowledgment received (smart hops). When the bit is 0, each message starts with one hop.",
       "query": "0x05",
       "bit": "0x40",
+      "on": "0x1C",
+      "off": "0x1D",
       "verification": {
         "status": "inferred",
-        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes name bit 6 of the 0x05 reply IA start hops; tying it to the smart hops commands is read from the names."
+        "note": "Read from the KeypadLinc Line Developer Notes and Global Line Developer Notes, which name bit 6 of the 0x05 reply smart hops, or IA start hops, and set it with cmd2 0x1C; the SwitchLinc 2-Wire Dimmer Developer Notes list the bit but give cmd2 0x1C and 0x1D as unused."
       }
     }
   ],
@@ -184,16 +200,6 @@
     }
   ],
   "flagCommands": [
-    {
-      "name": "smartHopsOn",
-      "description": "Starts each message with the hop count of the last acknowledgment received (smart hops).",
-      "command2": "0x1C"
-    },
-    {
-      "name": "smartHopsOff",
-      "description": "Starts each message with one hop.",
-      "command2": "0x1D"
-    },
     {
       "name": "yakityYakOff",
       "description": "Turns the Yakity Yak signaling option off.",
@@ -406,11 +412,13 @@
       "command1": "0x25",
       "parameter": {
         "name": "setting",
-        "description": "0x00 sets the on-level, 0x02 the ramp rate."
+        "description": "What to set.",
+        "kind": "enumeration",
+        "enumeration": "setButtonTap"
       },
       "verification": {
         "status": "conflicting",
-        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes send 0x00 to set the on-level, as used here; the Insteon Developer's Guide counts taps in cmd2, so one tap is 0x01."
+        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes send 0x00 to set the on-level and 0x02 the ramp rate, as used here; the Insteon Developer's Guide calls 0x00 unused and counts taps in cmd2, one tap 0x01 and two 0x02."
       }
     },
     {
@@ -420,6 +428,10 @@
       "parameter": {
         "name": "levelAndRampRate",
         "description": "Bits 4 through 7 give the level, which is 16 times their value plus 0x0F, and bits 0 through 3 the ramp rate, which is 2 times their value plus 1."
+      },
+      "verification": {
+        "status": "conflicting",
+        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes give the level as 16 times bits 4 through 7 plus 0x0F and the ramp rate as 2 times bits 0 through 3 plus 1, as used here; the Insteon Developer's Guide prints bits 4 through 7 as the on-level plus 0x0F and bits 0 through 3 as 2 times the ramp rate plus 1."
       }
     },
     {
@@ -430,18 +442,26 @@
         "name": "rampRate",
         "description": "The ramp rate, which is 2 times this value plus 1.",
         "mask": "0x0F"
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the SwitchLinc 2-Wire Dimmer Developer Notes and the KeypadLinc code base; the Insteon Developer's Guide reserves standard commands 0x2F through 0x3F."
       }
     },
     {
       "name": "beep",
       "description": "Beeps once, as pressing the SET button does. The device ignores cmd2.",
-      "command1": "0x30"
+      "command1": "0x30",
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the SwitchLinc 2-Wire Dimmer Developer Notes and the KeypadLinc code base; the Insteon Developer's Guide reserves standard commands 0x2F through 0x3F."
+      }
     }
   ],
   "extendedCommands": [
     {
       "name": "triggerGroup",
-      "description": "Sends group D1's command to the group as if its button were pressed, and sets the local load as D2 through D6 say. The device doesn't parse the command it sends, so to turn the local load off, put 0x01 in D2 and 0x00 in D3.",
+      "description": "Acts as if group D1's button had been pressed: sends the cmd1 and cmd2 in D4 and D5 to group D1, and sets the local load as D2, D3 and D6 say. The device doesn't parse the command it sends, so to turn the local load off, put 0x01 in D2 and 0x00 in D3.",
       "command1": "0x30",
       "command2": "0x00",
       "perButton": true,
@@ -479,7 +499,11 @@
           "kind": "enumeration",
           "enumeration": "triggerRampRate"
         }
-      ]
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The SwitchLinc 2-Wire Dimmer Developer Notes make D2 and D6 0x00 the local on-level and ramp rate, as used here; the Insteon Developer's Guide makes them the on-level and ramp rate stored in the ALL-Link database."
+      }
     }
   ]
 }
