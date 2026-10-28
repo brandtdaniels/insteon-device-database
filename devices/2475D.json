@@ -14,6 +14,26 @@
       "subcategory": "0x1A"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x1A",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xCF",
+          "0xD1",
+          "0xD2",
+          "0xD3",
+          "0xD4",
+          "0xD5",
+          "0xD6",
+          "0xD7"
+        ]
+      }
+    }
+  ],
   "radio": "powerline",
   "role": "responder",
   "groups": [
@@ -26,28 +46,6 @@
   "capabilities": [
     {
       "kind": "dimmable"
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x01",
-          "subcategory": "0x1A",
-          "firmware": {
-            "only": [
-              "0x41",
-              "0xCF",
-              "0xD1",
-              "0xD2",
-              "0xD3",
-              "0xD4",
-              "0xD5",
-              "0xD6",
-              "0xD7"
-            ]
-          }
-        }
-      ]
     }
   ],
   "notes": [

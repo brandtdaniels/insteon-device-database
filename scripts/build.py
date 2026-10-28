@@ -40,16 +40,7 @@ def load_profiles():
         if len(kinds) != len(set(kinds)):
             problems.append(f"{path.name}: a capability kind appears more than once")
 
-        identities = {(identity["category"], identity["subcategory"]) for identity in profile.get("identities", [])}
-
-        for capability in profile.get("capabilities", []):
-            scoped = [(scope["category"], scope["subcategory"]) for scope in capability.get("identities", [])]
-
-            if not set(scoped) <= identities:
-                problems.append(f"{path.name}: the {capability['kind']} capability names an identity the product doesn't have")
-
-            if len(scoped) != len(set(scoped)):
-                problems.append(f"{path.name}: the {capability['kind']} capability names an identity more than once")
+        problems += [f"{path.name}: {problem}" for problem in engine_problems(profile)]
 
         errors += problems
         profiles.append(profile)
@@ -57,6 +48,41 @@ def load_profiles():
     errors += overlapping_identities(profiles)
 
     return profiles, errors
+
+
+def selected_firmware(selection):
+    """The firmware versions a selection includes, or every version for none."""
+    if selection is None:
+        return set(range(0x100))
+
+    if "only" in selection:
+        return {int(version, 16) for version in selection["only"]}
+
+    return set(range(0x100)) - {int(version, 16) for version in selection["except"]}
+
+
+def engine_problems(profile):
+    """Reports engine entries for identities the product doesn't have, and firmware versions
+    two entries give an engine for under the same identity."""
+    identities = {(identity["category"], identity["subcategory"]) for identity in profile.get("identities", [])}
+    claimed = {}
+    problems = []
+
+    for entry in profile.get("engines", []):
+        key = (entry["category"], entry["subcategory"])
+
+        if key not in identities:
+            problems.append(f"an engine entry names {key[0]}/{key[1]}, which the product doesn't report")
+            continue
+
+        versions = selected_firmware(entry.get("firmware"))
+
+        if versions & claimed.get(key, set()):
+            problems.append(f"two engine entries cover the same firmware under {key[0]}/{key[1]}")
+
+        claimed[key] = claimed.get(key, set()) | versions
+
+    return problems
 
 
 def firmware_range(identity):
@@ -176,22 +202,24 @@ CAPABILITY_LABELS = {
     "thermostat": "Thermostat",
     "groupEvents": "Group events",
     "heartbeat": "Heartbeat",
-    "i2cs": "i2CS checksums",
 }
 
+# How the page names each engine.
+ENGINE_LABELS = {"i1": "i1", "i2": "i2", "i2cs": "i2CS"}
 
-def scope_note(scope):
-    """How the page describes the identity and firmware versions a capability applies to."""
-    identity = f"{scope['category']}/{scope['subcategory']}"
-    selection = scope.get("firmware")
+
+def engine_note(entry):
+    """How the page shows an identity's engine, with the firmware versions in its tooltip."""
+    label = ENGINE_LABELS[entry["engine"]]
+    selection = entry.get("firmware")
 
     if selection is None:
-        return f"{identity}: every firmware version"
+        return label, f"Every firmware version runs {label}."
 
     if "only" in selection:
-        return f"{identity}: firmware " + ", ".join(selection["only"])
+        return f"{label} on some firmware", f"Firmware {', '.join(selection['only'])} runs {label}."
 
-    return f"{identity}: every firmware version except " + ", ".join(selection["except"])
+    return f"{label} on most firmware", f"Every firmware version except {', '.join(selection['except'])} runs {label}."
 
 
 def capability_descriptions():
@@ -221,9 +249,22 @@ def index_page(profiles):
                 notes.append(f"firmware {identity['firmware']['from']}–{identity['firmware']['through']}")
 
             code = identity["subcategory"] if identity["category"] == category else f"{identity['category']}/{identity['subcategory']}"
-            subcategories.append(code + (f" <small>{escape(', '.join(notes))}</small>" if notes else ""))
+            engines = ""
 
-        search = " ".join([profile["model"], profile["name"], *aliases, *(f"{i['category']}/{i['subcategory']}" for i in profile["identities"])]).lower()
+            for entry in profile.get("engines", []):
+                if (entry["category"], entry["subcategory"]) == (identity["category"], identity["subcategory"]):
+                    label, title = engine_note(entry)
+                    engines += f' <small class="engine" title="{escape(title)}">{escape(label)}</small>'
+
+            subcategories.append(code + (f" <small>{escape(', '.join(notes))}</small>" if notes else "") + engines)
+
+        search = " ".join([
+            profile["model"],
+            profile["name"],
+            *aliases,
+            *(f"{i['category']}/{i['subcategory']}" for i in profile["identities"]),
+            *(entry["engine"] for entry in profile.get("engines", [])),
+        ]).lower()
         name = escape(profile["name"])
 
         if aliases:
@@ -234,22 +275,16 @@ def index_page(profiles):
 
         chips = ""
 
-        for capability in profile["capabilities"]:
-            kind = capability["kind"]
+        for kind in kinds:
             title = descriptions.get(kind, "")
-            label = escape(CAPABILITY_LABELS.get(kind, kind))
-
-            if "identities" in capability:
-                title += " Applies to " + "; ".join(scope_note(scope) for scope in capability["identities"]) + "."
-                label += ' <span class="firmware">some versions</span>'
-
-            chips += f'<span class="chip" title="{escape(title)}">{label}</span>'
+            chips += f'<span class="chip" title="{escape(title)}">{escape(CAPABILITY_LABELS.get(kind, kind))}</span>'
 
         attributes = {
             "search": search,
             "model": profile["model"],
             "name": profile["name"],
             "capabilities": " ".join(kinds),
+            "engines": " ".join(sorted({entry["engine"] for entry in profile.get("engines", [])})),
             "radio": profile.get("radio", ""),
             "battery": "true" if profile.get("batteryPowered") else "false",
         }
@@ -295,6 +330,11 @@ def index_page(profiles):
         sections="\n".join(sections),
         jump_links="".join(f'<a href="#category-{c}">{escape(CATEGORY_NAMES.get(c, c))}</a>' for c in categories),
         category_options="".join(f'<option value="{c}">{escape(CATEGORY_NAMES.get(c, c))}</option>' for c in categories),
+        engine_options="".join(
+            f'<option value="{e}">{ENGINE_LABELS[e]}</option>'
+            for e in ENGINE_LABELS
+            if any(entry["engine"] == e for profile in profiles for entry in profile.get("engines", []))
+        ),
         capability_options="".join(f'<option value="{k}">{escape(CAPABILITY_LABELS.get(k, k))}</option>' for k in kinds),
     )
 

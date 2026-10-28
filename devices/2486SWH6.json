@@ -10,34 +10,32 @@
       "subcategory": "0x0F"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x02",
+      "subcategory": "0x0F",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xB2",
+          "0xB3",
+          "0xB5",
+          "0xB6",
+          "0xB7",
+          "0xB8",
+          "0xB9",
+          "0xBA",
+          "0xBB",
+          "0xBC"
+        ]
+      }
+    }
+  ],
   "role": "both",
   "capabilities": [
     {
       "kind": "onOff"
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x02",
-          "subcategory": "0x0F",
-          "firmware": {
-            "only": [
-              "0x41",
-              "0xB2",
-              "0xB3",
-              "0xB5",
-              "0xB6",
-              "0xB7",
-              "0xB8",
-              "0xB9",
-              "0xBA",
-              "0xBB",
-              "0xBC"
-            ]
-          }
-        }
-      ]
     }
   ],
   "sources": [

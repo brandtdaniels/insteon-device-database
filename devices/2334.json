@@ -17,12 +17,21 @@
       "region": "US"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x41"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x42"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "sources": [

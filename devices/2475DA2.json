@@ -11,6 +11,13 @@
       "subcategory": "0x25"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x25"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [
@@ -23,9 +30,6 @@
   "capabilities": [
     {
       "kind": "dimmable"
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "notes": [

@@ -45,6 +45,13 @@
         "$ref": "#/$defs/identity"
       }
     },
+    "engines": {
+      "description": "Which Insteon engine the product runs under each identity and firmware version, where a source states it. A version no entry covers runs an engine the catalog doesn't know.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/engine"
+      }
+    },
     "radio": {
       "description": "How the product communicates: powerline, RF, or both. Omitted when no source states it.",
       "enum": [
@@ -319,28 +326,11 @@
               "minimum": 1
             }
           }
-        },
-        {
-          "description": "Runs the i2CS engine: it rejects an extended message whose D14 checksum is wrong.",
-          "additionalProperties": false,
-          "properties": {
-            "kind": {
-              "const": "i2cs"
-            },
-            "identities": {
-              "description": "The identities the capability applies to, each with the firmware versions that have it. Omitted, it applies to every identity and firmware version of the product.",
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/$defs/capabilityScope"
-              }
-            }
-          }
         }
       ]
     },
     "firmwareSelection": {
-      "description": "The firmware versions that have a capability: only the versions listed, or every version except them. Omitted, every version has it.",
+      "description": "Firmware versions: only the versions listed, or every version except them.",
       "type": "object",
       "additionalProperties": false,
       "minProperties": 1,
@@ -366,15 +356,23 @@
         }
       }
     },
-    "capabilityScope": {
-      "description": "An identity the capability applies to, and the firmware versions under that identity that have it.",
+    "engine": {
+      "description": "The Insteon engine a product runs under one of its identities: i1, i2, or i2cs, which rejects an extended message whose D14 checksum is wrong. A device also reports its engine in reply to a get engine version command (cmd1 0x0D).",
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "engine",
         "category",
         "subcategory"
       ],
       "properties": {
+        "engine": {
+          "enum": [
+            "i1",
+            "i2",
+            "i2cs"
+          ]
+        },
         "category": {
           "$ref": "#/$defs/byte"
         },
@@ -382,6 +380,7 @@
           "$ref": "#/$defs/byte"
         },
         "firmware": {
+          "description": "The firmware versions that run the engine. Omitted, every version does.",
           "$ref": "#/$defs/firmwareSelection"
         }
       }
