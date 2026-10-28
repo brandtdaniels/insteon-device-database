@@ -18,8 +18,8 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
   ALL-Link controller, a responder, or both.
 - **Groups:** its ALL-Link groups, and whether software must link a group.
 - **Capabilities:** what it can do, chosen from a fixed set: `onOff`, `dimmable`, `modem`,
-  `hub`, `hubPro`, `thermostat`, `groupEvents` and `heartbeat`. A capability is a description,
-  never code.
+  `hub`, `hubPro`, `thermostat`, `groupEvents`, `heartbeat` and `i2cs`. A capability can be
+  limited to some identities and firmware versions. A capability is a description, never code.
 - **Sources:** the documents its values come from.
 
 [`schema/device-profile.schema.json`](schema/device-profile.schema.json) defines the format.

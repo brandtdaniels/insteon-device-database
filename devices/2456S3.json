@@ -1,6 +1,9 @@
 {
   "model": "2456S3",
-  "name": "ApplianceLinc",
+  "name": "On/Off Module",
+  "aliases": [
+    "ApplianceLinc"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -10,6 +13,26 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x09",
+          "firmware": {
+            "only": [
+              "0x42",
+              "0xD1",
+              "0xD2",
+              "0xD3",
+              "0xD4",
+              "0xD5",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

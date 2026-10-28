@@ -1,6 +1,9 @@
 {
   "model": "2456S3T",
-  "name": "TimerLinc",
+  "name": "Timer Module",
+  "aliases": [
+    "TimerLinc"
+  ],
   "identities": [
     {
       "category": "0x02",

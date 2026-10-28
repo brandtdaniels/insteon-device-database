@@ -1,6 +1,9 @@
 {
   "model": "2466SW",
-  "name": "ToggleLinc On/Off",
+  "name": "Toggle On/Off Switch",
+  "aliases": [
+    "ToggleLinc On/Off"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -14,6 +17,21 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x1A",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xD5"
+            ]
+          }
+        }
+      ]
     }
   ],
   "notes": [

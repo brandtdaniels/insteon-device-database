@@ -1,6 +1,9 @@
 {
   "model": "2476S",
-  "name": "SwitchLinc Relay",
+  "name": "On/Off Switch",
+  "aliases": [
+    "SwitchLinc Relay"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -18,6 +21,40 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x15",
+          "firmware": {
+            "only": [
+              "0x41"
+            ]
+          }
+        },
+        {
+          "category": "0x02",
+          "subcategory": "0x1C",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xCC",
+              "0xCD",
+              "0xCE",
+              "0xCF",
+              "0xD0",
+              "0xD1",
+              "0xD2",
+              "0xD3",
+              "0xD4",
+              "0xD5",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

@@ -1,6 +1,9 @@
 {
   "model": "2476ST",
-  "name": "SwitchLinc Relay Countdown Timer",
+  "name": "On/Off Switch with Countdown Timer",
+  "aliases": [
+    "SwitchLinc Relay Countdown Timer"
+  ],
   "identities": [
     {
       "category": "0x02",

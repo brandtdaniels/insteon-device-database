@@ -1,6 +1,9 @@
 {
   "model": "2473SWH",
-  "name": "OutletLinc Relay",
+  "name": "On/Off Outlet",
+  "aliases": [
+    "OutletLinc Relay"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -10,6 +13,30 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x08",
+          "firmware": {
+            "only": [
+              "0x42",
+              "0xCD",
+              "0xCE",
+              "0xCF",
+              "0xD0",
+              "0xD1",
+              "0xD2",
+              "0xD3",
+              "0xD4",
+              "0xD5",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

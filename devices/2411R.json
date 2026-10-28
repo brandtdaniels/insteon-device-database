@@ -1,13 +1,31 @@
 {
   "model": "2411R",
-  "name": "IRLinc Receiver",
+  "name": "Infrared Receiver",
+  "aliases": [
+    "IRLinc Receiver"
+  ],
   "identities": [
     {
       "category": "0x03",
       "subcategory": "0x06"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x03",
+          "subcategory": "0x06",
+          "firmware": {
+            "only": [
+              "0x40"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

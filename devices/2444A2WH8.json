@@ -9,7 +9,27 @@
   ],
   "radio": "rf",
   "role": "controller",
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x00",
+          "subcategory": "0x12",
+          "firmware": {
+            "only": [
+              "0x37",
+              "0x92",
+              "0x93",
+              "0x94",
+              "0x95",
+              "0x96"
+            ]
+          }
+        }
+      ]
+    }
+  ],
   "sources": [
     "HouseLinc device catalog",
     "Insteon device database (SQLite, InsteonDevices.db)"

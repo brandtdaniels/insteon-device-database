@@ -319,8 +319,72 @@
               "minimum": 1
             }
           }
+        },
+        {
+          "description": "Runs the i2CS engine: it rejects an extended message whose D14 checksum is wrong.",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "i2cs"
+            },
+            "identities": {
+              "description": "The identities the capability applies to, each with the firmware versions that have it. Omitted, it applies to every identity and firmware version of the product.",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/capabilityScope"
+              }
+            }
+          }
         }
       ]
+    },
+    "firmwareSelection": {
+      "description": "The firmware versions that have a capability: only the versions listed, or every version except them. Omitted, every version has it.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "only": {
+          "description": "The firmware versions that have the capability.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/byte"
+          }
+        },
+        "except": {
+          "description": "The firmware versions that don't have the capability.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/byte"
+          }
+        }
+      }
+    },
+    "capabilityScope": {
+      "description": "An identity the capability applies to, and the firmware versions under that identity that have it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "subcategory"
+      ],
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/byte"
+        },
+        "subcategory": {
+          "$ref": "#/$defs/byte"
+        },
+        "firmware": {
+          "$ref": "#/$defs/firmwareSelection"
+        }
+      }
     }
   }
 }

@@ -7,7 +7,11 @@
       "subcategory": "0x0A"
     }
   ],
-  "capabilities": [],
+  "capabilities": [
+    {
+      "kind": "i2cs"
+    }
+  ],
   "sources": [
     "HouseLinc device catalog"
   ]

@@ -1,6 +1,9 @@
 {
   "model": "2484DST6",
-  "name": "KeypadLinc Schedule Timer with Dimmer",
+  "name": "Schedule Timer Dimmer Keypad",
+  "aliases": [
+    "KeypadLinc Schedule Timer with Dimmer"
+  ],
   "identities": [
     {
       "category": "0x01",

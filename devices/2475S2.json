@@ -1,6 +1,9 @@
 {
   "model": "2475S2",
-  "name": "In-LineLinc Relay with Sense",
+  "name": "In-Line On/Off Module with Sense",
+  "aliases": [
+    "In-LineLinc Relay with Sense"
+  ],
   "identities": [
     {
       "category": "0x02",
@@ -10,6 +13,23 @@
   "capabilities": [
     {
       "kind": "onOff"
+    },
+    {
+      "kind": "i2cs",
+      "identities": [
+        {
+          "category": "0x02",
+          "subcategory": "0x14",
+          "firmware": {
+            "only": [
+              "0x41",
+              "0xD4",
+              "0xD5",
+              "0xD6"
+            ]
+          }
+        }
+      ]
     }
   ],
   "sources": [

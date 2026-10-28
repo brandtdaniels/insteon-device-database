@@ -1,6 +1,9 @@
 {
   "model": "2474S",
-  "name": "ICON In-LineLinc Relay",
+  "name": "ICON In-Line On/Off Module",
+  "aliases": [
+    "ICON In-LineLinc Relay"
+  ],
   "identities": [
     {
       "category": "0x02",
