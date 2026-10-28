@@ -31,14 +31,32 @@
           "expect": "Beep; status LED solid green or red; after 20 seconds a double beep and calibration mode"
         },
         {
-          "text": "Make sure the load is off or in standby, wait at least 10 seconds, then tap the SET button to record the low energy state.",
+          "text": "Make sure the load is off or in standby.",
+          "action": "other"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Tap the SET button to record the low energy state.",
           "action": "tap",
           "control": "SET button",
           "count": 1,
           "expect": "Beep"
         },
         {
-          "text": "Turn the load on or to its high energy state, wait at least 10 seconds, then tap the SET button to record the high energy state.",
+          "text": "Turn the load on or to its high energy state.",
+          "action": "other"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Tap the SET button to record the high energy state.",
           "action": "tap",
           "control": "SET button",
           "count": 1,
@@ -116,10 +134,15 @@
           "expect": "Beep; status LED solid green or red"
         },
         {
-          "text": "Keep holding the SET button for 3 seconds, then release it.",
+          "text": "Keep holding the SET button for 3 seconds.",
           "action": "hold",
           "control": "SET button",
-          "seconds": 3,
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
           "expect": "After a few seconds, a double beep and the status LED changes color"
         }
       ],

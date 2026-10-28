@@ -26,6 +26,8 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
   identity: its operating flags, extended settings, other standard and extended commands, and
   the direct messages it sends, which [`commandSets/`](commandSets) describes once for every
   product that shares them.
+- **Lifecycle:** how to install the product, link and unlink it, wake it, reset it and take it
+  out of service, as steps a person or an app follows.
 - **Sources:** the documents its values come from.
 
 [`schema/device-profile.schema.json`](schema/device-profile.schema.json) and
@@ -65,6 +67,15 @@ the catalog and treat downloading a newer one as optional.
 3. Follow [CONVENTIONS.md](CONVENTIONS.md) for names, terms and citations; the build fails on
    the forms it rules out.
 4. Open a pull request. CI runs the same check.
+
+### Lifecycle steps
+
+Write each procedure in `lifecycle` as the product's documents give it, one action per step: a
+step that holds the SET button and then releases it is two steps. Mark a step done on the other
+device being linked, or on the Hub, with `"device": "other"`. Put another way of doing the same
+thing, such as from a Hub, in the procedure's `alternatives`, with a `description` that names
+it; a Hub's commands are `send` steps naming their Insteon `command`. [API.md](API.md#a-products-lifecycle)
+lists every `action`.
 
 ### How sure a value is
 

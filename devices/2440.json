@@ -113,10 +113,10 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send Ping a few times to check the link.",
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
-              "expect": "The device acknowledges each Ping"
+              "expect": "The device acknowledges the Ping"
             },
             {
               "text": "When done, tap the same On button to leave multi-linking mode.",
@@ -126,11 +126,11 @@
             }
           ],
           "notes": [
-            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device."
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -218,10 +218,15 @@
           "expect": "Beep; status LED turns on solid"
         },
         {
-          "text": "Keep holding the Bright button for about 10 seconds, then release it.",
+          "text": "Keep holding the Bright button for about 10 seconds.",
           "action": "hold",
           "control": "Bright button",
-          "seconds": 10,
+          "seconds": 10
+        },
+        {
+          "text": "Release the Bright button.",
+          "action": "release",
+          "control": "Bright button",
           "expect": "Continuous beep while held; double beep and status LED turns off on release"
         }
       ],
@@ -235,20 +240,20 @@
     "removal": {
       "steps": [
         {
-          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "text": "Remove the device from every scene, as a controller.",
           "action": "other"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "No document describes this; it's how the device is set up in practice."
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
       },
       "alternatives": [
         {
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Remove the device from every scene on the Hub first.",
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
               "device": "other",
               "action": "other"
             },
@@ -267,19 +272,16 @@
               "expect": "Beep; status LED keeps blinking"
             },
             {
-              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The Hub reports the device's Insteon ID"
+              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
             }
-          ],
-          "notes": [
-            "The Hub won't remove a device that still belongs to a scene."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
           }
         }
       ]

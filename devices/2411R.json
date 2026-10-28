@@ -207,10 +207,15 @@
           "control": "SET button"
         },
         {
-          "text": "Continue to hold down the SET button for 3 seconds and then release it.",
+          "text": "Continue to hold down the SET button for 3 seconds.",
           "action": "hold",
           "control": "SET button",
-          "seconds": 3,
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
           "expect": "About 20 seconds after release, the blue status LED flashes twice"
         }
       ],

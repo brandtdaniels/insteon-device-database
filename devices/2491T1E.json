@@ -90,26 +90,25 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "text": "Have the Hub send ID Request.",
               "action": "send",
-              "command": "ID Request"
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Ping a few times to check the link.",
+              "text": "Have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
-              "expect": "The device acknowledges each Ping"
+              "expect": "The device acknowledges the Ping"
             }
           ],
           "notes": [
             "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
-            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1.",
-            "The Hub makes no links to the thermostat's other groups and doesn't set its clock."
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's linking steps and the Insteon Developer's Guide (2009)'s Start ALL-Linking, ID Request and Ping commands; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -194,7 +193,7 @@
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Remove the device from every scene on the Hub first.",
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
               "device": "other",
               "action": "other"
             },
@@ -205,10 +204,9 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "Press and hold the SET button until the display flashes.",
-              "action": "hold",
-              "control": "SET button",
-              "expect": "Display flashes; Insteon LED blinks green"
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
             },
             {
               "text": "Wait for the Hub to report that the link is gone.",
@@ -217,13 +215,9 @@
               "expect": "The Hub reports the device's Insteon ID"
             }
           ],
-          "notes": [
-            "The Hub won't remove a device that still belongs to a scene.",
-            "Removing it from a Hub needs a press of its SET button; the Hub can't unlink it on its own."
-          ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from the Insteon Developer's Guide (2009)'s Start ALL-Linking and Enter Linking Mode commands; no document describes removing this product from a Hub."
           }
         }
       ]

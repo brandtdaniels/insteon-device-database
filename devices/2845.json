@@ -164,24 +164,34 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send Ping a few times to check the link.",
+              "text": "While the sensor is still awake, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x18 (stay awake on).",
+              "action": "send",
+              "command": "Set Operating Flags"
+            },
+            {
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
-              "expect": "The device acknowledges each Ping"
+              "expect": "The device acknowledges the Ping"
             },
             {
               "text": "Tap the SET button once to finish the scene.",
               "action": "tap",
               "control": "SET button",
               "count": 1
+            },
+            {
+              "text": "When done, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x19 (stay awake off) to let the sensor sleep again.",
+              "action": "send",
+              "command": "Set Operating Flags"
             }
           ],
           "notes": [
-            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device."
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's multi-linking and waking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -268,7 +278,12 @@
           "expect": "Long beep"
         },
         {
-          "text": "Keep holding the SET button until the long beep stops, then let go.",
+          "text": "Keep holding the SET button until the long beep stops.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
           "expect": "Double beep"
@@ -285,20 +300,20 @@
     "removal": {
       "steps": [
         {
-          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "text": "Remove the device from every scene, as a controller.",
           "action": "other"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "No document describes this; it's how the device is set up in practice."
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
       },
       "alternatives": [
         {
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Remove the device from every scene on the Hub first.",
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
               "device": "other",
               "action": "other"
             },
@@ -315,11 +330,11 @@
               "expect": "Beep"
             },
             {
-              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The Hub reports the device's Insteon ID"
+              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",
@@ -329,12 +344,9 @@
               "expect": "LED stops blinking"
             }
           ],
-          "notes": [
-            "The Hub won't remove a device that still belongs to a scene."
-          ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
           }
         }
       ]

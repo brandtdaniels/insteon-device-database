@@ -66,10 +66,15 @@
           "expect": "Blue status LED turns on solid"
         },
         {
-          "text": "Continue to hold down the SET button for 3 seconds and then release it.",
+          "text": "Continue to hold down the SET button for 3 seconds.",
           "action": "hold",
           "control": "SET button",
-          "seconds": 3,
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
           "expect": "After a few seconds, the blue status LED flashes once and then turns on solid"
         },
         {

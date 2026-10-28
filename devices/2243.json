@@ -96,7 +96,12 @@
           "expect": "Hub beeps"
         },
         {
-          "text": "Continue holding the SET button until the Hub stops beeping, then release it.",
+          "text": "Continue holding the SET button until the Hub stops beeping.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
           "expect": "Hub double-beeps"

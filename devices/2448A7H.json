@@ -43,7 +43,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Portable USB Adapter 2448A7 Quick Start Guide (2010, Windows only) and the USB Stick 2448A7 Quick Start Guide (2013, PC or Mac), two versions for the same model that give the same steps apart from the operating systems; no document names the 2448A7H."
+        "note": "Read from the Portable USB Adapter 2448A7 Quick Start Guide, from 2010 and for Windows only, and the USB Stick 2448A7 Quick Start Guide, from 2013 and for PC or Mac: two versions for the same model that give the same steps apart from the operating systems; no document names the 2448A7H."
       }
     },
     "linking": {

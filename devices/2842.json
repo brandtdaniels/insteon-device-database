@@ -124,7 +124,7 @@
         "To control powerline-only devices, at least one Access Point 2443 or other dual-band device is needed.",
         "Avoid aiming at mirrors, windows or direct sunlight; avoid air ducts, steam, oil, fireplaces and large obstructions; keep the lens free of dirt, snow and ice; and for pet rejection, keep climbable furniture over 3 ft more than 6 ft from the sensor.",
         "Jumpers set sensitivity (1), LED off (2), night-only (3), on-only (4) and software management (5); after changing one, tap the SET button once, wait 10 seconds and trigger motion. The left dial sets the off countdown (30 seconds to 2 hours) and the right dial sets the day/night threshold.",
-        "The Motion Sensor 2842 Quick Start Guide (2014) says to install jumper 5 to configure night-only mode and light sensitivity from the Hub."
+        "The Motion Sensor 2842 Quick Start Guide says to install jumper 5 to configure night-only mode and light sensitivity from the Hub."
       ]
     },
     "linking": {
@@ -140,7 +140,7 @@
       "notes": [
         "Then turn the responder on (or set it to any state, such as 50% or off) and press and hold its SET button until it double-beeps; the Motion Sensor's LED stops blinking. Test by tapping the Motion Sensor's SET button.",
         "Repeat for each responder; the documents give limits of 30 and of 32 responders.",
-        "When adding it to a Hub, the Motion Sensor 2842 Quick Start Guide (2014) says to remove the back cover, press and hold the SET button until the status LED blinks, then tap the SET button (the LED double-blinks)."
+        "When adding it to a Hub, the Motion Sensor 2842 Quick Start Guide says to remove the back cover, press and hold the SET button until the status LED blinks, then tap the SET button (the LED double-blinks)."
       ],
       "verification": {
         "status": "conflicting",
@@ -172,20 +172,16 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "text": "Have the Hub send ID Request.",
               "action": "send",
-              "command": "ID Request"
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "While the sensor is still awake, have the Hub send Set Operating Flags (extended) with cmd2 0x18 to keep it awake while the link is checked.",
-              "action": "send",
-              "command": "Set Operating Flags"
-            },
-            {
-              "text": "Have the Hub send Ping a few times to check the link.",
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
-              "expect": "The device acknowledges each Ping"
+              "expect": "The device acknowledges the Ping"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",
@@ -193,20 +189,14 @@
               "control": "SET button",
               "count": 1,
               "expect": "LED stops blinking"
-            },
-            {
-              "text": "When done, have the Hub send Set Operating Flags with cmd2 0x19 to let the sensor sleep again.",
-              "action": "send",
-              "command": "Set Operating Flags"
             }
           ],
           "notes": [
-            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device.",
-            "The stay-awake and sleep commands keep the sensor listening while the Hub checks the link and reads its settings."
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -254,10 +244,15 @@
           "expect": "LED turns on after about 2 seconds"
         },
         {
-          "text": "Keep pressing the SET button for 5 seconds, then release it.",
+          "text": "Keep pressing the SET button for 5 seconds.",
           "action": "hold",
           "control": "SET button",
-          "seconds": 5,
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
           "expect": "LED turns off after about 2 seconds"
         }
       ],
@@ -271,20 +266,20 @@
     "removal": {
       "steps": [
         {
-          "text": "Remove the device from every scene, as a controller and as a responder.",
+          "text": "Remove the device from every scene, as a controller.",
           "action": "other"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "No document describes this; it's how the device is set up in practice."
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
       },
       "alternatives": [
         {
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Remove the device from every scene on the Hub first.",
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
               "device": "other",
               "action": "other"
             },
@@ -303,11 +298,11 @@
               "expect": "LED keeps blinking red"
             },
             {
-              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The Hub reports the device's Insteon ID"
+              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",
@@ -317,12 +312,9 @@
               "expect": "LED stops blinking"
             }
           ],
-          "notes": [
-            "The Hub won't remove a device that still belongs to a scene."
-          ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
           }
         }
       ]

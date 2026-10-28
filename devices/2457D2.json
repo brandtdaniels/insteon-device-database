@@ -92,7 +92,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "When adding the module to the Hub, the Dimmer Plug 2457D2 Owner's Manual says to hold the SET button until the module double-beeps; the Dimmer Plug 2457D2 Quick Start Guide (2016) says until it beeps. The catalog's linking step gives no beep count."
+        "note": "When adding the module to the Hub, the Dimmer Plug 2457D2 Owner's Manual says to hold the SET button until the module double-beeps; the Dimmer Plug 2457D2 Quick Start Guide says until it beeps. The catalog's linking step gives no beep count."
       },
       "alternatives": [
         {
@@ -116,9 +116,10 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send ID Request; the device answers with its category, subcategory and firmware version.",
+              "text": "Have the Hub send ID Request.",
               "action": "send",
-              "command": "ID Request"
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
               "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
@@ -133,20 +134,19 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send Ping a few times to check the link.",
+              "text": "Have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
-              "expect": "The device acknowledges each Ping"
+              "expect": "The device acknowledges the Ping"
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
-            "Once linked, the Hub reads the device's settings with Get Operating Flags and an extended Get for group 1."
+            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -237,27 +237,28 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "No document describes this; it's how the device is set up in practice."
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
       },
       "alternatives": [
         {
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Remove the device from every scene on the Hub first.",
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
               "device": "other",
               "action": "other"
             },
             {
-              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1.",
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
               "action": "send",
               "command": "Enter Unlinking Mode"
             },
             {
-              "text": "Have the Hub start ALL-Linking as the responder, for group 0; the device deletes its group 1 link to the Hub.",
+              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
               "device": "other",
               "action": "send",
-              "command": "Start ALL-Linking"
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its group 1 link to the Hub"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
@@ -266,7 +267,7 @@
               "command": "Start ALL-Linking"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09), as an extended message if the device is i2CS.",
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
               "action": "send",
               "command": "Enter Linking Mode"
             },
@@ -277,12 +278,9 @@
               "expect": "The Hub reports the device's Insteon ID"
             }
           ],
-          "notes": [
-            "The Hub won't remove a device that still belongs to a scene."
-          ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
           }
         }
       ]

@@ -1,10 +1,10 @@
 {
   "model": "2843-232",
-  "name": "MyLife Door Sensor",
+  "name": "Door Sensor",
   "aliases": [
-    "Door Sensor"
+    "MyLife Door Sensor"
   ],
-  "description": "A wireless, battery-powered open/close sensor sold in a kit, which mounts on a door and reports when it opens or closes.",
+  "description": "A wireless, battery-powered door sensor that reports when the door opens or closes.",
   "identities": [
     {
       "category": "0x10",
@@ -68,45 +68,32 @@
     "installation": {
       "steps": [
         {
-          "text": "Remove the sensor cover by prying up at \"open\".",
+          "text": "Remove the sensor's cover.",
           "action": "other"
         },
         {
-          "text": "Install the included AA battery; don't replace the cover yet.",
+          "text": "Install the battery.",
           "action": "insertBatteries"
         },
         {
-          "text": "Peel the backing off the tape on the sensor and press it onto the door or window frame, with the SET button between the door or window edge and the battery (about 3 inches from the top on a door), so the door or window just clears it.",
+          "text": "Mount the sensor on the door frame.",
           "action": "mount"
         },
         {
-          "text": "Press and hold the sensor's SET button for 5 seconds, until the LED starts blinking.",
-          "action": "hold",
-          "control": "SET button",
-          "seconds": 5,
-          "expect": "LED blinks"
-        },
-        {
-          "text": "In the US, press and hold the SET button on the nearest Range Extender (formerly Access Point) until it beeps. If the sensor's LED keeps blinking, it is out of range: move the Range Extender closer and try again.",
-          "action": "hold",
-          "control": "Range Extender SET button"
-        },
-        {
-          "text": "Peel the backing off the magnet's tape and mount the magnet within 1/2 inch of the sensor, lined up with the arrows on the sensor.",
+          "text": "Mount the magnet on the door, next to the sensor and lined up with it.",
           "action": "mount"
         },
         {
-          "text": "Test by opening and closing the door or window.",
-          "action": "other",
-          "expect": "LED blinks once on each open and close"
+          "text": "Test by opening and closing the door.",
+          "action": "other"
         }
       ],
       "notes": [
-        "The sensor is closed when the magnet is within 1/2 inch and open when it is farther."
+        "The sensor reads closed while the magnet is next to it and open when the magnet moves away."
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       }
     },
     "linking": {
@@ -126,7 +113,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       },
       "alternatives": [
         {
@@ -154,10 +141,10 @@
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
-              "text": "Have the Hub send Ping a few times to check the link.",
+              "text": "While the device is still awake, have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
-              "expect": "The device acknowledges each Ping"
+              "expect": "The device acknowledges the Ping"
             },
             {
               "text": "Press and hold the SET button for 3 seconds to finish.",
@@ -168,11 +155,11 @@
             }
           ],
           "notes": [
-            "The device must already be in linking mode when the Hub starts ALL-Linking, since the Hub waits only about 10 seconds. This links the device's group 1 to the Hub; the Hub makes no link to the device."
+            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
           ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
@@ -210,7 +197,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       }
     },
     "unlinking": {
@@ -235,7 +222,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       }
     },
     "waking": {
@@ -252,7 +239,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       }
     },
     "reset": {
@@ -291,7 +278,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       }
     },
     "resetErases": [
@@ -307,14 +294,14 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor."
+        "note": "Read from the Open/Close Sensor 2843, which shares its device category; no document describes this sensor's setup."
       },
       "alternatives": [
         {
           "description": "From a Hub",
           "steps": [
             {
-              "text": "Remove the device from every scene on the Hub first.",
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
               "device": "other",
               "action": "other"
             },
@@ -333,11 +320,11 @@
               "expect": "LED keeps blinking green"
             },
             {
-              "text": "Have the Hub start ALL-Linking for group 0, so it answers as the responder; the device deletes its link to the Hub.",
+              "text": "Have the Hub start ALL-Linking as the responder, for group 0.",
               "device": "other",
               "action": "send",
               "command": "Start ALL-Linking",
-              "expect": "The Hub reports the device's Insteon ID"
+              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
             },
             {
               "text": "If the LED is still blinking, tap the SET button until it stops.",
@@ -347,25 +334,23 @@
               "expect": "LED stops blinking"
             }
           ],
-          "notes": [
-            "The Hub won't remove a device that still belongs to a scene."
-          ],
           "verification": {
             "status": "inferred",
-            "note": "No document describes this; it's how the device is set up in practice."
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
           }
         }
       ]
     }
   },
   "notes": [
-    "Its heartbeat's cmd1 is 0x11 while it's open and 0x13 while it's closed."
+    "Its heartbeat's cmd1 is 0x11 while it's open and 0x13 while it's closed.",
+    "The alias MyLife Door Sensor is inferred: the name it was sold under in a kit; no document gives it."
   ],
   "sources": [
     "HouseLinc device catalog"
   ],
   "verification": {
     "status": "inferred",
-    "note": "An open/close sensor sold in a kit, read from its device category: it shares category 0x10 with the Open/Close Sensor 2843, and its commands, groups and setup are read from that sensor. The HouseLinc device catalog lists subcategory 0x09 as the Door Sensor 2843-232; no other document gives its model number, and none describes the sensor itself."
+    "note": "Read from its device category: it shares category 0x10 with the Open/Close Sensor 2843, and its commands, groups and setup are read from that sensor. The HouseLinc device catalog lists subcategory 0x09 as the Door Sensor 2843-232; no other document gives its model number, and none describes the sensor itself."
   }
 }

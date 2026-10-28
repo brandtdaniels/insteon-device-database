@@ -85,10 +85,15 @@
           "expect": "iMeter Solo beeps and its status LED turns on solid red"
         },
         {
-          "text": "Continue to hold down the SET button for 3 seconds and then release it.",
+          "text": "Continue to hold down the SET button for 3 seconds.",
           "action": "hold",
           "control": "SET button",
-          "seconds": 3,
+          "seconds": 3
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
           "expect": "Status LED turns solid green; after a few seconds iMeter Solo double-beeps"
         }
       ]

@@ -136,7 +136,12 @@
           "expect": "A long beep sounds"
         },
         {
-          "text": "Continue holding the SET button until the beep stops, then release it.",
+          "text": "Continue holding the SET button until the beep stops.",
+          "action": "hold",
+          "control": "SET button"
+        },
+        {
+          "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
           "expect": "After several seconds the status LED turns on to show the reset is complete"

@@ -109,15 +109,48 @@ out of service, so an app can guide a person through each, or do the steps it ca
 ```
 
 - `installation`, `linking`, `multiLinking`, `unlinking`, `waking`, `reset` and `removal` are each
-  steps in order, with `notes` and a `verification` like any other value.
+  a procedure: `steps` in order, with `notes` and a `verification` like any other value.
+- A procedure's `alternatives` are other whole procedures for the same thing, such as from a Hub
+  instead of with the SET button; an app follows one. Each alternative's `description` names it,
+  such as From a Hub or Soft factory reset.
 - A step's `text` is what a person reads. `action`, `control`, `seconds`, `count` and `expect`
   say the same in a form an app can use: which button to hold and for how long, how many taps,
-  and the beep or LED that shows it worked. A step an app sends instead names its Insteon
-  `command`.
-- Linking is written for the device alone, not for a Hub or app: two devices link when one goes
-  into linking mode and then the other, and the first becomes the controller. An app linking a
-  device to its modem follows the same steps for the device, and can send Enter Linking Mode
-  instead where the device takes it.
+  and the beep or LED that shows it worked. Each step does one thing; a step that holds a button
+  and then releases it is two steps.
+- A step's `device` is `this`, the product the profile describes, unless it says `other`: the
+  other device being linked or unlinked, such as the responder a controller links to, or the Hub.
+  It defaults to `this`.
+- A step's `action` is one of:
+
+  | Action | What the step does |
+  | --- | --- |
+  | `hold` | Press and hold `control`, for `seconds` or until `expect` happens. |
+  | `tap` | Press and release `control` quickly, `count` times. |
+  | `press` | Press `control` once, as a click rather than a tap or hold. |
+  | `release` | Let go of a held `control`. |
+  | `turn` | Turn a knob, dial or other control. |
+  | `plugIn`, `unplug` | Plug the product in or unplug it. |
+  | `powerOff`, `powerOn` | Turn power off or on, at a breaker or switch, or by unscrewing a bulb and screwing it back in. |
+  | `wire` | Connect or disconnect wires. |
+  | `mount` | Mount or fasten the product or a part of it. |
+  | `insertBatteries`, `removeBatteries` | Put batteries in or take them out. |
+  | `pullTab` | Pull something out to cut power: the SET button, to open an air gap, or a battery isolation tab. |
+  | `wait` | Wait, for `seconds` or until `expect` happens. |
+  | `send` | Send the Insteon `command` the step names, by its Insteon Developer's Guide name. |
+  | `other` | Anything else, such as choosing a button or removing a cover. |
+
+- Linking with the SET button is written for the device alone: two devices link when one goes
+  into linking mode and then the other, and the first becomes the controller.
+- Linking and removal can have an alternative described as From a Hub, for adding the product
+  to a Hub, or to a modem, and removing it. Its Hub or modem steps are `send` steps: on the
+  `other` device for the Hub's own commands, such as Start ALL-Linking, and on `this` device for
+  the commands the Hub sends the product, such as Enter Linking Mode or Ping. Steps a person
+  takes on the product keep their own actions. A line-powered product is linked as a responder to
+  the Hub, so the Hub can control it, and, where it's also a controller, back to the Hub, so the
+  Hub hears it; a battery-powered
+  product is put in linking mode first, after waking it where its profile says how, and links to
+  the Hub as a controller. No document describes these procedures, so their `verification` says
+  what each is assembled from.
 - `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
   battery device stays awake, and `resetErases` what a factory reset clears.
 
