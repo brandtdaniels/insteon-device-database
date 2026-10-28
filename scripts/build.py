@@ -373,7 +373,6 @@ RULED_OUT_TERMS = [
     (r"\bclean-up", "cleanup"),
     (r"\b[Ss]et button\b", "SET button"),
     (r"(?<!Insteon )(?<!Modem )(?<!Hub )\b[Dd]eveloper'?s? [Gg]uides?\b|\b[Tt]he guide\b", "the document's title, such as Leak Sensor Developer Notes or Insteon Developer's Guide"),
-    (r"\bPRDs?\b|[Pp]roduct requirements|[Ww]orkbook|[Cc]ommand sheets?|SKU list|for Hub app|InsteonDevices\.db|QA operational|datasheet", "a public document's title, or no citation"),
 ]
 
 

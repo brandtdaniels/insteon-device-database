@@ -103,7 +103,7 @@
       }
     },
     "sources": {
-      "description": "The public Insteon documents the values come from. Empty when no public document gives them.",
+      "description": "The documents the values come from.",
       "type": "array",
       "items": {
         "type": "string",
