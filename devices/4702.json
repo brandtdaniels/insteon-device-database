@@ -1,0 +1,18 @@
+{
+  "model": "4702",
+  "name": "Wall Switch",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x23"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

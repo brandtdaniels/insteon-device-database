@@ -1,0 +1,26 @@
+{
+  "model": "2476S",
+  "name": "SwitchLinc Relay",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x0A"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x15"
+    },
+    {
+      "category": "0x02",
+      "subcategory": "0x1C"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

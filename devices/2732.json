@@ -26,6 +26,26 @@
       "category": "0x05",
       "subcategory": "0x18",
       "region": "Australia and New Zealand"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x0F",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x11",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x10",
+      "region": "Australia and New Zealand"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x12",
+      "region": "Australia and New Zealand"
     }
   ],
   "radio": "rf",
@@ -34,7 +54,8 @@
   "notes": [
     "The 2441TH's hardware with heat pump firmware.",
     "HouseLinc labels subcategories 0x13 to 0x15 as 2732-232, 2732-432 and 2732-532.",
-    "Subcategories 0x17 and 0x18 are the Thermostat 2.0 firmware, the regional versions of the 2441TH's 0x16."
+    "Subcategories 0x17 and 0x18 are the Thermostat 2.0 firmware, the regional versions of the 2441TH's 0x16.",
+    "HouseLinc also lists subcategories 0x0F and 0x11 for the 2732-422 and 2732-432, and 0x10 and 0x12 for the 2732-522 and 2732-532."
   ],
   "sources": [
     "HouseLinc device catalog",

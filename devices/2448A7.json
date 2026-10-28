@@ -1,0 +1,22 @@
+{
+  "model": "2448A7",
+  "name": "USB Adapter",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x1F"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x20"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "modem"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

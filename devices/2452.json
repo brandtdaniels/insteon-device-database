@@ -1,0 +1,32 @@
+{
+  "model": "2452",
+  "name": "DIN Rail Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x34",
+      "region": "US"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x36",
+      "region": "Europe"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x37",
+      "region": "Australia and New Zealand"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ],
+  "notes": [
+    "HouseLinc also lists its identity under 2252-222."
+  ]
+}

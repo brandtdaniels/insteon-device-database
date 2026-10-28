@@ -1,0 +1,14 @@
+{
+  "model": "2491T1E",
+  "name": "Integrated Remote Control Thermostat",
+  "identities": [
+    {
+      "category": "0x05",
+      "subcategory": "0x0E"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

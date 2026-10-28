@@ -1,0 +1,18 @@
+{
+  "model": "4712",
+  "name": "In-Line Dimmer",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x2C"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

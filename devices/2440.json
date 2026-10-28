@@ -1,0 +1,14 @@
+{
+  "model": "2440",
+  "name": "RemoteLinc",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x05"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

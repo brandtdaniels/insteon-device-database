@@ -1,0 +1,14 @@
+{
+  "model": "2444A2WH4",
+  "name": "Mini Remote - 4 Scene",
+  "identities": [
+    {
+      "category": "0x00",
+      "subcategory": "0x10"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

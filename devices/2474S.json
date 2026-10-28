@@ -1,0 +1,18 @@
+{
+  "model": "2474S",
+  "name": "ICON In-LineLinc Relay",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x12"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

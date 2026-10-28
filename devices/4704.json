@@ -1,0 +1,18 @@
+{
+  "model": "4704",
+  "name": "Wall Keypad Switch",
+  "identities": [
+    {
+      "category": "0x02",
+      "subcategory": "0x20"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "onOff"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

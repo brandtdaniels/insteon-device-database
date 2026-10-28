@@ -1,0 +1,14 @@
+{
+  "model": "2411R",
+  "name": "IRLinc Receiver",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x06"
+    }
+  ],
+  "capabilities": [],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

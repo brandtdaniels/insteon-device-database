@@ -1,0 +1,22 @@
+{
+  "model": "2876D",
+  "name": "ICON Dimmer Switch",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x03"
+    },
+    {
+      "category": "0x01",
+      "subcategory": "0x1E"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

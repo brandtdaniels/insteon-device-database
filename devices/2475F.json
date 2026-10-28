@@ -1,0 +1,18 @@
+{
+  "model": "2475F",
+  "name": "FanLinc",
+  "identities": [
+    {
+      "category": "0x01",
+      "subcategory": "0x2E"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "dimmable"
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}
