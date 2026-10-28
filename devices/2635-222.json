@@ -1,6 +1,10 @@
 {
   "model": "2635-222",
-  "name": "On/Off Module",
+  "name": "On/Off Plug",
+  "aliases": [
+    "On/Off Module"
+  ],
+  "description": "A plug-in relay module that switches lamps, fans, space heaters, and other small appliances on and off remotely. It handles loads of up to 15 amps or 1,800 W.",
   "identities": [
     {
       "category": "0x02",
@@ -22,6 +26,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

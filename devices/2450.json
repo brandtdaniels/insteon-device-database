@@ -1,6 +1,10 @@
 {
   "model": "2450",
-  "name": "I/O Linc",
+  "name": "I/O Module",
+  "aliases": [
+    "I/O Linc"
+  ],
+  "description": "A plug-in module with a low-voltage sensor input and a relay output. It connects alarm sensors, door strikes, garage door openers, and other contact-closure devices to an Insteon network.",
   "identities": [
     {
       "category": "0x07",
@@ -9,6 +13,7 @@
   ],
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

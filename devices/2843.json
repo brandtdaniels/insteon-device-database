@@ -1,6 +1,7 @@
 {
   "model": "2843",
   "name": "Open/Close Sensor",
+  "description": "A wireless, battery-powered sensor that mounts on a door or window and reports when it opens or closes. It can switch Insteon lights or, with the Hub, send phone alerts.",
   "identities": [
     {
       "category": "0x10",
@@ -58,7 +59,8 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon command workbook, HeartBeat Status sheet"
+    "Insteon command workbook, HeartBeat Status sheet",
+    "insteon.com product catalog"
   ],
   "notes": [
     "HouseLinc lists subcategory 0x09 as the Door Sensor 2843-232."

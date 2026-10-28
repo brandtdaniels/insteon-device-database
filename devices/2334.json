@@ -1,6 +1,10 @@
 {
   "model": "2334",
-  "name": "Keypad Dimmer",
+  "name": "Dimmer Keypad",
+  "aliases": [
+    "Keypad Dimmer"
+  ],
+  "description": "A wall keypad that dims and switches its connected light fixture and adds extra buttons for controlling other Insteon devices or scenes. Insteon sells it in 6-button and 8-button versions.",
   "identities": [
     {
       "category": "0x01",
@@ -19,6 +23,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }
