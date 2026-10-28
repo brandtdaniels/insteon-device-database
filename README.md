@@ -18,8 +18,10 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
   ALL-Link controller, a responder, or both.
 - **Groups:** its ALL-Link groups, and whether software must link a group.
 - **Capabilities:** what it can do, chosen from a fixed set: `onOff`, `dimmable`, `modem`,
-  `hub`, `hubPro`, `thermostat`, `groupEvents`, `heartbeat` and `i2cs`. A capability can be
-  limited to some identities and firmware versions. A capability is a description, never code.
+  `hub`, `hubPro`, `thermostat`, `groupEvents` and `heartbeat`. A capability is a description,
+  never code.
+- **Engines:** where a source states it, the Insteon engine (i1, i2 or i2CS) the product runs
+  under each identity and firmware version.
 - **Sources:** the documents its values come from.
 
 [`schema/device-profile.schema.json`](schema/device-profile.schema.json) defines the format.
@@ -49,5 +51,6 @@ treat downloading a newer one as optional.
    document in `sources`.
 2. Run `pip install -r requirements.txt` and `python3 -I scripts/build.py` to validate. It checks
    each profile against the schema, that the file is named for its model, that no capability
-   appears twice, and that no two profiles claim the same identity for the same firmware.
+   appears twice, that no two profiles claim the same identity for the same firmware, and that
+   each engine entry names one of the product's identities and no firmware version twice.
 3. Open a pull request. CI runs the same check.

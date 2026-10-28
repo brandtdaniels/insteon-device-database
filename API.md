@@ -74,20 +74,18 @@ An identity can also carry a `firmware` range, `{ "from": "0x40", "through": "0x
 product reports the same category and subcategory with different behavior across firmware
 versions. Without one, the identity covers every version.
 
-A capability can carry `identities` when only some of the product's identities, or only some
-firmware versions under them, have it. Each entry names an identity's `category` and
-`subcategory`, and can carry a `firmware` selection: `{ "only": ["0x41", "0xD1"] }` or
-`{ "except": ["0x22", "0x24"] }`. Without `identities`, the capability applies to every identity
-and firmware version; an entry without `firmware` covers every version of that identity. For
-example, the 2476D SwitchLinc Dimmer runs the i2CS engine, and so expects a checksum in D14 of
-extended messages, only on the firmware versions its `i2cs` capability lists for each
-subcategory. To find a device's capabilities, keep those without `identities`, and those with an
-entry for the device's category and subcategory whose `firmware` selection, if any, includes the
-version the device reported.
+`engines` says which Insteon engine the product runs under each identity, where a source states
+it. Each entry names an `engine` (`i1`, `i2`, or `i2cs`, which rejects an extended message whose
+D14 checksum is wrong), an identity's `category` and `subcategory`, and optionally a `firmware`
+selection: `{ "only": ["0x41", "0xD1"] }` or `{ "except": ["0x22", "0x24"] }`. Without `firmware`,
+every version of the identity runs the engine. For example, the 2476D SwitchLinc Dimmer runs
+i2CS, and so expects a checksum in D14 of extended messages, only on the firmware versions its
+entries list for each subcategory. A firmware version no entry covers runs an engine the
+catalog doesn't know; the build makes sure no two entries cover the same one.
 
-Only the `i2cs` capability, added along with `identities`, can carry it; the schema rejects it on
-the other kinds. A client that doesn't know about `identities` skips `i2cs` as an unknown kind
-rather than applying it to every version.
+The device itself is the surest source: it reports its engine in reply to a get engine version
+command (cmd1 `0x0D`). The catalog's entries are for deciding before asking, or for a device
+that doesn't answer.
 
 ## Keeping a copy up to date
 

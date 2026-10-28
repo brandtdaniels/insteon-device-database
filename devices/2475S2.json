@@ -10,26 +10,24 @@
       "subcategory": "0x14"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x02",
+      "subcategory": "0x14",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xD4",
+          "0xD5",
+          "0xD6"
+        ]
+      }
+    }
+  ],
   "capabilities": [
     {
       "kind": "onOff"
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x02",
-          "subcategory": "0x14",
-          "firmware": {
-            "only": [
-              "0x41",
-              "0xD4",
-              "0xD5",
-              "0xD6"
-            ]
-          }
-        }
-      ]
     }
   ],
   "sources": [

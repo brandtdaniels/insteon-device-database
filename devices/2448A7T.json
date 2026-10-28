@@ -14,31 +14,29 @@
       "subcategory": "0x27"
     }
   ],
-  "capabilities": [
+  "engines": [
     {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x03",
-          "subcategory": "0x24",
-          "firmware": {
-            "only": [
-              "0x98"
-            ]
-          }
-        },
-        {
-          "category": "0x03",
-          "subcategory": "0x27",
-          "firmware": {
-            "only": [
-              "0x98"
-            ]
-          }
-        }
-      ]
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x24",
+      "firmware": {
+        "only": [
+          "0x98"
+        ]
+      }
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x27",
+      "firmware": {
+        "only": [
+          "0x98"
+        ]
+      }
     }
   ],
+  "capabilities": [],
   "sources": [
     "HouseLinc device catalog"
   ]

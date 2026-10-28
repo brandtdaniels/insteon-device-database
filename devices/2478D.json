@@ -10,6 +10,20 @@
       "subcategory": "0x31"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x31",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xBC",
+          "0xBD"
+        ]
+      }
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "groups": [
@@ -22,22 +36,6 @@
   "capabilities": [
     {
       "kind": "dimmable"
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x01",
-          "subcategory": "0x31",
-          "firmware": {
-            "only": [
-              "0x41",
-              "0xBC",
-              "0xBD"
-            ]
-          }
-        }
-      ]
     }
   ],
   "notes": [

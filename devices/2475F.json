@@ -11,24 +11,22 @@
       "subcategory": "0x2E"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x2E",
+      "firmware": {
+        "except": [
+          "0x3B",
+          "0xBA"
+        ]
+      }
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x01",
-          "subcategory": "0x2E",
-          "firmware": {
-            "except": [
-              "0x3B",
-              "0xBA"
-            ]
-          }
-        }
-      ]
     }
   ],
   "sources": [

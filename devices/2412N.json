@@ -10,28 +10,25 @@
       "subcategory": "0x10"
     }
   ],
-  "capabilities": [
+  "engines": [
     {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x03",
-          "subcategory": "0x10",
-          "firmware": {
-            "only": [
-              "0x9B",
-              "0xE0",
-              "0xE1",
-              "0xE2",
-              "0xE3",
-              "0xE4",
-              "0xE8"
-            ]
-          }
-        }
-      ]
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x10",
+      "firmware": {
+        "only": [
+          "0x9B",
+          "0xE0",
+          "0xE1",
+          "0xE2",
+          "0xE3",
+          "0xE4",
+          "0xE8"
+        ]
+      }
     }
   ],
+  "capabilities": [],
   "sources": [
     "HouseLinc device catalog"
   ]

@@ -15,41 +15,40 @@
       "subcategory": "0x1A"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x15",
+      "firmware": {
+        "only": [
+          "0x9A",
+          "0x9B"
+        ]
+      }
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x1A",
+      "firmware": {
+        "only": [
+          "0x9A",
+          "0x9B",
+          "0xEB",
+          "0xEC",
+          "0xED",
+          "0xEE",
+          "0xEF"
+        ]
+      }
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "capabilities": [
     {
       "kind": "modem"
-    },
-    {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x03",
-          "subcategory": "0x15",
-          "firmware": {
-            "only": [
-              "0x9A",
-              "0x9B"
-            ]
-          }
-        },
-        {
-          "category": "0x03",
-          "subcategory": "0x1A",
-          "firmware": {
-            "only": [
-              "0x9A",
-              "0x9B",
-              "0xEB",
-              "0xEC",
-              "0xED",
-              "0xEE",
-              "0xEF"
-            ]
-          }
-        }
-      ]
     }
   ],
   "sources": [

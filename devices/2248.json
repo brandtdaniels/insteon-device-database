@@ -23,14 +23,33 @@
       "region": "Australia and New Zealand"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x0E"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x0F"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x10"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x11"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "capabilities": [
     {
       "kind": "onOff"
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "notes": [

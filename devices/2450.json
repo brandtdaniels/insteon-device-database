@@ -11,31 +11,28 @@
       "subcategory": "0x00"
     }
   ],
-  "capabilities": [
+  "engines": [
     {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x07",
-          "subcategory": "0x00",
-          "firmware": {
-            "only": [
-              "0x40",
-              "0x41",
-              "0xA1",
-              "0xA2",
-              "0xA3",
-              "0xA4",
-              "0xA5",
-              "0xA6",
-              "0xA7",
-              "0xA8"
-            ]
-          }
-        }
-      ]
+      "engine": "i2cs",
+      "category": "0x07",
+      "subcategory": "0x00",
+      "firmware": {
+        "only": [
+          "0x40",
+          "0x41",
+          "0xA1",
+          "0xA2",
+          "0xA3",
+          "0xA4",
+          "0xA5",
+          "0xA6",
+          "0xA7",
+          "0xA8"
+        ]
+      }
     }
   ],
+  "capabilities": [],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog"

@@ -7,11 +7,14 @@
       "subcategory": "0x0A"
     }
   ],
-  "capabilities": [
+  "engines": [
     {
-      "kind": "i2cs"
+      "engine": "i2cs",
+      "category": "0x0F",
+      "subcategory": "0x0A"
     }
   ],
+  "capabilities": [],
   "sources": [
     "HouseLinc device catalog"
   ]

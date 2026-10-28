@@ -10,24 +10,21 @@
       "subcategory": "0x06"
     }
   ],
-  "capabilities": [
+  "engines": [
     {
-      "kind": "i2cs",
-      "identities": [
-        {
-          "category": "0x0F",
-          "subcategory": "0x06",
-          "firmware": {
-            "only": [
-              "0x41",
-              "0xD5",
-              "0xD6"
-            ]
-          }
-        }
-      ]
+      "engine": "i2cs",
+      "category": "0x0F",
+      "subcategory": "0x06",
+      "firmware": {
+        "only": [
+          "0x41",
+          "0xD5",
+          "0xD6"
+        ]
+      }
     }
   ],
+  "capabilities": [],
   "sources": [
     "HouseLinc device catalog"
   ]

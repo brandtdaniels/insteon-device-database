@@ -18,14 +18,27 @@
       "region": "Australia and New Zealand"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x0F",
+      "subcategory": "0x07"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x0F",
+      "subcategory": "0x08"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x0F",
+      "subcategory": "0x09"
+    }
+  ],
   "radio": "rf",
   "role": "both",
   "batteryPowered": true,
-  "capabilities": [
-    {
-      "kind": "i2cs"
-    }
-  ],
+  "capabilities": [],
   "notes": [
     "It's asleep most of the time, so it may take a few seconds to answer a command."
   ],
