@@ -53,7 +53,7 @@ treat downloading a newer one as optional.
 ## Adding or changing a profile
 
 1. Add or edit `devices/<model>.json`. Check every value against a document, and list the
-   document in `sources`.
+   public documents that give it in `sources`.
 2. Run `pip install -r requirements.txt` and `python3 -I scripts/build.py` to validate. It checks
    each profile against the schema, that the file is named for its model, that no capability
    appears twice, that no two profiles claim the same identity for the same firmware, and that
@@ -83,7 +83,7 @@ message, a `verification` with a `status` and a `note`:
 ```json
 "verification": {
   "status": "conflicting",
-  "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; the command workbook gives 0x7D."
+  "note": "The 2472D Developer Notes give 0x63 as the default over-temperature limit; another source gives 0x7D."
 }
 ```
 

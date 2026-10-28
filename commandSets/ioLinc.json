@@ -212,11 +212,8 @@
     ]
   },
   "notes": [
-    "Insteon's later command sheet marks bit 6 of the 0x00 reply as ignored; the earlier sheet and the Insteon for Hub app read it as the trigger reversal that 0x0E and 0x0F set.",
-    "Insteon's earlier command sheet labels D5 and D6 of the reply the relay's X10 address and D7 and D8 the sensor's, where the later sheet has the input's and the output's."
+    "A later source marks bit 6 of the 0x00 reply as ignored; an earlier source reads it as the trigger reversal that 0x0E and 0x0F set.",
+    "An earlier source labels D5 and D6 of the reply the relay's X10 address and D7 and D8 the sensor's, where a later source has the input's and the output's."
   ],
-  "sources": [
-    "Insteon command workbook",
-    "Insteon for Hub app"
-  ]
+  "sources": []
 }

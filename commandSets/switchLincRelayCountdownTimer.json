@@ -151,9 +151,7 @@
     ]
   },
   "notes": [
-    "Insteon's command sheets call the local warning 1 minute in the Set Operating Flags table and 2 minutes in the Get Operating Flags table."
+    "Insteon's documents call the local warning 1 minute in the Set Operating Flags table and 2 minutes in the Get Operating Flags table."
   ],
-  "sources": [
-    "Insteon command workbook"
-  ]
+  "sources": []
 }

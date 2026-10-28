@@ -84,9 +84,6 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2486D/S KeypadLinc Dimmer and Relay PRD",
-    "Insteon for Hub app",
-    "Insteon SKU list",
     "KeypadLinc Line Developer Notes"
   ]
 }

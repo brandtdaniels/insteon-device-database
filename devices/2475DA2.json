@@ -59,14 +59,12 @@
     "Drives a 0-10V output and two relayed loads; on cmd1 0x11 or 0x13, cmd2 0x01 selects load 1, 0x02 load 2 and 0x03 both.",
     "Turns on at 100% at power-up.",
     "A change on an input can also change the load, using the on mask, on-level and ramp rate stored for groups 2 to 5, one for each of the four transitions.",
-    "Its PRD lists one controller group and gives the inputs as a firmware update, so some versions may not send to groups 2 to 4.",
+    "The inputs came with a firmware update, so some versions may not send to groups 2 to 4.",
     "Closing input 1 sends group 1, opening it group 2, closing input 2 group 3 and opening it group 4."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2475DA2 In-LineLinc 0-10V Dimmer-Switch PRD",
     "insteon.com product catalog",
-    "Insteon command workbook, 0-10v sheet",
     "In-Line 0-10VDC Dimmer Developer Notes"
   ]
 }

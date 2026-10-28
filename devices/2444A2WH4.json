@@ -85,10 +85,7 @@
   "capabilities": [],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon device database (SQLite, InsteonDevices.db)",
-    "RemoteLinc 2 Developer Notes",
-    "Insteon for Hub app",
-    "Insteon SKU list"
+    "RemoteLinc 2 Developer Notes"
   ],
   "notes": [
     "With its grouped flag set, each row's on and off buttons share a group, 1 to 4 from the top. Otherwise each button has its own group, 1 to 8, left to right and top to bottom.",

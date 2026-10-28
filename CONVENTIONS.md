@@ -27,7 +27,10 @@ read the same everywhere. `scripts/build.py` fails on the forms it can check.
 
 ## Documents
 
-Cite each document by its own title, in `sources` and in notes:
+Cite only public documents, each by its own title, in `sources` and in notes. A value no public
+document gives keeps no citation, and a note that compares it with another reading says "another
+source" or "other sources" rather than naming one. A product's owner's manual is cited as its name
+and model, then Owner's Manual: Hub Pro 2243 Owner's Manual.
 
 | Document | Cite as |
 | --- | --- |
@@ -38,9 +41,7 @@ Cite each document by its own title, in `sources` and in notes:
 | The device lists | Insteon Device Categories and Product Keys (October 2008), Insteon Device Categories (January 2014) |
 | The i2CS notes | Insteon Firmware Update i2CS Developer Notes |
 | A product's notes | Its title's subject, then Developer Notes: Leak Sensor Developer Notes |
-| A product requirements document | The model and name, then PRD: 2477S SwitchLinc Relay PRD |
 | HouseLinc's data | HouseLinc device catalog |
-| Insteon's app | Insteon for Hub app |
 
 ## How sure a value is
 

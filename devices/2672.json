@@ -77,7 +77,6 @@
     "Can be set to turn on when power returns; that's off by default."
   ],
   "sources": [
-    "HouseLinc device catalog",
-    "2672 and 2674 LED Bulbs PRD"
+    "HouseLinc device catalog"
   ]
 }

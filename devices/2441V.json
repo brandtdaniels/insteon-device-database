@@ -57,8 +57,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon Developer's Guide (2009)",
-    "Insteon command workbook"
+    "Insteon Developer's Guide (2009)"
   ],
   "notes": [
     "It links to group 1 while cooling, group 2 while heating and group 3 while its fan runs; devices linked to group 0xEF get its status reports."
