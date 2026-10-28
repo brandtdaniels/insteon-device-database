@@ -15,11 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5.3.0
         with:
           python-version: "3.13"
       - run: pip install -r requirements.txt
-      - run: python3 -I scripts/build.py --output site
+      - name: Check that schema changes bump VERSION
+        if: github.event_name == 'pull_request'
+        run: python3 -I scripts/check_version.py ${{ github.event.pull_request.base.sha }}
+      - name: Build
+        run: |
+          patch=$(git rev-list --count "$(git log -1 --format=%H -- VERSION)..HEAD")
+          python3 -I scripts/build.py --output site --patch "$patch" --built "$(git log -1 --format=%cI)"
       - uses: actions/upload-pages-artifact@v3.0.1
         if: github.event_name != 'pull_request'
         with:
