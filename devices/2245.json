@@ -23,6 +23,28 @@
       "subcategory": "0x36"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x33"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x34"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x35"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x03",
+      "subcategory": "0x36"
+    }
+  ],
   "radio": "dual",
   "role": "both",
   "capabilities": [
@@ -32,9 +54,6 @@
     {
       "kind": "hub",
       "port": 25105
-    },
-    {
-      "kind": "i2cs"
     }
   ],
   "sources": [
