@@ -26,9 +26,62 @@
   ],
   "radio": "rf",
   "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Button B",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Button A",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Button D",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Button C",
+      "role": "controller"
+    },
+    {
+      "number": "0x05",
+      "name": "Button F",
+      "role": "controller"
+    },
+    {
+      "number": "0x06",
+      "name": "Button E",
+      "role": "controller"
+    },
+    {
+      "number": "0x07",
+      "name": "Button H",
+      "role": "controller"
+    },
+    {
+      "number": "0x08",
+      "name": "Button G",
+      "role": "controller"
+    },
+    {
+      "number": "0x09",
+      "name": "Low battery",
+      "role": "controller"
+    }
+  ],
   "capabilities": [],
+  "notes": [
+    "Groups 1 and 2 are buttons B and A, 3 and 4 are D and C, 5 and 6 are F and E, and 7 and 8 are H and G, as the Insteon for Hub app names them."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon device database (SQLite, InsteonDevices.db)"
+    "Insteon device database (SQLite, InsteonDevices.db)",
+    "Insteon for Hub app",
+    "Insteon SKU list"
   ]
 }

@@ -41,13 +41,69 @@
       "subcategory": "0x42"
     }
   ],
+  "radio": "dual",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Button A",
+      "role": "both"
+    },
+    {
+      "number": "0x02",
+      "name": "Button B",
+      "role": "both"
+    },
+    {
+      "number": "0x03",
+      "name": "Button C",
+      "role": "both"
+    },
+    {
+      "number": "0x04",
+      "name": "Button D",
+      "role": "both"
+    },
+    {
+      "number": "0x05",
+      "name": "Button E",
+      "role": "both"
+    },
+    {
+      "number": "0x06",
+      "name": "Button F",
+      "role": "both"
+    },
+    {
+      "number": "0x07",
+      "name": "Button G",
+      "role": "both"
+    },
+    {
+      "number": "0x08",
+      "name": "Button H",
+      "role": "both"
+    },
+    {
+      "number": "0x09",
+      "name": "Detached load",
+      "role": "responder"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"
     }
   ],
+  "notes": [
+    "Subcategory 0x41 is the 8-button version and 0x42 the 6-button version. In the 8-button layout groups 1 to 8 are buttons A to H; in the 6-button layout group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D. Software can set either layout.",
+    "When software detaches the load from the buttons, the load responds to group 9, which is linked with the Set button, and group 1 controls only the LEDs."
+  ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "Insteon for Hub app",
+    "Insteon SKU list",
+    "Insteon command workbook, Detached Load sheet"
   ]
 }

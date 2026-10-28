@@ -43,17 +43,63 @@
       "subcategory": "0x1C"
     }
   ],
+  "radio": "powerline",
   "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Button A",
+      "role": "both"
+    },
+    {
+      "number": "0x02",
+      "name": "Button B",
+      "role": "both"
+    },
+    {
+      "number": "0x03",
+      "name": "Button C",
+      "role": "both"
+    },
+    {
+      "number": "0x04",
+      "name": "Button D",
+      "role": "both"
+    },
+    {
+      "number": "0x05",
+      "name": "Button E",
+      "role": "both"
+    },
+    {
+      "number": "0x06",
+      "name": "Button F",
+      "role": "both"
+    },
+    {
+      "number": "0x07",
+      "name": "Button G",
+      "role": "both"
+    },
+    {
+      "number": "0x08",
+      "name": "Button H",
+      "role": "both"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"
     }
   ],
   "notes": [
-    "Each button other than the load's can be set to toggle, send only off, or send only on."
+    "Each button other than the load's can be set to toggle, send only off, or send only on.",
+    "Group 1 is button A, which controls the load. In the 6-button layout, which software can set, group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2486D/S KeypadLinc Dimmer and Relay PRD"
+    "2486D/S KeypadLinc Dimmer and Relay PRD",
+    "Insteon for Hub app",
+    "Insteon SKU list"
   ]
 }

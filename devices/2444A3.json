@@ -24,9 +24,24 @@
   ],
   "radio": "rf",
   "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "On/Off",
+      "role": "controller"
+    },
+    {
+      "number": "0x09",
+      "name": "Low battery",
+      "role": "controller"
+    }
+  ],
   "capabilities": [],
   "sources": [
     "HouseLinc device catalog",
-    "Insteon device database (SQLite, InsteonDevices.db)"
+    "Insteon device database (SQLite, InsteonDevices.db)",
+    "Insteon for Hub app",
+    "Insteon SKU list"
   ]
 }
