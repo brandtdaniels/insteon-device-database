@@ -1,0 +1,36 @@
+{
+  "model": "2245",
+  "name": "Hub",
+  "identities": [
+    {
+      "category": "0x03",
+      "subcategory": "0x33"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x34"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x35"
+    },
+    {
+      "category": "0x03",
+      "subcategory": "0x36"
+    }
+  ],
+  "radio": "dual",
+  "role": "both",
+  "capabilities": [
+    {
+      "kind": "modem"
+    },
+    {
+      "kind": "hub",
+      "port": 25105
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog"
+  ]
+}

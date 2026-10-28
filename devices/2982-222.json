@@ -1,0 +1,104 @@
+{
+  "model": "2982-222",
+  "name": "Smoke Bridge",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x0A"
+    }
+  ],
+  "radio": "dual",
+  "role": "controller",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Smoke",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Carbon monoxide",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Test",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Unknown alarm",
+      "role": "controller"
+    },
+    {
+      "number": "0x05",
+      "name": "Clear",
+      "role": "controller"
+    },
+    {
+      "number": "0x06",
+      "name": "Low battery",
+      "role": "controller"
+    },
+    {
+      "number": "0x07",
+      "name": "Malfunction",
+      "role": "controller"
+    },
+    {
+      "number": "0x0A",
+      "name": "Heartbeat",
+      "role": "controller"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "smoke"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "carbonMonoxide"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "test"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x11",
+          "event": "unknownAlarm"
+        },
+        {
+          "group": "0x05",
+          "command1": "0x11",
+          "event": "clear"
+        },
+        {
+          "group": "0x06",
+          "command1": "0x11",
+          "event": "lowBattery"
+        },
+        {
+          "group": "0x07",
+          "command1": "0x11",
+          "event": "malfunction"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "HouseLinc names it Smoke Detector.",
+    "It sends a heartbeat to group 0x0A; its interval isn't documented."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon command workbook, Smoke sheet"
+  ]
+}

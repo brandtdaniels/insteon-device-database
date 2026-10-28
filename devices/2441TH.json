@@ -1,0 +1,111 @@
+{
+  "model": "2441TH",
+  "name": "TempLinc Thermostat",
+  "identities": [
+    {
+      "category": "0x05",
+      "subcategory": "0x0B"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x08"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x16"
+    },
+    {
+      "category": "0x09",
+      "subcategory": "0x0D"
+    }
+  ],
+  "radio": "rf",
+  "role": "both",
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Cooling",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Heating",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Dehumidifying",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Humidifying",
+      "role": "controller"
+    },
+    {
+      "number": "0xFE",
+      "name": "Status reports",
+      "role": "controller",
+      "linkable": "software"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "thermostat",
+      "modeValues": "tempLinc",
+      "humidity": true
+    },
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "coolingStarted"
+        },
+        {
+          "group": "0x01",
+          "command1": "0x13",
+          "event": "coolingStopped"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "heatingStarted"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x13",
+          "event": "heatingStopped"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x11",
+          "event": "dehumidifyingStarted"
+        },
+        {
+          "group": "0x03",
+          "command1": "0x13",
+          "event": "dehumidifyingStopped"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x11",
+          "event": "humidifyingStarted"
+        },
+        {
+          "group": "0x04",
+          "command1": "0x13",
+          "event": "humidifyingStopped"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "HouseLinc lists 0x05/0x16 as the heat pump version."
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "TempLinc specification rev 020 and product requirements v025"
+  ]
+}

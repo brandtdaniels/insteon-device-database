@@ -1,0 +1,56 @@
+{
+  "model": "2852-222",
+  "name": "Leak Sensor",
+  "identities": [
+    {
+      "category": "0x10",
+      "subcategory": "0x08"
+    }
+  ],
+  "radio": "rf",
+  "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Dry",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Wet",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Heartbeat",
+      "role": "controller"
+    }
+  ],
+  "capabilities": [
+    {
+      "kind": "groupEvents",
+      "events": [
+        {
+          "group": "0x01",
+          "command1": "0x11",
+          "event": "dry"
+        },
+        {
+          "group": "0x02",
+          "command1": "0x11",
+          "event": "wet"
+        }
+      ]
+    },
+    {
+      "kind": "heartbeat",
+      "group": "0x04",
+      "intervalMinutes": 1428
+    }
+  ],
+  "sources": [
+    "HouseLinc device catalog",
+    "Insteon command workbook, HeartBeat Status sheet"
+  ]
+}
