@@ -1,4 +1,4 @@
-"""Validates the device profiles and bundles them into the published database.
+"""Validates the device profiles and bundles them into the published catalog.
 
 Usage: python3 scripts/build.py [--output DIR]
 
@@ -13,6 +13,7 @@ import hashlib
 import html
 import json
 import pathlib
+import string
 import sys
 
 import jsonschema
@@ -77,7 +78,7 @@ def overlapping_identities(profiles):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--output", type=pathlib.Path, help="where to write v1/database.json and v1/manifest.json")
+    parser.add_argument("--output", type=pathlib.Path, help="where to write v1/catalog.json and v1/manifest.json")
     arguments = parser.parse_args()
 
     profiles, errors = load_profiles()
@@ -93,69 +94,127 @@ def main():
     if arguments.output is None:
         return
 
-    database = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    catalog = json.dumps({"schemaVersion": SCHEMA_VERSION, "devices": profiles}, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
         "devices": len(profiles),
-        "database": "database.json",
-        "sha256": hashlib.sha256(database.encode()).hexdigest(),
+        "catalog": "catalog.json",
+        "sha256": hashlib.sha256(catalog.encode()).hexdigest(),
     }
 
     directory = arguments.output / f"v{SCHEMA_VERSION}"
     directory.mkdir(parents=True, exist_ok=True)
-    (directory / "database.json").write_text(database)
+    (directory / "catalog.json").write_text(catalog)
     (directory / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     (directory / "device-profile.schema.json").write_text((ROOT / "schema" / "device-profile.schema.json").read_text())
     (arguments.output / "index.html").write_text(index_page(profiles))
 
 
-INDEX_TEMPLATE = """<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>INSTEON Device Database</title>
-<style>
-  :root {{ color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.5; }}
-  body {{ max-width: 60rem; margin: 2rem auto; padding: 0 1rem; }}
-  table {{ border-collapse: collapse; width: 100%; }}
-  th, td {{ text-align: left; padding: 0.25rem 0.75rem 0.25rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent); vertical-align: top; }}
-  code {{ font-size: 0.9em; }}
-</style>
-</head>
-<body>
-<h1>INSTEON Device Database</h1>
-<p>What each INSTEON product is and what it can do, keyed by the category, subcategory and
-firmware version a device reports. Software downloads the database and looks devices up itself.</p>
-<ul>
-  <li><a href="v{version}/manifest.json"><code>v{version}/manifest.json</code></a>: the schema version, the number of profiles and the database's SHA-256</li>
-  <li><a href="v{version}/database.json"><code>v{version}/database.json</code></a>: every profile</li>
-  <li><a href="v{version}/device-profile.schema.json"><code>v{version}/device-profile.schema.json</code></a>: the JSON Schema each profile follows</li>
-  <li><a href="https://github.com/brandtdaniels/insteon-device-database/blob/main/API.md">How to use the database</a> and <a href="https://github.com/brandtdaniels/insteon-device-database">the source</a></li>
-</ul>
-<h2>{count} profiles</h2>
-<table>
-<thead><tr><th>Model</th><th>Name</th><th>Category / subcategory</th><th>Capabilities</th></tr></thead>
-<tbody>
-{rows}
-</tbody>
-</table>
-</body>
-</html>
-"""
+# The category names the INSTEON Developer's Guide gives.
+CATEGORY_NAMES = {
+    "0x00": "Generalized Controllers",
+    "0x01": "Dimmable Lighting Control",
+    "0x02": "Switched Lighting Control",
+    "0x03": "Network Bridges",
+    "0x04": "Irrigation Control",
+    "0x05": "Climate Control",
+    "0x06": "Pool and Spa Control",
+    "0x07": "Sensors and Actuators",
+    "0x08": "Home Entertainment",
+    "0x09": "Energy Management",
+    "0x0A": "Built-In Appliance Control",
+    "0x0B": "Plumbing",
+    "0x0C": "Communication",
+    "0x0D": "Computer Control",
+    "0x0E": "Window Coverings",
+    "0x0F": "Access Control",
+    "0x10": "Security, Health, Safety",
+    "0x11": "Surveillance",
+    "0x12": "Automotive",
+    "0x13": "Pet Care",
+    "0x14": "Toys",
+    "0x15": "Timekeeping",
+    "0x16": "Holiday",
+}
+
+
+# How the page names each capability kind.
+CAPABILITY_LABELS = {
+    "onOff": "On/off",
+    "dimmable": "Dimmable",
+    "modem": "Modem",
+    "hub": "Hub",
+    "hubPro": "Hub Pro",
+    "thermostat": "Thermostat",
+    "groupEvents": "Group events",
+    "heartbeat": "Heartbeat",
+}
+
+
+def capability_descriptions():
+    """Each capability kind's description, from the schema."""
+    schema = json.loads((ROOT / "schema" / "device-profile.schema.json").read_text())
+
+    return {option["properties"]["kind"]["const"]: option["description"] for option in schema["$defs"]["capability"]["oneOf"]}
 
 
 def index_page(profiles):
-    """The landing page: what the database is, its files, and a table of the profiles."""
+    """The landing page: what the catalog is, its files, and a table of the profiles to search,
+    sort and filter."""
+    escape = html.escape
+    descriptions = capability_descriptions()
     rows = []
 
     for profile in profiles:
-        identities = ", ".join(f"{identity['category']}/{identity['subcategory']}" for identity in profile["identities"])
-        capabilities = ", ".join(capability["kind"] for capability in profile["capabilities"])
-        cells = [profile["model"], profile["name"], identities, capabilities]
-        rows.append("<tr>" + "".join(f"<td>{html.escape(cell)}</td>" for cell in cells) + "</tr>")
+        category = profile["identities"][0]["category"]
+        kinds = [capability["kind"] for capability in profile["capabilities"]]
+        aliases = profile.get("aliases", [])
+        identities = [
+            f"{identity['category']}/{identity['subcategory']}" + (f" <small>{escape(identity['region'])}</small>" if "region" in identity else "")
+            for identity in profile["identities"]
+        ]
+        search = " ".join([profile["model"], profile["name"], *aliases, *(f"{i['category']}/{i['subcategory']}" for i in profile["identities"])]).lower()
+        name = escape(profile["name"])
 
-    return INDEX_TEMPLATE.format(version=SCHEMA_VERSION, count=len(profiles), rows="\n".join(rows))
+        if aliases:
+            name += f'<div class="aliases">Also {escape(", ".join(aliases))}</div>'
+
+        if "description" in profile:
+            name += f'<p class="description">{escape(profile["description"])}</p>'
+
+        chips = "".join(f'<span class="chip" title="{escape(descriptions.get(kind, ""))}">{escape(CAPABILITY_LABELS.get(kind, kind))}</span>' for kind in kinds)
+        attributes = {
+            "search": search,
+            "model": profile["model"],
+            "name": profile["name"],
+            "category": category,
+            "capabilities": " ".join(kinds),
+            "radio": profile.get("radio", ""),
+            "battery": "true" if profile.get("batteryPowered") else "false",
+        }
+        data = " ".join(f'data-{key}="{escape(value)}"' for key, value in attributes.items())
+        rows.append(
+            f"<tr {data}>"
+            f'<td class="model">{escape(profile["model"])}</td>'
+            f"<td>{name}</td>"
+            f"<td>{escape(CATEGORY_NAMES.get(category, category))}</td>"
+            f'<td class="ids">{"".join(f"<span>{identity}</span>" for identity in identities)}</td>'
+            f"<td>{chips}</td>"
+            "</tr>"
+        )
+
+    categories = sorted({profile["identities"][0]["category"] for profile in profiles})
+    kinds = sorted({capability["kind"] for profile in profiles for capability in profile["capabilities"]})
+    template = string.Template((ROOT / "templates" / "index.html").read_text())
+
+    return template.substitute(
+        version=SCHEMA_VERSION,
+        count=len(profiles),
+        rows="\n".join(rows),
+        category_options="".join(f'<option value="{c}">{escape(CATEGORY_NAMES.get(c, c))}</option>' for c in categories),
+        capability_options="".join(f'<option value="{k}">{escape(CAPABILITY_LABELS.get(k, k))}</option>' for k in kinds),
+        legend="\n".join(f"<dt>{escape(CAPABILITY_LABELS.get(kind, kind))}</dt><dd>{escape(text)}</dd>" for kind, text in descriptions.items()),
+    )
 
 
 if __name__ == "__main__":

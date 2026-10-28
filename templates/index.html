@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INSTEON Device Catalog</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --text: #1d1d1f;
+    --muted: #5f6368;
+    --line: #d9dce1;
+    --surface: #ffffff;
+    --chip: #eef1f5;
+    --accent: #2457c5;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #ececf0;
+      --muted: #a0a4ab;
+      --line: #3a3d44;
+      --surface: #16171a;
+      --chip: #2a2d33;
+      --accent: #8fb0ff;
+    }
+  }
+  body { margin: 0; background: var(--surface); color: var(--text); }
+  main { max-width: 72rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  a { color: var(--accent); }
+  h1 { margin: 0 0 0.5rem; font-size: 1.75rem; }
+  .intro { max-width: 46rem; color: var(--muted); }
+  .files { padding-left: 1.25rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; margin: 1.5rem 0 0.75rem; }
+  .controls label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85rem; color: var(--muted); }
+  .controls .check { flex-direction: row; align-items: center; gap: 0.4rem; padding-bottom: 0.4rem; }
+  input[type=search], select {
+    font: inherit; color: var(--text); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 6px; padding: 0.35rem 0.5rem;
+  }
+  input[type=search] { min-width: min(22rem, 100%); }
+  .count { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 0.55rem 0.75rem 0.55rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.85rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  th button::after { content: " ↕"; opacity: 0.4; }
+  th[aria-sort=ascending] button::after { content: " ↑"; opacity: 1; }
+  th[aria-sort=descending] button::after { content: " ↓"; opacity: 1; }
+  .model { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+  .aliases { color: var(--muted); font-size: 0.85rem; }
+  .description { margin: 0.25rem 0 0; font-size: 0.9rem; }
+  .ids { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; }
+  .ids span { display: block; white-space: nowrap; }
+  .ids small { font-family: system-ui, sans-serif; color: var(--muted); }
+  .chip { display: inline-block; margin: 0 0.25rem 0.25rem 0; padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--chip); font-size: 0.8rem; white-space: nowrap; }
+  .legend dt { font-weight: 600; }
+  .legend dd { margin: 0 0 0.75rem; color: var(--muted); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+<h1>INSTEON Device Catalog</h1>
+<p class="intro">What each INSTEON product is and what it can do, keyed by the category, subcategory and
+firmware version a device reports. Software downloads the catalog and looks devices up itself.</p>
+<ul class="files">
+  <li><a href="v$version/manifest.json"><code>v$version/manifest.json</code></a>: the schema version, the number of profiles and the catalog's SHA-256</li>
+  <li><a href="v$version/catalog.json"><code>v$version/catalog.json</code></a>: every profile</li>
+  <li><a href="v$version/device-profile.schema.json"><code>v$version/device-profile.schema.json</code></a>: the JSON Schema each profile follows</li>
+  <li><a href="https://github.com/brandtdaniels/insteon-device-catalog/blob/main/API.md">How to use the catalog</a> and <a href="https://github.com/brandtdaniels/insteon-device-catalog">the source</a></li>
+</ul>
+
+<h2>Products</h2>
+<div class="controls" hidden>
+  <label>Search
+    <input type="search" id="search" placeholder="Model, name or 0x01/0x20" autocomplete="off">
+  </label>
+  <label>Category
+    <select id="category"><option value="">All</option>$category_options</select>
+  </label>
+  <label>Capability
+    <select id="capability"><option value="">All</option>$capability_options</select>
+  </label>
+  <label>Radio
+    <select id="radio"><option value="">All</option><option value="powerline">Powerline</option><option value="rf">RF</option><option value="dual">Dual-band</option></select>
+  </label>
+  <label class="check"><input type="checkbox" id="battery"> Battery powered</label>
+</div>
+<p class="count" id="count">$count products</p>
+<div class="table-wrap">
+<table>
+<thead><tr>
+  <th data-sort="model"><button type="button">Model</button></th>
+  <th data-sort="name"><button type="button">Name</button></th>
+  <th data-sort="category"><button type="button">Category</button></th>
+  <th>Identities</th>
+  <th>Capabilities</th>
+</tr></thead>
+<tbody id="products">
+$rows
+</tbody>
+</table>
+</div>
+
+<h2>Capabilities</h2>
+<dl class="legend">
+$legend
+</dl>
+</main>
+<script>
+(() => {
+  const rows = Array.from(document.querySelectorAll("#products tr"));
+  const body = document.getElementById("products");
+  const controls = document.querySelector(".controls");
+  const search = document.getElementById("search");
+  const category = document.getElementById("category");
+  const capability = document.getElementById("capability");
+  const radio = document.getElementById("radio");
+  const battery = document.getElementById("battery");
+  const count = document.getElementById("count");
+  const total = rows.length;
+  let sortKey = "model";
+  let ascending = true;
+
+  controls.hidden = false;
+
+  function apply() {
+    const terms = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+
+    for (const row of rows) {
+      const visible =
+        terms.every((term) => row.dataset.search.includes(term)) &&
+        (!category.value || row.dataset.category === category.value) &&
+        (!capability.value || row.dataset.capabilities.split(" ").includes(capability.value)) &&
+        (!radio.value || row.dataset.radio === radio.value) &&
+        (!battery.checked || row.dataset.battery === "true");
+
+      row.hidden = !visible;
+      shown += visible ? 1 : 0;
+    }
+
+    count.textContent = shown === total ? total + " products" : shown + " of " + total + " products";
+  }
+
+  function sort() {
+    const sorted = rows.slice().sort((a, b) => {
+      const order = a.dataset[sortKey].localeCompare(b.dataset[sortKey], undefined, { numeric: true, sensitivity: "base" });
+      return ascending ? order : -order;
+    });
+
+    body.append(...sorted);
+
+    for (const header of document.querySelectorAll("th[data-sort]")) {
+      header.setAttribute("aria-sort", header.dataset.sort === sortKey ? (ascending ? "ascending" : "descending") : "none");
+    }
+  }
+
+  for (const header of document.querySelectorAll("th[data-sort]")) {
+    header.querySelector("button").addEventListener("click", () => {
+      ascending = header.dataset.sort === sortKey ? !ascending : true;
+      sortKey = header.dataset.sort;
+      sort();
+    });
+  }
+
+  for (const control of [search, category, capability, radio, battery]) {
+    control.addEventListener("input", apply);
+  }
+
+  sort();
+  apply();
+})();
+</script>
+</body>
+</html>
