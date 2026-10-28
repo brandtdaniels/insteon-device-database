@@ -1,6 +1,10 @@
 {
   "model": "2477S",
-  "name": "SwitchLinc Relay",
+  "name": "On/Off Switch",
+  "aliases": [
+    "SwitchLinc Relay"
+  ],
+  "description": "An in-wall on/off switch for non-dimmable loads such as fluorescent lights, ceiling fans, and exhaust fans, rated up to 17 amps. It can be controlled locally or remotely over Insteon.",
   "identities": [
     {
       "category": "0x02",
@@ -22,6 +26,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "model": "2845",
   "name": "Hidden Door Sensor",
+  "description": "A wireless, battery-powered sensor recessed into a door frame that reports when the door opens or closes. It can trigger lights and other Insteon devices.",
   "identities": [
     {
       "category": "0x10",
@@ -61,6 +62,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2845-222 Door Sensor II PRD"
+    "2845-222 Door Sensor II PRD",
+    "insteon.com product catalog"
   ]
 }

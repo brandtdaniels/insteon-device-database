@@ -1,6 +1,10 @@
 {
   "model": "2444",
-  "name": "Micro Open/Close",
+  "name": "Micro Open/Close Module",
+  "aliases": [
+    "Micro Open/Close"
+  ],
+  "description": "A small in-box module that controls 110 V motorized devices such as projection screens, shutters, and curtains. It supports several switch types and has adjustable open and close travel times.",
   "identities": [
     {
       "category": "0x0E",
@@ -20,6 +24,7 @@
   ],
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

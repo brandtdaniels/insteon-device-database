@@ -1,6 +1,10 @@
 {
   "model": "2487S",
-  "name": "KeypadLinc On/Off",
+  "name": "On/Off Keypad",
+  "aliases": [
+    "KeypadLinc On/Off"
+  ],
+  "description": "A wall keypad that switches its connected light fixture on and off and adds extra buttons for controlling other Insteon devices or scenes. It replaces a standard wall switch. Insteon sells it in a 6-button version.",
   "identities": [
     {
       "category": "0x02",
@@ -17,7 +21,8 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ],
   "notes": [
     "HouseLinc also lists its identity under 2487S-50."

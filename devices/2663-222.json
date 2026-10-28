@@ -1,6 +1,10 @@
 {
   "model": "2663-222",
-  "name": "On/Off Outlet",
+  "name": "Dual On/Off Outlet",
+  "aliases": [
+    "On/Off Outlet"
+  ],
+  "description": "An in-wall duplex outlet with two receptacles that can each be switched on and off independently over Insteon. It is used to control plug-in lamps, fans, and small appliances.",
   "identities": [
     {
       "category": "0x02",
@@ -31,6 +35,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2663-2xx On/Off Outlet PRD"
+    "2663-2xx On/Off Outlet PRD",
+    "insteon.com product catalog"
   ]
 }

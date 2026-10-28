@@ -1,6 +1,10 @@
 {
   "model": "2443-222",
-  "name": "Micro On/Off",
+  "name": "Micro On/Off Switch Module",
+  "aliases": [
+    "Micro On/Off"
+  ],
+  "description": "A small on/off relay module that installs in a fixture box or behind an existing wall switch. It adds Insteon remote control to a light while keeping the original switch.",
   "identities": [
     {
       "category": "0x02",
@@ -27,6 +31,7 @@
     "HouseLinc lists the regional versions as the 2443-222, 2443-422 and 2443-522."
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }

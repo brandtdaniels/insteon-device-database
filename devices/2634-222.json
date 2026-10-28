@@ -1,6 +1,10 @@
 {
   "model": "2634-222",
-  "name": "On/Off Outdoor Module",
+  "name": "Outdoor On/Off Plug",
+  "aliases": [
+    "On/Off Outdoor Module"
+  ],
+  "description": "A weather-resistant plug-in relay module for switching outdoor lights and appliances on and off remotely. It is rated NEMA 3R and works from -4 to 122 degrees Fahrenheit.",
   "identities": [
     {
       "category": "0x02",
@@ -25,6 +29,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2634-222 On/Off Outdoor Module II PRD"
+    "2634-222 On/Off Outdoor Module II PRD",
+    "insteon.com product catalog"
   ]
 }

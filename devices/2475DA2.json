@@ -1,6 +1,10 @@
 {
   "model": "2475DA2",
-  "name": "In-LineLinc 0-10V Dimmer",
+  "name": "0-10V Ballast Dimmer",
+  "aliases": [
+    "In-LineLinc 0-10V Dimmer"
+  ],
+  "description": "A controller for dimmable lighting ballasts that use a 0-10 VDC control input. It also has two relay outputs that can switch non-dimmable ballasts of up to 5 amps each.",
   "identities": [
     {
       "category": "0x01",
@@ -28,6 +32,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2475DA2 In-LineLinc 0-10V Dimmer-Switch PRD"
+    "2475DA2 In-LineLinc 0-10V Dimmer-Switch PRD",
+    "insteon.com product catalog"
   ]
 }

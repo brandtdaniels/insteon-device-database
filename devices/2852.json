@@ -1,6 +1,7 @@
 {
   "model": "2852",
   "name": "Leak Sensor",
+  "description": "A battery-powered sensor placed on the floor near sinks, toilets, washing machines, or water heaters that signals when it detects water. With an Insteon Hub or siren it can send alerts.",
   "identities": [
     {
       "category": "0x10",
@@ -67,6 +68,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Insteon command workbook, HeartBeat Status sheet",
-    "2852-222 Leak Sensor PRD"
+    "2852-222 Leak Sensor PRD",
+    "insteon.com product catalog"
   ]
 }

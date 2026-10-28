@@ -1,6 +1,10 @@
 {
   "model": "2477D",
-  "name": "SwitchLinc Dimmer",
+  "name": "Dimmer Switch",
+  "aliases": [
+    "SwitchLinc Dimmer"
+  ],
+  "description": "An in-wall dimmer switch that controls its light locally and can be controlled remotely by Insteon keypads, remotes, sensors, or the Hub. It is rated for up to 150 W of LED or 600 W of incandescent lighting.",
   "identities": [
     {
       "category": "0x01",
@@ -22,6 +26,7 @@
     }
   ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "insteon.com product catalog"
   ]
 }
