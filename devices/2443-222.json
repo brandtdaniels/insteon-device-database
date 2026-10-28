@@ -150,8 +150,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired scene state, then press and hold its SET button until it double-beeps.",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button",
+          "control": "SET button",
           "expect": "Responder double-beeps"
         },
         {
@@ -244,7 +245,7 @@
         }
       ],
       "notes": [
-        "The owner's manual says to remove all of the module's responder links before uninstalling it; otherwise controllers keep retrying commands and create network delays."
+        "The Micro On/Off 2443 Owner's Manual says to remove all of the module's responder links before uninstalling it; otherwise controllers keep retrying commands and create network delays."
       ]
     }
   },
@@ -256,7 +257,6 @@
     "insteon.com product catalog",
     "Global Line Developer Notes",
     "Micro On/Off 2443 Owner's Manual",
-    "Micro On/Off Switch Module 2443-222 Owner's Manual",
-    "Micro On/Off Switch Module 2443-222 Quick Start Guide"
+    "Micro On/Off 2443 Quick Start Guide"
   ]
 }

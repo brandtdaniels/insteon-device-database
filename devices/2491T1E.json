@@ -114,10 +114,14 @@
           "control": "SET button"
         },
         {
-          "text": "Wait 5 seconds, then release the SET button.",
+          "text": "Wait 5 seconds.",
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
           "action": "release",
           "control": "SET button",
-          "seconds": 5,
           "expect": "Insteon LED turns on after about 20 seconds; display flashes all characters three times; LED flickers, then turns solid"
         }
       ],

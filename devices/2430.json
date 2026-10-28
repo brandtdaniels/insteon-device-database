@@ -49,15 +49,24 @@
     "multiLinking": {
       "steps": [
         {
-          "text": "Press and hold the ON button of the pair for 10 seconds, then tap the same ON button again.",
+          "text": "Press and hold the ON button of the pair for 10 seconds.",
           "action": "hold",
           "control": "ON button",
           "seconds": 10,
           "expect": "Status LED blinks slowly"
         },
         {
+          "text": "Tap the same ON button again.",
+          "action": "tap",
+          "control": "ON button",
+          "count": 1
+        },
+        {
           "text": "Link each device in turn using its own linking method (on most devices, press and hold its SET button for 3 seconds).",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3,
           "expect": "Beep; status LED keeps blinking slowly"
         },
         {
@@ -89,8 +98,12 @@
     "reset": {
       "steps": [
         {
-          "text": "Unplug the Tabletop Controller for at least 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug the Tabletop Controller.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

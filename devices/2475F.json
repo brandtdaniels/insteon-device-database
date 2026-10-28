@@ -124,41 +124,134 @@
       ]
     },
     "linking": {
+      "description": "Light",
       "steps": [
         {
-          "text": "To link the light, tap the light SET button until the ceiling fan light is on; to link the fan, tap the fan SET button until the beeper and fan LED show the speed the scene should recall.",
-          "action": "tap",
-          "control": "light SET button"
+          "text": "Press and hold the scene controller's SET button until it beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller LED blinks"
         },
         {
-          "text": "With the controller in linking mode, press and hold the light (or fan) SET button until the module double-beeps.",
+          "text": "Tap the light SET button until the ceiling fan light is on.",
+          "action": "tap",
+          "control": "light SET button",
+          "expect": "Light LED is green"
+        },
+        {
+          "text": "Press and hold the light SET button until the module double-beeps.",
           "action": "hold",
           "control": "light SET button",
-          "expect": "double beep"
+          "expect": "Light LED flashes once and returns to green; the controller double-beeps and its LED stops blinking"
         }
       ],
       "notes": [
-        "The documents describe linking the module only as a responder. Put the controller in linking mode first by pressing and holding its button until it beeps.",
+        "The documents describe linking the module only as a responder.",
         "Fan speed set by tapping the fan SET button: 1st tap low (single beep, LED blinks green slowly), 2nd medium (double beep, blinks green medium), 3rd high (fast double beep, blinks green fast), 4th off (no beep, LED red). The fan does not spin while you tap the fan SET button.",
         "A 3-second beep means the module returned to ready mode after a setup timeout or a SET button tap."
+      ],
+      "alternatives": [
+        {
+          "description": "Fan",
+          "steps": [
+            {
+              "text": "Tap the fan SET button until the beeper and fan LED show the fan speed the scene should recall.",
+              "action": "tap",
+              "control": "fan SET button"
+            },
+            {
+              "text": "Press and hold the scene controller's SET button until it beeps.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller LED blinks"
+            },
+            {
+              "text": "Press and hold the fan SET button until the module double-beeps.",
+              "action": "hold",
+              "control": "fan SET button",
+              "expect": "Module double-beeps and the fan LED returns to its previous state; the controller double-beeps and its LED stops blinking"
+            }
+          ]
+        }
       ]
     },
     "unlinking": {
+      "description": "Fan",
       "steps": [
         {
           "text": "Use the pull chain to turn the fan motor off.",
-          "action": "other"
+          "action": "other",
+          "control": "pull chain"
         },
         {
-          "text": "With the controller in unlinking mode, press and hold the fan (or light) SET button until the module double-beeps.",
+          "text": "Tap the controller's scene button.",
+          "device": "other",
+          "action": "tap",
+          "control": "scene button"
+        },
+        {
+          "text": "Press and hold the controller's SET button until it beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller LED blinks"
+        },
+        {
+          "text": "Press and hold the controller's SET button until it beeps again.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller LED keeps blinking"
+        },
+        {
+          "text": "Press and hold the fan SET button until the module double-beeps.",
           "action": "hold",
           "control": "fan SET button",
-          "expect": "double beep"
+          "expect": "Module double-beeps; the controller LED stops blinking"
         }
       ],
       "notes": [
-        "Put the controller in unlinking mode first: tap its scene button, press and hold its SET button until it beeps, then press and hold it again until it beeps.",
         "If the module has both fan and light links to a controller, removing one also removes the other; re-create the one you want to keep."
+      ],
+      "alternatives": [
+        {
+          "description": "Light",
+          "steps": [
+            {
+              "text": "Use the pull chain to turn the fan motor off.",
+              "action": "other",
+              "control": "pull chain"
+            },
+            {
+              "text": "Tap the controller's scene button.",
+              "device": "other",
+              "action": "tap",
+              "control": "scene button"
+            },
+            {
+              "text": "Press and hold the controller's SET button until it beeps.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller LED blinks"
+            },
+            {
+              "text": "Press and hold the controller's SET button until it beeps again.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller LED keeps blinking"
+            },
+            {
+              "text": "Press and hold the light SET button until the module double-beeps.",
+              "action": "hold",
+              "control": "light SET button",
+              "expect": "Module double-beeps; the controller LED stops blinking"
+            }
+          ]
+        }
       ]
     },
     "reset": {
@@ -180,10 +273,16 @@
           "expect": "LED blinks red"
         },
         {
-          "text": "Quickly double-tap, release, then press and hold the light SET button.",
+          "text": "Quickly double-tap the light SET button and release it.",
+          "action": "tap",
+          "control": "light SET button",
+          "count": 2
+        },
+        {
+          "text": "Then quickly press and hold the light SET button.",
           "action": "hold",
           "control": "light SET button",
-          "expect": "beep; LEDs and light turn off, then the module beeps for 5 seconds"
+          "expect": "Module beeps, the LEDs and light turn off, then the module beeps for 5 seconds"
         },
         {
           "text": "Release after the beeping stops.",

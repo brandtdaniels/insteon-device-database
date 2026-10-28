@@ -120,12 +120,6 @@
           "control": "SET button",
           "seconds": 3,
           "expect": "LED blinks continuously, half a second on and half a second off"
-        },
-        {
-          "text": "Alternatively, have software send the Start ALL-Linking command to the Hub's modem, choosing whether it links as controller, as responder, or as controller when it starts the session and responder otherwise.",
-          "action": "send",
-          "command": "Start ALL-Linking",
-          "expect": "LED blinks continuously, half a second on and half a second off"
         }
       ],
       "notes": [
@@ -136,21 +130,34 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Taken from the Hub 2242 Developer Notes for the Hub's built-in modem; the Hub 2242 Owner's Manual does not describe linking with the Hub's SET button."
-      }
+        "note": "Taken from the Insteon Hub Developer's Guide for the Hub's built-in modem; the Hub 2242 Owner's Manual does not describe linking with the Hub's SET button."
+      },
+      "alternatives": [
+        {
+          "description": "From software",
+          "steps": [
+            {
+              "text": "Have software send the Start ALL-Linking command to the Hub's modem, choosing whether it links as controller, as responder, or as controller when it starts the session and responder otherwise.",
+              "action": "send",
+              "expect": "LED blinks continuously, half a second on and half a second off",
+              "command": "Start ALL-Linking"
+            }
+          ]
+        }
+      ]
     },
     "unlinking": {
       "steps": [
         {
           "text": "Have software send the Start ALL-Linking command with link code 0xFF and the ALL-Link group to delete.",
           "action": "send",
-          "command": "Start ALL-Linking",
-          "expect": "ALL-Linking Completed reports link code 0xFF, meaning the link was deleted"
+          "expect": "ALL-Linking Completed reports link code 0xFF, meaning the link was deleted",
+          "command": "Start ALL-Linking"
         }
       ],
       "verification": {
         "status": "inferred",
-        "note": "Taken from the Hub 2242 Developer Notes; the Hub 2242 Owner's Manual removes devices and scenes through the app."
+        "note": "Taken from the Insteon Hub Developer's Guide; the Hub 2242 Owner's Manual removes devices and scenes through the app."
       }
     },
     "reset": {
@@ -178,7 +185,7 @@
       ],
       "notes": [
         "If you have already set up the Hub in the app, you must delete your account before factory resetting the Hub; factory reset the devices you added first.",
-        "The Hub 2242 Developer Notes say the SET button is held for 10 seconds while power is applied, and that software can also reset the modem with the Reset the IM command; the modem then sends User Reset Detected.",
+        "The Insteon Hub Developer's Guide says the SET button is held for 10 seconds while power is applied, and that software can also reset the modem with the Reset the IM command; the modem then sends User Reset Detected.",
         "A Network Reset (hold the SET button until the Hub beeps, then slowly tap it six times, then remove power for about 10 seconds and reapply it) restores only the network settings."
       ]
     },
@@ -212,6 +219,6 @@
     "Insteon Device Categories (January 2014)",
     "Hub 2242 Owner's Manual",
     "Hub 2242 Quick Start Guide",
-    "Hub 2242 Developer Notes"
+    "Insteon Hub Developer's Guide"
   ]
 }

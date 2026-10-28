@@ -136,7 +136,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "When adding the outlet to the Hub, the 2016 quick start guide says to hold the SET button until you hear a double-beep; the owner's manual describes a single beep when the outlet enters linking mode itself and a double-beep when it links as a responder."
+        "note": "When adding the outlet to the Hub, the OutletLinc Dimmer 2472D Quick Start Guide (2016) says to hold the SET button until you hear a double-beep; the OutletLinc Dimmer 2472D Owner's Manual describes a single beep when the outlet enters linking mode itself and a double-beep when it links as a responder. The catalog uses the owner's manual's single beep."
       }
     },
     "linkingTimeoutSeconds": 240,
@@ -156,7 +156,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The outlet double-beeps and its LED stops blinking."
         }
       ],
@@ -221,7 +223,6 @@
     "insteon.com product catalog",
     "2472D Developer Notes",
     "OutletLinc Dimmer 2472D Owner's Manual",
-    "Dimmer Outlet 2472DWH Owner's Manual",
-    "Dimmer Outlet 2472DWH Quick Start Guide"
+    "OutletLinc Dimmer 2472D Quick Start Guide"
   ]
 }

@@ -101,8 +101,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug the Appliance Status Sensor for about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug the Appliance Status Sensor.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

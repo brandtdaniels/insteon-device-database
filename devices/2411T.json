@@ -91,13 +91,15 @@
         },
         {
           "text": "Optionally, to have the IR code respond to an off command instead of on, send an off command from the controller within 30 seconds.",
+          "device": "other",
           "action": "other",
-          "seconds": 30,
           "expect": "IRLinc double-beeps"
         },
         {
           "text": "Confirm the link by tapping the button you just linked on the controller.",
+          "device": "other",
           "action": "tap",
+          "control": "button",
           "expect": "IRLinc responds"
         }
       ],
@@ -117,7 +119,9 @@
         },
         {
           "text": "Tap the button you unlinked on the controller to confirm.",
+          "device": "other",
           "action": "tap",
+          "control": "button",
           "expect": "IRLinc no longer responds"
         }
       ],
@@ -132,8 +136,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug IRLinc from the outlet for 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug IRLinc from the outlet.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

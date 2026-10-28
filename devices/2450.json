@@ -127,8 +127,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug the I/O Module for about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug the I/O Module.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

@@ -147,7 +147,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired scene brightness or state, then press and hold its SET button until it double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "double beep"
         },
         {
@@ -174,7 +176,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The module double-beeps and its LED stops blinking."
         }
       ],
@@ -256,7 +260,6 @@
     "insteon.com product catalog",
     "Global Line Developer Notes",
     "Micro Dimmer 2442 Owner's Manual",
-    "Micro Dimmer Switch Module 2442-222 Owner's Manual",
-    "Micro Dimmer Switch Module 2442-222 Quick Start Guide"
+    "Micro Dimmer 2442 Quick Start Guide"
   ]
 }

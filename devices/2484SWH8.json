@@ -133,9 +133,13 @@
     "reset": {
       "steps": [
         {
-          "text": "Pull the SET button out and wait 15 seconds.",
-          "action": "powerOff",
-          "control": "SET button",
+          "text": "Pull the SET button out.",
+          "action": "pullTab",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 15 seconds.",
+          "action": "wait",
           "seconds": 15
         },
         {

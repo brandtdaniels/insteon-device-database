@@ -105,7 +105,7 @@
         "As a controller: put the switch in linking mode first, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the switch's LED stops blinking.",
         "As a responder: press and hold the controller button until it beeps, tap the switch on (or off), then press and hold the switch's SET button until it double-beeps; the controller's LED stops blinking.",
         "With the Insteon app, press and hold the SET button until the switch double-beeps when the app prompts you.",
-        "The 3-second hold time and four-minute timeout come from the Developer Notes; software can use the Remote Enter Linking Mode command."
+        "The 3-second hold time and four-minute timeout come from the 2477S Developer Notes; software can use the Remote Enter Linking Mode command."
       ]
     },
     "linkingTimeoutSeconds": 240,
@@ -125,8 +125,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button",
+          "control": "SET button",
           "expect": "Switch double-beeps"
         },
         {
@@ -168,7 +169,7 @@
       "steps": [
         {
           "text": "Pull out the SET button to open the air gap.",
-          "action": "powerOff",
+          "action": "pullTab",
           "control": "SET button"
         },
         {
@@ -215,7 +216,6 @@
     "insteon.com product catalog",
     "2477S Developer Notes",
     "On/Off Switch 2477S Owner's Manual",
-    "On/Off Switch 2477S Quick Start Guide",
-    "SwitchLinc On/Off Dual-Band Developer Notes"
+    "On/Off Switch 2477S Quick Start Guide"
   ]
 }

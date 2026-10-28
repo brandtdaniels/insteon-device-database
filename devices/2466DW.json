@@ -105,7 +105,11 @@
       "notes": [
         "A neutral connection is required; the switch will not work without one. The switch being replaced usually has no neutral connected, but neutral wires are usually available in the back of the box.",
         "In a virtual multi-way circuit only the primary switch is wired to the load. The secondaries connect to line, neutral and ground with their red load wire capped, the black traveler is converted to a line wire and the red traveler is capped at both ends. Then link the switches to each other as a group."
-      ]
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Toggle Dimmer Switch 2466DW Owner's Manual says to orient the switch with the LED bar at the bottom; the Toggle Dimmer Switch 2466DW Quick Start Guide says with the SET button at the bottom. The catalog uses the owner's manual's LED bar at the bottom."
+      }
     },
     "linking": {
       "steps": [
@@ -140,7 +144,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The switch double-beeps."
         },
         {
@@ -172,7 +178,9 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "seconds": 3,
           "expect": "The switch double-beeps and its LED stops blinking."
         }
@@ -187,7 +195,7 @@
       "steps": [
         {
           "text": "Pull out the SET button to create an air gap.",
-          "action": "other",
+          "action": "pullTab",
           "control": "SET button"
         },
         {

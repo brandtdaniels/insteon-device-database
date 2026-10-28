@@ -48,24 +48,31 @@
           "control": "SET button",
           "seconds": 3,
           "expect": "LED blinks continuously, half a second on and half a second off"
-        },
-        {
-          "text": "Alternatively, have software send the Start ALL-Linking command, choosing whether the modem links as controller, as responder, or as controller when it starts the session and responder otherwise, and the ALL-Link group.",
-          "action": "send",
-          "command": "Start ALL-Linking",
-          "expect": "LED blinks continuously, half a second on and half a second off"
         }
       ],
       "notes": [
         "Then press and hold the SET button on the device you want to link to the modem; the modem reports ALL-Linking Completed with the other device's ID.",
         "When linking is started with the SET button, the modem decides the controller or responder role and assigns the ALL-Link group automatically.",
         "Software can end linking mode with Cancel ALL-Linking, and can turn off SET button linking by setting bit 7 of the modem's configuration flags.",
-        "The Developer Notes give 4 minutes for linking mode started with Start ALL-Linking."
+        "The Insteon Modem Developer's Guide gives 4 minutes for linking mode started with Start ALL-Linking."
       ],
       "verification": {
         "status": "inferred",
         "note": "Read from the 2412S documents; no document names the 2412SH."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From software",
+          "steps": [
+            {
+              "text": "Have software send the Start ALL-Linking command, choosing whether the modem links as controller, as responder, or as controller when it starts the session and responder otherwise, and the ALL-Link group.",
+              "action": "send",
+              "expect": "LED blinks continuously, half a second on and half a second off",
+              "command": "Start ALL-Linking"
+            }
+          ]
+        }
+      ]
     },
     "linkingTimeoutSeconds": 240,
     "unlinking": {
@@ -73,22 +80,23 @@
         {
           "text": "Have software send the Start ALL-Linking command with link code 0xFF and the ALL-Link group to unlink.",
           "action": "send",
-          "command": "Start ALL-Linking",
-          "expect": "The modem enters unlinking mode for 4 minutes"
+          "expect": "The modem enters unlinking mode for 4 minutes",
+          "command": "Start ALL-Linking"
         },
         {
           "text": "Press and hold the SET button on the device to unlink.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "expect": "ALL-Linking Completed reports link code 0xFF, meaning the link was deleted"
         }
       ],
       "notes": [
-        "The Developer Notes give no SET button sequence for the modem's own unlinking mode."
+        "The Insteon Modem Developer's Guide gives no SET button sequence for the modem's own unlinking mode."
       ],
       "verification": {
         "status": "inferred",
-        "note": "Taken from the Developer Notes' command example; no owner's document describes unlinking the modem."
+        "note": "Taken from the Insteon Modem Developer's Guide's command example; no owner's document describes unlinking the modem."
       }
     },
     "reset": {
@@ -103,11 +111,6 @@
           "control": "SET button",
           "seconds": 10,
           "expect": "LED stays off during the reset, then turns on steadily (or blinks six times if the modem has no external EEPROM)"
-        },
-        {
-          "text": "Alternatively, have software send the Reset the IM command.",
-          "action": "send",
-          "command": "Reset the IM"
         }
       ],
       "notes": [
@@ -116,7 +119,19 @@
       "verification": {
         "status": "inferred",
         "note": "Read from the 2412S documents; no document names the 2412SH."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "From software",
+          "steps": [
+            {
+              "text": "Have software send the Reset the IM command.",
+              "action": "send",
+              "command": "Reset the IM"
+            }
+          ]
+        }
+      ]
     },
     "resetErases": [
       "links",

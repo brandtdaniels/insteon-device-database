@@ -79,6 +79,7 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -102,6 +103,7 @@
       "steps": [
         {
           "text": "Set each responder to the state you want the scene to activate.",
+          "device": "other",
           "action": "other"
         },
         {
@@ -117,6 +119,7 @@
         },
         {
           "text": "One at a time, press and hold each responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3
@@ -161,6 +164,7 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -179,7 +183,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The unlinking section says to hold the SET button for 3 seconds, the same as for linking, while the X10 section enters unlinking mode by holding the SET button for 3 seconds twice."
+        "note": "The Infrared Receiver 2411R Owner's Manual's unlinking section says to hold the SET button for 3 seconds, the same as for linking, while its X10 section enters unlinking mode by holding the SET button for 3 seconds twice. The catalog uses the unlinking section's single 3-second hold."
       }
     },
     "reset": {
@@ -189,8 +193,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug IRLinc for 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug IRLinc.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

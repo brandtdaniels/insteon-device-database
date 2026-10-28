@@ -204,13 +204,13 @@
           "control": "Program or Time/Sensor button"
         },
         {
-          "text": "To keep it awake for programming, send the stay-awake command (cmd1 0x20, cmd2 0x06, extended); it stays awake for 4 minutes.",
+          "text": "To keep it awake for programming, send Set Operating Flags (cmd1 0x20, extended) with cmd2 0x06 (stay awake); it stays awake for 4 minutes.",
           "action": "send",
-          "command": "Stay Awake"
+          "command": "Set Operating Flags"
         }
       ],
       "notes": [
-        "The Wireless Zone Thermostat 2441ZTH Owner's Manual says the Program and Time/Sensor buttons wake it to retrieve updates from the wired Thermostat. The Wireless Thermostat Developer Notes list the stay-awake command (4 minutes) and a sleep command (cmd2 0x07) that puts it to sleep in 3 seconds.",
+        "The Wireless Zone Thermostat 2441ZTH Owner's Manual says the Program and Time/Sensor buttons wake it to retrieve updates from the wired Thermostat. The Wireless Thermostat Developer Notes list the stay-awake command (4 minutes) and the same command with cmd2 0x07, which puts it to sleep in 3 seconds.",
         "On an external 5V power supply it stays awake all the time."
       ],
       "verification": {

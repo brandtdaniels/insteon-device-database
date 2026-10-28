@@ -70,8 +70,12 @@
     "reset": {
       "steps": [
         {
-          "text": "Unplug iMeter Solo for about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug iMeter Solo.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

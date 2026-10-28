@@ -154,7 +154,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired scene brightness or state, then press and hold its SET button until it double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "double beep"
         },
         {
@@ -181,7 +183,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The module double-beeps and its LED stops blinking."
         }
       ],

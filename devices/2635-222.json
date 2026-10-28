@@ -78,7 +78,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The On/Off Plug 2635-222 Owner's Manual says to hold the SET button until the module double-beeps when adding it to the Hub; the On/Off Plug 2635-222 Quick Start Guide says until it beeps."
+        "note": "When adding the module to the Hub, the On/Off Plug 2635-222 Owner's Manual says to hold the SET button until the module double-beeps; the On/Off Plug 2635-222 Quick Start Guide says until it beeps. The catalog uses the On/Off Plug 2635-222 Owner's Manual's double-beep for adding it to the Hub; entering linking mode on its own ends at a single beep."
       }
     },
     "linkingTimeoutSeconds": 240,
@@ -98,8 +98,9 @@
         },
         {
           "text": "Adjust each responder to its desired state, then one at a time press and hold each responder's SET button until it double-beeps.",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button"
+          "control": "SET button"
         },
         {
           "text": "Tap the SET button to finish.",
@@ -131,15 +132,76 @@
     "reset": {
       "steps": [
         {
-          "text": "Follow the Factory Reset branch of the programming wheel in the On/Off Plug 2635-222 Owner's Manual: press and hold the SET button to move right through the modes and tap it to move down; at Factory Reset, press and hold the SET button to reset or tap it to cancel.",
-          "action": "other",
-          "control": "SET button"
+          "text": "Press and hold the SET button until it beeps.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a second time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks red"
+        },
+        {
+          "text": "Press and hold the SET button until it beeps a third time.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Slowly tap the SET button three times.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 3,
+          "expect": "Status LED double-blinks green"
+        },
+        {
+          "text": "Press and hold the SET button. Do not let go.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Module emits a long beep"
+        },
+        {
+          "text": "After the beep stops, release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "After a few seconds the module double-beeps"
         }
+      ],
+      "notes": [
+        "The On/Off Plug 2635-222 Owner's Manual shows that tapping the SET button instead of holding it at Factory Reset cancels."
       ],
       "verification": {
         "status": "inferred",
-        "note": "The On/Off Plug 2635-222 Owner's Manual gives the factory reset only as a flow chart whose layout does not survive text extraction, so the exact number of presses and taps is not given here."
-      }
+        "note": "The On/Off Plug 2635-222 Owner's Manual gives the factory reset only as a programming wheel flow chart whose layout does not survive text extraction. The steps are read from the On/Off Module 2633 Owner's Manual, whose text gives the same path through the SET button menu (hold three times, tap three times, then hold until the long beep stops) and matches the 2635-222 flow chart."
+      },
+      "alternatives": [
+        {
+          "description": "Power-up reset",
+          "steps": [
+            {
+              "text": "Unplug the module from the outlet.",
+              "action": "unplug"
+            },
+            {
+              "text": "Press and hold the SET button while plugging the module back in.",
+              "action": "plugIn",
+              "control": "SET button"
+            },
+            {
+              "text": "Keep holding the SET button until the beep stops, then release it.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "Module beeps twice to confirm the reset"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "The Factory Resetting Insteon Devices (Insteon support article) gives this procedure for plug-in devices in general; it does not name the 2635-222."
+          }
+        }
+      ]
     },
     "resetErases": [
       "links",
@@ -166,6 +228,8 @@
     "insteon.com product catalog",
     "On/Off Module, Dual-Band Developer Notes",
     "On/Off Plug 2635-222 Owner's Manual",
-    "On/Off Plug 2635-222 Quick Start Guide"
+    "On/Off Plug 2635-222 Quick Start Guide",
+    "On/Off Module 2633 Owner's Manual",
+    "Factory Resetting Insteon Devices (Insteon support article)"
   ]
 }

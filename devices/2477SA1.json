@@ -76,13 +76,18 @@
         "The Load Controller must be connected through a 2-pole tandem circuit breaker rated for no more than 30 amps, as it has no over-current protection.",
         "It does not require a neutral connection. Use only copper or copper-clad wire.",
         "Installation by a qualified electrician is recommended.",
-        "The manual lists tools to mount the Load Controller to a wall but gives no mounting steps; the wiring diagram is not in the extracted text."
+        "The 240V Load Controller 2477SA Owner's Manual lists tools to mount the Load Controller to a wall but gives no mounting steps; the wiring diagram is not in the extracted text."
       ]
     },
     "linking": {
       "steps": [
         {
-          "text": "To link as a controller, first set each responder to the state you want, then press and hold the SET button until the Load Controller beeps (3 seconds).",
+          "text": "At each responder, set it to the state you want the Load Controller to activate. If the responder is a multi-scene device, tap the scene button you want to control until its LED turns on.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button until the Load Controller beeps (3 seconds).",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -90,23 +95,44 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
           "expect": "Load Controller double-beeps and its status LED turns solid green if the load is on, or solid red if it is off"
-        },
-        {
-          "text": "To link as a responder instead, use the SET button to set the load to the state you want, put the controller in linking mode, then press and hold the Load Controller's SET button until it double-beeps (3 seconds).",
-          "action": "hold",
-          "control": "SET button",
-          "seconds": 3,
-          "expect": "Status LED flashes once, then turns solid green if the load is on, or solid red if it is off"
         }
       ],
       "notes": [
         "The device that goes into linking mode first becomes the controller. For most controllers, press and hold an On or scene button for 10 seconds or the SET button for 3 seconds.",
         "Linking mode times out after 4 minutes.",
         "To link several responders, repeat the controller steps for each one."
+      ],
+      "description": "As a controller",
+      "alternatives": [
+        {
+          "description": "As a responder",
+          "steps": [
+            {
+              "text": "Use the SET button to set the load to the state you want.",
+              "action": "press",
+              "control": "SET button"
+            },
+            {
+              "text": "Put the controller in linking mode: for most controllers, press and hold the SET button for 3 seconds.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Press and hold the Load Controller's SET button until it double-beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED flashes once, then turns solid green if the load is on, or solid red if it is off"
+            }
+          ]
+        }
       ]
     },
     "linkingTimeoutSeconds": 240,
@@ -114,7 +140,9 @@
       "steps": [
         {
           "text": "If the responder is a multi-scene device, tap the scene button to remove until its LED turns on.",
-          "action": "tap"
+          "device": "other",
+          "action": "tap",
+          "control": "scene button"
         },
         {
           "text": "Press and hold the SET button until the Load Controller beeps (3 seconds).",
@@ -132,21 +160,44 @@
         },
         {
           "text": "Within 4 minutes, press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
           "expect": "Load Controller double-beeps and its status LED turns solid green or red to show the load state"
-        },
-        {
-          "text": "To unlink the Load Controller from a controller instead, put the controller in unlinking mode, then press and hold the Load Controller's SET button until it double-beeps (3 seconds).",
-          "action": "hold",
-          "control": "SET button",
-          "seconds": 3,
-          "expect": "Status LED flashes once, then shows the load state"
         }
       ],
-      "notes": [
-        "For most controllers, unlinking mode is entered by pressing and holding an On or scene button for 10 seconds twice, or the SET button for 3 seconds twice."
+      "description": "Unlinking a responder",
+      "alternatives": [
+        {
+          "description": "Unlinking from a controller",
+          "steps": [
+            {
+              "text": "Put the controller in unlinking mode: for most controllers, press and hold the SET button for 3 seconds.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Press and hold the controller's SET button for 3 seconds again.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3
+            },
+            {
+              "text": "Press and hold the Load Controller's SET button until it double-beeps (3 seconds).",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "Status LED flashes once, then turns solid green if the load is on, or solid red if it is off"
+            }
+          ],
+          "notes": [
+            "For most controllers, unlinking mode is entered by pressing and holding an On or scene button for 10 seconds twice, or the SET button for 3 seconds twice."
+          ]
+        }
       ]
     },
     "reset": {
@@ -156,8 +207,12 @@
           "action": "other"
         },
         {
-          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying the junction box for about 10 seconds.",
-          "action": "powerOff",
+          "text": "At the circuit breaker or fuse panel, turn off the circuit supplying the junction box.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {
@@ -194,7 +249,6 @@
   "sources": [
     "HouseLinc device catalog",
     "240V Load Controller 2477SA Owner's Manual",
-    "220V/240V 30 AMP Load Controller Normally Open 2477SA1 Owner's Manual",
-    "220V/240V 30 AMP Load Controller Normally Open 2477SA1 Quick Start Guide"
+    "240V Load Controller 2477SA Quick Start Guide"
   ]
 }

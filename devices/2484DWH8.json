@@ -79,7 +79,7 @@
         }
       ],
       "notes": [
-        "A neutral wire is required. Identify all wires before you begin; for 3-way wiring diagrams the Countdown Timer Dimmer Keypad, 8 Buttons 2484DWH8 Quick Start Guide refers to the KeypadLinc Dimmer 2486D owner's manual."
+        "A neutral wire is required. Identify all wires before you begin; for 3-way wiring diagrams the Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide refers to another document."
       ]
     },
     "linking": {
@@ -109,7 +109,9 @@
         },
         {
           "text": "Press and hold the SET button on the responder until its LED flashes; on a multi-button device, hold the button of choice until its LED or load flashes.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "responder LED flashes"
         }
       ]
@@ -117,9 +119,13 @@
     "reset": {
       "steps": [
         {
-          "text": "Pull the SET button out and wait 15 seconds.",
-          "action": "other",
-          "control": "SET button",
+          "text": "Pull the SET button out.",
+          "action": "pullTab",
+          "control": "SET button"
+        },
+        {
+          "text": "Wait 15 seconds.",
+          "action": "wait",
           "seconds": 15
         },
         {
@@ -146,6 +152,6 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Countdown Timer Dimmer Keypad, 8 Buttons 2484DWH8 Quick Start Guide"
+    "Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide"
   ]
 }

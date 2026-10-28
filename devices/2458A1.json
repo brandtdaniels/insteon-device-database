@@ -103,8 +103,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug the Lock Controller for about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug the Lock Controller.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {
@@ -122,11 +126,12 @@
         }
       ],
       "notes": [
-        "Clears all Insteon links. To use the lock again afterward, repeat installation from tapping the Lock Controller's SET button with the lock in setup."
+        "The Morning Industry Lock Controller 2458A1 Owner's Manual says the reset clears all Insteon links. To use the lock again afterward, the Lock Controller must be reinstalled with the lock, starting from tapping its SET button with the lock in setup (step 3 of installation), so the reset is counted here as also erasing the Lock Controller's pairing with the lock, a setting."
       ]
     },
     "resetErases": [
-      "links"
+      "links",
+      "settings"
     ],
     "removal": {
       "steps": [

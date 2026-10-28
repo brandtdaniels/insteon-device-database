@@ -56,22 +56,64 @@
         }
       ],
       "notes": [
-        "This is the step the manual gives when adding the Lock Controller to a Hub 2245.",
-        "Manual linking as a responder: tap the SET button to set the lock to locked or unlocked, press and hold the controller's SET button until it beeps, then press and hold the Lock Controller's SET button until it double-beeps.",
-        "The manual advises against manual linking when a central controller such as a Hub is used."
+        "The Lock Controller 2862 Owner's Manual gives this step only for adding the Lock Controller to a Hub 2245, and advises against manual linking when a central controller such as a Hub is used."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "The Lock Controller 2862 Owner's Manual gives no steps for linking the Lock Controller as a controller; this is the step it gives when adding the Lock Controller to a Hub, read here as how it enters linking mode."
+      },
+      "alternatives": [
+        {
+          "description": "As a responder",
+          "steps": [
+            {
+              "text": "Tap the SET button to set the door lock to locked or unlocked.",
+              "action": "tap",
+              "control": "SET button"
+            },
+            {
+              "text": "On the controller, press and hold the SET button until it beeps.",
+              "device": "other",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Controller beeps"
+            },
+            {
+              "text": "Press and hold the Lock Controller's SET button until it double-beeps.",
+              "action": "hold",
+              "control": "SET button",
+              "expect": "Double beep"
+            }
+          ]
+        }
       ]
     },
     "unlinking": {
+      "description": "As a responder",
       "steps": [
         {
-          "text": "After putting the controller in unlinking mode, press and hold the SET button until the Lock Controller double-beeps.",
+          "text": "On the controller, press and hold the SET button until it beeps.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller beeps"
+        },
+        {
+          "text": "Press and hold the controller's SET button again until it beeps and its status LED blinks red.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Controller beeps and its status LED blinks red"
+        },
+        {
+          "text": "Press and hold the Lock Controller's SET button until it double-beeps.",
           "action": "hold",
           "control": "SET button",
           "expect": "Double beep"
         }
       ],
       "notes": [
-        "Unlinking mode on most controllers: press and hold the controller's SET button until it beeps, then again until it beeps and its status LED blinks red."
+        "The Lock Controller 2862 Owner's Manual gives unlinking only with the Lock Controller as the responder."
       ]
     }
   },

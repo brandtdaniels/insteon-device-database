@@ -122,8 +122,7 @@
       "steps": [
         {
           "text": "With the controller in linking mode and the fixture on, screw in the bulb, or unscrew it for a moment and reinsert it.",
-          "action": "powerOn",
-          "expect": "double beep"
+          "action": "powerOn"
         }
       ],
       "notes": [
@@ -133,15 +132,14 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The LED Bulb PAR38 2674 Owner's Manual says the bulb double-beeps when linked or unlinked, but the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper."
+        "note": "The LED Bulb PAR38 2674 Owner's Manual says the bulb double-beeps when it is linked or unlinked; the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper. The catalog follows the LED Bulb Developer Notes and gives no confirmation from the bulb."
       }
     },
     "unlinking": {
       "steps": [
         {
           "text": "With the controller in unlinking mode and the fixture on, unscrew the bulb for a moment and reinsert it.",
-          "action": "powerOn",
-          "expect": "double beep"
+          "action": "powerOn"
         }
       ],
       "notes": [
@@ -149,7 +147,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The LED Bulb PAR38 2674 Owner's Manual says the bulb double-beeps when linked or unlinked, but the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper."
+        "note": "The LED Bulb PAR38 2674 Owner's Manual says the bulb double-beeps when it is linked or unlinked; the LED Bulb Developer Notes say the bulb has no SET button, status LED or beeper. The catalog follows the LED Bulb Developer Notes and gives no confirmation from the bulb."
       }
     }
   },

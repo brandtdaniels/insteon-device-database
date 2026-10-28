@@ -47,7 +47,8 @@
       ],
       "notes": [
         "For the best network performance, install at least two dual-band Insteon products.",
-        "The USB Adapter communicates with the computer as long as it is connected, which may wake the computer from sleep."
+        "The USB Adapter communicates with the computer as long as it is connected, which may wake the computer from sleep.",
+        "The steps combine two quick start versions for the same model: the Portable USB Adapter 2448A7 Quick Start Guide (2010, Windows only) names the Access Point 2443 and gives the Windows driver; the USB Stick 2448A7 Quick Start Guide (2013, PC or Mac) adds the Mac driver steps. Otherwise they give the same steps."
       ]
     },
     "linking": {
@@ -65,9 +66,9 @@
   },
   "sources": [
     "HouseLinc device catalog",
-    "USB Adapter 2448A7 Quick Start Guide",
-    "USB Adapter Developer Notes",
-    "USB Adapter 2448A7 Developer Notes"
+    "Portable USB Adapter 2448A7 Quick Start Guide",
+    "USB Stick 2448A7 Quick Start Guide",
+    "USB Adapter Developer Notes"
   ],
   "notes": [
     "Has no SET button: start linking from software with Start ALL-Linking (0x64).",

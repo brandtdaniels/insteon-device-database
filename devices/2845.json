@@ -144,14 +144,23 @@
     "multiLinking": {
       "steps": [
         {
-          "text": "Press and hold the SET button until the Hidden Door Sensor beeps, then tap the SET button.",
+          "text": "Press and hold the SET button until the Hidden Door Sensor beeps.",
           "action": "hold",
           "control": "SET button",
           "expect": "Beep"
         },
         {
+          "text": "Tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 1
+        },
+        {
           "text": "Adjust each scene member to its state and, one at a time, press and hold its SET button until it double-beeps.",
-          "action": "other"
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Scene member double-beeps"
         },
         {
           "text": "Tap the SET button once to finish the scene.",

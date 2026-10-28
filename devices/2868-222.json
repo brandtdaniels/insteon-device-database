@@ -109,28 +109,34 @@
     "linking": {
       "steps": [
         {
-          "text": "Press and hold the SET button until the Siren double-beeps.",
+          "text": "Press and hold the SET button.",
           "action": "hold",
           "control": "SET button",
-          "expect": "Double beep"
+          "expect": "Status LED blinks green"
         }
       ],
       "notes": [
         "The first device put into linking mode becomes the controller and the second the responder. Linking mode ends after a link is made or after four minutes without one.",
         "To be triggered by a device: put that device in linking mode, tap the Siren's SET button until you hear the alert tone you want (siren or chime), then press and hold the SET button until it double-beeps.",
         "To be armed and disarmed by a device: tap the chosen button on that device and put it in linking mode, tap the Siren's SET button until its status LED glows red, then press and hold the SET button until it double-beeps. Arming takes 45 seconds, during which the Siren beeps.",
-        "These are the steps the Siren 2868-222 Owner's Manual gives when adding the Siren to a Hub. Don't use local programming if a Hub or other central controller manages the Siren."
+        "To add the Siren to a Hub, press and hold its SET button when the app prompts. The Siren 2868-222 Owner's Manual says to hold it until the Siren double-beeps; the Siren 2868-222 Quick Start Guide says until it beeps. Don't use local programming if a Hub or other central controller manages the Siren."
       ],
       "verification": {
-        "status": "conflicting",
-        "note": "For adding to a Hub, the Siren 2868-222 Owner's Manual says to hold the SET button until the Siren double-beeps; the quick start says until it beeps."
+        "status": "inferred",
+        "note": "Read from the Siren 2868-222 Owner's Manual's local programming flow chart (press and hold the SET button to move to Linking Mode) and its legend (status LED blinks green). Its written steps give the Siren's SET button only for the Siren's side as a responder or when adding it to a Hub, where it is held until the Siren double-beeps."
       }
     },
     "linkingTimeoutSeconds": 240,
     "multiLinking": {
       "steps": [
         {
-          "text": "Put the Siren in linking mode, then tap the SET button to enter multi-linking mode.",
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Tap the SET button to enter multi-linking mode.",
           "action": "tap",
           "control": "SET button",
           "count": 1,
@@ -148,7 +154,13 @@
     "unlinking": {
       "steps": [
         {
-          "text": "Put the Siren in linking mode, then press and hold the SET button again to enter unlinking mode.",
+          "text": "Press and hold the SET button to enter linking mode.",
+          "action": "hold",
+          "control": "SET button",
+          "expect": "Status LED blinks green"
+        },
+        {
+          "text": "Press and hold the SET button again to enter unlinking mode.",
           "action": "hold",
           "control": "SET button",
           "expect": "Status LED blinks red"

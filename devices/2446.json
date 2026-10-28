@@ -94,7 +94,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The documents disagree on the 0-10V wire colors: the Ballast Dimmer 2446 Quick Start Guide labels purple 0-10VDC + and grey DC ground, while the Ballast Dimmer 2446 Owner's Manual specifications list gray as Analog + and purple as Analog -. Check the label on the unit."
+        "note": "The documents disagree on the 0-10V wire colors: the Ballast Dimmer 2446 Quick Start Guide labels purple 0-10VDC + and grey DC ground, while the Ballast Dimmer 2446 Owner's Manual specifications list gray as Analog + and purple as Analog -. The catalog names the wires by function and gives no colors; check the label on the unit."
       }
     },
     "linking": {
@@ -130,7 +130,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The module double-beeps and its LED stops blinking."
         }
       ],
@@ -141,8 +143,12 @@
     "reset": {
       "steps": [
         {
-          "text": "Disconnect the module from power for about 10 seconds.",
-          "action": "powerOff",
+          "text": "Disconnect the module from power.",
+          "action": "powerOff"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

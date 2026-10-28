@@ -161,8 +161,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired scene state, then press and hold its SET button until it double-beeps.",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button"
+          "control": "SET button"
         },
         {
           "text": "Press and hold the SET button until the module double-beeps.",

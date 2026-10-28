@@ -197,7 +197,9 @@
         },
         {
           "text": "For each responder, adjust it to the desired scene state (on a keypad, tap the button at least once), then press and hold its SET button until it beeps or its LED flashes.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The keypad beeps."
         },
         {
@@ -228,7 +230,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The keypad double-beeps and the scene button LED stops blinking."
         }
       ],
@@ -241,7 +245,7 @@
       "steps": [
         {
           "text": "Pull the SET button out to create an air gap.",
-          "action": "other",
+          "action": "pullTab",
           "control": "SET button"
         },
         {

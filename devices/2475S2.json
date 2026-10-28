@@ -121,7 +121,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The In-Line On/Off Module with Sense 2475S2 Owner's Manual's linking section says to hold the SET button until the module beeps; its X10 section says to hold it until it double-beeps to enter linking mode."
+        "note": "The In-Line On/Off Module with Sense 2475S2 Owner's Manual's linking section says to hold the SET button until the module beeps; its X10 section says to hold it until it double-beeps to enter linking mode. The catalog uses the linking section's single beep."
       }
     },
     "linkingTimeoutSeconds": 240,
@@ -129,6 +129,7 @@
       "steps": [
         {
           "text": "Adjust each responder to the desired state.",
+          "device": "other",
           "action": "other"
         },
         {
@@ -145,8 +146,9 @@
         },
         {
           "text": "One at a time, press and hold each responder's SET button for about 3 seconds.",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button",
+          "control": "SET button",
           "seconds": 3
         },
         {

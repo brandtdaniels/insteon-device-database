@@ -111,7 +111,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The Timer Module 2456S3T Owner's Manual says to hold the SET button for 3 seconds again for unlinking mode; the Timer Module 2456S3T Quick Start Guide says to hold it again for an additional 5 seconds."
+        "note": "The Timer Module 2456S3T Owner's Manual says to hold the SET button for 3 seconds again for unlinking mode; the Timer Module 2456S3T Quick Start Guide says to hold it again for an additional 5 seconds. The catalog uses the owner's manual's 3 seconds."
       }
     },
     "reset": {
@@ -121,8 +121,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug the timer for 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug the timer.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {
@@ -148,7 +152,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The Timer Module 2456S3T Owner's Manual says to hold the SET button for 3 seconds after plugging in; the Timer Module 2456S3T Quick Start Guide says to hold it about 5 seconds until the LED flashes once. The final 10-second wait comes from the Timer Module 2456S3T Quick Start Guide."
+        "note": "The Timer Module 2456S3T Owner's Manual says to hold the SET button for 3 seconds after plugging in; the Timer Module 2456S3T Quick Start Guide says to hold it about 5 seconds until the LED flashes once. The catalog uses the owner's manual's 3 seconds; the final 10-second wait comes from the Timer Module 2456S3T Quick Start Guide."
       }
     },
     "resetErases": [

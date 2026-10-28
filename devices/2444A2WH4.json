@@ -90,7 +90,6 @@
           "text": "Fully charge the Mini Remote with a Type A to Micro-B USB cable before programming; the red charging LED turns off when the battery is fully charged.",
           "action": "other",
           "control": "Micro-USB charging jack",
-          "seconds": 3600,
           "expect": "Charging LED turns off"
         },
         {
@@ -126,7 +125,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The Mini Remote - 4 Scene 2444A2WH4 Owner's Manual says setup mode times out after more than 3 minutes with a long beep; the RemoteLinc 2 Developer Notes say the LED blinks green for 4 minutes or until linked."
+        "note": "The Mini Remote - 4 Scene 2444A2WH4 Owner's Manual says setup mode times out after more than 3 minutes with a long beep; the RemoteLinc 2 Developer Notes say the LED blinks green for 4 minutes or until linked. The catalog uses the owner's manual's 3 minutes (180 seconds)."
       }
     },
     "linkingTimeoutSeconds": 180,
@@ -153,7 +152,9 @@
         },
         {
           "text": "For each responder, adjust it to the state you want, then press and hold its SET button until the Mini Remote double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "Double beep; LED keeps double-blinking green"
         },
         {
@@ -188,8 +189,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps or its LED blinks.",
+          "device": "other",
           "action": "hold",
-          "control": "responder's SET button",
+          "control": "SET button",
           "expect": "Mini Remote double-beeps and its LED stops blinking"
         }
       ],

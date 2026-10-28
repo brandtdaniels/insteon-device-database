@@ -203,7 +203,9 @@
         },
         {
           "text": "Adjust each device to its scene state and, one at a time, press and hold its SET button until it double-beeps.",
-          "action": "other"
+          "device": "other",
+          "action": "hold",
+          "control": "SET button"
         },
         {
           "text": "Tap the SET button to leave multi-link mode.",

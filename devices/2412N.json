@@ -74,6 +74,7 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -101,6 +102,7 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -119,8 +121,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug SmartLinc and wait about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug SmartLinc.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

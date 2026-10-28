@@ -99,7 +99,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "When adding the switch to the Hub, the Dimmer Switch 2477D Owner's Manual says to hold the SET button until the device beeps, while the Dimmer Switch 2477D Quick Start Guide says until you hear a double-beep."
+        "note": "When adding the switch to the Hub, the Dimmer Switch 2477D Owner's Manual says to hold the SET button until the device beeps, while the Dimmer Switch 2477D Quick Start Guide says until you hear a double-beep. The catalog uses the owner's manual's single beep."
       }
     },
     "multiLinking": {
@@ -117,11 +117,14 @@
         },
         {
           "text": "Set each device in the scene to the state it should take: on, off or a brightness level.",
+          "device": "other",
           "action": "other"
         },
         {
           "text": "One at a time, press and hold the SET button on each device in the scene until it double-beeps.",
-          "action": "other"
+          "device": "other",
+          "action": "hold",
+          "control": "SET button"
         },
         {
           "text": "Tap the SET button on the switch to finish building the scene.",
@@ -162,7 +165,7 @@
       "steps": [
         {
           "text": "Pull the SET button out from the switch until the status LEDs turn off.",
-          "action": "other",
+          "action": "pullTab",
           "control": "SET button",
           "expect": "status LEDs turn off"
         },

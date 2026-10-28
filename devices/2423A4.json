@@ -51,8 +51,12 @@
           "action": "other"
         },
         {
-          "text": "Database reset: unplug iGateway for about 10 seconds.",
-          "action": "unplug",
+          "text": "Database reset: unplug iGateway.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {
@@ -69,9 +73,17 @@
           "expect": "After a few seconds, the blue status LED flashes once and then turns on solid"
         },
         {
-          "text": "Registration reset: unplug iGateway for about 10 seconds and then plug it back in.",
-          "action": "plugIn",
+          "text": "Registration reset: unplug iGateway.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
+        },
+        {
+          "text": "Plug iGateway back in.",
+          "action": "plugIn"
         },
         {
           "text": "Press and hold the SET button for 3 seconds.",
@@ -86,14 +98,22 @@
           "count": 5
         },
         {
-          "text": "Wait 10 seconds and unplug iGateway.",
-          "action": "unplug",
+          "text": "Wait 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {
-          "text": "Wait 10 seconds and then plug iGateway back in.",
-          "action": "plugIn",
+          "text": "Unplug iGateway.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait 10 seconds.",
+          "action": "wait",
           "seconds": 10
+        },
+        {
+          "text": "Plug iGateway back in.",
+          "action": "plugIn"
         }
       ],
       "notes": [

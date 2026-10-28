@@ -107,7 +107,10 @@
         },
         {
           "text": "One at a time, press and hold each responder's SET button for 3 seconds.",
-          "action": "other"
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
         },
         {
           "text": "When done, tap the same On button to leave multi-linking mode.",
@@ -154,8 +157,12 @@
           "action": "other"
         },
         {
-          "text": "Remove one battery for at least 10 seconds.",
-          "action": "removeBatteries",
+          "text": "Remove one battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

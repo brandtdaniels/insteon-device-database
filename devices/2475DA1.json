@@ -168,15 +168,48 @@
           "expect": "LED blinks red"
         },
         {
-          "text": "Double-tap the SET button, then press and hold it until the long beep stops.",
+          "text": "Double-tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Then press and hold the SET button until the long beep stops.",
           "action": "hold",
           "control": "SET button",
           "expect": "long beep; LED turns off and the load turns on"
         }
       ],
       "notes": [
-        "With a partner: turn off the circuit breaker, press and hold the SET button while the partner turns the breaker back on, and keep holding until the long beep stops, then release. The dimmer double-beeps, its LED turns green and the load turns on.",
         "Continuous beeps for 10 seconds warn that a factory reset is coming."
+      ],
+      "alternatives": [
+        {
+          "description": "With a partner",
+          "steps": [
+            {
+              "text": "Turn off the circuit breaker.",
+              "action": "powerOff",
+              "control": "breaker"
+            },
+            {
+              "text": "Press and hold the SET button.",
+              "action": "hold",
+              "control": "SET button"
+            },
+            {
+              "text": "While you keep holding the SET button, have the partner turn the breaker back on.",
+              "action": "powerOn",
+              "control": "breaker"
+            },
+            {
+              "text": "Keep holding until the long beep stops, then release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "Dimmer double-beeps, its LED turns green and the load turns on"
+            }
+          ]
+        }
       ]
     },
     "resetErases": [

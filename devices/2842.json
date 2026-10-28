@@ -124,7 +124,7 @@
         "To control powerline-only devices, at least one Access Point 2443 or other dual-band device is needed.",
         "Avoid aiming at mirrors, windows or direct sunlight; avoid air ducts, steam, oil, fireplaces and large obstructions; keep the lens free of dirt, snow and ice; and for pet rejection, keep climbable furniture over 3 ft more than 6 ft from the sensor.",
         "Jumpers set sensitivity (1), LED off (2), night-only (3), on-only (4) and software management (5); after changing one, tap the SET button once, wait 10 seconds and trigger motion. The left dial sets the off countdown (30 seconds to 2 hours) and the right dial sets the day/night threshold.",
-        "The 2014 quick start says to install jumper 5 to configure night-only mode and light sensitivity from the Hub."
+        "The Motion Sensor 2842 Quick Start Guide (2014) says to install jumper 5 to configure night-only mode and light sensitivity from the Hub."
       ]
     },
     "linking": {
@@ -140,11 +140,11 @@
       "notes": [
         "Then turn the responder on (or set it to any state, such as 50% or off) and press and hold its SET button until it double-beeps; the Motion Sensor's LED stops blinking. Test by tapping the Motion Sensor's SET button.",
         "Repeat for each responder; the documents give limits of 30 and of 32 responders.",
-        "When adding it to a Hub, the 2014 quick start says to remove the back cover, press and hold the SET button until the status LED blinks, then tap the SET button (the LED double-blinks)."
+        "When adding it to a Hub, the Motion Sensor 2842 Quick Start Guide (2014) says to remove the back cover, press and hold the SET button until the status LED blinks, then tap the SET button (the LED double-blinks)."
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The older quick start says the sensor sends ON to up to 30 linked responders in one place and allows up to 32 responders in another."
+        "note": "The Motion Sensor 2842 Owner's Manual (published as the owner's manual but a 2012 quick start guide) says the sensor sends ON to up to 30 linked responders in one place and allows up to 32 responders in another. The catalog records no responder limit."
       }
     },
     "unlinking": {

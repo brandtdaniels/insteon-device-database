@@ -200,6 +200,7 @@
       "steps": [
         {
           "text": "Set each responder to the desired scene state.",
+          "device": "other",
           "action": "other"
         },
         {
@@ -221,8 +222,9 @@
         },
         {
           "text": "For each responder, tap its button if it is a multi-button device, then press and hold its SET button until it beeps or its LED flashes (about 3 seconds).",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button",
+          "control": "SET button",
           "seconds": 3
         },
         {
@@ -269,7 +271,7 @@
       "steps": [
         {
           "text": "Pull the SET button out to open the air gap.",
-          "action": "powerOff",
+          "action": "pullTab",
           "control": "SET button"
         },
         {

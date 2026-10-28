@@ -197,7 +197,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the thermostat 2441TH owner's manual, which covers this heat pump model."
+        "note": "Read from the Thermostat 2441TH Owner's Manual, which covers this heat pump model."
       }
     },
     "unlinking": {
@@ -223,7 +223,7 @@
       "notes": [
         "Then press and hold the responder's SET button; the thermostat double-beeps when done.",
         "To remove the thermostat as a responder: press and hold the controller's scene button until it beeps, press and hold it again until it beeps again, then press and hold the thermostat's SET button (or the SET button and the Down arrow together for an off-command link).",
-        "The manual recommends using software to manage scene memberships whenever possible."
+        "The Thermostat 2441TH Owner's Manual recommends using software to manage scene memberships whenever possible."
       ]
     },
     "reset": {
@@ -266,7 +266,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the thermostat 2441TH owner's manual, which covers this heat pump model."
+        "note": "Read from the Thermostat 2441TH Owner's Manual, which covers this heat pump model."
       }
     },
     "resetErases": [

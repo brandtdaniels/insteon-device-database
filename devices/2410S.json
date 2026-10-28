@@ -70,6 +70,7 @@
         },
         {
           "text": "Press and hold the responder's SET button for 3 seconds.",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3
@@ -94,8 +95,12 @@
     "reset": {
       "steps": [
         {
-          "text": "Unplug SeriaLinc for about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug SeriaLinc.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

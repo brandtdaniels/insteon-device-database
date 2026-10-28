@@ -118,7 +118,9 @@
         },
         {
           "text": "For each responder, adjust it to the scene state and press and hold its SET button until it double-beeps.",
-          "action": "other"
+          "device": "other",
+          "action": "hold",
+          "control": "SET button"
         },
         {
           "text": "Tap the SET button to finish.",

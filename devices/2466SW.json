@@ -108,7 +108,11 @@
         "If there is no neutral wire in the box, consult an electrician.",
         "In a virtual multi-way circuit only the primary switch connects to the load; secondaries connect to line, neutral and ground and their red load wire is capped. The Toggle On/Off Switch 2466SW Owner's Manual gives the full multi-way wiring.",
         "Pull the SET button out about 1/8 in. to open the air gap and remove all power from the switch and its load; push it back in flush to restore power."
-      ]
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Toggle On/Off Switch 2466SW Owner's Manual says to orient the switch with the LED bar at the bottom; the Toggle On/Off Switch 2466SW Quick Start Guide says with the SET button at the bottom. The catalog uses the owner's manual's LED bar at the bottom."
+      }
     },
     "linking": {
       "steps": [
@@ -126,7 +130,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The Toggle On/Off Switch 2466SW Quick Start Guide says the status LED blinks green; the Toggle On/Off Switch 2466SW Owner's Manual specifies a white status LED and does not name a color."
+        "note": "The Toggle On/Off Switch 2466SW Quick Start Guide says the status LED blinks green; the Toggle On/Off Switch 2466SW Owner's Manual specifies a white status LED and does not name a color. The catalog gives no color."
       }
     },
     "linkingTimeoutSeconds": 240,
@@ -146,8 +150,9 @@
         },
         {
           "text": "For each responder, set it to the desired state, then press and hold its SET button until it beeps or its LED flashes.",
+          "device": "other",
           "action": "hold",
-          "control": "responder SET button",
+          "control": "SET button",
           "expect": "Switch double-beeps"
         },
         {
@@ -191,7 +196,7 @@
       "steps": [
         {
           "text": "Pull out the SET button to open the air gap.",
-          "action": "powerOff",
+          "action": "pullTab",
           "control": "SET button"
         },
         {

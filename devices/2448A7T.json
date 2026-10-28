@@ -62,12 +62,13 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the TouchLinc 2448 manual; the product list gives the 2448A7T the name TouchLinc."
+        "note": "Read from the Touchscreen Controller 2448 Owner's Manual and Touchscreen Controller 2448 Quick Start Guide, which print the model as 2448 and the name TouchLinc. The catalog's 2448A7T is the TouchLinc these documents describe: the Insteon Device Categories (January 2014) list names the 2448A7T TouchLinc."
       }
     }
   },
   "sources": [
     "HouseLinc device catalog",
+    "Insteon Device Categories (January 2014)",
     "Touchscreen Controller 2448 Owner's Manual",
     "Touchscreen Controller 2448 Quick Start Guide"
   ]

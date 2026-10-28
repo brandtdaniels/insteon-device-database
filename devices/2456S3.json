@@ -123,8 +123,12 @@
           "action": "other"
         },
         {
-          "text": "Unplug the module for about 10 seconds.",
-          "action": "unplug",
+          "text": "Unplug the module.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait about 10 seconds.",
+          "action": "wait",
           "seconds": 10
         },
         {

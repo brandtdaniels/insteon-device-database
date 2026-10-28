@@ -123,11 +123,12 @@
       "notes": [
         "As a responder: set the load with the On and Off buttons to the state the controller should activate, press and hold the controller's scene button until it beeps, then press and hold the module's SET button until it double-beeps; the module's status LED flashes once and then turns on steady, and the controller double-beeps and its LED stops blinking.",
         "With the Hub, follow the app's instructions and press and hold the module's SET button when prompted.",
-        "Software can send the Enter Linking Mode command for the same result."
+        "Software can send the Enter Linking Mode command for the same result.",
+        "The 2475SDB Developer Notes' description of the Enter Linking Mode command says the LED blinks red, apparently copied from the unlinking command; their Assign to ALL-Link Group description says it blinks green. The catalog doesn't name a color."
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the sibling 2475SDB documents; no 2475S document was found. The In-Line On/Off Module (Dual-Band) 2475SDB Owner's Manual describes linking only as a responder. That holding the SET button for 3 seconds puts the module in linking mode for four minutes comes from the In-LineLinc Relay Dual-Band Developer Notes."
+        "note": "Read from the sibling 2475SDB documents; no 2475S document was found. The In-LineLinc On/Off 2475SDB Owner's Manual describes linking only as a responder. That holding the SET button for 3 seconds puts the module in linking mode for four minutes comes from the 2475SDB Developer Notes."
       }
     },
     "linkingTimeoutSeconds": 240,
@@ -152,7 +153,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the sibling 2475SDB documents; no 2475S document was found. The In-Line On/Off Module (Dual-Band) 2475SDB Owner's Manual gives this double press only as the start of its factory reset; the In-LineLinc Relay Dual-Band Developer Notes say it puts the module in unlinking mode for four minutes."
+        "note": "Read from the sibling 2475SDB documents; no 2475S document was found. The In-LineLinc On/Off 2475SDB Owner's Manual gives this double press only as the start of its factory reset; the 2475SDB Developer Notes say it puts the module in unlinking mode for four minutes."
       }
     },
     "reset": {
@@ -174,19 +175,55 @@
           "expect": "LED blinks"
         },
         {
-          "text": "Double-tap the SET button, then immediately press and hold it until the long beep stops.",
+          "text": "Double-tap the SET button.",
+          "action": "tap",
+          "control": "SET button",
+          "count": 2
+        },
+        {
+          "text": "Immediately press and hold the SET button until the long beep stops.",
           "action": "hold",
           "control": "SET button",
           "expect": "LED turns off and the module emits a long beep"
         }
       ],
-      "notes": [
-        "Option 2, with two people: remove scene memberships if possible, turn the circuit breaker off, press and hold the SET button while a helper turns the breaker back on (the module beeps), keep holding for 3 seconds and release; the LED turns on solid white and then dims, and after a few seconds the module double-beeps."
-      ],
       "verification": {
         "status": "inferred",
         "note": "Read from the sibling 2475SDB documents; no 2475S document was found."
-      }
+      },
+      "alternatives": [
+        {
+          "description": "With two people",
+          "steps": [
+            {
+              "text": "If possible, remove the module from all scenes first.",
+              "action": "other"
+            },
+            {
+              "text": "Turn the circuit breaker off.",
+              "action": "powerOff",
+              "control": "breaker"
+            },
+            {
+              "text": "Press and hold the SET button while a helper turns the breaker back on.",
+              "action": "powerOn",
+              "control": "SET button",
+              "expect": "Module beeps"
+            },
+            {
+              "text": "Keep holding the SET button for 3 seconds, then release it.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3,
+              "expect": "LED turns on solid white and then dims; after a few seconds the module double-beeps"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the sibling 2475SDB documents; no 2475S document was found."
+          }
+        }
+      ]
     },
     "resetErases": [
       "links",
@@ -200,7 +237,7 @@
         }
       ],
       "notes": [
-        "The In-Line On/Off Module (Dual-Band) 2475SDB Owner's Manual says to remove the module from all scene controllers before you stop using it; otherwise the controllers keep retrying commands and create network delays."
+        "The In-LineLinc On/Off 2475SDB Owner's Manual says to remove the module from all scene controllers before you stop using it; otherwise the controllers keep retrying commands and create network delays."
       ],
       "verification": {
         "status": "inferred",
@@ -213,8 +250,8 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "In-Line On/Off Module (Dual-Band) 2475SDB Owner's Manual",
-    "In-Line On/Off Module (Dual-Band) 2475SDB Quick Start Guide",
-    "In-LineLinc Relay Dual-Band Developer Notes"
+    "In-LineLinc On/Off 2475SDB Owner's Manual",
+    "In-LineLinc On/Off 2475SDB Quick Start Guide",
+    "2475SDB Developer Notes"
   ]
 }

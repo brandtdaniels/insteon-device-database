@@ -138,7 +138,9 @@
         },
         {
           "text": "Press and hold the responder's SET button until it double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "The switch double-beeps and its LED stops blinking."
         }
       ],
@@ -150,7 +152,7 @@
       "steps": [
         {
           "text": "Pull out the SET button to remove power.",
-          "action": "other",
+          "action": "pullTab",
           "control": "SET button"
         },
         {
@@ -173,7 +175,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The 2477DH owner's manual (rev 7.0+) says to wait 5 seconds with the SET button pulled out; the later Insteon Wall Switch manual for the 2477S, 2477D and 2477DH says about ten seconds."
+        "note": "The Dimmer Switch 2477DH Owner's Manual (rev 7.0+) says to wait 5 seconds with the SET button pulled out; the later Dimmer Switch 2477D Owner's Manual, which covers the 2477S, 2477D and 2477DH, says about ten seconds. The catalog uses the Dimmer Switch 2477DH Owner's Manual's 5 seconds."
       }
     },
     "resetErases": [
@@ -197,13 +199,13 @@
     }
   },
   "notes": [
-    "Its owner's manual prints subcategory 0x20, the 2477D's; Insteon Device Categories (January 2014) gives the 2477DH 0x01/0x2D for every revision."
+    "The Dimmer Switch 2477DH Owner's Manual prints subcategory 0x20, the 2477D's; Insteon Device Categories (January 2014) gives the 2477DH 0x01/0x2D for every revision."
   ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
-    "Dimmer Switch (High Wattage) 2477DH Owner's Manual",
-    "Dimmer Switch (High Wattage) 2477DH Quick Start Guide",
+    "Dimmer Switch 2477DH Owner's Manual",
+    "Dimmer Switch 2477DH Quick Start Guide",
     "Dimmer Switch 2477D Owner's Manual"
   ]
 }

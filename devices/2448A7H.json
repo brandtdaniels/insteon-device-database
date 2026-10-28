@@ -43,7 +43,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the USB Adapter 2448A7 Quick Start Guide; no document names the 2448A7H."
+        "note": "Read from the Portable USB Adapter 2448A7 Quick Start Guide (2010, Windows only) and the USB Stick 2448A7 Quick Start Guide (2013, PC or Mac), two versions for the same model that give the same steps apart from the operating systems; no document names the 2448A7H."
       }
     },
     "linking": {
@@ -59,13 +59,14 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the USB Adapter 2448A7 Developer Notes; no document names the 2448A7H."
+        "note": "Read from the USB Adapter Developer Notes; no document names the 2448A7H."
       }
     }
   },
   "sources": [
     "HouseLinc device catalog",
-    "USB Adapter 2448A7 Quick Start Guide",
-    "USB Adapter 2448A7 Developer Notes"
+    "Portable USB Adapter 2448A7 Quick Start Guide",
+    "USB Stick 2448A7 Quick Start Guide",
+    "USB Adapter Developer Notes"
   ]
 }

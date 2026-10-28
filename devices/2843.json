@@ -171,13 +171,13 @@
       ],
       "notes": [
         "Then turn the responder on (or set it to any state) and press and hold its SET button for 3 seconds; the sensor's LED turns solid green. By default the sensor turns responders on when it opens and off when it closes.",
-        "When adding it to a Hub, the quick start says to press and hold the SET button until the LED blinks and then tap the SET button (the LED double-blinks).",
+        "When adding it to a Hub, the Open/Close Sensor 2843 Quick Start Guide says to press and hold the SET button until the LED blinks and then tap the SET button (the LED double-blinks).",
         "The Open/Close Sensor is a controller only.",
         "Older sensors with a jumper have a multi-scene mode (jumper removed): link scene 1 with the sensor open and scene 2 with it closed. Remove and reinsert the battery after changing the jumper."
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The Open/Close Sensor 2843 Owner's Manual holds the SET button 3 seconds to link responders but 5 seconds during installation."
+        "note": "The Open/Close Sensor 2843 Owner's Manual holds the SET button 3 seconds to link responders but 5 seconds during installation. The catalog uses 3 seconds."
       }
     },
     "multiLinking": {
@@ -198,7 +198,10 @@
         },
         {
           "text": "For each responder, set it to the scene state and press and hold its SET button for 3 seconds.",
-          "action": "other"
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3
         },
         {
           "text": "Press and hold the SET button for 3 seconds to finish.",
@@ -258,8 +261,12 @@
           "action": "other"
         },
         {
-          "text": "Remove the battery and wait at least 15 seconds.",
-          "action": "removeBatteries",
+          "text": "Remove the battery.",
+          "action": "removeBatteries"
+        },
+        {
+          "text": "Wait at least 15 seconds.",
+          "action": "wait",
           "seconds": 15
         },
         {

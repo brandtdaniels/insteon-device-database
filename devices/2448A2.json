@@ -96,6 +96,7 @@
         },
         {
           "text": "Within 4 minutes, press and hold the meter device's SET button until it beeps (3 seconds).",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3,
@@ -104,7 +105,7 @@
       ],
       "notes": [
         "Energy Display goes first and controls the meter position; each position holds one device, and linking a second device to a position replaces the first.",
-        "The Developer Notes also allow a PowerLinc Modem in groups 1 to 3, and in group 4 for temperature broadcasts."
+        "The Energy Display Developer Notes also allow a PowerLinc Modem in groups 1 to 3, and in group 4 for temperature broadcasts."
       ]
     },
     "linkingTimeoutSeconds": 240,
@@ -131,6 +132,7 @@
         },
         {
           "text": "Within 4 minutes, press and hold the meter device's SET button until it beeps (3 seconds).",
+          "device": "other",
           "action": "hold",
           "control": "SET button",
           "seconds": 3
@@ -153,18 +155,17 @@
           "expect": "After the last meter responds, Energy Display stays awake for 3 seconds before sleeping"
         },
         {
-          "text": "Within those 3 seconds, send the Stayawake On command (0x20 with command 2 set to 0x06) to keep it awake for 4 minutes so settings and links can be programmed.",
+          "text": "Within those 3 seconds, send Set Operating Flags (cmd1 0x20) with cmd2 0x06 (Stayawake On) to keep it awake for 4 minutes so settings and links can be programmed.",
           "action": "send",
-          "command": "Stayawake On",
-          "seconds": 3
+          "command": "Set Operating Flags"
         }
       ],
       "notes": [
-        "Stayawake Off (0x20 with command 2 set to 0x07) ends the awake period early."
+        "Set Operating Flags with cmd2 0x07 (Stayawake Off) ends the awake period early."
       ],
       "verification": {
         "status": "inferred",
-        "note": "From the Developer Notes, which name a Synchronize button; the Energy Display 2448A2 Owner's Manual names a Refresh button that retrieves data, which is likely the same button."
+        "note": "From the Energy Display Developer Notes, which name a Synchronize button; the Energy Display 2448A2 Owner's Manual names a Refresh button that retrieves data, which is likely the same button."
       }
     },
     "awakeSeconds": 240,
@@ -180,10 +181,14 @@
           "control": "Battery compartment door"
         },
         {
-          "text": "Remove one battery for at least 10 seconds.",
+          "text": "Remove one battery.",
           "action": "removeBatteries",
-          "seconds": 10,
           "expect": "The screen turns off"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
+          "seconds": 10
         },
         {
           "text": "While holding down the SET button, reinsert the battery, making sure not to let go of the SET button.",
@@ -219,8 +224,7 @@
   ],
   "sources": [
     "Energy Display Developer Notes",
-    "Energy Display 2448A2 Owner's Manual",
-    "Energy Display 2448A2 Developer Notes"
+    "Energy Display 2448A2 Owner's Manual"
   ],
   "verification": {
     "status": "inferred",

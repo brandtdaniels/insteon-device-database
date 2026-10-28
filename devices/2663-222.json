@@ -104,11 +104,11 @@
         "The first device put into linking mode becomes the controller and the second becomes the responder.",
         "Each outlet has its own SET button and links separately.",
         "With the Hub, follow the app's instructions and press and hold one of the SET buttons when prompted.",
-        "Software can use the Remote Enter Linking Mode command (Developer Notes)."
+        "Software can use the Remote Enter Linking Mode command (On/Off Outlet Developer Notes)."
       ],
       "verification": {
         "status": "conflicting",
-        "note": "The Dual On/Off Outlet 2663-222 Owner's Manual says to hold a SET button until the outlet beeps when adding it to the Hub; the Dual On/Off Outlet 2663-222 Quick Start Guide says until it double-beeps."
+        "note": "When adding the outlet to the Hub, the On/Off Outlet 2663-222 Owner's Manual says to hold a SET button until the outlet beeps; the On/Off Outlet 2663-222 Quick Start Guide says until it double-beeps. The catalog uses the owner's manual's single beep."
       }
     },
     "multiLinking": {
@@ -126,8 +126,10 @@
           "expect": "Status LED double-blinks green; multi-linking mode lasts four minutes or until the SET button is tapped"
         },
         {
-          "text": "Link each responder in turn.",
-          "action": "other"
+          "text": "Link each responder in turn: on most devices, press and hold its SET button.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button"
         },
         {
           "text": "Tap the SET button to exit.",
@@ -156,40 +158,77 @@
       ]
     },
     "reset": {
+      "description": "Soft factory reset",
       "steps": [
         {
-          "text": "Press and hold the SET button until the outlet enters linking mode.",
+          "text": "Press and hold the upper SET button for 3 seconds.",
           "action": "hold",
-          "control": "SET button",
-          "expect": "Status LED blinks green"
+          "control": "upper SET button",
+          "seconds": 3,
+          "expect": "Outlet beeps and its status LED blinks green"
         },
         {
-          "text": "Press and hold the SET button again to enter unlinking mode.",
+          "text": "While the status LED blinks green, press and hold the upper SET button again for 3 seconds.",
           "action": "hold",
-          "control": "SET button",
-          "expect": "Status LED blinks red"
+          "control": "upper SET button",
+          "seconds": 3,
+          "expect": "Outlet beeps and its status LED blinks red"
         },
         {
-          "text": "Quickly tap the SET button twice.",
+          "text": "Quickly tap the upper SET button twice and wait for the beep.",
           "action": "tap",
-          "control": "SET button",
+          "control": "upper SET button",
           "count": 2,
-          "expect": "Soft factory reset is selected"
+          "expect": "Outlet beeps"
         },
         {
-          "text": "Press and hold the SET button to reset, or tap it to exit.",
+          "text": "Immediately press and hold the upper SET button; keep holding it until the long beep stops, then release it.",
           "action": "hold",
-          "control": "SET button"
+          "control": "upper SET button",
+          "expect": "Outlet double-beeps and both the top and bottom status LEDs turn on green"
         }
       ],
       "notes": [
-        "The soft factory reset uses the upper and lower SET buttons and erases all device settings, including links made with the top and bottom outlets. If the outlet does not respond, use the alternate procedure.",
-        "Alternate procedure (an assistant is required): press and hold the upper SET button, have the assistant turn off power to the outlet at the service panel and then turn it back on while you keep holding; wait for the long beep, release the SET button when it ends, and the outlet double-beeps."
+        "A soft factory reset erases all device settings, including links made with the top and bottom outlets.",
+        "The On/Off Outlet 2663-222 Owner's Manual's flow chart shows that tapping the SET button instead of holding it at the last step exits without resetting.",
+        "If the outlet does not respond, use the alternate procedure."
       ],
       "verification": {
-        "status": "inferred",
-        "note": "The soft factory reset is read from the Dual On/Off Outlet 2663-222 Owner's Manual's flow chart, which labels the SET buttons as upper and lower but does not say which one to use at each step."
-      }
+        "status": "documented",
+        "note": "The On/Off Outlet 2663-222 Owner's Manual gives the soft factory reset only as a flow chart labeled with the upper and lower SET buttons; the Factory Resetting Insteon Devices (Insteon support article) gives it in words for dual on/off wall outlets, using the top button, with the beeps and LED colors."
+      },
+      "alternatives": [
+        {
+          "description": "Alternate procedure",
+          "steps": [
+            {
+              "text": "Turn off power to the outlet at the electrical service panel.",
+              "action": "powerOff",
+              "control": "breaker"
+            },
+            {
+              "text": "Press and hold the upper SET button.",
+              "action": "hold",
+              "control": "upper SET button"
+            },
+            {
+              "text": "While you keep holding the SET button, have an assistant turn power back on at the service panel.",
+              "action": "powerOn",
+              "control": "breaker",
+              "expect": "Outlet emits a long beep"
+            },
+            {
+              "text": "When the long beep ends, release the SET button.",
+              "action": "release",
+              "control": "upper SET button",
+              "expect": "Outlet double-beeps"
+            }
+          ],
+          "notes": [
+            "An assistant is needed to turn power off and on at the service panel while you hold the SET button."
+          ]
+        }
+      ]
     },
     "resetErases": [
       "links",
@@ -203,11 +242,11 @@
         }
       ],
       "notes": [
-        "The Dual On/Off Outlet 2663-222 Owner's Manual's troubleshooting says that links to devices removed from the network must be removed from their controllers; otherwise the controllers keep repeating commands and slow the network."
+        "The On/Off Outlet 2663-222 Owner's Manual's troubleshooting says that links to devices removed from the network must be removed from their controllers; otherwise the controllers keep repeating commands and slow the network."
       ],
       "verification": {
         "status": "inferred",
-        "note": "Taken from the Dual On/Off Outlet 2663-222 Owner's Manual's troubleshooting section, not a removal procedure."
+        "note": "Taken from the On/Off Outlet 2663-222 Owner's Manual's troubleshooting section, not a removal procedure."
       }
     }
   },
@@ -219,8 +258,8 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "On/Off Outlet Developer Notes",
-    "Dual On/Off Outlet 2663-222 Owner's Manual",
-    "Dual On/Off Outlet 2663-222 Quick Start Guide",
-    "On/Off Outlet 2663-222 Developer Notes"
+    "On/Off Outlet 2663-222 Owner's Manual",
+    "On/Off Outlet 2663-222 Quick Start Guide",
+    "Factory Resetting Insteon Devices (Insteon support article)"
   ]
 }

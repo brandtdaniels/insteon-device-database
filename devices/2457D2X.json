@@ -84,7 +84,7 @@
       ],
       "verification": {
         "status": "conflicting",
-        "note": "When adding the module to the Hub, the Dimmer Plug 2457D2 Owner's Manual says to hold the SET button until the module double-beeps; the 2016 quick start guide says until it beeps."
+        "note": "When adding the module to the Hub, the Dimmer Plug 2457D2 Owner's Manual says to hold the SET button until the module double-beeps; the Dimmer Plug 2457D2 Quick Start Guide (2016) says until it beeps. The catalog's linking step gives no beep count."
       }
     },
     "linkingTimeoutSeconds": 240,
@@ -102,7 +102,9 @@
         },
         {
           "text": "Press and hold the SET button on each responder until it double-beeps.",
-          "action": "other",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
           "expect": "double beep"
         },
         {
@@ -116,7 +118,7 @@
       ],
       "verification": {
         "status": "inferred",
-        "note": "Read from the local programming flowchart (press and hold to move right, tap to move down) and the multi-linking description; the manual has no step-by-step multi-linking procedure for the module itself."
+        "note": "Read from the Dimmer Plug 2457D2 Owner's Manual's local programming flowchart (press and hold to move right, tap to move down) and the multi-linking description; it has no step-by-step multi-linking procedure for the module itself."
       }
     },
     "unlinking": {
