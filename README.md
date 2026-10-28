@@ -53,7 +53,7 @@ treat downloading a newer one as optional.
 ## Adding or changing a profile
 
 1. Add or edit `devices/<model>.json`. Check every value against a document, and list the
-   public documents that give it in `sources`.
+   document in `sources`.
 2. Run `pip install -r requirements.txt` and `python3 -I scripts/build.py` to validate. It checks
    each profile against the schema, that the file is named for its model, that no capability
    appears twice, that no two profiles claim the same identity for the same firmware, and that
