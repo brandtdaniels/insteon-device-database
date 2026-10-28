@@ -10,8 +10,45 @@
       "subcategory": "0x05"
     }
   ],
+  "radio": "rf",
+  "role": "controller",
+  "batteryPowered": true,
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Scene A",
+      "role": "controller"
+    },
+    {
+      "number": "0x02",
+      "name": "Scene B",
+      "role": "controller"
+    },
+    {
+      "number": "0x03",
+      "name": "Scene C",
+      "role": "controller"
+    },
+    {
+      "number": "0x04",
+      "name": "Scene D",
+      "role": "controller"
+    },
+    {
+      "number": "0x05",
+      "name": "Scene E",
+      "role": "controller"
+    },
+    {
+      "number": "0x06",
+      "name": "Scene F",
+      "role": "controller"
+    }
+  ],
   "capabilities": [],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon for Hub app",
+    "Insteon SKU list"
   ]
 }
