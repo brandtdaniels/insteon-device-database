@@ -23,6 +23,20 @@
       "type": "string",
       "minLength": 1
     },
+    "aliases": {
+      "description": "Other names the product is known by, such as earlier or marketing names and HouseLinc's name.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "description": {
+      "description": "What the product is, in a sentence or two.",
+      "type": "string",
+      "minLength": 1
+    },
     "identities": {
       "description": "The category, subcategory and, where they differ, firmware versions the product reports in its ID request reply.",
       "type": "array",
