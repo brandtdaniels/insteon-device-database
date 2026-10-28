@@ -1,0 +1,474 @@
+{
+  "id": "energyDisplay",
+  "name": "Energy Display",
+  "description": "The battery-powered Energy Display, which shows the power, monthly cost and monthly energy of up to three iMeters, or of data a modem sends it, and the room temperature.",
+  "enumerations": [
+    {
+      "name": "displayMode",
+      "description": "What the main display shows.",
+      "values": [
+        {
+          "value": "0x01",
+          "name": "nowWatts"
+        },
+        {
+          "value": "0x02",
+          "name": "averageCostPerMonth"
+        },
+        {
+          "value": "0x03",
+          "name": "averageEnergyPerMonth"
+        }
+      ]
+    },
+    {
+      "name": "temperatureFormat",
+      "description": "The scale the display shows temperature in.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "celsius"
+        },
+        {
+          "value": "0x01",
+          "name": "fahrenheit"
+        }
+      ]
+    }
+  ],
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "description": "Linking and programming from the display itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01"
+    },
+    {
+      "name": "beeperOn",
+      "description": "The display beeps.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03"
+    },
+    {
+      "name": "categoryCheck",
+      "description": "Only devices of category 0x09 can link to the display.",
+      "query": "0x00",
+      "bit": "0x04",
+      "on": "0x08",
+      "off": "0x09"
+    },
+    {
+      "name": "displayFahrenheit",
+      "description": "The display shows temperature in degrees Fahrenheit.",
+      "query": "0x00",
+      "bit": "0x08",
+      "on": "0x05",
+      "off": "0x04",
+      "verification": {
+        "status": "conflicting",
+        "note": "The Energy Display Developer Notes give every bit as clear by default, so Celsius; the Energy Display 2448A2 Owner's Manual gives Fahrenheit as the default. The flag's meaning is the same either way."
+      }
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "stayAwakeOn",
+      "description": "Keeps the display awake for 4 minutes, so it can be programmed.",
+      "command2": "0x06"
+    },
+    {
+      "name": "stayAwakeOff",
+      "description": "Lets the display sleep.",
+      "command2": "0x07"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "readSettings",
+      "description": "Reads the display's settings, temperature and battery.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "reply": {
+        "command2": "0x00",
+        "match": [
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "integrity": "none",
+        "values": [
+          {
+            "name": "mainDisplay",
+            "description": "The meter group, 1 to 3, the main display shows.",
+            "byte": 3,
+            "range": {
+              "from": 1,
+              "through": 3
+            }
+          },
+          {
+            "name": "displayMode",
+            "description": "What the main display shows.",
+            "byte": 4,
+            "kind": "enumeration",
+            "enumeration": "displayMode"
+          },
+          {
+            "name": "temperatureFormat",
+            "description": "The temperature scale.",
+            "byte": 5,
+            "kind": "enumeration",
+            "enumeration": "temperatureFormat"
+          },
+          {
+            "name": "cost",
+            "description": "The cost of a kilowatt-hour, in tenths of a cent.",
+            "bytes": [
+              6,
+              7
+            ],
+            "range": {
+              "from": 1,
+              "through": 9990
+            }
+          },
+          {
+            "name": "temperatureCalibration",
+            "description": "The temperature calibration, from -199 to 199. The Energy Display Developer Notes don't give its unit or how it's applied.",
+            "bytes": [
+              8,
+              9
+            ],
+            "signed": true,
+            "range": {
+              "from": -199,
+              "through": 199
+            }
+          },
+          {
+            "name": "temperature",
+            "description": "The room temperature, in degrees Celsius.",
+            "bytes": [
+              10,
+              11
+            ],
+            "unit": "celsius"
+          },
+          {
+            "name": "battery",
+            "description": "The battery level, from 4 (full) to 1 (empty).",
+            "byte": 12,
+            "range": {
+              "from": 1,
+              "through": 4
+            }
+          },
+          {
+            "name": "databaseDelta",
+            "description": "A count that goes up whenever the ALL-Link database changes.",
+            "byte": 13
+          },
+          {
+            "name": "firmwareVersion",
+            "description": "The firmware version of the display's application chip. D14 isn't a checksum here.",
+            "byte": 14
+          }
+        ]
+      }
+    },
+    {
+      "name": "writeMainDisplay",
+      "description": "Sets which meter group the main display shows.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x02"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "group",
+          "description": "The meter group.",
+          "byte": 3,
+          "range": {
+            "from": 1,
+            "through": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "writeDisplayMode",
+      "description": "Sets what the main display shows.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x03"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "displayMode",
+          "description": "What to show.",
+          "byte": 3,
+          "kind": "enumeration",
+          "enumeration": "displayMode"
+        }
+      ]
+    },
+    {
+      "name": "writeTemperatureFormat",
+      "description": "Sets the temperature scale.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x04"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "temperatureFormat",
+          "description": "The scale.",
+          "byte": 3,
+          "kind": "enumeration",
+          "enumeration": "temperatureFormat"
+        }
+      ]
+    },
+    {
+      "name": "writeCost",
+      "description": "Sets the cost of a kilowatt-hour.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x05"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "cost",
+          "description": "The cost in tenths of a cent, from 1 (0.1 cent) to 9990 (999 cents).",
+          "bytes": [
+            3,
+            4
+          ],
+          "range": {
+            "from": 1,
+            "through": 9990
+          }
+        }
+      ]
+    },
+    {
+      "name": "writeTemperatureCalibration",
+      "description": "Sets the temperature calibration.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x06"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "calibration",
+          "description": "The calibration, from -199 to 199. The Energy Display Developer Notes don't give its unit or how it's applied.",
+          "bytes": [
+            3,
+            4
+          ],
+          "signed": true,
+          "range": {
+            "from": -199,
+            "through": 199
+          }
+        }
+      ]
+    },
+    {
+      "name": "restartAverageCost",
+      "description": "Restarts the averages, of cost and of energy, of the chosen meter groups.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x07"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "groups",
+          "description": "The meter groups.",
+          "byte": 3,
+          "kind": "flags",
+          "bits": [
+            {
+              "mask": "0x01",
+              "name": "group1"
+            },
+            {
+              "mask": "0x02",
+              "name": "group2"
+            },
+            {
+              "mask": "0x04",
+              "name": "group3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readMeter",
+      "description": "Reads what the display holds for the meter group in D1.",
+      "command1": "0x2E",
+      "command2": "0x01",
+      "perButton": true,
+      "reply": {
+        "command2": "0x01",
+        "match": [
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "values": [
+          {
+            "name": "power",
+            "description": "The power the meter last reported, in watts.",
+            "bytes": [
+              3,
+              4
+            ]
+          },
+          {
+            "name": "averageCostPerMonth",
+            "description": "The average cost a month.",
+            "bytes": [
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          {
+            "name": "averageEnergyPerMonth",
+            "description": "The average energy a month.",
+            "bytes": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "verification": {
+              "status": "conflicting",
+              "note": "The Energy Display Developer Notes label D9 through D13 as average kilowatt-hours, five bytes for a four-byte value; the catalog reads D9 through D12."
+            }
+          }
+        ]
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "The Energy Display Developer Notes don't print the reply's cmd1 and cmd2; they're read from the request and the other replies, which echo them."
+      }
+    },
+    {
+      "name": "readMeterIds",
+      "description": "Reads the IDs of the meters in groups 1 to 3.",
+      "command1": "0x2F",
+      "command2": "0x01",
+      "reply": {
+        "command2": "0x01",
+        "match": [
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "values": [
+          {
+            "name": "group1",
+            "description": "The ID in group 1.",
+            "bytes": [
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "name": "group2",
+            "description": "The ID in group 2.",
+            "bytes": [
+              6,
+              7,
+              8
+            ]
+          },
+          {
+            "name": "group3",
+            "description": "The ID in group 3.",
+            "bytes": [
+              9,
+              10,
+              11
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "writeMeterId",
+      "description": "Sets the ID of the meter, or modem, in the group in D1. A modem linked this way receives the display's meter reads.",
+      "command1": "0x2F",
+      "command2": "0x01",
+      "perButton": true,
+      "fixed": [
+        {
+          "position": 2,
+          "value": "0x02"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "description": "The meter's ID.",
+          "bytes": [
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Energy Display Developer Notes' command table puts D2 0x02 and the ID in D3 to D5, as used here; their modem example writes 2F 01 01 followed by the ID, with no D2 0x02."
+      }
+    }
+  ],
+  "notes": [
+    "When its Synchronize button, the owner's manual's Refresh/OK button, is pressed, the display sends Get iMeter Status (cmd1 0x82, cmd2 0x00) to each linked meter or modem, then stays awake for 3 seconds. Programming it needs stay awake on (cmd2 0x06) within those 3 seconds. A modem answers with the iMeter's reply, CRC included.",
+    "Every 3 minutes the display checks the temperature; when it has changed by more than 1 degree Celsius, it broadcasts cmd1 0x6E to group 4 (flags 0x8F, To 00 00 04) with the temperature in half degrees Celsius in cmd2. The Energy Display Developer Notes' example frame ends with one more byte, 0x1A, which they don't explain.",
+    "Here cmd1 0x2F with cmd2 0x01 reads and writes the meter in each group, not the ALL-Link database.",
+    "The Energy Display Developer Notes don't say whether the extended Sets carry a checksum.",
+    "The Energy Display 2448A2 Owner's Manual gives 10 cents a kilowatt-hour as the default cost."
+  ],
+  "sources": [
+    "Energy Display Developer Notes",
+    "Energy Display 2448A2 Owner's Manual"
+  ]
+}

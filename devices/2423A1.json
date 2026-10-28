@@ -4,6 +4,7 @@
   "aliases": [
     "iMeter Solo"
   ],
+  "description": "A plug-in meter that measures the power an appliance draws and the energy it uses, for software or an Energy Display to read. It has a status LED and beeper.",
   "identities": [
     {
       "category": "0x09",
@@ -19,11 +20,27 @@
         "only": [
           "0x30"
         ]
+      },
+      "verification": {
+        "status": "conflicting",
+        "note": "The iMeter Developer Notes describe the meter as i2CS but give 0x01, i2, as its Get Insteon Engine Version reply; the HouseLinc device catalog gives i2CS for firmware 0x30, which the catalog uses."
       }
     }
   ],
+  "commandSets": [
+    {
+      "commandSet": "iMeter",
+      "category": "0x09",
+      "subcategory": "0x07"
+    }
+  ],
   "capabilities": [],
+  "notes": [
+    "Rated for 15 A."
+  ],
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "iMeter Developer Notes",
+    "Power Meter 2423A1 Owner's Manual"
   ]
 }
