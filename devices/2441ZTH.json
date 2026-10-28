@@ -12,6 +12,16 @@
     {
       "category": "0x05",
       "subcategory": "0x07"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x11",
+      "region": "Europe"
+    },
+    {
+      "category": "0x05",
+      "subcategory": "0x12",
+      "region": "Australia and New Zealand"
     }
   ],
   "radio": "rf",
@@ -99,6 +109,11 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "TempLinc specification rev 020 and product requirements v025"
+    "TempLinc specification rev 020 and product requirements v025",
+    "Insteon SKU list",
+    "Insteon for Hub app"
+  ],
+  "notes": [
+    "Subcategories 0x11 and 0x12 are the European and Australian and New Zealand versions, the 2732-432 and 2732-532."
   ]
 }
