@@ -102,10 +102,11 @@
     }
   ],
   "notes": [
-    "HouseLinc lists 0x05/0x16 as the heat pump version."
+    "Subcategory 0x16 is the Thermostat 2.0 firmware, given its own subcategory so software can tell its features apart; HouseLinc lists it as a heat pump thermostat."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "TempLinc specification rev 020 and product requirements v025"
+    "TempLinc specification rev 020 and product requirements v025",
+    "Thermostat 2.0 PRD"
   ]
 }
