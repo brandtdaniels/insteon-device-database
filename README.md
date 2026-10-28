@@ -19,7 +19,7 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 
 ## Using the database
 
-Every change to `master` publishes the profiles to GitHub Pages:
+Every change to `main` publishes the profiles to GitHub Pages:
 
 - `https://brandtdaniels.github.io/insteon-device-database/v1/database.json`: every profile,
   sorted by model
