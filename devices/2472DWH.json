@@ -40,6 +40,13 @@
       "subcategory": "0x21"
     }
   ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Load",
+      "role": "both"
+    }
+  ],
   "capabilities": [
     {
       "kind": "dimmable"
@@ -47,6 +54,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "2472D OutletLinc Dimmer Developer's Guide"
   ]
 }

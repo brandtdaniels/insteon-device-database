@@ -85,6 +85,11 @@
       "number": "0x08",
       "name": "Button H",
       "role": "both"
+    },
+    {
+      "number": "0x09",
+      "name": "Detached load",
+      "role": "responder"
     }
   ],
   "capabilities": [
@@ -94,12 +99,14 @@
   ],
   "notes": [
     "Each button other than the load's can be set to toggle, send only off, or send only on.",
-    "Group 1 is button A, which controls the load. In the 6-button layout, which software can set, group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D."
+    "Group 1 is button A, which controls the load. In the 6-button layout, which software can set, group 1 is the On and Off buttons and groups 3 to 6 are buttons A to D.",
+    "Group 9 controls the load only while it's detached from group 1."
   ],
   "sources": [
     "HouseLinc device catalog",
     "2486D/S KeypadLinc Dimmer and Relay PRD",
     "Insteon for Hub app",
-    "Insteon SKU list"
+    "Insteon SKU list",
+    "2334 and 2486 KeypadLinc Developer's Guide"
   ]
 }

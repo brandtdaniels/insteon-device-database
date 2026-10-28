@@ -23,24 +23,46 @@
       "region": "Australia and New Zealand"
     }
   ],
-  "commandSets": [
+  "engines": [
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
       "category": "0x02",
       "subcategory": "0x2D"
     },
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
       "category": "0x02",
       "subcategory": "0x30"
     },
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
       "category": "0x02",
       "subcategory": "0x35"
     },
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
+      "category": "0x02",
+      "subcategory": "0x36"
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "globalLine",
+      "category": "0x02",
+      "subcategory": "0x2D"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x02",
+      "subcategory": "0x30"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x02",
+      "subcategory": "0x35"
+    },
+    {
+      "commandSet": "globalLine",
       "category": "0x02",
       "subcategory": "0x36"
     }
@@ -61,6 +83,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2633-x22 On/Off Module PRD"
+    "2633-x22 On/Off Module PRD",
+    "2442, 2443, 2452, 2453, 2632 and 2633 Global Line Developer's Guide"
   ]
 }

@@ -2,6 +2,54 @@
   "id": "keypadLinc",
   "name": "KeypadLinc",
   "description": "The KeypadLinc code base used by the 6- and 8-button KeypadLinc dimmer and relay keypads, including the 2334 and 2487S keypads. Most extended settings are per button.",
+  "enumerations": [
+    {
+      "name": "manualChangeDirection",
+      "description": "Which way a manual change moves the level.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "down"
+        },
+        {
+          "value": "0x01",
+          "name": "up"
+        }
+      ]
+    },
+    {
+      "name": "triggerLevel",
+      "description": "Which level a triggered group sets the local load to.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "localOnLevel",
+          "description": "The local load's own on-level."
+        },
+        {
+          "value": "0x01",
+          "name": "givenLevel",
+          "description": "The level in D3."
+        }
+      ]
+    },
+    {
+      "name": "triggerRampRate",
+      "description": "How fast a triggered group changes the local load.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "localRampRate",
+          "description": "At the local load's ramp rate."
+        },
+        {
+          "value": "0x01",
+          "name": "instant",
+          "description": "Instantly."
+        }
+      ]
+    }
+  ],
   "operatingFlags": [
     {
       "name": "programmingLock",
@@ -114,6 +162,14 @@
       "bit": "0x20",
       "on": "0x1B",
       "off": "0x1A"
+    },
+    {
+      "name": "smartHops",
+      "description": "Each message starts with the hop count of the last acknowledgment received (smart hops). When the bit is 0, each message starts with one hop.",
+      "query": "0x05",
+      "bit": "0x40",
+      "on": "0x1C",
+      "off": "0x1D"
     }
   ],
   "readings": [
@@ -139,16 +195,6 @@
     }
   ],
   "flagCommands": [
-    {
-      "name": "smartHopsOn",
-      "description": "Starts each message with the hop count of the last acknowledgment received (smart hops).",
-      "command2": "0x1C"
-    },
-    {
-      "name": "smartHopsOff",
-      "description": "Starts each message with one hop.",
-      "command2": "0x1D"
-    },
     {
       "name": "yakityYakOff",
       "description": "Turns the Yakity Yak signaling option off.",
@@ -418,17 +464,244 @@
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOnFast",
+      "description": "Turns the load on to the level in cmd2 instantly.",
+      "command1": "0x12",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off at the saved ramp rate. The device ignores cmd2.",
+      "command1": "0x13"
+    },
+    {
+      "name": "lightOffFast",
+      "description": "Turns the load off instantly. The device ignores cmd2.",
+      "command1": "0x14"
+    },
+    {
+      "name": "brightenOneStep",
+      "description": "Brightens the load one step of 32 from off to full. The device ignores cmd2.",
+      "command1": "0x15"
+    },
+    {
+      "name": "dimOneStep",
+      "description": "Dims the load one step of 32 from off to full. The device ignores cmd2.",
+      "command1": "0x16"
+    },
+    {
+      "name": "startManualChange",
+      "description": "Starts brightening or dimming the load until a stop manual change command.",
+      "command1": "0x17",
+      "parameter": {
+        "name": "direction",
+        "description": "Which way to change the level.",
+        "kind": "enumeration",
+        "enumeration": "manualChangeDirection"
+      }
+    },
+    {
+      "name": "stopManualChange",
+      "description": "Stops a manual change. The device ignores cmd2.",
+      "command1": "0x18"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's level, from 0x00 (off) to 0xFF (full)."
+      }
+    },
+    {
+      "name": "readLeds",
+      "description": "Reads which button LEDs are on. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x01",
+      "reply": {
+        "name": "leds",
+        "description": "The LEDs that are on, with button 1 in bit 0.",
+        "kind": "flags",
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "button1"
+          },
+          {
+            "mask": "0x02",
+            "name": "button2"
+          },
+          {
+            "mask": "0x04",
+            "name": "button3"
+          },
+          {
+            "mask": "0x08",
+            "name": "button4"
+          },
+          {
+            "mask": "0x10",
+            "name": "button5"
+          },
+          {
+            "mask": "0x20",
+            "name": "button6"
+          },
+          {
+            "mask": "0x40",
+            "name": "button7"
+          },
+          {
+            "mask": "0x80",
+            "name": "button8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "readTargetLevel",
+      "description": "Reads the level the load is moving to.",
+      "command1": "0x19",
+      "command2": "0x02",
+      "reply": {
+        "name": "targetLevel",
+        "description": "The level the load is moving to, or its level if it isn't moving."
+      }
+    },
+    {
+      "name": "readLineFrequencyCount",
+      "description": "Reads the 50/60 Hz count.",
+      "command1": "0x19",
+      "command2": "0x03",
+      "reply": {
+        "name": "count",
+        "description": "The count."
+      }
+    },
+    {
+      "name": "instantChange",
+      "description": "Sets the load to the level in cmd2 instantly.",
+      "command1": "0x21",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "onAtRampRate",
+      "description": "Turns the load on to a level at a ramp rate, both given in cmd2.",
+      "command1": "0x2E",
+      "parameter": {
+        "name": "levelAndRampRate",
+        "description": "Bits 4 through 7 give the level, which is 16 times their value plus 0x0F, and bits 0 through 3 the ramp rate, which is 2 times their value plus 1."
+      }
+    },
+    {
+      "name": "offAtRampRate",
+      "description": "Turns the load off at a ramp rate given in cmd2. Bits 4 through 7 are 0.",
+      "command1": "0x2F",
+      "parameter": {
+        "name": "rampRate",
+        "description": "The ramp rate, which is 2 times this value plus 1.",
+        "mask": "0x0F"
+      }
+    },
+    {
+      "name": "beep",
+      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "command1": "0x30"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "triggerGroup",
+      "description": "Sends group D1's command to the group as if its button were pressed, and sets the local load as D2 through D6 say. The device doesn't parse the command it sends, so to turn the local load off, put 0x01 in D2 and 0x00 in D3.",
+      "command1": "0x30",
+      "command2": "0x00",
+      "perButton": true,
+      "parameters": [
+        {
+          "name": "levelSource",
+          "description": "Which level the local load goes to.",
+          "byte": 2,
+          "kind": "enumeration",
+          "enumeration": "triggerLevel"
+        },
+        {
+          "name": "onLevel",
+          "description": "The level the local load goes to when D2 is 0x01.",
+          "byte": 3,
+          "range": {
+            "from": 0,
+            "through": 255
+          }
+        },
+        {
+          "name": "groupCommand1",
+          "description": "The cmd1 to send to the group.",
+          "byte": 4
+        },
+        {
+          "name": "groupCommand2",
+          "description": "The cmd2 to send to the group.",
+          "byte": 5
+        },
+        {
+          "name": "rampRate",
+          "description": "How fast the local load changes.",
+          "byte": 6,
+          "kind": "enumeration",
+          "enumeration": "triggerRampRate"
+        }
+      ]
+    }
+  ],
   "notes": [
     "Insteon's earliest command sheet swaps 0x06 and 0x07 (the 6- and 8-button layouts) and 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
     "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
     "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
-    "Insteon's earlier command sheets and 2009 Developer's Guide give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
-    "Insteon's 2009 Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask."
+    "Insteon's earlier command sheets, the 2009 Developer's Guide and the KeypadLinc developer's guide give D14 of the reply as the trigger mask; the later sheets moved the trigger mask to query 0x08 and use D14 for the radio group mask.",
+    "Insteon's 2009 Developer's Guide sets selectors 0x08 through 0x0C one button at a time; the later command sheets and the Insteon for Hub app write the whole mask.",
+    "The KeypadLinc developer's guide covers firmware 0x41 and later of subcategories 0x1B, 0x1C, 0x0F, 0x1E and 0x2C, and every firmware of 0x41 and 0x42.",
+    "In the 6-button layout, the On and Off buttons are group 1 and the four small buttons groups 3 through 6; in the 8-button layout, the buttons are groups 1 through 8.",
+    "With the load detached, group 9 controls the load: cmd1 0x19 with cmd2 0x00 reads its level, D11 of the extended Get reply holds the LEDs of groups 1 through 8, a group 1 On or Off sets the group 1 LEDs, and the LED mask Set sets the others.",
+    "To make buttons act as radio buttons, set both the on mask and the off mask of each button to the other buttons in the group, and link each button as a controller with an off-only link (on-level 0x00) to the devices the other buttons control."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app"
+    "Insteon for Hub app",
+    "2334 and 2486 KeypadLinc Developer's Guide",
+    "Mutually Exclusive Buttons for KeypadLinc",
+    "Insteon Command Tables (2007)"
   ]
 }

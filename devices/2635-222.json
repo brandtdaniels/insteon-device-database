@@ -11,9 +11,16 @@
       "subcategory": "0x37"
     }
   ],
+  "engines": [
+    {
+      "engine": "i2cs",
+      "category": "0x02",
+      "subcategory": "0x37"
+    }
+  ],
   "commandSets": [
     {
-      "commandSet": "plugInModule",
+      "commandSet": "applianceLincDualBand",
       "category": "0x02",
       "subcategory": "0x37"
     }
@@ -34,6 +41,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "insteon.com product catalog"
+    "insteon.com product catalog",
+    "2635-222 On/Off Module, Dual-Band Developer's Guide"
   ]
 }

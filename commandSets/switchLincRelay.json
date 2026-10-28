@@ -2,6 +2,56 @@
   "id": "switchLincRelay",
   "name": "SwitchLinc Relay",
   "description": "The dual-band SwitchLinc relays, which run the KeypadLinc code base with a single load and no button masks.",
+  "enumerations": [
+    {
+      "name": "setButtonTap",
+      "description": "What a remote tap of the set button sets.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "onLevel",
+          "description": "Sets the on-level to the load's level. Turn the load on to that level with cmd1 0x11 first."
+        },
+        {
+          "value": "0x02",
+          "name": "rampRate",
+          "description": "Sets the ramp rate."
+        }
+      ]
+    },
+    {
+      "name": "triggerLevel",
+      "description": "Which level a triggered group sets the local load to.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "localOnLevel",
+          "description": "The local load's own on-level."
+        },
+        {
+          "value": "0x01",
+          "name": "givenLevel",
+          "description": "The level in D3."
+        }
+      ]
+    },
+    {
+      "name": "triggerRampRate",
+      "description": "How fast a triggered group changes the local load.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "localRampRate",
+          "description": "At the local load's ramp rate."
+        },
+        {
+          "value": "0x01",
+          "name": "instant",
+          "description": "Instantly."
+        }
+      ]
+    }
+  ],
   "operatingFlags": [
     {
       "name": "programmingLock",
@@ -165,6 +215,24 @@
         "byte": 6
       },
       {
+        "name": "rampRate",
+        "description": "The ramp rate, from 0x00 through 0x1F.",
+        "byte": 7,
+        "range": {
+          "from": "0x00",
+          "through": "0x1F"
+        }
+      },
+      {
+        "name": "onLevel",
+        "description": "The on-level, from 0x00 through 0xFF.",
+        "byte": 8,
+        "range": {
+          "from": "0x00",
+          "through": "0xFF"
+        }
+      },
+      {
         "name": "ledBrightness",
         "description": "The brightness of the status LEDs, from 0x11 (dimmest) to 0x7F (brightest).",
         "byte": 9,
@@ -188,6 +256,30 @@
           {
             "position": 4,
             "value": "x10UnitCode"
+          }
+        ]
+      },
+      {
+        "name": "rampRate",
+        "description": "Sets the ramp rate.",
+        "selector": "0x05",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "rampRate"
+          }
+        ]
+      },
+      {
+        "name": "onLevel",
+        "description": "Sets the on-level.",
+        "selector": "0x06",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "onLevel"
           }
         ]
       },
@@ -217,16 +309,161 @@
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOnFast",
+      "description": "Turns the load on to the level in cmd2 instantly.",
+      "command1": "0x12",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off at the saved ramp rate. The device ignores cmd2.",
+      "command1": "0x13"
+    },
+    {
+      "name": "lightOffFast",
+      "description": "Turns the load off instantly. The device ignores cmd2.",
+      "command1": "0x14"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's on-level."
+      }
+    },
+    {
+      "name": "instantChange",
+      "description": "Sets the load to the level in cmd2 instantly.",
+      "command1": "0x21",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "remoteSetButtonTap",
+      "description": "Acts as a tap of the device's set button.",
+      "command1": "0x25",
+      "parameter": {
+        "name": "setting",
+        "description": "What the tap sets.",
+        "kind": "enumeration",
+        "enumeration": "setButtonTap"
+      }
+    },
+    {
+      "name": "onAtRampRate",
+      "description": "Turns the load on to a level at a ramp rate, both given in cmd2.",
+      "command1": "0x2E",
+      "parameter": {
+        "name": "levelAndRampRate",
+        "description": "Bits 4 through 7 give the level, which is 16 times their value plus 0x0F, and bits 0 through 3 the ramp rate, which is 2 times their value plus 1."
+      }
+    },
+    {
+      "name": "offAtRampRate",
+      "description": "Turns the load off at a ramp rate given in cmd2. Bits 4 through 7 are 0.",
+      "command1": "0x2F",
+      "parameter": {
+        "name": "rampRate",
+        "description": "The ramp rate, which is 2 times this value plus 1.",
+        "mask": "0x0F"
+      }
+    },
+    {
+      "name": "beep",
+      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "command1": "0x30"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "triggerGroup",
+      "description": "Sends group D1's command to the group as if its button were pressed, and sets the local load as D2 through D6 say. The device doesn't parse the command it sends, so to turn the local load off, put 0x01 in D2 and 0x00 in D3.",
+      "command1": "0x30",
+      "command2": "0x00",
+      "perButton": true,
+      "parameters": [
+        {
+          "name": "levelSource",
+          "description": "Which level the local load goes to.",
+          "byte": 2,
+          "kind": "enumeration",
+          "enumeration": "triggerLevel"
+        },
+        {
+          "name": "onLevel",
+          "description": "The level the local load goes to when D2 is 0x01.",
+          "byte": 3,
+          "range": {
+            "from": 0,
+            "through": 255
+          }
+        },
+        {
+          "name": "groupCommand1",
+          "description": "The cmd1 to send to the group.",
+          "byte": 4
+        },
+        {
+          "name": "groupCommand2",
+          "description": "The cmd2 to send to the group.",
+          "byte": 5
+        },
+        {
+          "name": "rampRate",
+          "description": "How fast the local load changes.",
+          "byte": 6,
+          "kind": "enumeration",
+          "enumeration": "triggerRampRate"
+        }
+      ]
+    }
+  ],
   "notes": [
     "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
     "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
     "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
-    "The product requirements document for the 2477S lists bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07; Insteon's command sheets and the Insteon for Hub app make bit 5 the key beep on this code base."
+    "The product requirements document and the developer's guide for the 2477S list bit 5 of the 0x00 reply as load sense, set with 0x06 and 0x07; Insteon's command sheets and the Insteon for Hub app make bit 5 the key beep on this code base.",
+    "The 2477S developer's guide also lists resume dim, bit 2 of the 0x00 reply set with 0x04 and 0x05, which the catalog leaves out for this relay.",
+    "The 2477S developer's guide lists the ramp rate and on-level in the extended Get reply and their Sets, though the relay only switches its load.",
+    "The developer's guides give cmd2 of cmd1 0x25 as 0x00 to set the on-level and 0x02 to set the ramp rate; Insteon's 2007 command tables give it as the number of taps, 0x01 or 0x02."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
     "Insteon for Hub app",
-    "Insteon product requirements document for the 2477S"
+    "Insteon product requirements document for the 2477S",
+    "2477S SwitchLinc Relay Developer's Guide",
+    "Insteon Command Tables (2007)"
   ]
 }

@@ -37,7 +37,7 @@
     {
       "number": "0x01",
       "name": "Light",
-      "role": "responder"
+      "role": "both"
     },
     {
       "number": "0x02",
@@ -58,6 +58,7 @@
     "insteon.com product catalog",
     "Insteon for Hub app",
     "Insteon command workbook",
-    "Insteon SKU list"
+    "Insteon SKU list",
+    "2475F FanLinc Developer's Guide"
   ]
 }

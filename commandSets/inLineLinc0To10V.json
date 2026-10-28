@@ -1,7 +1,23 @@
 {
   "id": "inLineLinc0To10V",
   "name": "In-LineLinc 0-10 V Ballast Dimmer",
-  "description": "The In-LineLinc 0-10 V ballast dimmer, which runs the KeypadLinc code base. Its two input lines trigger groups 1 through 4, which use the on masks, on-levels and ramp rates of groups 2 through 5.",
+  "description": "The In-LineLinc 0-10 V ballast dimmer, which runs the KeypadLinc code base and works as a 0-10 V dimmer or two relays. Its two input lines trigger groups 1 through 4, which use the on masks, on-levels and ramp rates of groups 2 through 5.",
+  "enumerations": [
+    {
+      "name": "manualChangeDirection",
+      "description": "Which way a manual change moves the level.",
+      "values": [
+        {
+          "value": "0x00",
+          "name": "down"
+        },
+        {
+          "value": "0x01",
+          "name": "up"
+        }
+      ]
+    }
+  ],
   "operatingFlags": [
     {
       "name": "programmingLock",
@@ -18,14 +34,6 @@
       "bit": "0x02",
       "on": "0x02",
       "off": "0x03"
-    },
-    {
-      "name": "resumeDim",
-      "description": "Turning the load on at the device restores its last level instead of the on-level.",
-      "query": "0x00",
-      "bit": "0x04",
-      "on": "0x04",
-      "off": "0x05"
     },
     {
       "name": "ledOff",
@@ -76,14 +84,6 @@
       "off": "0x13"
     },
     {
-      "name": "errorBlink",
-      "description": "The status LED blinks when a communication error occurs.",
-      "query": "0x05",
-      "bit": "0x04",
-      "on": "0x15",
-      "off": "0x14"
-    },
-    {
       "name": "cleanupReport",
       "description": "The device sends a success report after the cleanup messages that follow a group command.",
       "query": "0x05",
@@ -92,12 +92,12 @@
       "off": "0x16"
     },
     {
-      "name": "checksumRequired",
-      "description": "Extended Set and link database write messages must carry a checksum in D14.",
+      "name": "smartHops",
+      "description": "Each message starts with the hop count of the last acknowledgment received (smart hops). When the bit is 0, each message starts with one hop.",
       "query": "0x05",
-      "bit": "0x10",
-      "on": "0x19",
-      "off": "0x18"
+      "bit": "0x40",
+      "on": "0x1C",
+      "off": "0x1D"
     },
     {
       "name": "relayMode",
@@ -125,21 +125,14 @@
       "query": "0x03"
     }
   ],
-  "flagCommands": [
-    {
-      "name": "smartHopsOn",
-      "description": "Starts each message with the hop count of the last acknowledgment received (smart hops).",
-      "command2": "0x1C"
-    },
-    {
-      "name": "smartHopsOff",
-      "description": "Starts each message with one hop.",
-      "command2": "0x1D"
-    }
-  ],
   "extendedSettings": {
     "perButton": true,
     "values": [
+      {
+        "name": "inputEnabled",
+        "description": "Whether group D1, one of the groups 2 through 5 that the input lines use, is enabled: 0x01 when it is and 0x00 when it isn't. The 2475DA2 guide calls it the on mask.",
+        "byte": 3
+      },
       {
         "name": "x10HouseCode",
         "description": "The X10 house code, or 0x20 for no X10 address.",
@@ -216,6 +209,18 @@
         ]
       },
       {
+        "name": "ledBrightness",
+        "description": "Sets the brightness of the status LED.",
+        "selector": "0x07",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "ledBrightness"
+          }
+        ]
+      },
+      {
         "name": "dacRange",
         "description": "Sets the range of the 0-10 V output: D3 points to the start of the DAC table (the minimum) and D4 to its end (the maximum).",
         "selector": "0x0D",
@@ -230,19 +235,158 @@
             "value": "dacMaximum"
           }
         ]
+      },
+      {
+        "name": "maxRetries",
+        "description": "Sets how many times the device retries a message, from 0x01 to 0xFF. 0x00 restores the factory default of 5.",
+        "selector": "0x0F",
+        "perButton": false,
+        "bytes": [
+          {
+            "position": 3,
+            "value": "maxRetries"
+          }
+        ]
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "In dimmer mode, the level to go to at the saved ramp rate, from 0x00 to 0xFF. In relay mode, bit 0 turns relay 1 on and bit 1 relay 2."
+      }
+    },
+    {
+      "name": "lightOnFast",
+      "description": "Turns the load full on instantly. The 2475DA2 guide gives cmd2 as the on-level.",
+      "command1": "0x12",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off, at the saved ramp rate in dimmer mode.",
+      "command1": "0x13",
+      "parameter": {
+        "name": "relays",
+        "description": "In relay mode, bit 0 turns relay 1 off and bit 1 relay 2. The dimmer ignores it."
+      }
+    },
+    {
+      "name": "lightOffFast",
+      "description": "Turns the load off instantly. The device ignores cmd2.",
+      "command1": "0x14"
+    },
+    {
+      "name": "brightenOneStep",
+      "description": "Brightens the load one step of 16 from off to full. The device ignores cmd2.",
+      "command1": "0x15"
+    },
+    {
+      "name": "dimOneStep",
+      "description": "Dims the load one step of 16 from off to full. The device ignores cmd2.",
+      "command1": "0x16"
+    },
+    {
+      "name": "startManualChange",
+      "description": "Starts brightening or dimming the load until a stop manual change command.",
+      "command1": "0x17",
+      "parameter": {
+        "name": "direction",
+        "description": "Which way to change the level.",
+        "kind": "enumeration",
+        "enumeration": "manualChangeDirection"
+      }
+    },
+    {
+      "name": "stopManualChange",
+      "description": "Stops a manual change. The device ignores cmd2.",
+      "command1": "0x18"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgement's cmd1 carries the link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's level, from 0x00 (off) to 0xFF (full)."
+      }
+    },
+    {
+      "name": "beep",
+      "description": "Beeps once, as pressing the set button does. The device ignores cmd2.",
+      "command1": "0x30"
+    }
+  ],
+  "extendedCommands": [
+    {
+      "name": "readLimits",
+      "description": "Reads the retry count and the 0-10 V output's range with a second extended Get, which has 0x04 in D3.",
+      "command1": "0x2E",
+      "command2": "0x00",
+      "perButton": true,
+      "fixed": [
+        {
+          "position": 3,
+          "value": "0x04"
+        }
+      ],
+      "reply": {
+        "command2": "0x00",
+        "match": [
+          {
+            "position": 2,
+            "value": "0x01"
+          }
+        ],
+        "values": [
+          {
+            "name": "maxRetries",
+            "description": "How many times the device retries a message.",
+            "byte": 3
+          },
+          {
+            "name": "dacMinimum",
+            "description": "The start of the DAC table: the output's minimum.",
+            "byte": 4
+          },
+          {
+            "name": "dacMaximum",
+            "description": "The end of the DAC table: the output's maximum.",
+            "byte": 5
+          }
+        ]
+      }
+    }
+  ],
   "notes": [
     "Insteon's earliest command sheet swaps 0x08 and 0x09 (backlight on and off); the later sheets, used here, agree with the Insteon for Hub app.",
     "Insteon's 2009 Developer's Guide reads bit 4 of the 0x00 reply as LED on, but the later command sheets read it as LED off, the state 0x08 sets.",
     "Insteon's 2009 Developer's Guide gives query 0x02 as a signal-to-noise value; the later command sheets count messages with CRC errors there.",
     "Insteon's earlier command sheets give ramp rates 0x00 through 0x1F as 9 minutes down to 0.1 second; the later ones make 0x01 8 minutes and 0x00 2 seconds.",
-    "Insteon's earlier command sheet describes selector 0x02 as a mask whose bits 0 and 1 disable relays 1 and 2."
+    "Insteon's earlier command sheet describes selector 0x02 as a mask whose bits 0 and 1 disable relays 1 and 2.",
+    "The 2475DA2 guide marks bit 2 of the 0x00 reply and bits 2 and 4 of the 0x05 reply N/A and lists no Set Operating Flags for resume dim, error blink or the checksum flag, so they're left out here; the command workbook gives them for the KeypadLinc code base.",
+    "The 2475DA2 guide sends Set Operating Flags as an extended message with a checksum in D14.",
+    "The 2475DA2 guide lists the input groups in D1 of the DAC range and retry Sets as well, but doesn't say whether the device keeps them per group.",
+    "The second Get's reply has the same cmd2 and D2 as the first's, so a reply is told apart only by the request it answers.",
+    "The 2475DA2 guide lists no status request; Insteon's 2007 command tables give cmd1 0x19 for every dimmer."
   ],
   "sources": [
     "Insteon command workbook",
     "Insteon Developer's Guide (2009)",
-    "Insteon for Hub app"
+    "Insteon for Hub app",
+    "2475DA2 In-LineLinc 0-10V Dimmer Developer's Guide",
+    "Insteon Command Tables (2007)"
   ]
 }

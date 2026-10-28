@@ -23,19 +23,46 @@
       "region": "Australia and New Zealand"
     }
   ],
-  "commandSets": [
+  "engines": [
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x0B"
+    },
+    {
+      "engine": "i2cs",
       "category": "0x01",
       "subcategory": "0x0F"
     },
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
       "category": "0x01",
       "subcategory": "0x11"
     },
     {
-      "commandSet": "plugInModule",
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x12"
+    }
+  ],
+  "commandSets": [
+    {
+      "commandSet": "globalLine",
+      "category": "0x01",
+      "subcategory": "0x0B"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x01",
+      "subcategory": "0x0F"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x01",
+      "subcategory": "0x11"
+    },
+    {
+      "commandSet": "globalLine",
       "category": "0x01",
       "subcategory": "0x12"
     }
@@ -55,10 +82,11 @@
     }
   ],
   "notes": [
-    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base, but the 2632's product requirements give it the newer layout, so no command set is named for it."
+    "Insteon's list of code bases puts subcategory 0x0B on the older LampLinc code base; the Global Line guide lists it as the French 2632-422, with the same commands as the others."
   ],
   "sources": [
     "HouseLinc device catalog",
-    "2632-x22 Dimmer Module PRD"
+    "2632-x22 Dimmer Module PRD",
+    "2442, 2443, 2452, 2453, 2632 and 2633 Global Line Developer's Guide"
   ]
 }
