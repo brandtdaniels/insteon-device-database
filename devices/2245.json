@@ -146,7 +146,8 @@
   },
   "notes": [
     "Seen on a device running Hub firmware 1019: the local interface on port 25105 answers the command pages, such as /3?…=I=3, /buffstatus.xml and /1?XB=M=1, but the settings pages /network.htm and /config.htm don't load, so that device offered no local page for its settings.",
-    "Seen on a device running Hub firmware 1019: after an Outdoor On/Off Plug 2634-222 running firmware 0x42 was linked with the Hub as controller, the Hub's controller record for it held Data 1 to 3 as 0x01 0x38 0x42, while the plug had reported 0x02 0x38 0x42 (its category, subcategory and firmware version) in ALL-Linking Completed. Data 2 and 3 matched its subcategory and firmware version, but Data 1 wasn't its category. It was seen again for a controller record of group 0, still with one product only."
+    "Seen on a device running Hub firmware 1019: after an Outdoor On/Off Plug 2634-222 running firmware 0x42 was linked with the Hub as controller, the Hub's controller record for it held Data 1 to 3 as 0x01 0x38 0x42, while the plug had reported 0x02 0x38 0x42 (its category, subcategory and firmware version) in ALL-Linking Completed. Data 2 and 3 matched its subcategory and firmware version, but Data 1 wasn't its category. It was seen again for a controller record of group 0, still with one product only.",
+    "Seen on a device running Hub firmware 1019, with modem firmware 0xA5: the modem answered Beep (0x77), sent without its parameter byte, with a NAK, 0x02 0x77 0x15."
   ],
   "sources": [
     "HouseLinc device catalog",

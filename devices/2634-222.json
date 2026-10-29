@@ -11,7 +11,7 @@
       "subcategory": "0x38",
       "verification": {
         "status": "observed",
-        "note": "Seen on a device: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, didn't answer Product Data Request, even when linked to a Hub 2245, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives.",
+        "note": "Seen on a device: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, didn't answer Product Data Request, even when linked to a Hub 2245, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives. ALL-Linking Completed carried 0x02 0x38 0x42 as well; a Hub 2245 kept 0x01 0x38 0x42 as Data 1 to 3 of its controller record for the device, so Data 1 there isn't the category. The Outdoor ApplianceLinc with RF Developer Notes give 0x01/0x3A. The catalog uses 0x02/0x38, from ID Request.",
         "firmware": [
           "0x42"
         ]
@@ -29,7 +29,29 @@
     {
       "commandSet": "outdoorApplianceLinc",
       "category": "0x02",
-      "subcategory": "0x38"
+      "subcategory": "0x38",
+      "firmware": {
+        "except": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "commandSet": "outdoorApplianceLincFirmware42",
+      "category": "0x02",
+      "subcategory": "0x38",
+      "firmware": {
+        "only": [
+          "0x42"
+        ]
+      },
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: Get Operating Flags answered with the programming lock, LED on transmit and key beep bits, and Beep was acknowledged, where the Outdoor ApplianceLinc with RF Developer Notes mark the flags reply N/A and don't list Beep.",
+        "firmware": [
+          "0x42"
+        ]
+      }
     }
   ],
   "radio": "dual",
@@ -256,7 +278,7 @@
     "Has no X10.",
     "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672.",
     "Its owner's manual lists it as an Insteon controller; its Developer Notes list it as a responder only. Seen on a device running firmware 0x42: holding its SET button, with a modem in Start ALL-Linking as responder, linked it as the controller of group 1, but tapping its one button, which is also its SET button, switched the load and sent no group commands. The only message seen from it was SET Button Pressed (cmd1 0x01), when the button was held into linking mode. So a controller link can be made, but taps aren't reported, and an app learns its state only with Light Status Request. The catalog gives it the role responder, its practical behavior.",
-    "Seen on a device running firmware 0x42: when a Hub 2245 linked it remotely as the controller of group 0, the module itself wrote its responder record for that link with Data 1 to 3 as 0xFF 0x00 0x00, while the Outdoor ApplianceLinc with RF Developer Notes say an app should set the on-level to 0xFE and the ramp rate to 0x1F. Its controller record for group 1, to the Hub, held 0x03 0x00 0x00."
+    "Seen on a device running firmware 0x42: when a Hub 2245 linked it remotely, as the responder to the Hub's group 0, the module itself wrote its responder record for that link with Data 1 to 3 as 0xFF 0x00 0x00; after a later remote link, the record held 0x00 0x00 0x00, and an On to group 0 from the modem left the load off. The Outdoor ApplianceLinc with RF Developer Notes say to set the on-level to 0xFE and the ramp rate to 0x1F. Its controller record for group 1, to the Hub, held 0x03 0x00 0x00."
   ],
   "sources": [
     "HouseLinc device catalog",
