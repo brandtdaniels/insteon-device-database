@@ -223,11 +223,239 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Choose a power outlet anywhere on the Insteon powerline network, away from moisture, where the receiver can stand vertically clear of metal obstructions. Outdoors, use an approved weatherproof enclosure.",
+          "action": "other"
+        },
+        {
+          "text": "Plug the EZSnsRF into the outlet.",
+          "action": "plugIn",
+          "expect": "Status LED flashes a number of times, then glows steadily after a few seconds"
+        },
+        {
+          "text": "Set each wireless transmitter's 10 DIP switches, on (up) or off (down), to give it a code of its own.",
+          "action": "other",
+          "control": "DIP switches"
+        }
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for about 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 4
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED flashes about once a second"
+        },
+        {
+          "text": "Activate the wireless transmitter to be learned, such as by passing in front of a motion sensor or pressing its transmit button.",
+          "action": "other",
+          "control": "wireless transmitter",
+          "expect": "LED flashes faster"
+        },
+        {
+          "text": "Press and hold the SET button of the device to be controlled until its LED blinks, about 4 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 4,
+          "expect": "The device's LED blinks; the EZSnsRF's LED may flash briefly, then keeps blinking about twice a second"
+        },
+        {
+          "text": "Press and hold the SET button for 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 4
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED turns off"
+        },
+        {
+          "text": "To add an Off delay, tap the SET button 1 to 31 times; each tap adds half a minute, from 0.5 to 15.5 minutes.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button for 4 seconds to end the linking session.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 4,
+          "expect": "LED glows steadily"
+        }
+      ],
+      "notes": [
+        "This learns a transmitter's code and links responders to it as the code's scene. Repeat the step on the device to be controlled for each further device before ending the session.",
+        "Without an Off delay, skip the taps. The Quick-Start Guide EZSnsRF Wireless Sensor Receiver Model #5010E conflicts with itself on how to finish then: its step 5 ends the linking session with a 4-second hold of the SET button, and its note says to tap the SET button once more to finish. The steps follow the 4-second hold.",
+        "Pressing and holding the SET button for 4 seconds cancels the process at any step."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button for about 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 4
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED flashes about once a second"
+            },
+            {
+              "text": "Activate the wireless transmitter to be learned, such as by passing in front of a motion sensor or pressing its transmit button.",
+              "action": "other",
+              "control": "wireless transmitter",
+              "expect": "LED flashes faster"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Press and hold the SET button for 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 4
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED turns off"
+            },
+            {
+              "text": "To add an Off delay, tap the SET button 1 to 31 times; each tap adds half a minute, from 0.5 to 15.5 minutes.",
+              "action": "tap",
+              "control": "SET button"
+            },
+            {
+              "text": "Press and hold the SET button for 4 seconds to end the linking session.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 4,
+              "expect": "LED glows steadily"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the EZSnsRF's group for the transmitter's code to the Hub as a controller, with the Hub as the responder, so the Hub receives the group command for the learned code; the Hub makes no link to the device, since this profile lists no group it responds to."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps, with the Hub in place of the device to be controlled, and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the EZSnsRF.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait at least 5 seconds.",
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "text": "Press and hold the SET button while plugging it back in.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 5 seconds more.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Erases all programming and restores the factory defaults."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device as a controller from each of its responders.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 set to the group linked to the Hub, such as 0x01 for group 1.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode and Start ALL-Linking; no document describes removing this product from a Hub. The EZSnsRF Insteon Messages/Commands give Enter Unlinking Mode (cmd1 0x0A) with the group number in cmd2."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
-    "Each transmitter has 10 DIP switches that give it a code; Dakota Alert 3000-series transmitters reach up to 600 feet. It has a pass-through outlet, which shouldn't power anything that emits radio signals.",
+    "Dakota Alert 3000-series transmitters reach up to 600 feet. The EZSnsRF has a pass-through outlet, which shouldn't power anything that emits radio signals.",
     "The commands each code sends when its signal turns on and off are programmable, so no document gives them.",
-    "To learn a transmitter and link responders: hold the SET button about 4 seconds (the LED flashes about once a second); trigger the transmitter (the LED flashes faster); hold the SET button of each responder about 4 seconds; end by holding the EZSnsRF's SET button 4 seconds. Then tap it 1 to 31 times to add an Off delay of half a minute per tap, from 0.5 to 15.5 minutes, and hold it 4 seconds; with no delay, tap it once more to finish. Holding the SET button 4 seconds cancels at any step.",
-    "Factory reset: unplug it for at least 5 seconds, then hold the SET button while plugging it back in, for 5 seconds more.",
     "The Quick-Start Guide EZSnsRF Wireless Sensor Receiver Model #5010E (Rev 1.5) applies to firmware 1.6 and above."
   ],
   "sources": [
