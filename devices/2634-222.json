@@ -11,7 +11,7 @@
       "subcategory": "0x38",
       "verification": {
         "status": "observed",
-        "note": "Seen on a device: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives.",
+        "note": "Seen on a device: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, didn't answer Product Data Request, even when linked to a Hub 2245, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives.",
         "firmware": [
           "0x42"
         ]
@@ -129,6 +129,7 @@
           "notes": [
             "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Seen on a device running firmware 0x42: this worked on a module that had no link to the Hub yet. With the Hub in Start ALL-Linking as controller, the extended Enter Linking Mode linked the Hub as its controller; then Enter Linking Mode for group 1, with the Hub in Start ALL-Linking as responder, linked the module as the Hub's controller of group 1.",
             "Seen on a device running firmware 0x42: with the Hub in Start ALL-Linking as controller, holding the module's SET button linked the Hub as its controller."
           ],
           "verification": {
@@ -156,7 +157,8 @@
       "notes": [
         "As a controller: then press and hold the responder's SET button until it double-beeps; the module double-beeps and its LED stops blinking.",
         "As a responder: put the controller in unlinking mode first, then press and hold the module's SET button until it double-beeps.",
-        "Seen on a device running firmware 0x42: these steps, with a modem in unlinking mode, removed the module's controller link to the modem."
+        "Seen on a device running firmware 0x42: these steps, with a modem or a Hub 2245 in unlinking mode, removed the module's controller link to it.",
+        "Seen on a device running firmware 0x42: with a Hub 2245 in unlinking mode, one hold of the SET button, which put the module in linking mode, removed the Hub's controller link to the module."
       ]
     },
     "reset": {
@@ -253,7 +255,8 @@
   "notes": [
     "Has no X10.",
     "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672.",
-    "Its owner's manual lists it as an Insteon controller; its Developer Notes list it as a responder only. Seen on a device running firmware 0x42: holding its SET button, with a modem in Start ALL-Linking as responder, linked it as the controller of group 1, but tapping its one button, which is also its SET button, switched the load and sent no group commands. The only message seen from it was SET Button Pressed (cmd1 0x01), when the button was held into linking mode. So a controller link can be made, but taps aren't reported, and an app learns its state only with Light Status Request. The catalog gives it the role responder, its practical behavior."
+    "Its owner's manual lists it as an Insteon controller; its Developer Notes list it as a responder only. Seen on a device running firmware 0x42: holding its SET button, with a modem in Start ALL-Linking as responder, linked it as the controller of group 1, but tapping its one button, which is also its SET button, switched the load and sent no group commands. The only message seen from it was SET Button Pressed (cmd1 0x01), when the button was held into linking mode. So a controller link can be made, but taps aren't reported, and an app learns its state only with Light Status Request. The catalog gives it the role responder, its practical behavior.",
+    "Seen on a device running firmware 0x42: when a Hub 2245 linked it remotely as the controller of group 0, the module itself wrote its responder record for that link with Data 1 to 3 as 0xFF 0x00 0x00, while the Outdoor ApplianceLinc with RF Developer Notes say an app should set the on-level to 0xFE and the ramp rate to 0x1F. Its controller record for group 1, to the Hub, held 0x03 0x00 0x00."
   ],
   "sources": [
     "HouseLinc device catalog",
