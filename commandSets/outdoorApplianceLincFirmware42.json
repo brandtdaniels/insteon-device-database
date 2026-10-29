@@ -1,0 +1,347 @@
+{
+  "id": "outdoorApplianceLincFirmware42",
+  "name": "Outdoor ApplianceLinc, firmware 0x42",
+  "description": "The outdoor on/off module with RF, as firmware 0x42 behaves: its Get Operating Flags reply holds the programming lock, LED on transmit and key beep bits, and it answers Beep. Otherwise it is the Outdoor ApplianceLinc command set.",
+  "operatingFlags": [
+    {
+      "name": "programmingLock",
+      "label": "Programming lock",
+      "section": "Linking",
+      "description": "Linking and programming from the device itself are locked out.",
+      "query": "0x00",
+      "bit": "0x01",
+      "on": "0x00",
+      "off": "0x01",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: after Set Operating Flags with cmd2 0x00, Get Operating Flags (cmd2 0x00) read 0x43; after cmd2 0x01, it read 0x42.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "name": "ledOnTransmit",
+      "label": "Blink LED when sending",
+      "section": "LEDs",
+      "description": "The status LED blinks when the device sends an Insteon message.",
+      "query": "0x00",
+      "bit": "0x02",
+      "on": "0x02",
+      "off": "0x03",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: after Set Operating Flags with cmd2 0x03, Get Operating Flags (cmd2 0x00) read 0x40; after cmd2 0x02, it read 0x42.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "name": "keyBeepOff",
+      "label": "Key beep off",
+      "section": "Buttons",
+      "description": "The device doesn't beep when a button is pressed.",
+      "query": "0x00",
+      "bit": "0x40",
+      "on": "0x0B",
+      "off": "0x0A",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: after Set Operating Flags with cmd2 0x0A, Get Operating Flags (cmd2 0x00) read 0x02; after cmd2 0x0B, it read 0x42. So the bit is set by 0x0B, which the Outdoor ApplianceLinc with RF Developer Notes give as key beep off, and is 1 when key beep is off.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    }
+  ],
+  "readings": [
+    {
+      "name": "databaseDelta",
+      "label": "ALL-Link database changes",
+      "section": "Diagnostics",
+      "advanced": true,
+      "description": "A count that goes up whenever the ALL-Link database changes.",
+      "query": "0x01",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: Get Operating Flags with an odd cmd2 (0x01, 0x03, 0x05, 0x07 or 0xFF) always answered with the ALL-Link database delta, 0x07. The device looks only at bit 0 of cmd2: an even cmd2 answers with the operating flags ORed with cmd2.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    }
+  ],
+  "flagCommands": [
+    {
+      "name": "radioOff",
+      "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
+      "command2": "0x0C"
+    },
+    {
+      "name": "radioOn",
+      "description": "The device originates RF messages.",
+      "command2": "0x0D"
+    },
+    {
+      "name": "powerLineOff",
+      "description": "Turns Insteon communication over the powerline off. The device turns it back on whenever it powers up.",
+      "command2": "0x0E"
+    },
+    {
+      "name": "powerLineOn",
+      "description": "Turns Insteon communication over the powerline on.",
+      "command2": "0x0F"
+    },
+    {
+      "name": "x10Off",
+      "description": "Turns X10 sending and receiving off.",
+      "command2": "0x12"
+    },
+    {
+      "name": "x10On",
+      "description": "Turns X10 sending and receiving on.",
+      "command2": "0x13"
+    },
+    {
+      "name": "errorBlinkOff",
+      "description": "The LED doesn't blink when a communication error occurs.",
+      "command2": "0x14",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: the device acknowledged Set Operating Flags with this cmd2, but no Get Operating Flags reply, with any cmd2, and no byte of the extended Get reply changed, so the setting can't be read back.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "name": "errorBlinkOn",
+      "description": "The LED blinks when a communication error occurs.",
+      "command2": "0x15",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: the device acknowledged Set Operating Flags with this cmd2, but no Get Operating Flags reply, with any cmd2, and no byte of the extended Get reply changed, so the setting can't be read back.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "name": "cleanupReportOff",
+      "description": "Turns cleanup success reports off.",
+      "command2": "0x16",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: the device acknowledged Set Operating Flags with this cmd2, but no Get Operating Flags reply, with any cmd2, and no byte of the extended Get reply changed, so the setting can't be read back.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "name": "cleanupReportOn",
+      "description": "Turns cleanup success reports on.",
+      "command2": "0x17",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: the device acknowledged Set Operating Flags with this cmd2, but no Get Operating Flags reply, with any cmd2, and no byte of the extended Get reply changed, so the setting can't be read back.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    },
+    {
+      "name": "checksumOff",
+      "description": "Extended Set and ALL-Link database write messages needn't carry a checksum in D14.",
+      "command2": "0x18"
+    },
+    {
+      "name": "checksumOn",
+      "description": "Extended Set and ALL-Link database write messages must carry a checksum in D14.",
+      "command2": "0x19"
+    }
+  ],
+  "extendedSettings": {
+    "perButton": false,
+    "values": [
+      {
+        "name": "rampRate",
+        "label": "Ramp rate",
+        "section": "Load",
+        "description": "The ramp rate.",
+        "byte": 7,
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x42: the extended Get reply held 0x1C in D7.",
+          "firmware": [
+            "0x42"
+          ]
+        }
+      },
+      {
+        "name": "onLevel",
+        "label": "On-level",
+        "section": "Load",
+        "description": "The on-level.",
+        "byte": 8,
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x42: the extended Get reply held 0xFE in D8.",
+          "firmware": [
+            "0x42"
+          ]
+        }
+      }
+    ]
+  },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the load on to the level in cmd2 at the saved ramp rate.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "lightOnFast",
+      "description": "Turns the load on instantly. The device ignores cmd2.",
+      "command1": "0x12"
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the load off at the saved ramp rate. The device ignores cmd2.",
+      "command1": "0x13"
+    },
+    {
+      "name": "lightOffFast",
+      "description": "Turns the load off instantly. The device ignores cmd2.",
+      "command1": "0x14"
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads the load's level. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "onLevel",
+        "description": "The load's on-level."
+      }
+    },
+    {
+      "name": "instantChange",
+      "description": "Sets the load to the level in cmd2 instantly.",
+      "command1": "0x21",
+      "parameter": {
+        "name": "onLevel",
+        "description": "The level to go to, from 0x00 (off) to 0xFF (full).",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      }
+    },
+    {
+      "name": "beep",
+      "description": "Beeps once.",
+      "command1": "0x30",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: the device acknowledged Beep (cmd1 0x30) and beeped, even when it had no link to the modem that sent it. The Outdoor ApplianceLinc with RF Developer Notes don't list it.",
+        "firmware": [
+          "0x42"
+        ]
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "load",
+      "label": "Load",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus",
+        "ranges": [
+          {
+            "from": "0x00",
+            "through": "0x00",
+            "label": "Off"
+          },
+          {
+            "from": "0x01",
+            "through": "0xFF",
+            "label": "On"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ],
+      "linkData": {
+        "responder": [
+          {
+            "byte": 1,
+            "name": "onLevel",
+            "label": "On-level",
+            "description": "The on-level; the Outdoor ApplianceLinc with RF Developer Notes say to set it to 0xFE.",
+            "value": "0xFE",
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running firmware 0x42: the device writes this byte itself when it's linked remotely, with Start ALL-Linking on the modem and Enter Linking Mode sent to the device. After one such link, as responder to a Hub 2245's group 0, its record held Data 1 to 3 as 0xFF 0x00 0x00; after a later link both ways, 0x00 0x00 0x00, and with on-level 0x00 an On to group 0 from the modem left the load off. The Outdoor ApplianceLinc with RF Developer Notes say to set it to 0xFE, which the catalog keeps; an app should write it after linking.",
+              "firmware": [
+                "0x42"
+              ]
+            }
+          },
+          {
+            "byte": 2,
+            "name": "rampRate",
+            "label": "Ramp rate",
+            "description": "The ramp rate; the Outdoor ApplianceLinc with RF Developer Notes say to set it to 0x1F.",
+            "value": "0x1F",
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running firmware 0x42: after a remote link the device's own record held 0x00 in Data 2, not the 0x1F the Outdoor ApplianceLinc with RF Developer Notes give, which the catalog keeps.",
+              "firmware": [
+                "0x42"
+              ]
+            }
+          }
+        ]
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "No document says that every nonzero level means on; the ranges are read from the status reply's level byte."
+      }
+    }
+  ],
+  "notes": [
+    "The Outdoor ApplianceLinc with RF Developer Notes mark the Get Operating Flags 0x00 reply N/A. Seen on a device running firmware 0x42: it answered, and the device looks only at bit 0 of cmd2. An odd cmd2 answers with the ALL-Link database delta. An even cmd2 answers with the operating flags ORed with cmd2: with the flags at 0x42, cmd2 0x00 and 0x02 read 0x42, 0x04 read 0x46, 0x08 read 0x4A, 0x10 read 0x52, 0x20 read 0x62 and 0x80 read 0xC2. So query with cmd2 0x00 for the flags and 0x01 for the delta.",
+    "Seen on a device running firmware 0x42: bits 2 to 5 and bit 7 of the flags always read 0.",
+    "Seen on a device running firmware 0x42: before any change, the flags read 0x42: programming lock off, LED on transmit on and key beep off. The device was secondhand, so these may not be its factory settings, and the catalog gives no defaults.",
+    "It sends Set Operating Flags as extended messages with a checksum in D14. Seen on a device running firmware 0x42: error blink (0x14, 0x15) and cleanup report (0x16, 0x17) were acknowledged, but no Get Operating Flags reply and no byte of the extended Get reply changed, so they stay flag commands with no bit.",
+    "Seen on a device running firmware 0x42: the extended Get reply's data stayed 0x01 0x01 0x0F 0xEF 0x00 0x00 0x1C 0xFE 0x20 0x00 0x00 0x01 0x26 0xD1 through every flag change. D3 and D4 (0x0F 0xEF), D9 (0x20) and D12 and D13 (0x01 0x26) aren't explained by any document.",
+    "The Outdoor ApplianceLinc with RF Developer Notes give no extended Set for the settings its Get reports.",
+    "The device sends its Assign to ALL-Link Group broadcast on power-up, and supports only responder links, whose on-level should be 0xFE and ramp rate 0x1F.",
+    "The Outdoor ApplianceLinc with RF Developer Notes give the device's identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672 LED bulb; the catalog keeps 0x02 and 0x38 for the 2634-222."
+  ],
+  "sources": [
+    "Outdoor ApplianceLinc with RF Developer Notes"
+  ]
+}
