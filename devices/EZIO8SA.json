@@ -267,7 +267,7 @@
       "notes": [
         "This links an input as a controller. The Quick Start Guide - EZIO8SA and the Quick Start Guide - EZIO8SA & PLM Combo give the same steps, on the SET button of the PowerLinc Modem (PLM) connected to the EZIO8SA.",
         "Linking mode lasts 4 minutes, for adding several responders, unless the last step ends it first.",
-        "X10: relays 1 to 8 answer units 1 to 8 of any house code. To enable X10, press and hold the SET button on the PLM for 3 to 5 seconds and release it (the status LED blinks), then send an X10 On 3 times, such as A1, A On, A1, A On, A1 On; the status LED stops blinking. An Off disables it."
+        "X10: relays 1 to 8 answer units 1 to 8 of any house code. To enable X10, press and hold the SET button on the PLM for 3 to 5 seconds and release it (the status LED blinks), then send an X10 On 3 times, such as A1, A On, A1, A On, A1 On; the status LED stops blinking. An Off disables it. The Quick Start Guide - EZIO8SA holds the SET button for 3 to 5 seconds, has the relays answer any house code and disables X10 with one Off; the EZIOxx Advanced Details choose the house code on the X10 controller first, hold the SET button for at least 4 seconds, and send 3 Off commands to disable X10. This note follows the Quick Start Guide - EZIO8SA."
       ],
       "alternatives": [
         {
@@ -284,7 +284,12 @@
               "text": "Press and hold the SET button on the EZIO8SA's PLM for 3 to 5 seconds.",
               "action": "hold",
               "control": "PLM SET button",
-              "seconds": 4,
+              "seconds": 4
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "PLM SET button",
               "expect": "Status LED goes out"
             },
             {
@@ -322,7 +327,12 @@
               "text": "Press and hold the SET button on the EZIO8SA's PLM for 3 to 5 seconds.",
               "action": "hold",
               "control": "PLM SET button",
-              "seconds": 4,
+              "seconds": 4
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "PLM SET button",
               "expect": "Status LED goes out"
             },
             {
@@ -450,6 +460,10 @@
               "action": "send",
               "command": "Start ALL-Linking",
               "expect": "The device deletes its group 1 link to the Hub, and the Hub reports the device's Insteon ID"
+            },
+            {
+              "text": "Repeat the last two steps for each other input linked to the Hub, groups 2 to 7, with cmd2 set to the group (0x02 to 0x07).",
+              "action": "other"
             },
             {
               "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
