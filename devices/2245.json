@@ -145,7 +145,7 @@
     }
   },
   "notes": [
-    "Seen on a device running Hub firmware 1019: the local interface on port 25105 answers the command pages, such as /3?…=I=3, /buffstatus.xml and /1?XB=M=1, but the settings pages /network.htm and /config.htm don't load, so on that device its settings, including its local password, couldn't be changed locally."
+    "Seen on a device running Hub firmware 1019: the local interface on port 25105 answers the command pages, such as /3?…=I=3, /buffstatus.xml and /1?XB=M=1, but the settings pages /network.htm and /config.htm don't load, so that device offered no local page for its settings."
   ],
   "sources": [
     "HouseLinc device catalog",
