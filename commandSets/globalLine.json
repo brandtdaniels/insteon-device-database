@@ -635,7 +635,9 @@
       "command2": "0x00",
       "reply": {
         "name": "onLevel",
-        "description": "The load's level, from 0x00 (off) to 0xFF (full)."
+        "description": "The load's level, from 0x00 (off) to 0xFF (full).",
+        "unit": "percent",
+        "scale": 0.392157
       }
     },
     {
@@ -777,7 +779,19 @@
       "label": "Load",
       "kind": "relay",
       "state": {
-        "command": "readStatus"
+        "command": "readStatus",
+        "ranges": [
+          {
+            "from": "0x00",
+            "through": "0x00",
+            "label": "Off"
+          },
+          {
+            "from": "0x01",
+            "through": "0xFF",
+            "label": "On"
+          }
+        ]
       },
       "actions": [
         {
@@ -806,6 +820,10 @@
             }
           }
         ]
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "No document says that every nonzero level means on; the ranges are read from Light Status Request's level byte (cmd2), as the Insteon Developer's Guide describes it for on/off devices."
       }
     }
   ],

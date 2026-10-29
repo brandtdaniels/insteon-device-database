@@ -182,7 +182,19 @@
       "label": "Load",
       "kind": "relay",
       "state": {
-        "command": "readStatus"
+        "command": "readStatus",
+        "ranges": [
+          {
+            "from": "0x00",
+            "through": "0x00",
+            "label": "Off"
+          },
+          {
+            "from": "0x01",
+            "through": "0xFF",
+            "label": "On"
+          }
+        ]
       },
       "actions": [
         {
@@ -214,6 +226,10 @@
             "value": "0x1F"
           }
         ]
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "No document says that every nonzero level means on; the ranges are read from the status reply's level byte."
       }
     }
   ],
