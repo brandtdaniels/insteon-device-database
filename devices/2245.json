@@ -9,7 +9,14 @@
     {
       "category": "0x03",
       "subcategory": "0x33",
-      "region": "US and Canada"
+      "region": "US and Canada",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device: a Hub 2245 reported 0x03/0x33, with modem (PLM) firmware 0xA5 in its Get IM Info reply. Its Hub firmware was 1019, as the Get Info page of Insteon Connect shows it under Firmware, and its Hub software Hub2-V04-20140904.",
+        "firmware": [
+          "0xA5"
+        ]
+      }
     },
     {
       "category": "0x03",
@@ -137,6 +144,9 @@
       ]
     }
   },
+  "notes": [
+    "Seen on a device running Hub firmware 1019: the local interface on port 25105 answers the command pages, such as /3?…=I=3, /buffstatus.xml and /1?XB=M=1, but the settings pages /network.htm and /config.htm don't load, so that device offered no local page for its settings."
+  ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
