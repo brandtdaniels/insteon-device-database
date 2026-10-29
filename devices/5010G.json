@@ -224,11 +224,295 @@
     }
   ],
   "capabilities": [],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Choose a power outlet anywhere on the Insteon powerline network, away from moisture and clear of metal obstructions. Outdoors, use an approved weatherproof enclosure.",
+          "action": "other"
+        },
+        {
+          "text": "Turn the antenna on the left side of the enclosure to point up, fully extended.",
+          "action": "turn",
+          "control": "antenna"
+        },
+        {
+          "text": "Plug the EZX10RF into the outlet.",
+          "action": "plugIn",
+          "expect": "LED may flash a number of times, then glows steadily after a few seconds"
+        }
+      ],
+      "notes": [
+        "Don't plug anything into the same outlet that emits radio signals and could interfere with the EZX10RF."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 10 to 12 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 11
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED flashes about once a second"
+        },
+        {
+          "text": "Send the X10 address: on a wireless X10 transmitter, press the On button for the scene; on a plug-in controller, send the X10 address followed by On.",
+          "action": "press",
+          "control": "X10 transmitter button",
+          "count": 1,
+          "expect": "LED flashes faster"
+        },
+        {
+          "text": "Set the device to be controlled to the state wanted (on, off or a brightness level), then press and hold its SET button until its LED blinks or it beeps, about 5 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "The device's LED blinks or it beeps; the EZX10RF's LED may flash briefly, then keeps blinking about twice a second"
+        },
+        {
+          "text": "Press and hold the SET button for about 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED turns off"
+        },
+        {
+          "text": "To add an Off delay, tap the SET button 1 to 31 times; each tap adds half a minute, from 0.5 to 15.5 minutes.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button for about 5 seconds to end the linking session.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED glows steadily"
+        }
+      ],
+      "notes": [
+        "This learns an X10 address and links responders to it as the address's scene. Repeat the step on the device to be controlled for each further device before ending the session.",
+        "Without an Off delay, skip the taps. The Quick-Start Guide EZX10RF Wireless Sensor Receiver Insteon EZX10RF—Model #5010G adds that if the LED keeps blinking, pressing the SET button once more finishes."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Press and hold the SET button for 10 to 12 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 11
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED flashes about once a second"
+            },
+            {
+              "text": "Send the X10 address: on a wireless X10 transmitter, press the On button for the scene; on a plug-in controller, send the X10 address followed by On.",
+              "action": "press",
+              "control": "X10 transmitter button",
+              "count": 1,
+              "expect": "LED flashes faster"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Press and hold the SET button for about 5 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 5
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED turns off"
+            },
+            {
+              "text": "To add an Off delay, tap the SET button 1 to 31 times; each tap adds half a minute, from 0.5 to 15.5 minutes.",
+              "action": "tap",
+              "control": "SET button"
+            },
+            {
+              "text": "Press and hold the SET button for about 5 seconds to end the linking session.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 5,
+              "expect": "LED glows steadily"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the EZX10RF's group for the X10 address to the Hub as a controller, with the Hub as the responder, so the Hub receives the group command for the learned code; the Hub makes no link to the device, since this profile lists no group it responds to."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps, with the Hub in place of the device to be controlled, and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 10 to 12 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 11
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED flashes about once a second"
+        },
+        {
+          "text": "Send the X10 address: on a wireless X10 transmitter, press the Off button for the scene; on a plug-in controller, send the X10 address followed by Off.",
+          "action": "press",
+          "control": "X10 transmitter button",
+          "count": 1,
+          "expect": "LED flashes faster"
+        },
+        {
+          "text": "Press and hold the SET button of the device to be unlinked until its LED blinks or it beeps, about 5 seconds.",
+          "device": "other",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "The device's LED blinks or it beeps"
+        },
+        {
+          "text": "Press and hold the SET button for about 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED turns off"
+        },
+        {
+          "text": "Press and hold the SET button for about 5 seconds to end the session.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5,
+          "expect": "LED glows steadily"
+        }
+      ],
+      "notes": [
+        "The Quick-Start Guide EZX10RF Wireless Sensor Receiver Insteon EZX10RF—Model #5010G unlinks with its linking steps, sending the X10 Off command in place of On: if A1 On triggers a scene, A1 Off stops it."
+      ]
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the EZX10RF.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait at least 10 seconds.",
+          "action": "wait",
+          "seconds": 10
+        },
+        {
+          "text": "Press and hold the SET button while plugging it back in.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for about 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        }
+      ],
+      "notes": [
+        "Erases all programming and restores the factory defaults."
+      ]
+    },
+    "resetErases": [
+      "links",
+      "settings"
+    ],
+    "removal": {
+      "steps": [
+        {
+          "text": "Remove the device as a controller from each of its responders.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub send Enter Unlinking Mode (cmd1 0x0A) with cmd2 set to the group linked to the Hub, such as 0x01 for group 1.",
+              "action": "send",
+              "command": "Enter Unlinking Mode"
+            },
+            {
+              "text": "Have the Hub start ALL-Linking with link code 0xFF (delete), so the device deletes its link to the Hub.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking",
+              "expect": "The device deletes its link to the Hub, and the Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Enter Unlinking Mode and Start ALL-Linking; no document describes removing this product from a Hub. The EZX10RF Insteon Messages/Commands give Enter Unlinking Mode (cmd1 0x0A) with the group number in cmd2."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
-    "Its X10 RF range is up to 200 feet, from a built-in antenna that should point up. It can be set to ignore stray X10 signals from neighbors.",
-    "To learn an X10 address and link responders: hold the SET button 10 to 12 seconds (the LED flashes about once a second); send the X10 address and On (the LED flashes faster); set each responder to the state wanted and hold its SET button about 5 seconds; end by holding the EZX10RF's SET button about 5 seconds. Then tap it 1 to 31 times to add an Off delay of half a minute per tap, from 0.5 to 15.5 minutes, and hold it about 5 seconds; if the LED keeps blinking, press it once more.",
-    "To unlink, follow the linking steps with the X10 Off command in place of On.",
-    "Factory reset: unplug it for at least 10 seconds, then hold the SET button while plugging it back in, for about 5 seconds.",
+    "Its X10 RF range is up to 200 feet. It can be set to ignore stray X10 signals from neighbors.",
     "The Quick-Start Guide EZX10RF Wireless Sensor Receiver Insteon EZX10RF—Model #5010G applies to firmware 1.5 and above."
   ],
   "sources": [

@@ -72,10 +72,214 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Choose a power outlet close to the loads to be controlled, away from moisture. Outdoors, use an approved weatherproof enclosure.",
+          "action": "other"
+        },
+        {
+          "text": "Connect the loads to the relay terminals: Rx_NO (normally open), RxCM (common) and Rx_NC (normally closed) for relays 1 to 4.",
+          "action": "wire",
+          "control": "relay terminals"
+        },
+        {
+          "text": "Plug the EZIO4O into an AC outlet.",
+          "action": "plugIn",
+          "expect": "LED may flash rapidly a few times, turns on and off for about 1 second, then glows steadily"
+        }
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Put the controller in linking mode by holding the button that will control the relays until it shows linking mode, 4 to 10 seconds depending on the controller.",
+          "device": "other",
+          "action": "hold",
+          "control": "controller button",
+          "expect": "Controller LED blinks or a light connected to it flashes"
+        },
+        {
+          "text": "Press and hold the SET button for 3 to 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3.5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED turns off; the controller's LED or a light connected to it flashes"
+        },
+        {
+          "text": "Tap the SET button once for relay 1, twice for relay 2, and so on.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button for 3 to 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3.5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED turns on solidly"
+        }
+      ],
+      "notes": [
+        "The EZIO4O links as a responder.",
+        "To link a snapshot of all the relays as they are, for the controller to recall, skip the taps: the Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller gives this first, and linking one relay as the other way.",
+        "X10: relays 1 to 4 answer X10 units 1 to 4, and the device takes a whole house code. To enable X10, press and hold the SET button for about 4 seconds (the LED blinks slowly) and send an On from an X10 controller; the LED stops blinking. An Off disables it. The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller sends one On; the EZIOxx Advanced Details choose the house code on the X10 controller first and send 3 On commands in succession. This note follows the Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for 3 to 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3.5
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED turns off"
+            },
+            {
+              "text": "Tap the SET button once, for relay 1.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1
+            },
+            {
+              "text": "Press and hold the SET button for 3 to 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3.5
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED turns on solidly"
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, for relay 1; the device makes no link back to the Hub, since this profile lists no group it controls."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Put the controller in unlinking mode, as its own instructions say.",
+          "device": "other",
+          "action": "other"
+        },
+        {
+          "text": "Press and hold the SET button for 3 to 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 3.5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button",
+          "expect": "LED flashes briefly, then turns on solidly; the controller's LED turns on solidly"
+        }
+      ]
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the device from every controller it is linked to.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for 3 to 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 3.5
+            },
+            {
+              "text": "Release the SET button.",
+              "action": "release",
+              "control": "SET button",
+              "expect": "LED flashes briefly, then turns on solidly"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's unlinking steps and the standard Insteon command Start ALL-Linking; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
     "Each relay is a switch rated 0.5 A at 30 V DC or 120 V AC, with normally open, common and normally closed terminals (Rx_NO, RxCM, Rx_NC). Timers can pulse a relay from 1 second to 255 minutes; setting them takes software.",
-    "To link the relays as a responder: put the controller in linking mode, then hold the EZIO4O's SET button 3 to 4 seconds (the LED turns off); hold it 3 to 4 seconds again to link a snapshot of all the relays, or tap it once per relay number and then hold it 3 to 4 seconds to link one relay. To unlink, put the controller in unlinking mode and hold the EZIO4O's SET button 3 to 4 seconds.",
-    "X10: relays 1 to 4 answer X10 units 1 to 4, and the device takes a whole house code. To enable X10, hold the SET button about 4 seconds (the LED blinks slowly) and send an On from an X10 controller; an Off disables it.",
     "The Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller applies to firmware 2.0 and above."
   ],
   "sources": [

@@ -111,13 +111,219 @@
       "kind": "onOff"
     }
   ],
+  "lifecycle": {
+    "installation": {
+      "steps": [
+        {
+          "text": "Connect one wire of each valve to a Zone 1 to 8 terminal and the other to a Comm terminal. For more than one valve, connect all the common wires together and run one lead from them back to a Comm terminal.",
+          "action": "wire",
+          "control": "Zone and Comm terminals"
+        },
+        {
+          "text": "Connect a 24 V AC power supply to the two AC Xmr terminals.",
+          "action": "wire",
+          "control": "AC Xmr terminals"
+        },
+        {
+          "text": "Plug in the EZFlora.",
+          "action": "plugIn"
+        },
+        {
+          "text": "Plug the 24 V AC transformer into a 120 V AC outlet.",
+          "action": "plugIn",
+          "control": "24 V AC transformer"
+        }
+      ],
+      "notes": [
+        "Each zone drives one valve, 500 mA at most.",
+        "Make the power connections indoors or in weatherproof enclosures."
+      ]
+    },
+    "linking": {
+      "steps": [
+        {
+          "text": "Press and hold the controller's button, such as a KeypadLinc button, until it begins to blink.",
+          "device": "other",
+          "action": "hold",
+          "control": "controller button",
+          "expect": "Controller button blinks"
+        },
+        {
+          "text": "Press and hold the SET button for about 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 4,
+          "expect": "LED goes out; the controller stops blinking"
+        },
+        {
+          "text": "Tap the SET button once for zone 1, twice for zone 2, and so on.",
+          "action": "tap",
+          "control": "SET button"
+        },
+        {
+          "text": "Press and hold the SET button for about 4 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 4
+        }
+      ],
+      "notes": [
+        "The EZFlora links as a responder; repeat the steps for each zone, with its own controller button.",
+        "To control the zones with X10 instead, the unit code picks the zone (A1 for zone 1, A8 for zone 8): press and hold the SET button for about 4 seconds (the LED blinks steadily), then send the X10 command, such as A1 On, 3 times within 30 seconds. Sending Off in its place disables X10. The EZFlora Insteon and X10 Messages/Commands add that the house code is chosen on the X10 controller and that any unit code enables it."
+      ],
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Have the Hub start ALL-Linking as the controller, for group 0.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Press and hold the SET button for about 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 4,
+              "expect": "LED goes out"
+            },
+            {
+              "text": "Tap the SET button once, for zone 1.",
+              "action": "tap",
+              "control": "SET button",
+              "count": 1
+            },
+            {
+              "text": "Press and hold the SET button for about 4 seconds.",
+              "action": "hold",
+              "control": "SET button",
+              "seconds": 4
+            },
+            {
+              "text": "Wait for the Hub to report the new link.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
+              "text": "Have the Hub send ID Request.",
+              "action": "send",
+              "command": "ID Request",
+              "expect": "The device answers with its category, subcategory and firmware version"
+            },
+            {
+              "text": "Have the Hub send Ping to confirm the link.",
+              "action": "send",
+              "command": "Ping",
+              "expect": "The device acknowledges the Ping"
+            }
+          ],
+          "notes": [
+            "This links the Hub's group 0 to the device as a responder, for zone 1; the device makes no link back to the Hub, since this profile lists no group it controls."
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub. The EZFlora Insteon and X10 Messages/Commands list ID Request and Ping."
+          }
+        }
+      ]
+    },
+    "unlinking": {
+      "steps": [
+        {
+          "text": "Press and hold the SET button for 10 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 10
+        }
+      ],
+      "notes": [
+        "The documents don't say whether the controller goes into unlinking mode first, how a zone is chosen, or what the LED shows."
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the EZFlora Insteon and X10 Messages/Commands, which give Enter Unlinking Mode (cmd1 0x0A) as the same as holding the SET button for 10 seconds; the Quick Start Guide - EZFlora Model #5010A gives no unlinking steps."
+      }
+    },
+    "reset": {
+      "steps": [
+        {
+          "text": "Unplug the EZFlora.",
+          "action": "unplug"
+        },
+        {
+          "text": "Wait at least 5 seconds.",
+          "action": "wait",
+          "seconds": 5
+        },
+        {
+          "text": "Press and hold the SET button while plugging it back in.",
+          "action": "plugIn",
+          "control": "SET button"
+        },
+        {
+          "text": "Keep holding the SET button for 5 seconds.",
+          "action": "hold",
+          "control": "SET button",
+          "seconds": 5
+        },
+        {
+          "text": "Release the SET button.",
+          "action": "release",
+          "control": "SET button"
+        }
+      ]
+    },
+    "removal": {
+      "steps": [
+        {
+          "text": "Unlink the device from every controller it is linked to.",
+          "action": "other"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "Read from how Insteon links work: a device left in a scene keeps links to it in other devices' ALL-Link databases. No document describes removing this product."
+      },
+      "alternatives": [
+        {
+          "description": "From a Hub",
+          "steps": [
+            {
+              "text": "Remove the device from its scenes first, so no other device keeps links to it.",
+              "device": "other",
+              "action": "other"
+            },
+            {
+              "text": "Have the Hub start unlinking for group 0 (Start ALL-Linking with link code 0xFF).",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message if the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode"
+            },
+            {
+              "text": "Wait for the Hub to report that the link is gone.",
+              "device": "other",
+              "action": "wait",
+              "expect": "The Hub reports the device's Insteon ID"
+            }
+          ],
+          "verification": {
+            "status": "inferred",
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
+          }
+        }
+      ]
+    }
+  },
   "notes": [
-    "Each valve wires to a Zone 1 to 8 terminal and to Comm; a 24 V AC transformer connects to the two AC Xmr terminals. Each zone drives one valve, 500 mA at most.",
     "Each zone has a maximum run of 30 minutes, so a missed Off doesn't leave it running. Zone 8 can be set up as a pump zone that turns on with any other zone. Timers and programs need a gateway or software to set up.",
-    "The RJ-45 accessory port isn't for data or Ethernet. For a rain sensor, connect a 4.7 kΩ resistor between pins 2 and 6 and the sensor between pins 6 and 7; for a water meter, connect it between pins 4 and 5. Both must be enabled in the configuration register.",
-    "To link a zone as a responder: hold the controller's button until it blinks; hold the EZFlora's SET button about 4 seconds (its LED goes out); tap the SET button once per zone number; then hold it about 4 seconds.",
-    "X10: the unit code picks the zone (A1 for zone 1). Hold the SET button about 4 seconds (the LED blinks steadily), then send the X10 On command 3 times within 30 seconds; an Off disables X10.",
-    "Factory reset: unplug it for at least 5 seconds, then hold the SET button while plugging it back in, for 5 seconds."
+    "The RJ-45 accessory port isn't for data or Ethernet. For a rain sensor, connect a 4.7 kΩ resistor between pins 2 and 6 and the sensor between pins 6 and 7; for a water meter, connect it between pins 4 and 5. Both must be enabled in the configuration register."
   ],
   "sources": [
     "Quick Start Guide - EZFlora Model #5010A",
