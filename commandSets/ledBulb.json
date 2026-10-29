@@ -489,7 +489,9 @@
       "command2": "0x00",
       "reply": {
         "name": "onLevel",
-        "description": "The bulb's level, from 0x00 (off) to 0xFF (full)."
+        "description": "The bulb's level, from 0x00 (off) to 0xFF (full).",
+        "unit": "percent",
+        "scale": 0.392157
       }
     },
     {
