@@ -8,7 +8,14 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x38"
+      "subcategory": "0x38",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives.",
+        "firmware": [
+          "0x42"
+        ]
+      }
     }
   ],
   "engines": [
@@ -80,7 +87,8 @@
       "notes": [
         "As a controller: put the module in linking mode first, adjust the responder to the desired state, then press and hold the responder's SET button until it double-beeps; the module's LED stops blinking.",
         "As a responder: press and hold the controller's SET button until it beeps, use the module's SET button to set the load on or off, then press and hold the module's SET button until it double-beeps; the controller double-beeps and its LED stops blinking.",
-        "With the Hub, follow the app's instructions and, with the connected fixture on, press and hold the module's SET button when prompted."
+        "With the Hub, follow the app's instructions and, with the connected fixture on, press and hold the module's SET button when prompted.",
+        "Seen on a device running firmware 0x42: holding the SET button, with a modem in Start ALL-Linking as responder, linked the module as the controller of group 1; tapping its button afterward switched the load but sent no group commands over that link."
       ],
       "alternatives": [
         {
@@ -120,7 +128,8 @@
           ],
           "notes": [
             "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
+            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
+            "Seen on a device running firmware 0x42: with the Hub in Start ALL-Linking as controller, holding the module's SET button linked the Hub as its controller."
           ],
           "verification": {
             "status": "inferred",
@@ -146,7 +155,8 @@
       ],
       "notes": [
         "As a controller: then press and hold the responder's SET button until it double-beeps; the module double-beeps and its LED stops blinking.",
-        "As a responder: put the controller in unlinking mode first, then press and hold the module's SET button until it double-beeps."
+        "As a responder: put the controller in unlinking mode first, then press and hold the module's SET button until it double-beeps.",
+        "Seen on a device running firmware 0x42: these steps, with a modem in unlinking mode, removed the module's controller link to the modem."
       ]
     },
     "reset": {
@@ -243,7 +253,7 @@
   "notes": [
     "Has no X10.",
     "The Outdoor ApplianceLinc with RF Developer Notes give its identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672.",
-    "Its owner's manual lists it as an Insteon controller; its Developer Notes list it as a responder only, as the catalog does."
+    "Its owner's manual lists it as an Insteon controller; its Developer Notes list it as a responder only. Seen on a device running firmware 0x42: holding its SET button, with a modem in Start ALL-Linking as responder, linked it as the controller of group 1, but tapping its one button, which is also its SET button, switched the load and sent no group commands. The only message seen from it was SET Button Pressed (cmd1 0x01), when the button was held into linking mode. So a controller link can be made, but taps aren't reported, and an app learns its state only with Light Status Request. The catalog gives it the role responder, its practical behavior."
   ],
   "sources": [
     "HouseLinc device catalog",
