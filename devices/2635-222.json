@@ -8,7 +8,14 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x37"
+      "subcategory": "0x37",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: ID Request answered with category 0x02, subcategory 0x37 and firmware 0x48, and Get Insteon Engine Version (cmd1 0x0D) with cmd2 0x02, i2CS, as the catalog's engine entry gives. Product Data Request (cmd1 0x03) was acknowledged and answered with a direct extended message holding product key 0x00 0x00 0x00 in D2 to D4, category 0x02 in D5, subcategory 0x37 in D6 and firmware 0x48 in D7. A Hub 2245 kept 0x01 0x37 0x48 as Data 1 to 3 of its controller record for the device.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     }
   ],
   "engines": [
@@ -22,7 +29,14 @@
     {
       "commandSet": "applianceLincDualBand",
       "category": "0x02",
-      "subcategory": "0x37"
+      "subcategory": "0x37",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: the operating flags, the ALL-Link database delta, the extended Get reply's X10 address and LED brightness, Beep and the load's on and off levels behaved as this command set gives; the command set's notes list where Get Operating Flags and the extended Get reply differed.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     }
   ],
   "radio": "dual",
@@ -32,7 +46,14 @@
       "number": "0x01",
       "name": "Load",
       "role": "both",
-      "type": "load"
+      "type": "load",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: once the modem was a responder of the device's group 1, each tap of the load button (on, on again while on, and off) sent a group 1 broadcast, Light On (cmd1 0x11) or Light Off (cmd1 0x13), then an ALL-Link cleanup to the Hub, then a cleanup status report broadcast (cmd1 0x06). Its controller record for group 1, to the Hub, held Data 1 to 3 as 0x03 0x1C 0x01.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     }
   ],
   "capabilities": [
@@ -74,7 +95,8 @@
         "The first device put into linking mode becomes the controller and the second becomes the responder.",
         "As a responder: put the controller in linking mode (press and hold its SET button until it beeps; on a multi-button controller, tap the desired button first), make sure the module is on, then press and hold the module's SET button until it double-beeps.",
         "With the Hub, select Plug-In Module in the app and, when prompted, press and hold the SET button until the module double-beeps.",
-        "The 3-second hold time comes from the On/Off Module, Dual-Band Developer Notes; software can use the Enter Linking Mode command."
+        "The 3-second hold time comes from the On/Off Module, Dual-Band Developer Notes; software can use the Enter Linking Mode command.",
+        "Seen on a device running firmware 0x48: holding the SET button sent SET Button Pressed (cmd1 0x01) and put the module in linking mode; the first tap afterward took it out of linking mode and also sent a group 1 Light On."
       ],
       "verification": {
         "status": "conflicting",
@@ -335,6 +357,11 @@
       ]
     }
   },
+  "notes": [
+    "Seen on a device running firmware 0x48: when a modem sent Light On or Light Off to group 0 (the modem's Send ALL-Link Command, 0x61), the device neither acted on the cleanup nor acknowledged it, although its responder record for the modem's group 0 held on-level 0xFF. The Outdoor On/Off Plug 2634-222 on firmware 0x42 followed the same group 0 commands. Direct commands, such as Light On and Light Off, controlled it normally.",
+    "Seen on a device running firmware 0x48: after 10 seconds without power, the load, which had been on, came back on, and no message from the device reached the modem in the 15 seconds after it was plugged back in.",
+    "Seen on a device running firmware 0x48: with both of its links to the modem removed, the device didn't answer ID Request; it rejected Ping and Beep; it answered Get Insteon Engine Version (cmd1 0x0D) and Get Operating Flags (cmd1 0x1F, cmd2 0x00) with a NAK carrying cmd2 0xFF; and it still answered Light Status Request."
+  ],
   "sources": [
     "HouseLinc device catalog",
     "insteon.com product catalog",
