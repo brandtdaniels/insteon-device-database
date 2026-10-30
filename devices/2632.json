@@ -48,6 +48,15 @@
       "engine": "i2cs",
       "category": "0x01",
       "subcategory": "0x12"
+    },
+    {
+      "engine": "i2cs",
+      "category": "0x01",
+      "subcategory": "0x50",
+      "verification": {
+        "status": "inferred",
+        "note": "The Global Line Developer Notes don't list the 2632-452, sold in Chile. They describe the versions sold in France, Germany, the UK, and Australia and New Zealand (0x01/0x0B, 0x0F, 0x11 and 0x12) as i2CS devices, and the catalog reads the 2632-452 as the same module."
+      }
     }
   ],
   "commandSets": [
@@ -70,6 +79,15 @@
       "commandSet": "globalLine",
       "category": "0x01",
       "subcategory": "0x12"
+    },
+    {
+      "commandSet": "globalLine",
+      "category": "0x01",
+      "subcategory": "0x50",
+      "verification": {
+        "status": "inferred",
+        "note": "The Global Line Developer Notes don't list the 2632-452, sold in Chile. They give this command set's commands for the versions sold in France, Germany, the UK, and Australia and New Zealand (0x01/0x0B, 0x0F, 0x11 and 0x12), and the catalog reads the 2632-452 as the same module."
+      }
     }
   ],
   "radio": "dual",
