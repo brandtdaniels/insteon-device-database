@@ -8,7 +8,14 @@
   "identities": [
     {
       "category": "0x07",
-      "subcategory": "0x00"
+      "subcategory": "0x00",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x41: ID Request answered with category 0x07, subcategory 0x00 and firmware 0x41, and no product key was reported. Get Insteon Engine Version (cmd1 0x0D) answered with cmd2 0x02, i2CS, as the catalog's engine entry gives. A Hub 2245, with modem firmware 0xA5, kept 0x01 0x00 0x41 as Data 1 to 3 of its controller record for the device in group 0, as it did for other devices: Data 3 there is the firmware, and Data 1 isn't the category.",
+        "firmware": [
+          "0x41"
+        ]
+      }
     },
     {
       "category": "0x07",
@@ -46,6 +53,20 @@
       "commandSet": "ioLinc",
       "category": "0x07",
       "subcategory": "0x00"
+    }
+  ],
+  "groups": [
+    {
+      "number": "0x01",
+      "name": "Sensor",
+      "role": "controller",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x41: linked to a Hub 2245, the device wrote its controller record for group 1, to the Hub, with Data 1 to 3 as 0x03 0x00 0x00. Tapping its SET button sent a group 1 broadcast, Light On (cmd1 0x11), then an ALL-Link cleanup to the Hub. The sensor input itself wasn't changed, so its messages weren't seen; neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives the input's group number.",
+        "firmware": [
+          "0x41"
+        ]
+      }
     }
   ],
   "capabilities": [],
@@ -162,11 +183,14 @@
           "notes": [
             "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
             "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
-            "A link to the I/O Linc's relay records the relay's state when it's made. To link the relay to a group of the Hub's own, first set the relay to the state the Hub's On command should give (send On, cmd1 0x11, or Off, cmd1 0x13). If the flags read before linking show momentary mode on (bit 3, 0x08), turn it off with Set Operating Flags cmd2 0x07 while linking and back on with cmd2 0x06 afterward; if it was off, leave it off."
+            "A link to the I/O Linc's relay records the relay's state when it's made. To link the relay to a group of the Hub's own, first set the relay to the state the Hub's On command should give (send On, cmd1 0x11, or Off, cmd1 0x13). If the flags read before linking show momentary mode on (bit 3, 0x08), turn it off with Set Operating Flags cmd2 0x07 while linking and back on with cmd2 0x06 afterward; if it was off, leave it off.",
+            "Seen on a device running firmware 0x41: with a Hub 2245's modem already in Start ALL-Linking as controller, holding the SET button for about 3 seconds linked the Hub as its controller. The modem had to be in linking mode before the hold; a hold made before the modem started linking wasn't seen.",
+            "Seen on a device running firmware 0x41: once the device had been linked so, linking it again by its Insteon ID worked for both links with no SET button press: the extended Enter Linking Mode with the modem in Start ALL-Linking as controller of group 0, then Enter Linking Mode for group 1 with the modem in Start ALL-Linking as responder.",
+            "Seen on a device running firmware 0x41: the device wrote its responder record for the Hub's group 0 with Data 1 to 3 as 0x00 0x00 0x00, and its controller record for group 1 as the profile's group gives. Linked again after both links had been removed, it wrote the two records again at other free ALL-Link database addresses."
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps, its command set's Reverse the sensor and Momentary relay flags, and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. The sensor input's group 1 is assumed: neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives its group number."
+            "note": "Assembled from this profile's linking steps, its command set's Reverse the sensor and Momentary relay flags, and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. Neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives the sensor input's group number; group 1 is the one a device used, as the profile's group records."
           }
         }
       ]
@@ -296,9 +320,13 @@
               "expect": "The Hub reports the device's Insteon ID"
             }
           ],
+          "notes": [
+            "Seen on a device running firmware 0x41: with a Hub 2245's modem, these steps removed both links with no SET button press: Enter Unlinking Mode (cmd1 0x0A) for group 1, with the modem joining as responder, then Start ALL-Linking with link code 0xFF and Enter Linking Mode (cmd1 0x09) for the modem's group 0.",
+            "Seen on a device running firmware 0x41: after these steps the device still answered ID Request and Get Insteon Engine Version, because it still held responder records for the same Hub in groups other than 0 and 1, and an i2CS device answers a device that's in its ALL-Link database. Unlinking by the modem's own records leaves the device's records for groups the modem has no record of."
+          ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from the standard Insteon commands Start ALL-Linking, Enter Linking Mode and Enter Unlinking Mode; no document describes removing this product from a Hub. The sensor input's group 1 is assumed: neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives its group number."
+            "note": "Assembled from the standard Insteon commands Start ALL-Linking, Enter Linking Mode and Enter Unlinking Mode; no document describes removing this product from a Hub. Neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives the sensor input's group number; group 1 is the one a device used, as the profile's group records."
           }
         }
       ]
