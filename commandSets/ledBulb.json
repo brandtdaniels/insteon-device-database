@@ -423,7 +423,8 @@
     "When it powers up, the bulb sends a SET button broadcast and stays in responder linking mode for 5 seconds; with programming lock on, it doesn't enter linking mode. To link it, put the controller in linking mode, then power the bulb up.",
     "The bulb's levels differ from other dimmers': at 0x0F it gives about a tenth of its full light, and at 0x7F more than half.",
     "The LED Bulb Developer Notes give ramp rate 0x00 as about 2 seconds when setting it and as 9 minutes in their ramp table; the rest of the table runs from 8 minutes at 0x01 to 0.1 second at 0x1F.",
-    "Of the extended Get reply, the LED Bulb Developer Notes use only D7, the ramp rate."
+    "Of the extended Get reply, the LED Bulb Developer Notes use only D7, the ramp rate.",
+    "Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. So Data 1 (on-level) of the light group's responder records is the state the load was in when the device was linked. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder. The values its link data give are what to write when writing the record by hand."
   ],
   "sources": [
     "Insteon Developer's Guide (2009)",

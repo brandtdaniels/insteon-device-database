@@ -1259,7 +1259,8 @@
     "The device ignores or rejects any command its documents don't list, Product Data Request (cmd1 0x03) among them. Besides the commands here, they list the linking commands, Get Insteon Engine Version, ID Request and ALL-Link database reads, writes and modifies.",
     "Its database layout gives records from 0x0FFF down to 0x0300, 416 of them; the database read reply gives addresses from 0x0FFF to 0x0407. Bit 0 of a record's flags is fast fail, bit 2 marks a Lighting Director record, bits 3 and 4 hold its hop count and bit 5 is always 1; the device may change some of these bits on its own.",
     "The load settings reply (readLoadSettings) starts with the same bytes as the extended Get reply, so wait for one before asking for the other.",
-    "The extended Get request carries no checksum."
+    "The extended Get request carries no checksum.",
+    "Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. So Data 1 (on-level) of the light group's responder records is the state the load was in when the device was linked. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder. The values its link data give are what to write when writing the record by hand."
   ],
   "sources": [
     "i3 Paddle/Dial (Insteon Developer Documentation, October 2025)"

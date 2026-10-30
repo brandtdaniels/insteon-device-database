@@ -237,7 +237,8 @@
     "The Outdoor ApplianceLinc with RF Developer Notes mark the 0x00 reply N/A, so its Set Operating Flags commands have no bit to read back. It sends them as extended messages with a checksum in D14.",
     "The Outdoor ApplianceLinc with RF Developer Notes give no extended Set for the settings its Get reports.",
     "The device sends its Assign to ALL-Link Group broadcast on power-up, and supports only responder links, whose on-level should be 0xFE and ramp rate 0x1F.",
-    "The Outdoor ApplianceLinc with RF Developer Notes give the device's identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672 LED bulb; the catalog keeps 0x02 and 0x38 for the 2634-222."
+    "The Outdoor ApplianceLinc with RF Developer Notes give the device's identity as category 0x01 and subcategory 0x3A, which the catalog gives to the 2672 LED bulb; the catalog keeps 0x02 and 0x38 for the 2634-222.",
+    "Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. So Data 1 (on-level) of the load group's responder records is the state the load was in when the device was linked. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder; the Outdoor On/Off Plug 2634-222 Owner's Manual says to set the load to the state the link should recall before linking it as a responder. The 0xFE its link data give is what to write when writing the record by hand."
   ],
   "sources": [
     "Outdoor ApplianceLinc with RF Developer Notes"
