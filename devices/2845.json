@@ -24,6 +24,24 @@
       "commandSet": "hiddenDoorSensor",
       "category": "0x10",
       "subcategory": "0x11"
+    },
+    {
+      "commandSet": "hiddenDoorSensor",
+      "category": "0x10",
+      "subcategory": "0x14",
+      "verification": {
+        "status": "inferred",
+        "note": "The Hidden Door Sensor Developer Notes name no version or subcategory; the catalog reads the version sold in Europe as the same sensor as the US version, 0x10/0x11, with the same commands."
+      }
+    },
+    {
+      "commandSet": "hiddenDoorSensor",
+      "category": "0x10",
+      "subcategory": "0x15",
+      "verification": {
+        "status": "inferred",
+        "note": "The Hidden Door Sensor Developer Notes name no version or subcategory; the catalog reads the version sold in Australia and New Zealand as the same sensor as the US version, 0x10/0x11, with the same commands."
+      }
     }
   ],
   "radio": "rf",

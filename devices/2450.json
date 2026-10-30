@@ -53,6 +53,15 @@
       "commandSet": "ioLinc",
       "category": "0x07",
       "subcategory": "0x00"
+    },
+    {
+      "commandSet": "ioLinc",
+      "category": "0x07",
+      "subcategory": "0x0D",
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the 0x07/0x00 version: 0x07/0x0D is the version that detects 50 or 60 Hz power, which Insteon Device Categories (January 2014) lists as model 2450, and no document gives it other commands."
+      }
     }
   ],
   "groups": [
