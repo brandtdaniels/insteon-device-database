@@ -1485,7 +1485,8 @@
     "The load settings reply (readLoadSettings) starts with the same bytes as the extended Get reply, so wait for one before asking for the other.",
     "D14 of the extended Get reply is the group mask, not a checksum, and the Get request carries no checksum.",
     "Bit 4 of operating flags query 0x05, set and cleared with cmd2 0x19 and 0x18, locks the buttons here; on the KeypadLinc it asks for checksums.",
-    "The extended Set also takes selector 0x11, LED flags, per group, which the documents don't describe."
+    "The extended Set also takes selector 0x11, LED flags, per group, which the documents don't describe.",
+    "Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. So Data 1 (on-level) of the light group's responder records is the state the load was in when the device was linked. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder. The values its link data give are what to write when writing the record by hand."
   ],
   "sources": [
     "i3 Keypad (Insteon Developer Documentation, October 2025)"

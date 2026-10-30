@@ -685,7 +685,8 @@
     "The FanLinc Developer Notes fill the rest of its fan commands and extended Sets with 0x00 and doesn't mention a checksum in D14.",
     "The FanLinc Developer Notes say that its fan off command also turns the light off on the firmware it describes.",
     "The FanLinc Developer Notes mark bit 0 of the 0x05 reply reserved and doesn't list Set Operating Flags 0x10, 0x11 or 0x14 through 0x19; another source gives them for the KeypadLinc code base.",
-    "The FanLinc Developer Notes control the light, group 1, as a KeypadLinc dimmer's load, and the fan, group 2, with extended commands."
+    "The FanLinc Developer Notes control the light, group 1, as a KeypadLinc dimmer's load, and the fan, group 2, with extended commands.",
+    "Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. So Data 1 (on-level) of the light group's responder records is the state the load was in when the device was linked. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder; the Ceiling Fan and Light Control Module 2475F Owner's Manual says to turn the load on before linking it as a responder. The values its link data give are what to write when writing the record by hand."
   ],
   "sources": [
     "Insteon Developer's Guide (2009)",

@@ -542,7 +542,7 @@
             "scale": 0.392157,
             "verification": {
               "status": "inferred",
-              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from the KeypadLinc Line and LED Bulb Developer Notes."
+              "note": "Read from the Insteon Developer's Guide, which gives Data 1 as the on-level and Data 2 as the ramp rate as examples, and from the KeypadLinc Line and LED Bulb Developer Notes. Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder; the In-Line Dimmer Module (Dual-Band) 2475DA1 Owner's Manual says to set the load to the state the link should recall before linking it as a responder. The values given here are what to write when writing the record by hand."
             }
           },
           {
@@ -601,7 +601,7 @@
             "table": "onOff",
             "verification": {
               "status": "inferred",
-              "note": "Read from the On/Off Outlet and On/Off Module, Dual-Band Developer Notes, which give Data 1 as the on-level; no document describes this product's records."
+              "note": "Read from the On/Off Outlet and On/Off Module, Dual-Band Developer Notes, which give Data 1 as the on-level; no document describes this product's records. Inferred: seen on two i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48) linked to a Hub 2245, the device itself writes its responder record when it's linked remotely or with the SET button, and takes Data 1 from the load's state at that moment: the two plugs wrote 0x00 when the load was off and 0xFF when it was on. The On/Off Plug 2635-222 Owner's Manual says to make sure the module is on before linking it as a responder; the In-LineLinc On/Off 2475SDB Owner's Manual says to set the load to the state the link should recall before linking it as a responder. The values given here are what to write when writing the record by hand."
             }
           }
         ]
