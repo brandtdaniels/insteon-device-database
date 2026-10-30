@@ -349,6 +349,9 @@
               "expect": "The Hub reports the device's Insteon ID"
             }
           ],
+          "notes": [
+            "Seen on a device running firmware 0x48: with a Hub 2245's modem, on modem firmware 0xA5, these steps removed every link between the Hub and the module with no SET button press. First the module's group 1 link: Enter Unlinking Mode (cmd1 0x0A) was sent to the module while the modem joined as responder. Then the modem's group 0 link: the modem started ALL-Linking with link code 0xFF while the module was sent Enter Linking Mode (cmd1 0x09)."
+          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from the standard Insteon commands Enter Unlinking Mode, Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
@@ -360,7 +363,7 @@
   "notes": [
     "Seen on a device running firmware 0x48: when a modem sent Light On or Light Off to group 0 (the modem's Send ALL-Link Command, 0x61), the device neither acted on the cleanup nor acknowledged it, although its responder record for the modem's group 0 held on-level 0xFF. The Outdoor On/Off Plug 2634-222 on firmware 0x42 followed the same group 0 commands. Direct commands, such as Light On and Light Off, controlled it normally.",
     "Seen on a device running firmware 0x48: after 10 seconds without power, the load, which had been on, came back on, and no message from the device reached the modem in the 15 seconds after it was plugged back in.",
-    "Seen on a device running firmware 0x48: with both of its links to the modem removed, the device didn't answer ID Request; it rejected Ping and Beep; it answered Get Insteon Engine Version (cmd1 0x0D) and Get Operating Flags (cmd1 0x1F, cmd2 0x00) with a NAK carrying cmd2 0xFF; and it still answered Light Status Request."
+    "Seen on a device running firmware 0x48: with both of its links to the modem removed, the device didn't answer ID Request; it rejected Ping and Beep; it rejected Light On (cmd1 0x11) with a NAK carrying cmd2 0xFF; it answered Get Insteon Engine Version (cmd1 0x0D) and Get Operating Flags (cmd1 0x1F, cmd2 0x00) with a NAK carrying cmd2 0xFF; and it still answered Light Status Request."
   ],
   "sources": [
     "HouseLinc device catalog",

@@ -473,7 +473,7 @@
             "table": "onOff",
             "verification": {
               "status": "observed",
-              "note": "Seen on a device running firmware 0x48: the device wrote its own responder record, for a modem's group 0, at ALL-Link database address 0x0FFF, and set Data 1 from the load's state at the time of the link: 0x00 when the load was off and 0xFF when it was on, never 0xFE. It did so on a first link and on a link made over its existing record, and Data 1 didn't change when the load was switched afterward. Data 3 read 0x01, though the modem sent no link data.",
+              "note": "Seen on a device running firmware 0x48: the device wrote its own responder record, for a modem's group 0, at ALL-Link database address 0x0FFF, and set Data 1 from the load's state at the time of the link: 0x00 when the load was off and 0xFF when it was on, never 0xFE. It did so on a first link and on a link made over its existing record, and Data 1 didn't change when the load was switched afterward. Data 3 read 0x01, though the modem sent no link data. After a remote link made with the load on, and after a link made again with the load first turned on with Light On (cmd1 0x11), the record held Data 1 to 3 as 0xFF 0x1C 0x01.",
               "firmware": [
                 "0x48"
               ]
