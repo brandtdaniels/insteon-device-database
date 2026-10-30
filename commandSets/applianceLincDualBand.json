@@ -45,7 +45,14 @@
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
-      "off": "0x01"
+      "off": "0x01",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: with the other bits of the 0x00 reply clear, after Set Operating Flags with cmd2 0x00, Get Operating Flags (cmd2 0x00) read 0x01; after cmd2 0x01, it read 0x00.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "ledOnTransmit",
@@ -55,7 +62,14 @@
       "query": "0x00",
       "bit": "0x02",
       "on": "0x02",
-      "off": "0x03"
+      "off": "0x03",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: with the other bits of the 0x00 reply clear, after Set Operating Flags with cmd2 0x02, Get Operating Flags (cmd2 0x00) read 0x02; after cmd2 0x03, it read 0x00. The LED itself wasn't watched.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "ledOff",
@@ -65,7 +79,14 @@
       "query": "0x00",
       "bit": "0x10",
       "on": "0x08",
-      "off": "0x09"
+      "off": "0x09",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: with the other bits of the 0x00 reply clear, after Set Operating Flags with cmd2 0x08, Get Operating Flags (cmd2 0x00) read 0x10; after cmd2 0x09, it read 0x00. The LED itself wasn't watched.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "keyBeep",
@@ -75,7 +96,14 @@
       "query": "0x00",
       "bit": "0x20",
       "on": "0x0A",
-      "off": "0x0B"
+      "off": "0x0B",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: with the other bits of the 0x00 reply clear, after Set Operating Flags with cmd2 0x0A, Get Operating Flags (cmd2 0x00) read 0x20; after cmd2 0x0B, it read 0x00. Button presses weren't tried with the bit set, so the beep itself wasn't checked.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "radioOff",
@@ -129,7 +157,14 @@
       "query": "0x05",
       "bit": "0x04",
       "on": "0x15",
-      "off": "0x14"
+      "off": "0x14",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: Get Operating Flags (cmd2 0x05) read 0x0D; after Set Operating Flags with cmd2 0x14, it read 0x09, and after cmd2 0x15, 0x0D again. So the bit is 1 when the setting is on.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "cleanupReport",
@@ -140,7 +175,14 @@
       "query": "0x05",
       "bit": "0x08",
       "on": "0x17",
-      "off": "0x16"
+      "off": "0x16",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: Get Operating Flags (cmd2 0x05) read 0x0D; after Set Operating Flags with cmd2 0x16, it read 0x05, and after cmd2 0x17, 0x0D again. So the bit is 1 when the setting is on.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "smartHops",
@@ -161,7 +203,14 @@
       "section": "Diagnostics",
       "advanced": true,
       "description": "A count that goes up whenever the ALL-Link database changes.",
-      "query": "0x01"
+      "query": "0x01",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: Get Operating Flags with cmd2 0x01 answered with the ALL-Link database delta, which the cmd1 of the Light Status Request acknowledgment also carried. The delta went up with every ALL-Link database write, not only with changes: each link attempt raised it, even when it rewrote a record with the data it already held. It read 1 at first, then 2, 4, 5 and 7 after successive link attempts, and 4 after the device was unlinked and linked again. Once it dropped by 1 between two reads with no command sent to the device in between; its button may have been pressed.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     },
     {
       "name": "crcErrorCount",
@@ -189,7 +238,14 @@
         "section": "X10",
         "advanced": true,
         "description": "The X10 house code, or 0x20 for no X10 address.",
-        "byte": 5
+        "byte": 5,
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x48: the extended Get reply held 0x20 in D5.",
+          "firmware": [
+            "0x48"
+          ]
+        }
       },
       {
         "name": "x10UnitCode",
@@ -197,7 +253,14 @@
         "section": "X10",
         "advanced": true,
         "description": "The X10 unit code.",
-        "byte": 6
+        "byte": 6,
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x48: the extended Get reply held 0x20 in D6.",
+          "firmware": [
+            "0x48"
+          ]
+        }
       },
       {
         "name": "ledBrightness",
@@ -208,6 +271,13 @@
         "range": {
           "from": "0x11",
           "through": "0x7F"
+        },
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x48: the extended Get reply held 0x3F (63) in D9 before any change, and followed each extended Set of the LED brightness: 0x40, then 0x3F again.",
+          "firmware": [
+            "0x48"
+          ]
         }
       }
     ],
@@ -226,7 +296,14 @@
             "position": 4,
             "value": "x10UnitCode"
           }
-        ]
+        ],
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x48: an extended Set with this selector, writing the X10 house and unit codes with the 0x20 they already held, was acknowledged, and the extended Get reply read them unchanged.",
+          "firmware": [
+            "0x48"
+          ]
+        }
       },
       {
         "name": "ledBrightness",
@@ -238,7 +315,14 @@
             "position": 3,
             "value": "ledBrightness"
           }
-        ]
+        ],
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x48: an extended Set with this selector writing 0x40 was acknowledged, and D9 of the extended Get reply read 0x40; writing 0x3F set it back.",
+          "firmware": [
+            "0x48"
+          ]
+        }
       }
     ]
   },
@@ -292,7 +376,14 @@
     {
       "name": "beep",
       "description": "Beeps once, as pressing the SET button does. The device ignores cmd2.",
-      "command1": "0x30"
+      "command1": "0x30",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: the device acknowledged Beep (cmd1 0x30) and beeped, both times it was sent.",
+        "firmware": [
+          "0x48"
+        ]
+      }
     }
   ],
   "extendedCommands": [
@@ -379,7 +470,14 @@
             "name": "onLevel",
             "label": "On or off",
             "description": "0x00 turns the load off when the controller's On arrives, 0xFF on.",
-            "table": "onOff"
+            "table": "onOff",
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running firmware 0x48: the device wrote its own responder record, for a modem's group 0, at ALL-Link database address 0x0FFF, and set Data 1 from the load's state at the time of the link: 0x00 when the load was off and 0xFF when it was on, never 0xFE. It did so on a first link and on a link made over its existing record, and Data 1 didn't change when the load was switched afterward. Data 3 read 0x01, though the modem sent no link data.",
+              "firmware": [
+                "0x48"
+              ]
+            }
           },
           {
             "byte": 2,
@@ -389,19 +487,32 @@
             "range": {
               "from": "0x00",
               "through": "0x1F"
+            },
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running firmware 0x48: the device wrote 0x1C in Data 2 of its responder record, the value D7 of its extended Get reply holds.",
+              "firmware": [
+                "0x48"
+              ]
             }
           }
         ]
       },
       "verification": {
-        "status": "inferred",
-        "note": "No document says that every nonzero level means on; the ranges are read from the status reply's level byte."
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x48: Light On (cmd1 0x11) with cmd2 0x01 and with cmd2 0x7F turned the load on, and with cmd2 0x00 turned it off; Instant Change (cmd1 0x21) with cmd2 0x01 turned it on, and with cmd2 0x00 turned it off. Light Status Request answered with cmd2 0xFF while the load was on and 0x00 while it was off. No document says that every nonzero level means on; the ranges are read from the status reply's level byte, which read only 0x00 and 0xFF.",
+        "firmware": [
+          "0x48"
+        ]
       }
     }
   ],
   "notes": [
-    "The On/Off Module, Dual-Band Developer Notes send Set Operating Flags as an extended message with a checksum in D14.",
-    "The On/Off Module, Dual-Band Developer Notes mark bits 2 and 3 of the 0x00 reply and bits 4, 5 and 7 of the 0x05 reply N/A."
+    "The On/Off Module, Dual-Band Developer Notes send Set Operating Flags as an extended message with a checksum in D14. Seen on a device running firmware 0x48: the device acknowledged Set Operating Flags sent so, and each bit it set read back in Get Operating Flags.",
+    "The On/Off Module, Dual-Band Developer Notes mark bits 2 and 3 of the 0x00 reply and bits 4, 5 and 7 of the 0x05 reply N/A.",
+    "Seen on a device running firmware 0x48: Get Operating Flags answered cleanly only with cmd2 0x00 (the 0x00 reply), 0x01 (the ALL-Link database delta) and 0x05 (the 0x05 reply). Other cmd2 values, 0x02 to 0x04 and 0x06 to 0x08, answered with bytes that followed neither this set nor the Outdoor On/Off Plug 2634-222's pattern on firmware 0x42, where an even cmd2 is ORed into the flags; so the CRC error and signal-to-noise failure readings weren't confirmed.",
+    "Seen on a device running firmware 0x48: the 0x05 reply read 0x0D before any change: error blink and cleanup report on, and bit 0x01 set. Bit 0x01 wasn't changed, so what it does on this device wasn't seen.",
+    "Seen on a device running firmware 0x48: the extended Get reply's data read 0x01 0x01 0x00 0x00 0x20 0x20 0x1C 0xFE 0x3F 0x00 0x01 0x00 0x00 0x00, the same in idle reads over time and after the load was switched on and off; unlike D12 and D13 on the Outdoor On/Off Plug 2634-222 on firmware 0x42, no byte counted the device's activity. This set gives no meaning for D7 (0x1C), D8 (0xFE) or D11 (0x01). The operating flags and these settings read the same after the device was unlinked and linked again."
   ],
   "sources": [
     "On/Off Module, Dual-Band Developer Notes"
