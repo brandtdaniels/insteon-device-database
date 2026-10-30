@@ -326,7 +326,8 @@
             }
           ],
           "notes": [
-            "Inferred: seen on three i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48, I/O Module 2450 firmware 0x41) linked to a Hub 2245, these steps should remove the modem's group 0 link with no SET button press: the modem starts ALL-Linking with link code 0xFF while the device is sent Enter Linking Mode (cmd1 0x09). This applies to the firmware versions this profile's engines give as i2CS."
+            "Inferred: seen on three i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48, I/O Module 2450 firmware 0x41) linked to a Hub 2245, these steps should remove the modem's group 0 link with no SET button press: the modem starts ALL-Linking with link code 0xFF while the device is sent Enter Linking Mode (cmd1 0x09). This applies to the firmware versions this profile's engines give as i2CS.",
+            "Inferred: seen on an i2CS device (I/O Module 2450 firmware 0x41) linked to a Hub 2245: unlinking by the modem's own records left the device's records for the Hub's other groups, and an i2CS device answers a device that's in its ALL-Link database. So a device that still answers the Hub after removal may hold other records for it; a factory reset, as the Toggle Dimmer Switch 2466DW Owner's Manual gives it, clears them. This applies to the firmware versions this profile's engines give as i2CS."
           ],
           "verification": {
             "status": "inferred",
