@@ -254,6 +254,9 @@
               "expect": "The Hub reports the device's Insteon ID"
             }
           ],
+          "notes": [
+            "Inferred: seen on three i2CS devices (Outdoor On/Off Plug 2634-222 firmware 0x42, On/Off Plug 2635-222 firmware 0x48, I/O Module 2450 firmware 0x41) linked to a Hub 2245, these steps should remove the modem's group 0 link with no SET button press: the modem starts ALL-Linking with link code 0xFF while the device is sent Enter Linking Mode (cmd1 0x09). This applies to the firmware versions this profile's engines give as i2CS."
+          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from the standard Insteon commands Start ALL-Linking and Enter Linking Mode; no document describes removing this product from a Hub."
