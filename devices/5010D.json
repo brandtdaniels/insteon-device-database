@@ -348,15 +348,53 @@
               "expect": "The device acknowledges the Ping"
             }
           ],
-          "notes": [
-            "This links the Hub's group 0 to the device as a responder, for relay 1, and the device's group 1, input 1, to the Hub as a controller, so the Hub receives the input's reports. Link inputs 2 to 4 the same way, with cmd2 0x02 to 0x04."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. The EZIOxx Advanced Details give Enter Linking Mode (cmd1 0x09) with the group number in cmd2, but don't say whether it links an input as a controller."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x02",
+          "deviceGroup": "0x02"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x03",
+          "deviceGroup": "0x03"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x04",
+          "deviceGroup": "0x04"
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The Insteon Developer's Guide (2009) says i1 devices don't support Enter Linking Mode (cmd1 0x09), and the catalog doesn't know the engine of every version of this product. An i2 or i2CS version takes it; ask the device with Get Insteon Engine Version (cmd1 0x0D) first."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [
@@ -544,6 +582,7 @@
     "Quick-Start Guide EZIO2X4—Model #5010D—2-Relay/4-Input Controller",
     "EZIOxx Advanced Details",
     "Insteon Device Categories and Product Keys (October 2008)",
-    "Product Guide EZEye Ambient Light Sensor —Model #1011A"
+    "Product Guide EZEye Ambient Light Sensor —Model #1011A",
+    "Insteon Developer's Guide (2009)"
   ]
 }

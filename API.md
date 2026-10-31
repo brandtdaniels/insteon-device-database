@@ -164,6 +164,56 @@ out of service, so an app can guide a person through each, or do the steps it ca
 - `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
   battery device stays awake, and `resetErases` what a factory reset clears.
 
+### Linking from a Hub, as data
+
+`lifecycle.fromHub` says the same as the From a Hub alternative to `linking`, in a form an app
+follows without reading its steps:
+
+```json
+"fromHub": {
+  "legs": [
+    { "modem": "controller", "modemGroup": "0x00", "deviceGroup": "0x01" },
+    { "modem": "responder", "modemGroup": "0x01", "deviceGroup": "0x01" } ],
+  "deviceFirst": false,
+  "remoteEnterLinkingMode": { "works": "yes" }
+}
+```
+
+- `legs` are the links to make, in order, one ALL-Linking session each. In each, the `modem` is
+  the `controller`, so the Hub can control the device, or the `responder`, so the Hub hears the
+  device's group; the controller goes into linking mode first. `modemGroup` is the group Start
+  ALL-Linking names; `deviceGroup`, one of the profile's groups, is the group Enter Linking Mode
+  names in cmd2. When the modem is the responder, the device controls `deviceGroup`, and the
+  modem's record holds that group, so the two are the same. The build checks each device group
+  against the profile's groups. Removing the product undoes each leg.
+- `deviceFirst` is true when a person puts the device in linking mode with its own controls
+  before the modem starts ALL-Linking for the first leg, as for a battery-powered sensor or
+  remote; the first leg then has the modem as responder. False, the modem starts ALL-Linking
+  first and the device joins.
+- `remoteEnterLinkingMode.works` says whether the modem can put the device in linking mode for a
+  leg with Enter Linking Mode (cmd1 `0x09`, cmd2 the leg's `deviceGroup`), as a standard message
+  to an i2 device and an extended one with a checksum to an i2CS device, in place of its SET
+  button: `yes`, `no`, or `unknown`. For `unknown`, an app can ask the device's engine with Get
+  Insteon Engine Version (cmd1 `0x0D`), since i1 devices don't support Enter Linking Mode, and
+  otherwise has a person use the device's controls.
+- `keepAwake`, for a battery-powered device, is the message that keeps it awake through the
+  session: `send` it `when` it's `beforeLinking`, once a person has woken the device, or
+  `afterStartAllLinking`, right after the modem starts ALL-Linking. `release`, where given,
+  lets it sleep again once linking is done, and `seconds` is how long `send` keeps it awake,
+  where that's fixed. A message gives `command1` and `command2`, and for an `extended` one its
+  fixed `data` bytes, the `secondsByte` the app fills with how long to stay awake, and its
+  `integrity`:
+
+  ```json
+  "keepAwake": { "when": "afterStartAllLinking", "send": {
+    "command1": "0x2E", "command2": "0x00", "extended": true,
+    "data": [{ "position": 1, "value": "0x01" }, { "position": 2, "value": "0x04" }],
+    "secondsByte": 3, "integrity": "checksum" } }
+  ```
+
+- `fromHub`, each leg, `remoteEnterLinkingMode` and `keepAwake` can carry a `verification`. No
+  document describes adding a product to a Hub, so most are `inferred`.
+
 ## Command sets
 
 Many products share the same settings, so the catalog describes them once, as command sets, and

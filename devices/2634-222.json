@@ -149,8 +149,6 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
             "Seen on a device running firmware 0x42: this worked on a module that had no link to the Hub yet. With the Hub in Start ALL-Linking as controller, the extended Enter Linking Mode linked the Hub as its controller; then Enter Linking Mode for group 1, with the Hub in Start ALL-Linking as responder, linked the module as the Hub's controller of group 1.",
             "Seen on a device running firmware 0x42: with the Hub in Start ALL-Linking as controller, holding the module's SET button linked the Hub as its controller."
           ],
@@ -160,6 +158,37 @@
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01",
+          "verification": {
+            "status": "observed",
+            "note": "Seen on a device running firmware 0x42: with a Hub 2245 in Start ALL-Linking as the controller of group 0, the module linked as its responder both from its SET button and, with no link to the Hub before, from the extended Enter Linking Mode.",
+            "firmware": [
+              "0x42"
+            ]
+          }
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "yes",
+        "verification": {
+          "status": "observed",
+          "note": "Seen on a device running firmware 0x42: with no link to a Hub 2245 before, the extended Enter Linking Mode put the module in linking mode for the Hub's Start ALL-Linking. The Insteon Developer's Guide (2009) lists Enter Linking Mode as required of every device but i1 ones, and the Insteon Firmware Update i2CS Developer Notes give it to an i2CS device as an extended message with a checksum.",
+          "firmware": [
+            "0x42"
+          ]
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [
@@ -288,6 +317,8 @@
     "insteon.com product catalog",
     "Outdoor ApplianceLinc with RF Developer Notes",
     "Outdoor On/Off Plug 2634-222 Owner's Manual",
-    "Outdoor On/Off Plug 2634-222 Quick Start Guide"
+    "Outdoor On/Off Plug 2634-222 Quick Start Guide",
+    "Insteon Developer's Guide (2009)",
+    "Insteon Firmware Update i2CS Developer Notes"
   ]
 }

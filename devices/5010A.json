@@ -220,15 +220,33 @@
               "expect": "The device acknowledges the Ping"
             }
           ],
-          "notes": [
-            "This links the Hub's group 0 to the device as a responder, for zone 1; the device makes no link back to the Hub, since this profile lists no group it controls."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub. The EZFlora Insteon and X10 Messages/Commands list ID Request and Ping."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "yes",
+        "verification": {
+          "status": "documented",
+          "note": "The EZFlora Insteon and X10 Messages/Commands make Enter Linking Mode (cmd1 0x09) the same as holding the SET button 4 seconds."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [

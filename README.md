@@ -80,6 +80,12 @@ ALL-Linking, are on the `other` device, and the commands the Hub sends the produ
 Linking Mode or Ping, are on `this` one. [API.md](API.md#a-products-lifecycle)
 lists every `action`.
 
+Give the same as data in `lifecycle.fromHub`: the links to make with the Hub's modem, in order,
+whether the product goes into linking mode first, whether the modem can put it there with Enter
+Linking Mode, and, for a battery-powered product, how to keep it awake. Keep a From a Hub note
+only where it says more than that data does. The build checks each link's device group against
+the profile's groups.
+
 ### How sure a value is
 
 A value with no `verification` is documented: an Insteon document gives it, and none of the

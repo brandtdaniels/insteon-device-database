@@ -155,15 +155,57 @@
               "expect": "LED stops blinking"
             }
           ],
-          "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking and waking steps and the standard Insteon commands Start ALL-Linking, Extended Set and Ping; no document describes adding this product to a Hub. The extended Set that keeps the sensor awake is read from the Leak Sensor Developer Notes."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": true,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The device sleeps to save its battery and hears messages only while awake, and no document or observation says it answers Enter Linking Mode (cmd1 0x09); its linking steps put it in linking mode with its own controls."
+        }
+      },
+      "keepAwake": {
+        "when": "afterStartAllLinking",
+        "send": {
+          "command1": "0x2E",
+          "command2": "0x00",
+          "extended": true,
+          "data": [
+            {
+              "position": 1,
+              "value": "0x01"
+            },
+            {
+              "position": 2,
+              "value": "0x04"
+            }
+          ],
+          "secondsByte": 3,
+          "integrity": "checksum"
+        },
+        "verification": {
+          "status": "inferred",
+          "note": "The Leak Sensor Developer Notes give the extended Set with D1 0x01, D2 0x04 and the seconds to stay awake in D3. Sending it right after the modem starts ALL-Linking is assembled from this profile's linking and waking steps; no document describes adding this product to a Hub."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [

@@ -149,10 +149,6 @@
               "expect": "The device acknowledges the Ping"
             }
           ],
-          "notes": [
-            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. The SET button's double-beep for adding it to a Hub is read from the On/Off Plug 2635-222 Owner's Manual."
@@ -161,6 +157,32 @@
       ]
     },
     "linkingTimeoutSeconds": 240,
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "yes",
+        "verification": {
+          "status": "inferred",
+          "note": "The Insteon Developer's Guide (2009) lists Enter Linking Mode (cmd1 0x09, cmd2 the group) as required of every device but i1 ones, and the Insteon Firmware Update i2CS Developer Notes give it to an i2CS device as an extended message with a checksum, from a sender that isn't in its ALL-Link database too. This profile's engine entries make every version of the product i2CS; no document names this product."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
+    },
     "multiLinking": {
       "steps": [
         {
@@ -372,6 +394,8 @@
     "On/Off Plug 2635-222 Owner's Manual",
     "On/Off Plug 2635-222 Quick Start Guide",
     "On/Off Module 2633 Owner's Manual",
-    "Factory Resetting Insteon Devices (Insteon support article)"
+    "Factory Resetting Insteon Devices (Insteon support article)",
+    "Insteon Developer's Guide (2009)",
+    "Insteon Firmware Update i2CS Developer Notes"
   ]
 }

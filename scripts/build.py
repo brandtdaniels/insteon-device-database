@@ -55,6 +55,7 @@ def load_profiles():
 
         problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "engines", "engine")]
         problems += [f"{path.name}: {problem}" for problem in modem_link_data_problems(profile)]
+        problems += [f"{path.name}: {problem}" for problem in from_hub_problems(profile)]
         problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "commandSets", "command set")]
 
         errors += problems
@@ -80,6 +81,56 @@ def modem_link_data_problems(profile):
             for entry in entries:
                 if ("value" in entry) == ("identity" in entry):
                     problems.append(f"the modem's {side} record data {entry['name']} needs a value or an identity, not both")
+
+    return problems
+
+
+def from_hub_problems(profile):
+    """Reports a fromHub leg whose device group isn't one of the profile's groups, a responder leg
+    whose groups differ or whose device group can't be a controller, a device-first start whose
+    first leg doesn't have the device as controller, and keepAwake on a device without batteries."""
+    from_hub = profile.get("lifecycle", {}).get("fromHub")
+
+    if from_hub is None:
+        return []
+
+    problems = []
+    groups = {group["number"]: group for group in profile.get("groups", [])}
+
+    for index, leg in enumerate(from_hub["legs"], 1):
+        group = groups.get(leg["deviceGroup"])
+
+        if group is None:
+            problems.append(f"fromHub leg {index} names device group {leg['deviceGroup']}, which isn't one of the profile's groups")
+        elif leg["modem"] == "responder" and group["role"] == "responder":
+            problems.append(f"fromHub leg {index} has the device control group {leg['deviceGroup']}, which is only a responder")
+
+        if leg["modem"] == "responder" and leg["modemGroup"] != leg["deviceGroup"]:
+            problems.append(f"fromHub leg {index}: the modem responds to the device's group, so its group must be {leg['deviceGroup']}")
+
+    if from_hub["deviceFirst"] and from_hub["legs"][0]["modem"] != "responder":
+        problems.append("fromHub starts with the device, so its first leg needs the modem as responder")
+
+    keep_awake = from_hub.get("keepAwake")
+
+    if keep_awake is not None:
+        if not profile.get("batteryPowered"):
+            problems.append("fromHub keeps the device awake, but it isn't battery-powered")
+
+        for key in ("send", "release"):
+            message = keep_awake.get(key)
+
+            if message is None:
+                continue
+
+            positions = [byte["position"] for byte in message.get("data", [])] + [message[k] for k in ("secondsByte",) if k in message]
+            positions += [14] if message.get("integrity") == "checksum" else []
+
+            if len(positions) != len(set(positions)):
+                problems.append(f"fromHub keepAwake {key} fills a user data byte twice")
+
+            if not message.get("extended") and (positions or message.get("integrity", "none") != "none"):
+                problems.append(f"fromHub keepAwake {key} has user data, so it must be extended")
 
     return problems
 

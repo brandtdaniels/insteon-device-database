@@ -196,8 +196,6 @@
             }
           ],
           "notes": [
-            "This links the Hub's group 0 to the device as a responder, and the device's group 1 to the Hub as a controller, so the Hub receives the device's reports.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step.",
             "A link to the I/O Linc's relay records the relay's state when it's made. To link the relay to a group of the Hub's own, first set the relay to the state the Hub's On command should give (send On, cmd1 0x11, or Off, cmd1 0x13). If the flags read before linking show momentary mode on (bit 3, 0x08), turn it off with Set Operating Flags cmd2 0x07 while linking and back on with cmd2 0x06 afterward; if it was off, leave it off.",
             "Seen on a device running firmware 0x41: with a Hub 2245's modem already in Start ALL-Linking as controller, holding the SET button for about 3 seconds linked the Hub as its controller. The modem had to be in linking mode before the hold; a hold made before the modem started linking wasn't seen.",
             "Seen on a device running firmware 0x41: once the device had been linked so, linking it again by its Insteon ID worked for both links with no SET button press: the extended Enter Linking Mode with the modem in Start ALL-Linking as controller of group 0, then Enter Linking Mode for group 1 with the modem in Start ALL-Linking as responder.",
@@ -211,6 +209,46 @@
       ]
     },
     "linkingTimeoutSeconds": 240,
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01",
+          "verification": {
+            "status": "observed",
+            "note": "Seen on a device running firmware 0x41: with a Hub 2245's modem in Start ALL-Linking as the controller of group 0, the device linked as its responder both from its SET button and from the extended Enter Linking Mode with cmd2 0x01.",
+            "firmware": [
+              "0x41"
+            ]
+          }
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01",
+          "verification": {
+            "status": "observed",
+            "note": "Seen on a device running firmware 0x41: with a Hub 2245's modem in Start ALL-Linking as the responder, Enter Linking Mode with cmd2 0x01 linked the device as the controller of group 1, and it wrote its controller record for group 1.",
+            "firmware": [
+              "0x41"
+            ]
+          }
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The Insteon Developer's Guide (2009) says i1 devices don't support Enter Linking Mode (cmd1 0x09), and the catalog doesn't know the engine of every version of this product. An i2 or i2CS version takes it; ask the device with Get Insteon Engine Version (cmd1 0x0D) first. Seen on a device running firmware 0x41, an i2CS version: the extended Enter Linking Mode put it in linking mode for both legs."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
+    },
     "unlinking": {
       "steps": [
         {
@@ -356,6 +394,7 @@
     "insteon.com product catalog",
     "Insteon Device Categories (January 2014)",
     "I/O Module 2450 Owner's Manual",
-    "Insteon Device Categories and Product Keys (October 2008)"
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }
