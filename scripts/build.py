@@ -54,6 +54,7 @@ def load_profiles():
             problems.append(f"{path.name}: a capability kind appears more than once")
 
         problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "engines", "engine")]
+        problems += [f"{path.name}: {problem}" for problem in modem_link_data_problems(profile)]
         problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "commandSets", "command set")]
 
         errors += problems
@@ -62,6 +63,25 @@ def load_profiles():
     errors += overlapping_identities(profiles)
 
     return profiles, errors
+
+
+def modem_link_data_problems(profile):
+    """Reports a modem's record data that names a byte twice, or a byte that gives neither or
+    both of a fixed value and an identity byte."""
+    problems = []
+
+    for capability in profile["capabilities"]:
+        for side, entries in capability.get("linkData", {}).items():
+            numbers = [entry["byte"] for entry in entries]
+
+            if len(numbers) != len(set(numbers)):
+                problems.append(f"the modem's {side} record data names a byte twice")
+
+            for entry in entries:
+                if ("value" in entry) == ("identity" in entry):
+                    problems.append(f"the modem's {side} record data {entry['name']} needs a value or an identity, not both")
+
+    return problems
 
 
 def selected_firmware(selection):

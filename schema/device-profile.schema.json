@@ -317,6 +317,30 @@
           "properties": {
             "kind": {
               "const": "modem"
+            },
+            "linkData": {
+              "description": "What Data 1 to 3 hold in the ALL-Link database records the modem writes itself when it links with Start ALL-Linking, so an app writing such a record by hand writes the same bytes: controller, the records in which the modem is the controller; responder, those in which it's the responder. A byte a list leaves out isn't known.",
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "controller": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 3,
+                  "items": {
+                    "$ref": "#/$defs/modemLinkDataByte"
+                  }
+                },
+                "responder": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 3,
+                  "items": {
+                    "$ref": "#/$defs/modemLinkDataByte"
+                  }
+                }
+              }
             }
           }
         },
@@ -435,6 +459,48 @@
           }
         }
       ]
+    },
+    "modemLinkDataByte": {
+      "description": "What one data byte of a record a modem writes holds: a fixed value, or a byte of the linked device's identity as the device reported it in ALL-Linking Completed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "byte",
+        "name",
+        "description"
+      ],
+      "properties": {
+        "byte": {
+          "description": "Data 1, 2 or 3 of the record.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "name": {
+          "description": "A name for code to refer to, in lower camel case.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/byte",
+          "description": "The byte the modem writes, when it's always the same."
+        },
+        "identity": {
+          "description": "The linked device's category, subcategory or firmware version, when the byte holds it.",
+          "enum": [
+            "category",
+            "subcategory",
+            "firmware"
+          ]
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
     },
     "firmwareSelection": {
       "description": "Firmware versions: only the versions listed, or every version except them.",

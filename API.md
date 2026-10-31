@@ -312,6 +312,23 @@ database records for the group, so an app adding it to a scene writes the right 
 - A device linked with its SET button keeps its present state as the record's data, so a light
   should be at the level wanted when it's linked.
 
+A modem writes records of its own when it links, and its profile's `modem` capability can say
+what their Data 1 to 3 hold, in `linkData`, so an app that writes such a record by hand writes
+the same bytes:
+
+```json
+{ "kind": "modem", "linkData": { "controller": [
+  { "byte": 1, "name": "data1", "description": "Always 0x01 in the records seen.", "value": "0x01" },
+  { "byte": 2, "name": "subcategory", "description": "The responder's subcategory.", "identity": "subcategory" },
+  { "byte": 3, "name": "firmware", "description": "The responder's firmware version.", "identity": "firmware" } ] } }
+```
+
+- `controller` is for the records in which the modem is the controller, and `responder` for
+  those in which it's the responder.
+- Each byte gives either a fixed `value` or the `identity` byte it copies: the linked device's
+  `category`, `subcategory` or `firmware`, as ALL-Linking Completed reports them.
+- A byte a list leaves out isn't known.
+
 **Settings.** Operating flags, readings and extended settings values can carry:
 
 - `label`: what to call the setting, such as "Beep on button press".
