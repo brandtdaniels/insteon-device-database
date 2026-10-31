@@ -292,6 +292,18 @@
         "status": "inferred",
         "note": "No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those."
       }
+    },
+    {
+      "name": "beep",
+      "description": "Asks the device to beep once.",
+      "command1": "0x30",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x41: the device acknowledged Beep (cmd1 0x30), sent from a Hub 2245 with modem firmware 0xA5. No document lists Beep for the I/O Linc.",
+        "firmware": [
+          "0x41"
+        ]
+      }
     }
   ],
   "groupTypes": [
@@ -328,8 +340,11 @@
         }
       ],
       "verification": {
-        "status": "inferred",
-        "note": "No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those. That every nonzero reply means on is read from Light Status Request's on-level for on/off devices, as the Insteon Developer's Guide gives it, and isn't documented for the I/O Linc."
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x41: sent from a Hub 2245 with modem firmware 0xA5, with nothing wired to the relay, the On action, Light ON (cmd1 0x11), turned the relay on, and the Off action, Light OFF (cmd1 0x13), turned it off. Light Status Request answered with cmd2 0x00 while the relay was off, and with a value the ranges read as On while it was on. No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those. That every nonzero reply means on is read from Light Status Request's on-level for on/off devices, as the Insteon Developer's Guide gives it, and isn't documented for the I/O Linc.",
+        "firmware": [
+          "0x41"
+        ]
       }
     }
   ],
