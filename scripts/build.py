@@ -351,6 +351,13 @@ def presentation_problems(command_set):
         if value.get("write") is not None and value["write"] not in extended:
             problems.append(f"{label} is written by {value['write']!r}, which isn't an extended command")
 
+        if "flagsQuery" in value:
+            if value["flagsQuery"] not in {flag["query"] for flag in command_set.get("operatingFlags", [])}:
+                problems.append(f"{label} is the operating flags byte for query {value['flagsQuery']}, which no operating flag reads")
+
+            if any(key in value for key in ("kind", "range", "table", "unit", "scale")):
+                problems.append(f"{label} is an operating flags byte, so it can't have a kind, range, table, unit or scale")
+
         if value.get("table") in tables and value.get("range"):
             bounds = value["range"]
 

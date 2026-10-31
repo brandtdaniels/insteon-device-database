@@ -197,6 +197,13 @@
         "offCommand": {
           "description": "A standard command that clears the bit.",
           "$ref": "#/$defs/name"
+        },
+        "guard": {
+          "description": "How an app writing operating flags treats the bit, so it never cuts the device off or locks it: keep, a write leaves the bit as it was read, as for radio off, powerline off and checksum required; neverSet, a write may clear the bit but never sets it, as for the programming lock. It holds for Set Operating Flags and for a write to a value whose flagsQuery names this flag's query.",
+          "enum": [
+            "keep",
+            "neverSet"
+          ]
         }
       }
     },
@@ -316,6 +323,10 @@
         },
         "byte": {
           "$ref": "#/$defs/position"
+        },
+        "flagsQuery": {
+          "description": "Marks the value as an operating flags byte: the byte Get Operating Flags returns for this query (cmd2), such as 0x00. Its bits are the command set's operatingFlags with that query, which name them and say which a write must guard.",
+          "$ref": "#/$defs/byte"
         },
         "kind": {
           "description": "How to read the value: a number, or a mask with one bit per button, button 1 in bit 0.",

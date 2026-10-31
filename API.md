@@ -354,6 +354,19 @@ The control follows from the setting:
 - A value is per group when the write that sets it is `perButton`; everything else is the whole
   device's.
 
+**Flags an app must guard.** Some operating flags can cut a device off or lock it, so their
+`guard` says how a write treats them:
+
+- `keep`: a write leaves the bit as it was read. Radio off, powerline off and checksum required
+  have it.
+- `neverSet`: a write may clear the bit but never sets it. The programming lock has it.
+
+Some extended settings values are the same byte as an operating flags reply, such as the
+Open/Close Sensor's `configuration` and the Hidden Door Sensor's `operatingFlags`. Such a value's
+`flagsQuery` names the Get Operating Flags query (cmd2) whose reply it is, `0x00` for both, and
+the command set's operating flags with that query name its bits. Before writing the value, an
+app reads it, and refuses a write that would change a `keep` bit or set a `neverSet` one.
+
 ## Keeping a copy up to date
 
 1. Fetch `manifest.json`.

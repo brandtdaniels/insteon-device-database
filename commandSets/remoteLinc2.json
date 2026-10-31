@@ -11,7 +11,8 @@
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
-      "off": "0x01"
+      "off": "0x01",
+      "guard": "neverSet"
     },
     {
       "name": "ledOn",

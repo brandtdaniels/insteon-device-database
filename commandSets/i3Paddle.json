@@ -228,7 +228,8 @@
       "bit": "0x01",
       "on": "0x00",
       "off": "0x01",
-      "default": false
+      "default": false,
+      "guard": "neverSet"
     },
     {
       "name": "resumeDim",
@@ -262,7 +263,8 @@
       "bit": "0x40",
       "on": "0x0C",
       "off": "0x0D",
-      "default": false
+      "default": false,
+      "guard": "keep"
     },
     {
       "name": "errorBlink",

@@ -12,7 +12,8 @@
       "bit": "0x01",
       "on": "0x00",
       "off": "0x01",
-      "default": false
+      "default": false,
+      "guard": "neverSet"
     },
     {
       "name": "blinkOnTraffic",

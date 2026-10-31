@@ -67,7 +67,8 @@
       "section": "Linking",
       "description": "Linking and programming from the sensor itself are locked out.",
       "query": "0x00",
-      "bit": "0x80"
+      "bit": "0x80",
+      "guard": "neverSet"
     }
   ],
   "readings": [
@@ -101,7 +102,8 @@
         "section": "Communication",
         "advanced": true,
         "description": "The configuration byte, which Get Operating Flags with cmd2 0x00 also reads.",
-        "byte": 6
+        "byte": 6,
+        "flagsQuery": "0x00"
       }
     ],
     "writes": [

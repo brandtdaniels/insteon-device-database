@@ -191,7 +191,8 @@
       "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
-      "bit": "0x01"
+      "bit": "0x01",
+      "guard": "neverSet"
     },
     {
       "name": "ledOnTransmit",
