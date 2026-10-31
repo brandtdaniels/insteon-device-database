@@ -358,6 +358,15 @@
       }
     }
   ],
+  "linkingChanges": [
+    {
+      "flag": "triggerReversed",
+      "verification": {
+        "status": "inferred",
+        "note": "The I/O Module 2450 Owner's Manual has the sensor's state while the I/O Linc is linked as a controller choose which state sends on, and the opposite state off. That linking does this by changing triggerReversed is read from that and from the flag's meaning; no document says which flag linking changes."
+      }
+    }
+  ],
   "notes": [
     "A later source marks bit 6 of the 0x00 reply as ignored; an earlier source reads it as the trigger reversal that 0x0E and 0x0F set.",
     "An earlier source labels D5 and D6 of the reply the relay's X10 address and D7 and D8 the sensor's, where a later source has the input's and the output's."

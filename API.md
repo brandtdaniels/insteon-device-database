@@ -367,6 +367,16 @@ Open/Close Sensor's `configuration` and the Hidden Door Sensor's `operatingFlags
 the command set's operating flags with that query name its bits. Before writing the value, an
 app reads it, and refuses a write that would change a `keep` bit or set a `neverSet` one.
 
+**Flags linking changes.** Linking can change an operating flag on its own, as linking an I/O
+Linc's sensor as a controller chooses which sensor state sends on. A command set's
+`linkingChanges` lists those flags, as an allowlist: a linking flow may read them before it
+links and set them back afterward with Set Operating Flags, and it changes no other flag. No
+flag with a `guard` is ever on the list.
+
+```json
+"linkingChanges": [{ "flag": "triggerReversed" }]
+```
+
 ## Keeping a copy up to date
 
 1. Fetch `manifest.json`.

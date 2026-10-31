@@ -366,6 +366,22 @@ def presentation_problems(command_set):
                     problems.append(f"{label}'s table has a value outside its range")
                     break
 
+    flags = {flag["name"]: flag for flag in command_set.get("operatingFlags", [])}
+    changed = [entry["flag"] for entry in command_set.get("linkingChanges", [])]
+
+    if len(changed) != len(set(changed)):
+        problems.append("linkingChanges names a flag twice")
+
+    for name in changed:
+        flag = flags.get(name)
+
+        if flag is None:
+            problems.append(f"linkingChanges names {name!r}, which isn't an operating flag")
+        elif "guard" in flag:
+            problems.append(f"linkingChanges names {name!r}, which has a guard, so no linking flow may change it")
+        elif "on" not in flag or "off" not in flag:
+            problems.append(f"linkingChanges names {name!r}, which Set Operating Flags can't set both ways")
+
     for flag in command_set.get("operatingFlags", []):
         for key in ("onCommand", "offCommand"):
             if key in flag and flag[key] not in standard:

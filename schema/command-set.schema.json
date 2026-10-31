@@ -108,6 +108,27 @@
         "$ref": "#/$defs/groupType"
       }
     },
+    "linkingChanges": {
+      "description": "The operating flags linking can change on its own, which a linking flow may read before it links and set back afterward: an allowlist. A linking flow changes and restores no other flag, and never one with a guard.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "flag"
+        ],
+        "properties": {
+          "flag": {
+            "description": "The operating flag linking can change. It has both on and off, so a flow can set it back.",
+            "type": "string",
+            "pattern": "^[a-z][A-Za-z0-9]*$"
+          },
+          "verification": {
+            "$ref": "#/$defs/verification"
+          }
+        }
+      }
+    },
     "notes": {
       "type": "array",
       "items": {
