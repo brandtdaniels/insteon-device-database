@@ -561,7 +561,8 @@
           "bits": [
             {
               "mask": "0x01",
-              "name": "programmingLock"
+              "name": "programmingLock",
+              "guard": "neverSet"
             },
             {
               "mask": "0x02",

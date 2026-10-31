@@ -1201,7 +1201,8 @@
           "bits": [
             {
               "mask": "0x01",
-              "name": "programmingLock"
+              "name": "programmingLock",
+              "guard": "neverSet"
             },
             {
               "mask": "0x04",
@@ -1213,7 +1214,8 @@
             },
             {
               "mask": "0x40",
-              "name": "radioOff"
+              "name": "radioOff",
+              "guard": "keep"
             }
           ]
         },

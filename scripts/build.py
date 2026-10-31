@@ -443,6 +443,20 @@ def presentation_problems(command_set):
                     problems.append(f"{label}'s table has a value outside its range")
                     break
 
+    for flag in command_set.get("operatingFlags", []):
+        if flag["name"] in GUARDED_FLAGS and flag.get("guard") != GUARDED_FLAGS[flag["name"]]:
+            problems.append(f"the {flag['name']} flag needs guard {GUARDED_FLAGS[flag['name']]!r}")
+
+    for command in command_set.get("flagCommands", []):
+        if command["name"] in NEVER_SENT and command.get("guard") != "never":
+            problems.append(f"the {command['name']} flag command needs guard 'never'")
+
+    for command in command_set.get("extendedCommands", []):
+        for field in command.get("parameters", []):
+            for bit in field.get("bits", []):
+                if bit["name"] in GUARDED_FLAGS and bit.get("guard") != GUARDED_FLAGS[bit["name"]]:
+                    problems.append(f"the {command['name']} command's {bit['name']} bit needs guard {GUARDED_FLAGS[bit['name']]!r}")
+
     flags = {flag["name"]: flag for flag in command_set.get("operatingFlags", [])}
     changed = [entry["flag"] for entry in command_set.get("linkingChanges", [])]
 
@@ -659,6 +673,20 @@ def overlapping_identities(profiles):
             claimed.setdefault(key, []).append((profile["model"], low, high))
 
     return errors
+
+
+# Operating flags that can cut a device off, lock it or change the message form it accepts, and
+# the guard each needs wherever an app can write it: as a flag, or as a bit of a flags parameter.
+GUARDED_FLAGS = {
+    "programmingLock": "neverSet",
+    "radioOff": "keep",
+    "powerLineOff": "keep",
+    "checksumRequired": "keep",
+    "extendedCommandsOnly": "keep",
+}
+
+# Set Operating Flags commands that turn one of those on, which an app never sends.
+NEVER_SENT = {"programmingLockOn", "radioOff", "powerLineOff", "checksumOn"}
 
 
 # Forms CONVENTIONS.md rules out of the catalog's prose, and what to write instead.

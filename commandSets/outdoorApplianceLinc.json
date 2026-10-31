@@ -16,7 +16,8 @@
     {
       "name": "programmingLockOn",
       "description": "Turns the programming lock on: linking and programming from the device are locked out.",
-      "command2": "0x00"
+      "command2": "0x00",
+      "guard": "never"
     },
     {
       "name": "programmingLockOff",
@@ -46,7 +47,8 @@
     {
       "name": "radioOff",
       "description": "The device doesn't originate RF messages. It still repeats the RF messages it hears.",
-      "command2": "0x0C"
+      "command2": "0x0C",
+      "guard": "never"
     },
     {
       "name": "radioOn",
@@ -56,7 +58,8 @@
     {
       "name": "powerLineOff",
       "description": "Turns Insteon communication over the powerline off. The device turns it back on whenever it powers up.",
-      "command2": "0x0E"
+      "command2": "0x0E",
+      "guard": "never"
     },
     {
       "name": "powerLineOn",
@@ -101,7 +104,8 @@
     {
       "name": "checksumOn",
       "description": "Extended Set and ALL-Link database write messages must carry a checksum in D14.",
-      "command2": "0x19"
+      "command2": "0x19",
+      "guard": "never"
     }
   ],
   "extendedSettings": {

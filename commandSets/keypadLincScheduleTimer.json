@@ -240,7 +240,8 @@
     {
       "name": "programmingLockOn",
       "description": "Turns the programming lock on: linking and programming from the keypad are locked out.",
-      "command2": "0x00"
+      "command2": "0x00",
+      "guard": "never"
     },
     {
       "name": "programmingLockOff",

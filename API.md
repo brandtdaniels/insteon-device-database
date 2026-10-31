@@ -426,7 +426,17 @@ The control follows from the setting:
 
 - `keep`: a write leaves the bit as it was read. Radio off, powerline off and checksum required
   have it.
+- `keep` also covers the Thermostat Adapter 2441V's extended commands only flag: it changes
+  the message form the adapter accepts, as checksum required does, so an app that flips it
+  stops being understood.
 - `neverSet`: a write may clear the bit but never sets it. The programming lock has it.
+
+A Set Operating Flags command with no bit to read back, in `flagCommands`, has `guard` `never`
+when it turns radio off, powerline off, checksum required or the programming lock on: an app
+never sends it. And where an extended command writes operating flags as a `flags` parameter,
+such as the i3 products' `writeProperties`, each guarded bit carries the same `guard`, so an app
+fills it from the device's last report. The build requires these guards wherever those flags
+appear.
 
 Some extended settings values are the same byte as an operating flags reply, such as the
 Open/Close Sensor's `configuration` and the Hidden Door Sensor's `operatingFlags`. Such a value's

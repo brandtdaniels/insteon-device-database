@@ -220,7 +220,7 @@
           "$ref": "#/$defs/name"
         },
         "guard": {
-          "description": "How an app writing operating flags treats the bit, so it never cuts the device off or locks it: keep, a write leaves the bit as it was read, as for radio off, powerline off and checksum required; neverSet, a write may clear the bit but never sets it, as for the programming lock. It holds for Set Operating Flags and for a write to a value whose flagsQuery names this flag's query.",
+          "description": "How an app writing operating flags treats the bit, so it never cuts the device off, locks it or changes the message form it accepts: keep, a write leaves the bit as it was read, as for radio off, powerline off, checksum required and the thermostat adapter's extended commands only; neverSet, a write may clear the bit but never sets it, as for the programming lock. It holds for Set Operating Flags, for a write to a value whose flagsQuery names this flag's query, and for an extended command's flags parameter that holds the bit.",
           "enum": [
             "keep",
             "neverSet"
@@ -289,6 +289,12 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "guard": {
+          "description": "never: an app never sends the command, because it turns radio off, powerline off, checksum required or the programming lock on.",
+          "enum": [
+            "never"
+          ]
         }
       }
     },
@@ -587,6 +593,13 @@
               "description": {
                 "type": "string",
                 "minLength": 1
+              },
+              "guard": {
+                "description": "For a flags parameter an app writes, how the write treats the bit: keep, it leaves the bit as the device last reported it; neverSet, it may clear the bit but never sets it. The same as the guard of the operating flag the bit mirrors.",
+                "enum": [
+                  "keep",
+                  "neverSet"
+                ]
               }
             }
           }
