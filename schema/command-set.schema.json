@@ -957,13 +957,16 @@
           "$ref": "#/$defs/label"
         },
         "kind": {
-          "description": "What it is: a dimmer, a relay or outlet switched on and off, a fan with speeds, a sensor or input that only reports, or a button that controls other devices.",
+          "description": "What it is: a dimmer, a relay or outlet switched on and off, a fan with speeds, a sensor or input that only reports, a button that controls other devices, a window covering or other motorized cover that opens and closes, an alarm that sounds when the device is armed in one of its armModes and a linked device triggers it, or an arming group that arms the device in its armModes.",
           "enum": [
             "dimmer",
             "relay",
             "fan",
             "sensor",
-            "button"
+            "button",
+            "windowCovering",
+            "alarm",
+            "arming"
           ]
         },
         "state": {
@@ -1008,6 +1011,26 @@
                   }
                 }
               }
+            },
+            "onWhen": {
+              "description": "For a group whose state is a pattern of bits in a status byte the device's groups share, such as an EZFlora zone: the group is on when the reply's cmd2 ANDed with mask equals value, and off otherwise.",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mask",
+                "value"
+              ],
+              "properties": {
+                "mask": {
+                  "$ref": "#/$defs/byte"
+                },
+                "value": {
+                  "$ref": "#/$defs/byte"
+                },
+                "verification": {
+                  "$ref": "#/$defs/verification"
+                }
+              }
             }
           }
         },
@@ -1044,6 +1067,72 @@
                 "default": true
               }
             }
+          }
+        },
+        "outputs": {
+          "description": "Outputs the group's load is made of, which one command can switch together: each action whose command takes a parameter, and gives no fixed value, selects outputs by their bits in it, so the bits of several outputs ORed together switch them all at once.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bits"
+          ],
+          "properties": {
+            "activeWhen": {
+              "description": "The operating flag state under which the load is these outputs, such as relay mode. Omitted, it always is.",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "flag",
+                "set"
+              ],
+              "properties": {
+                "flag": {
+                  "$ref": "#/$defs/name"
+                },
+                "set": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "bits": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "mask",
+                  "name",
+                  "label"
+                ],
+                "properties": {
+                  "mask": {
+                    "$ref": "#/$defs/byte"
+                  },
+                  "name": {
+                    "$ref": "#/$defs/name"
+                  },
+                  "label": {
+                    "$ref": "#/$defs/label"
+                  }
+                }
+              }
+            },
+            "verification": {
+              "$ref": "#/$defs/verification"
+            }
+          }
+        },
+        "armModes": {
+          "description": "For an alarm group, the armed modes in any of which a trigger from a linked device sounds it; for an arming group, the modes a group On from its controller arms the device in, all together.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "home",
+              "away"
+            ]
           }
         },
         "linkData": {

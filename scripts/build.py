@@ -276,6 +276,32 @@ def presentation_problems(command_set):
             elif state.get("bitPerGroup") and replies[state["command"]].get("kind") != "flags":
                 problems.append(f"{label} reads one bit per group from a reply that isn't flags")
 
+        on_when = (state or {}).get("onWhen")
+
+        if on_when is not None:
+            if int(on_when["value"], 16) & ~int(on_when["mask"], 16):
+                problems.append(f"{label}'s onWhen value has bits outside its mask")
+
+            if state.get("bitPerGroup") or "ranges" in state:
+                problems.append(f"{label}'s state has onWhen with bitPerGroup or ranges")
+
+        if ("armModes" in group_type) != (group_type["kind"] in ("alarm", "arming")):
+            problems.append(f"{label} has armModes only if it's an alarm or arming group")
+
+        outputs = group_type.get("outputs")
+
+        if outputs is not None:
+            bits = outputs["bits"]
+
+            if any(int(bit["mask"], 16) == 0 for bit in bits) or len({bit["mask"] for bit in bits}) != len(bits) or len({bit["name"] for bit in bits}) != len(bits):
+                problems.append(f"{label}'s outputs must have distinct, nonzero masks and distinct names")
+
+            if "activeWhen" in outputs and outputs["activeWhen"]["flag"] not in {flag["name"] for flag in command_set.get("operatingFlags", [])}:
+                problems.append(f"{label}'s outputs depend on {outputs['activeWhen']['flag']!r}, which isn't an operating flag")
+
+            if not any(parameters.get(action["command"]) and "value" not in action for action in group_type.get("actions", [])):
+                problems.append(f"{label} has outputs, but no action takes a parameter to select them in")
+
         ranges = [(int(r["from"], 16), int(r["through"], 16)) for r in (state or {}).get("ranges", [])]
 
         if any(low > high for low, high in ranges) or any(a[1] >= b[0] for a, b in zip(sorted(ranges), sorted(ranges)[1:])):

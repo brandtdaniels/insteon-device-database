@@ -273,10 +273,25 @@ names one in `type`, which every command set its identities use must have:
 ]
 ```
 
-- `kind` is `dimmer`, `relay`, `fan`, `sensor` or `button`.
+- `kind` is `dimmer`, `relay`, `fan`, `sensor`, `button`, `windowCovering`, for a window
+  covering or other motorized cover that opens and closes, `alarm` or `arming`.
 - `state` names the standard command whose acknowledgment carries the group's state in cmd2.
   With `bitPerGroup`, the reply holds one bit per group, group 1 in bit 0, as a keypad's LEDs or
-  a dual outlet's outlets do; `ranges` name ranges of the value, such as a fan's speeds.
+  a dual outlet's outlets do; `ranges` name ranges of the value, such as a fan's speeds. With
+  `onWhen`, the group is on when cmd2 ANDed with its `mask` equals its `value`, and off
+  otherwise, as an EZFlora zone is on when the valve status byte names it as the active valve
+  with a valve on: `{ "mask": "0x87", "value": "0x81" }` for zone 2.
+- `outputs` are parts of the group's load that one command can switch together, such as the
+  0-10V Ballast Dimmer 2475DA2's two relays while its `relayMode` flag is set (`activeWhen`).
+  Each action whose command takes a parameter, and gives no fixed `value`, selects outputs by
+  their `bits` in it: `on` with `0x03` turns both relays on, and `off` with `0x01` turns relay 1
+  off.
+- An `alarm` group sounds when a linked device triggers it while the device is armed in any of
+  its `armModes`, `home` or `away`, and an `arming` group arms the device in all of its
+  `armModes`. The Siren 2868-222's groups 1, 3 and 5 are alarms and 2, 4 and 6 arming groups: a
+  group On from a controller linked to an arming group arms the siren after a countdown, Fast On
+  arms it silently, and a group Off to any arming group disarms it, as its command set's notes
+  give.
 - `actions` are what an app can tell the group to do, for controls, scenes and schedules. Each
   names a standard or extended command and, when the command takes a parameter, either a fixed
   `value` (`0xFF` to switch a relay on) or nothing, for the caller to give, such as a dimmer's

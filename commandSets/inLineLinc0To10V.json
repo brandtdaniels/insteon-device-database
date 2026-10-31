@@ -629,6 +629,24 @@
           "command": "lightOff"
         }
       ],
+      "outputs": {
+        "activeWhen": {
+          "flag": "relayMode",
+          "set": true
+        },
+        "bits": [
+          {
+            "mask": "0x01",
+            "name": "relay1",
+            "label": "Relay 1"
+          },
+          {
+            "mask": "0x02",
+            "name": "relay2",
+            "label": "Relay 2"
+          }
+        ]
+      },
       "linkData": {
         "responder": [
           {

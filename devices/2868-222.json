@@ -34,6 +34,7 @@
       "number": "0x01",
       "name": "Sound when armed away",
       "role": "both",
+      "type": "soundAway",
       "verification": {
         "status": "conflicting",
         "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
@@ -43,6 +44,7 @@
       "number": "0x02",
       "name": "Arm away",
       "role": "responder",
+      "type": "armAway",
       "verification": {
         "status": "conflicting",
         "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
@@ -52,6 +54,7 @@
       "number": "0x03",
       "name": "Sound when armed home",
       "role": "responder",
+      "type": "soundHome",
       "verification": {
         "status": "conflicting",
         "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
@@ -61,6 +64,7 @@
       "number": "0x04",
       "name": "Arm home",
       "role": "responder",
+      "type": "armHome",
       "verification": {
         "status": "conflicting",
         "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
@@ -69,12 +73,14 @@
     {
       "number": "0x05",
       "name": "Sound when armed",
-      "role": "responder"
+      "role": "responder",
+      "type": "soundArmed"
     },
     {
       "number": "0x06",
       "name": "Arm home and away",
-      "role": "responder"
+      "role": "responder",
+      "type": "armHomeAndAway"
     }
   ],
   "capabilities": [
