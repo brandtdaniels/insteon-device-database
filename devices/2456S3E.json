@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x06"
+      "subcategory": "0x06",
+      "productKey": "0x000048"
     }
   ],
   "engines": [
@@ -249,6 +250,7 @@
   },
   "sources": [
     "HouseLinc device catalog",
-    "Outdoor On/Off Module 2456S3E Owner's Manual"
+    "Outdoor On/Off Module 2456S3E Owner's Manual",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

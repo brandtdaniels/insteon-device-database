@@ -6,6 +6,7 @@
     {
       "category": "0x07",
       "subcategory": "0x08",
+      "productKey": "0x00003A",
       "verification": {
         "status": "conflicting",
         "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x08 to the EZIO4O; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x08, the model's own entry."

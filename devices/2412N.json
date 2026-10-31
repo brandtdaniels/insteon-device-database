@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x10"
+      "subcategory": "0x10",
+      "productKey": "0x000044"
     }
   ],
   "engines": [
@@ -175,6 +176,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Central Controller 2412N Owner's Manual",
-    "Central Controller 2412N Quick Start Guide"
+    "Central Controller 2412N Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

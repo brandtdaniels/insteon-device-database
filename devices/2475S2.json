@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x14"
+      "subcategory": "0x14",
+      "productKey": "0x000045"
     }
   ],
   "engines": [
@@ -352,6 +353,7 @@
   "sources": [
     "HouseLinc device catalog",
     "In-Line On/Off Module with Sense 2475S2 Owner's Manual",
-    "In-Line On/Off Module with Sense 2475S2 Quick Start Guide"
+    "In-Line On/Off Module with Sense 2475S2 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

@@ -7,11 +7,13 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x02"
+      "subcategory": "0x02",
+      "productKey": "none"
     },
     {
       "category": "0x01",
-      "subcategory": "0x1A"
+      "subcategory": "0x1A",
+      "productKey": "0x00004F"
     }
   ],
   "engines": [
@@ -290,6 +292,8 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "In-Line Dimmer Module 2475D Owner's Manual"
+    "In-Line Dimmer Module 2475D Owner's Manual",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

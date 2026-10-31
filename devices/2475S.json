@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x10"
+      "subcategory": "0x10",
+      "productKey": "0x00001B"
     }
   ],
   "engines": [
@@ -357,6 +358,7 @@
     "HouseLinc device catalog",
     "In-LineLinc On/Off 2475SDB Owner's Manual",
     "In-LineLinc On/Off 2475SDB Quick Start Guide",
-    "2475SDB Developer Notes"
+    "2475SDB Developer Notes",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

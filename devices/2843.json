@@ -6,6 +6,7 @@
     {
       "category": "0x10",
       "subcategory": "0x02",
+      "productKey": "0x000049",
       "region": "US"
     },
     {
@@ -407,6 +408,7 @@
     "insteon.com product catalog",
     "Open/Close Sensor Developer Notes",
     "Open/Close Sensor 2843 Owner's Manual",
-    "Open/Close Sensor 2843 Quick Start Guide"
+    "Open/Close Sensor 2843 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

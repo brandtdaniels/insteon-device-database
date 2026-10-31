@@ -7,11 +7,13 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x01"
+      "subcategory": "0x01",
+      "productKey": "none"
     },
     {
       "category": "0x01",
-      "subcategory": "0x19"
+      "subcategory": "0x19",
+      "productKey": "0x00004E"
     },
     {
       "category": "0x01",
@@ -375,6 +377,8 @@
   "sources": [
     "HouseLinc device catalog",
     "Dimmer Switch 2476D Owner's Manual",
-    "Dimmer Switch 2476D Quick Start Guide"
+    "Dimmer Switch 2476D Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

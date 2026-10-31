@@ -7,11 +7,13 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x09"
+      "subcategory": "0x09",
+      "productKey": "0x000037"
     },
     {
       "category": "0x01",
-      "subcategory": "0x1B"
+      "subcategory": "0x1B",
+      "productKey": "0x000050"
     }
   ],
   "engines": [
@@ -412,6 +414,7 @@
     "HouseLinc device catalog",
     "KeypadLinc Line Developer Notes",
     "Dimmer Keypad, 6 Buttons 2486DWH6 Owner's Manual",
-    "Dimmer Keypad, 6 Buttons 2486DWH6 Quick Start Guide"
+    "Dimmer Keypad, 6 Buttons 2486DWH6 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

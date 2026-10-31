@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x15"
+      "subcategory": "0x15",
+      "productKey": "0x000047"
     }
   ],
   "engines": [

@@ -6,6 +6,7 @@
     {
       "category": "0x10",
       "subcategory": "0x01",
+      "productKey": "0x00004A",
       "region": "US"
     },
     {
@@ -316,7 +317,8 @@
   "sources": [
     "HouseLinc device catalog",
     "Motion Sensor 2842 Owner's Manual",
-    "Motion Sensor 2842 Quick Start Guide"
+    "Motion Sensor 2842 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ],
   "notes": [
     "HouseLinc also lists its US identity under the 2420M.",

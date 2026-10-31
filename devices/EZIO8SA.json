@@ -6,6 +6,7 @@
     {
       "category": "0x07",
       "subcategory": "0x04",
+      "productKey": "0x000013",
       "verification": {
         "status": "conflicting",
         "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x04 to the Compacta EZIO8SA I/O Module; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x04, the model's own entry."

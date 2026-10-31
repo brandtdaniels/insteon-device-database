@@ -6,6 +6,7 @@
     {
       "category": "0x03",
       "subcategory": "0x0F",
+      "productKey": "0x00003B",
       "verification": {
         "status": "documented",
         "note": "Insteon Device Categories and Product Keys (October 2008) assigns it to the EZX10IR; no Compacta document gives it."

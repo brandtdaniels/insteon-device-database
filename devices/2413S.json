@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x11"
+      "subcategory": "0x11",
+      "productKey": "0x000045"
     }
   ],
   "engines": [
@@ -157,6 +158,7 @@
     "HouseLinc device catalog",
     "Serial Modem 2413S Quick Start Guide",
     "HouseLinc Owner's Manual",
-    "Insteon Modem Developer's Guide"
+    "Insteon Modem Developer's Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

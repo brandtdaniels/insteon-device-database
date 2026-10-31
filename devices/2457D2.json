@@ -9,7 +9,8 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x0E"
+      "subcategory": "0x0E",
+      "productKey": "0x00004B"
     }
   ],
   "engines": [
@@ -300,6 +301,7 @@
     "HouseLinc device catalog",
     "insteon.com product catalog",
     "Dimmer Plug 2457D2 Owner's Manual",
-    "Dimmer Plug 2457D2 Quick Start Guide"
+    "Dimmer Plug 2457D2 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

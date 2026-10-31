@@ -13,7 +13,8 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 - **Name, aliases and description:** the product's name, other names it's known by, and what
   it is.
 - **Identities:** the category and subcategory the product reports when asked to identify
-  itself, and the firmware versions they cover where those matter.
+  itself, the firmware versions they cover where those matter, and its product key where a
+  source gives one.
 - **Radio and role:** where a source states them, how it communicates (powerline, RF or both), and whether it can be an
   ALL-Link controller, a responder, or both.
 - **Groups:** its ALL-Link groups, and whether software must link a group.

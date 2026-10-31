@@ -190,6 +190,18 @@
         "subcategory": {
           "$ref": "#/$defs/byte"
         },
+        "productKey": {
+          "description": "The Insteon Product Key the product reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 0x03, cmd2 0x00): 0x and six uppercase hexadecimal digits, D2 first. none means the product reports no key: Insteon's documents mark it Legacy, made before product keys, and such a product doesn't answer Product Data Request. Omitted when no source gives it. The identity's verification covers it too.",
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^0x[0-9A-F]{6}$"
+            },
+            {
+              "const": "none"
+            }
+          ]
+        },
         "firmware": {
           "description": "The firmware versions this identity covers, inclusive. Omitted, it covers every version.",
           "type": "object",

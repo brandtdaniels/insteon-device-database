@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x07"
+      "subcategory": "0x07",
+      "productKey": "0x000017"
     }
   ],
   "engines": [
@@ -179,6 +180,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Infrared Transmitter 2411T Owner's Manual",
-    "Infrared Transmitter 2411T Quick Start Guide"
+    "Infrared Transmitter 2411T Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

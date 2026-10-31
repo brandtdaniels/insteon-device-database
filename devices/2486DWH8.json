@@ -7,11 +7,13 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x0C"
+      "subcategory": "0x0C",
+      "productKey": "0x00001D"
     },
     {
       "category": "0x01",
-      "subcategory": "0x1C"
+      "subcategory": "0x1C",
+      "productKey": "0x000051"
     }
   ],
   "engines": [
@@ -430,6 +432,7 @@
     "HouseLinc device catalog",
     "KeypadLinc Line Developer Notes",
     "Dimmer Keypad, 8 Buttons 2486DWH8 Owner's Manual",
-    "Dimmer Keypad, 8 Buttons 2486DWH8 Quick Start Guide"
+    "Dimmer Keypad, 8 Buttons 2486DWH8 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

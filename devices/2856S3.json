@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x0C"
+      "subcategory": "0x0C",
+      "productKey": "none"
     }
   ],
   "commandSets": [
@@ -147,6 +148,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Insteon Device Categories (January 2014)",
-    "Insteon Device Categories and Product Keys (October 2008)"
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

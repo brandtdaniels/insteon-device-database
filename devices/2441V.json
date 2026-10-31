@@ -4,7 +4,8 @@
   "identities": [
     {
       "category": "0x05",
-      "subcategory": "0x03"
+      "subcategory": "0x03",
+      "productKey": "0x00001F"
     }
   ],
   "engines": [
@@ -309,6 +310,7 @@
     "HouseLinc device catalog",
     "Insteon Developer's Guide (2009)",
     "Thermostat Adapter 2441V Owner's Manual",
-    "Thermostat Adapter 2441V Quick Start Guide"
+    "Thermostat Adapter 2441V Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

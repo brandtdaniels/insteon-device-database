@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x00",
-      "subcategory": "0x05"
+      "subcategory": "0x05",
+      "productKey": "0x000034"
     }
   ],
   "radio": "rf",
@@ -290,6 +291,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Remote Control 2440 Owner's Manual",
-    "Remote Control 2440 Quick Start Guide"
+    "Remote Control 2440 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

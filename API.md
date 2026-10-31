@@ -76,6 +76,12 @@ An identity can also carry a `firmware` range, `{ "from": "0x40", "through": "0x
 product reports the same category and subcategory with different behavior across firmware
 versions. Without one, the identity covers every version.
 
+An identity's `productKey`, where a source gives it, is the Insteon Product Key the product
+reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 `0x03`,
+cmd2 `0x00`), written `0x00001A`, D2 first. `none` means the product reports no key: Insteon's
+documents mark it Legacy, made before product keys, and such a product doesn't answer Product
+Data Request, so an app shouldn't wait for one. The identity's `verification` covers the key too.
+
 `engines` says which Insteon engine the product runs under each identity, where a source states
 it. Each entry names an `engine` (`i1`, `i2`, or `i2cs`, which rejects an extended message whose
 D14 checksum is wrong), an identity's `category` and `subcategory`, and optionally a `firmware`

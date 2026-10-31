@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x0F"
+      "subcategory": "0x0F",
+      "productKey": "0x000036"
     }
   ],
   "engines": [
@@ -428,6 +429,7 @@
   "sources": [
     "HouseLinc device catalog",
     "KeypadLinc Line Developer Notes",
-    "On/Off Keypad 2487S Owner's Manual"
+    "On/Off Keypad 2487S Owner's Manual",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

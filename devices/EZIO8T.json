@@ -5,7 +5,8 @@
   "identities": [
     {
       "category": "0x07",
-      "subcategory": "0x02"
+      "subcategory": "0x02",
+      "productKey": "0x000012"
     }
   ],
   "commandSets": [

@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x00"
+      "subcategory": "0x00",
+      "productKey": "none"
     }
   ],
   "engines": [
@@ -246,6 +247,8 @@
   "sources": [
     "HouseLinc device catalog",
     "Dimmer Module 2456D3 Owner's Manual",
-    "Dimmer Module 2456D3 Quick Start Guide"
+    "Dimmer Module 2456D3 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x00",
-      "subcategory": "0x04"
+      "subcategory": "0x04",
+      "productKey": "none"
     }
   ],
   "capabilities": [],
@@ -139,6 +140,8 @@
   },
   "sources": [
     "HouseLinc device catalog",
-    "Tabletop Controller 2430 Owner's Manual"
+    "Tabletop Controller 2430 Owner's Manual",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

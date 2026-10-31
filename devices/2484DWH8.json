@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x05"
+      "subcategory": "0x05",
+      "productKey": "0x000041"
     }
   ],
   "commandSets": [
@@ -241,6 +242,7 @@
   ],
   "sources": [
     "HouseLinc device catalog",
-    "Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide"
+    "Countdown Timer Dimmer Keypad, 8 Buttons 2484D Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

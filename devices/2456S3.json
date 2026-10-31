@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x09"
+      "subcategory": "0x09",
+      "productKey": "none"
     }
   ],
   "engines": [
@@ -252,6 +253,8 @@
   },
   "sources": [
     "HouseLinc device catalog",
-    "On/Off Module 2456S3 Owner's Manual"
+    "On/Off Module 2456S3 Owner's Manual",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

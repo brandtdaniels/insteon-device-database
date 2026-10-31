@@ -6,6 +6,7 @@
     {
       "category": "0x02",
       "subcategory": "0x11",
+      "productKey": "0x00003C",
       "verification": {
         "status": "documented",
         "note": "Insteon Device Categories and Product Keys (October 2008) assigns it to the EZSwitch30; no Compacta document gives it."
