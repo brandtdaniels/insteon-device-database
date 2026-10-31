@@ -291,7 +291,7 @@
           "$ref": "#/$defs/verification"
         },
         "guard": {
-          "description": "never: an app never sends the command, because it turns radio off, powerline off, checksum required or the programming lock on.",
+          "description": "never: an app never sends the command, because it's a Set Operating Flags command (cmd1 0x20) that turns radio off, powerline off, checksum required or the programming lock on.",
           "enum": [
             "never"
           ]
@@ -718,6 +718,12 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "guard": {
+          "description": "never: an app never sends the command, because it's a Set Operating Flags command (cmd1 0x20) that turns radio off, powerline off, checksum required or the programming lock on.",
+          "enum": [
+            "never"
+          ]
         }
       },
       "not": {
@@ -811,6 +817,12 @@
         },
         "verification": {
           "$ref": "#/$defs/verification"
+        },
+        "guard": {
+          "description": "never: an app never sends the command, because it's a Set Operating Flags command (cmd1 0x20) that turns radio off, powerline off, checksum required or the programming lock on.",
+          "enum": [
+            "never"
+          ]
         }
       }
     },

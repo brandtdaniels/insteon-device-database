@@ -448,9 +448,10 @@ The control follows from the setting:
   stops being understood.
 - `neverSet`: a write may clear the bit but never sets it. The programming lock has it.
 
-A Set Operating Flags command with no bit to read back, in `flagCommands`, has `guard` `never`
-when it turns radio off, powerline off, checksum required or the programming lock on: an app
-never sends it. And where an extended command writes operating flags as a `flags` parameter,
+A Set Operating Flags command (cmd1 `0x20`) that turns radio off, powerline off, checksum
+required or the programming lock on has `guard` `never`, whether it's in `flagCommands`,
+`standardCommands` or `extendedCommands`: an app never sends it. The build finds these by name
+and by the cmd2 they send, matched against the command set's own flags and on-commands. And where an extended command writes operating flags as a `flags` parameter,
 such as the i3 products' `writeProperties`, each guarded bit carries the same `guard`, so an app
 fills it from the device's last report. The build requires these guards wherever those flags
 appear.

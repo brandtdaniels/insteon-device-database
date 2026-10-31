@@ -498,9 +498,22 @@ def presentation_problems(command_set):
         if flag["name"] in GUARDED_FLAGS and flag.get("guard") != GUARDED_FLAGS[flag["name"]]:
             problems.append(f"the {flag['name']} flag needs guard {GUARDED_FLAGS[flag['name']]!r}")
 
-    for command in command_set.get("flagCommands", []):
-        if command["name"] in NEVER_SENT and command.get("guard") != "never":
-            problems.append(f"the {command['name']} flag command needs guard 'never'")
+    # Set Operating Flags commands, found by the bytes they send: every flag command, and any
+    # standard or extended command with cmd1 0x20. One that turns a guarded flag on, by its name or
+    # by a cmd2 that the command set's own flags or named on-commands use for that, is never sent.
+    set_flags = [command for command in command_set.get("flagCommands", [])]
+    set_flags += [command for key in ("standardCommands", "extendedCommands") for command in command_set.get(key, []) if command["command1"] == "0x20" and "command2" in command]
+    dangerous = {flag["on"] for flag in command_set.get("operatingFlags", []) if flag["name"] in GUARDED_FLAGS and flag["name"] != "extendedCommandsOnly" and "on" in flag}
+    dangerous |= {command["command2"] for command in set_flags if command["name"] in NEVER_SENT}
+
+    for command in set_flags:
+        if (command["name"] in NEVER_SENT or command["command2"] in dangerous) and command.get("guard") != "never":
+            problems.append(f"the {command['name']} command turns a guarded flag on, so it needs guard 'never'")
+
+    for key in ("standardCommands", "extendedCommands"):
+        for command in command_set.get(key, []):
+            if command["name"] in NEVER_SENT and command["command1"] != "0x20" and command.get("guard") != "never":
+                problems.append(f"the {command['name']} command needs guard 'never'")
 
     for command in command_set.get("extendedCommands", []):
         for field in command.get("parameters", []):
