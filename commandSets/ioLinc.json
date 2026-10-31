@@ -252,9 +252,93 @@
       }
     ]
   },
+  "standardCommands": [
+    {
+      "name": "lightOn",
+      "description": "Turns the output relay on. The device isn't documented to read cmd2; send 0xFF. In a momentary mode, the relay closes for the momentary time, or not at all if the mode ignores On.",
+      "command1": "0x11",
+      "parameter": {
+        "name": "onLevel",
+        "description": "Not documented to be read; send 0xFF.",
+        "range": {
+          "from": 0,
+          "through": 255
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those."
+      }
+    },
+    {
+      "name": "lightOff",
+      "description": "Turns the output relay off. In a momentary mode, the relay closes for the momentary time if the mode triggers on Off, and otherwise ignores it.",
+      "command1": "0x13",
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those."
+      }
+    },
+    {
+      "name": "readStatus",
+      "description": "Reads whether the output relay is on. The acknowledgment's cmd1 carries the ALL-Link database delta.",
+      "command1": "0x19",
+      "command2": "0x00",
+      "reply": {
+        "name": "relayState",
+        "description": "0x00 when the relay is off."
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those."
+      }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "relay",
+      "label": "Relay",
+      "kind": "relay",
+      "state": {
+        "command": "readStatus",
+        "ranges": [
+          {
+            "from": "0x00",
+            "through": "0x00",
+            "label": "Off"
+          },
+          {
+            "from": "0x01",
+            "through": "0xFF",
+            "label": "On"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "name": "on",
+          "label": "On",
+          "command": "lightOn",
+          "value": "0xFF"
+        },
+        {
+          "name": "off",
+          "label": "Off",
+          "command": "lightOff"
+        }
+      ],
+      "verification": {
+        "status": "inferred",
+        "note": "No document gives the I/O Linc's direct commands. The Insteon Developer's Guide gives Light ON (cmd1 0x11), Light OFF (cmd1 0x13) and Light Status Request (cmd1 0x19, cmd2 0x00) for categories 0x01 and 0x02, not for the I/O Linc's 0x07, and the I/O Module 2450 Owner's Manual says the output relay responds to Insteon ON and OFF commands; the relay's commands are read from those. That every nonzero reply means on is read from Light Status Request's on-level for on/off devices, as the Insteon Developer's Guide gives it, and isn't documented for the I/O Linc."
+      }
+    }
+  ],
   "notes": [
     "A later source marks bit 6 of the 0x00 reply as ignored; an earlier source reads it as the trigger reversal that 0x0E and 0x0F set.",
     "An earlier source labels D5 and D6 of the reply the relay's X10 address and D7 and D8 the sensor's, where a later source has the input's and the output's."
   ],
-  "sources": []
+  "sources": [
+    "Insteon Developer's Guide (2009)",
+    "I/O Module 2450 Owner's Manual"
+  ]
 }
