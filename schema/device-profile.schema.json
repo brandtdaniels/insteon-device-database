@@ -242,7 +242,7 @@
           "$ref": "#/$defs/byte"
         },
         "productKey": {
-          "description": "The Insteon Product Key the product reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 0x03, cmd2 0x00): 0x and six uppercase hexadecimal digits, D2 first. none means the product reports no key: Insteon's documents mark it Legacy, made before product keys, and such a product doesn't answer Product Data Request. Omitted when no source gives it. The identity's verification covers it too.",
+          "description": "The Insteon Product Key the product reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 0x03, cmd2 0x00): 0x and six uppercase hexadecimal digits, D2 first. none means the product reports no key: Insteon's documents mark it Legacy, made before product keys, and such a product doesn't answer Product Data Request. Omitted when no source gives it. Its own certainty is productKeyVerification's; without one, it's the identity's.",
           "oneOf": [
             {
               "type": "string",
@@ -252,6 +252,10 @@
               "const": "none"
             }
           ]
+        },
+        "productKeyVerification": {
+          "description": "How the catalog knows the product key, where that differs from how it knows the identity, such as a key whose document lists another model for the same category and subcategory.",
+          "$ref": "#/$defs/verification"
         },
         "firmware": {
           "description": "The firmware versions this identity covers, inclusive. Omitted, it covers every version.",

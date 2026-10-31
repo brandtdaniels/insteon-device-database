@@ -89,8 +89,7 @@ the profile's groups.
 ### How sure a value is
 
 A value with no `verification` is documented: an Insteon document gives it, and none of the
-catalog's sources disagree. Where that isn't so, give the profile, identity (which covers its
-product key), engine, command set entry, group, lifecycle procedure, `fromHub` or its legs,
+catalog's sources disagree. Where that isn't so, give the profile, identity, product key (`productKeyVerification`, where it differs from the identity's), engine, command set entry, group, lifecycle procedure, `fromHub` or its legs,
 remote Enter Linking Mode or keep-awake message, or modem link data byte, or the command set's
 flag, reading, value, write, field, command or direct message, value table, group type, state
 `onWhen`, outputs, link data byte or `linkingChanges` entry, a `verification` with a `status`

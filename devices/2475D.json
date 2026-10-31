@@ -13,7 +13,11 @@
     {
       "category": "0x01",
       "subcategory": "0x1A",
-      "productKey": "0x00004F"
+      "productKey": "0x00004F",
+      "productKeyVerification": {
+        "status": "inferred",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives this category and subcategory's key to the In-LineLinc Dimmer with Sense [2475D2], not to this model; that this product reports the same key is read from its sharing the identity."
+      }
     }
   ],
   "engines": [

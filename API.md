@@ -80,7 +80,9 @@ An identity's `productKey`, where a source gives it, is the Insteon Product Key 
 reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 `0x03`,
 cmd2 `0x00`), written `0x00001A`, D2 first. `none` means the product reports no key: Insteon's
 documents mark it Legacy, made before product keys, and such a product doesn't answer Product
-Data Request, so an app shouldn't wait for one. The identity's `verification` covers the key too.
+Data Request, so an app shouldn't wait for one. Where the catalog is surer or less sure of the
+key than of the identity, `productKeyVerification` says so, in the same form as any
+`verification`; without it, the identity's `verification` covers the key too.
 
 `engines` says which Insteon engine the product runs under each identity, where a source states
 it. Each entry names an `engine` (`i1`, `i2`, or `i2cs`, which rejects an extended message whose

@@ -8,7 +8,11 @@
     {
       "category": "0x02",
       "subcategory": "0x14",
-      "productKey": "0x000045"
+      "productKey": "0x000045",
+      "productKeyVerification": {
+        "status": "conflicting",
+        "note": "Insteon Device Categories and Product Keys (October 2008) lists 0x000045 for this product and also for 0x03/0x11, the PowerLinc - Serial (Dual Band) [2413S]; product keys are meant to be assigned one per product. The catalog uses 0x000045 as the document lists it."
+      }
     }
   ],
   "engines": [

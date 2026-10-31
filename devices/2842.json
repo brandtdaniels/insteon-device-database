@@ -7,6 +7,10 @@
       "category": "0x10",
       "subcategory": "0x01",
       "productKey": "0x00004A",
+      "productKeyVerification": {
+        "status": "inferred",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives this category and subcategory's key to the Motion Sensor [2420M], not to this model; that this product reports the same key is read from its sharing the identity."
+      },
       "region": "US"
     },
     {

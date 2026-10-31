@@ -10,6 +10,10 @@
       "category": "0x07",
       "subcategory": "0x00",
       "productKey": "0x00001A",
+      "productKeyVerification": {
+        "status": "documented",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives the IOLinc [2450] 0x00001A. The identity's observation saw no key because ID Request's reply, a SET Button Pressed broadcast, carries none; Product Data Request, which carries it, wasn't recorded."
+      },
       "verification": {
         "status": "observed",
         "note": "Seen on a device running firmware 0x41: ID Request answered with category 0x07, subcategory 0x00 and firmware 0x41, and no product key was reported. Get Insteon Engine Version (cmd1 0x0D) answered with cmd2 0x02, i2CS, as the catalog's engine entry gives. A Hub 2245, with modem firmware 0xA5, kept 0x01 0x00 0x41 as Data 1 to 3 of its controller record for the device in group 0, as it did for other devices: Data 3 there is the firmware, and Data 1 isn't the category.",

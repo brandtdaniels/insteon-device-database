@@ -8,7 +8,11 @@
     {
       "category": "0x02",
       "subcategory": "0x09",
-      "productKey": "none"
+      "productKey": "none",
+      "productKeyVerification": {
+        "status": "inferred",
+        "note": "Insteon Device Categories and Product Keys (October 2008) marks the product Legacy, made before product keys, so it doesn't answer Product Data Request. Later firmware versions run i2CS, as this profile's engine entries give, and may answer with a key; none is documented for them."
+      }
     }
   ],
   "engines": [

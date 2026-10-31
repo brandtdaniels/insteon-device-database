@@ -10,7 +10,11 @@
     {
       "category": "0x01",
       "subcategory": "0x0E",
-      "productKey": "0x00004B"
+      "productKey": "0x00004B",
+      "productKeyVerification": {
+        "status": "inferred",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives this category and subcategory's key to the LampLinc Dimmer, Dual-Band [2457D3], not to this model; that this product reports the same key is read from its sharing the identity."
+      }
     }
   ],
   "engines": [
