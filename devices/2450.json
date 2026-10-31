@@ -166,31 +166,16 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Get Operating Flags (cmd1 0x1F, cmd2 0x00) and note bit 6 (0x40, Reverse the sensor) and bit 3 (0x08, Momentary relay).",
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
               "action": "send",
-              "command": "Get Operating Flags"
+              "command": "Start ALL-Linking"
             },
             {
               "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
               "action": "send",
-              "command": "Enter Linking Mode"
-            },
-            {
-              "text": "Have the Hub start ALL-Linking as the responder.",
-              "device": "other",
-              "action": "send",
-              "command": "Start ALL-Linking",
+              "command": "Enter Linking Mode",
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
-            },
-            {
-              "text": "Have the Hub send Get Operating Flags again.",
-              "action": "send",
-              "command": "Get Operating Flags"
-            },
-            {
-              "text": "If bit 6 changed, have the Hub send Set Operating Flags (cmd1 0x20) with cmd2 0x0E to set it or 0x0F to clear it, as it was before linking: linking records the sensor's state, which can change this flag.",
-              "action": "send",
-              "command": "Set Operating Flags"
             },
             {
               "text": "Have the Hub send Ping to confirm the link.",
@@ -200,14 +185,14 @@
             }
           ],
           "notes": [
-            "A link to the I/O Linc's relay records the relay's state when it's made. To link the relay to a group of the Hub's own, first set the relay to the state the Hub's On command should give (send On, cmd1 0x11, or Off, cmd1 0x13). If the flags read before linking show momentary mode on (bit 3, 0x08), turn it off with Set Operating Flags cmd2 0x07 while linking and back on with cmd2 0x06 afterward; if it was off, leave it off.",
+            "To link the relay to a group of the Hub's own, set the relay first to the state the Hub's On should give (On, cmd1 0x11, or Off, cmd1 0x13): a link to the relay records its state when it's made.",
             "Seen on a device running firmware 0x41: with a Hub 2245's modem already in Start ALL-Linking as controller, holding the SET button for about 3 seconds linked the Hub as its controller. The modem had to be in linking mode before the hold; a hold made before the modem started linking wasn't seen.",
             "Seen on a device running firmware 0x41: once the device had been linked so, linking it again by its Insteon ID worked for both links with no SET button press: the extended Enter Linking Mode with the modem in Start ALL-Linking as controller of group 0, then Enter Linking Mode for group 1 with the modem in Start ALL-Linking as responder.",
             "Seen on a device running firmware 0x41: the device wrote its responder record for the Hub's group 0 with Data 1 to 3 as 0x00 0x00 0x00, and its controller record for group 1 as the profile's group gives. Linked again after both links had been removed, it wrote the two records again at other free ALL-Link database addresses."
           ],
           "verification": {
             "status": "inferred",
-            "note": "Assembled from this profile's linking steps, its command set's Reverse the sensor and Momentary relay flags, and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. Neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives the sensor input's group number; group 1 is the one a device used, as the profile's group records."
+            "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. Neither the I/O Module 2450 Owner's Manual nor the I/O Linc command set gives the sensor input's group number; group 1 is the one a device used, as the profile's group records."
           }
         }
       ]

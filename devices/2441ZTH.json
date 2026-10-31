@@ -217,7 +217,10 @@
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's waking and linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
-          }
+          },
+          "notes": [
+            "Make one leg for each group in fromHub, choosing its group with the Up or Down arrow before holding the SET button: 1 cooling, 2 heating, 3 dehumidification, 4 humidification."
+          ]
         }
       ]
     },
@@ -227,6 +230,21 @@
           "modem": "responder",
           "modemGroup": "0x01",
           "deviceGroup": "0x01"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x02",
+          "deviceGroup": "0x02"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x03",
+          "deviceGroup": "0x03"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x04",
+          "deviceGroup": "0x04"
         }
       ],
       "deviceFirst": true,
@@ -254,7 +272,7 @@
         "seconds": 240,
         "verification": {
           "status": "inferred",
-          "note": "The Wireless Thermostat Developer Notes give Set Operating Flags (cmd1 0x20) as an extended message with a checksum, cmd2 0x06 to stay awake for 4 minutes and cmd2 0x07 to sleep in 3 seconds. Sending it once a person has woken the thermostat and before linking is assembled from this profile's waking and linking steps; no document describes adding this product to a Hub."
+          "note": "The Wireless Thermostat Developer Notes give Set Operating Flags (cmd1 0x20) as an extended message with a checksum, cmd2 0x06 to stay awake for 4 minutes and cmd2 0x07 to sleep in 3 seconds. Sending it once a person has woken the thermostat and before linking is assembled from this profile's waking and linking steps; no document describes adding this product to a Hub. Sending it before linking needs the thermostat's Insteon ID beforehand, such as from its label."
         }
       },
       "verification": {

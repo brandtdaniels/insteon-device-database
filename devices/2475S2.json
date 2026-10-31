@@ -166,15 +166,15 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
-              "action": "send",
-              "command": "Enter Linking Mode"
-            },
-            {
               "text": "Have the Hub start ALL-Linking as the responder.",
               "device": "other",
               "action": "send",
-              "command": "Start ALL-Linking",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode",
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {

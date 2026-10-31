@@ -240,7 +240,7 @@
         "works": "yes",
         "verification": {
           "status": "documented",
-          "note": "The EZFlora Insteon and X10 Messages/Commands make Enter Linking Mode (cmd1 0x09) the same as holding the SET button 4 seconds."
+          "note": "The EZFlora Insteon and X10 Messages/Commands make Enter Linking Mode (cmd1 0x09) the same as holding the SET button 4 seconds, among the EZFlora's standard direct messages and with no extended form, so it's sent as a standard message with the group in cmd2. The catalog gives the EZFlora no engine."
         }
       },
       "verification": {

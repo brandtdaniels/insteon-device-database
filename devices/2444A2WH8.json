@@ -167,7 +167,10 @@
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
-          }
+          },
+          "notes": [
+            "Start from the button that sends group 1, as the steps say; the leg links that group."
+          ]
         }
       ]
     },

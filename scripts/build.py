@@ -86,9 +86,10 @@ def modem_link_data_problems(profile):
 
 
 def from_hub_problems(profile):
-    """Reports a fromHub leg whose device group isn't one of the profile's groups, a responder leg
-    whose groups differ or whose device group can't be a controller, a device-first start whose
-    first leg doesn't have the device as controller, and keepAwake on a device without batteries."""
+    """Reports a fromHub leg whose device group isn't one of the profile's groups, a controller leg
+    whose device group doesn't respond, a responder leg whose groups differ or whose device group
+    can't be a controller, a device-first start whose first leg doesn't have the device as
+    controller, and keepAwake on a device without batteries or with a raw message that's malformed."""
     from_hub = profile.get("lifecycle", {}).get("fromHub")
 
     if from_hub is None:
@@ -104,6 +105,8 @@ def from_hub_problems(profile):
             problems.append(f"fromHub leg {index} names device group {leg['deviceGroup']}, which isn't one of the profile's groups")
         elif leg["modem"] == "responder" and group["role"] == "responder":
             problems.append(f"fromHub leg {index} has the device control group {leg['deviceGroup']}, which is only a responder")
+        elif leg["modem"] == "controller" and group["role"] == "controller":
+            problems.append(f"fromHub leg {index} has the modem control the device's group {leg['deviceGroup']}, the Enter Linking Mode cmd2, which is only a controller")
 
         if leg["modem"] == "responder" and leg["modemGroup"] != leg["deviceGroup"]:
             problems.append(f"fromHub leg {index}: the modem responds to the device's group, so its group must be {leg['deviceGroup']}")
@@ -120,17 +123,64 @@ def from_hub_problems(profile):
         for key in ("send", "release"):
             message = keep_awake.get(key)
 
-            if message is None:
+            if message is None or "command1" not in message:
                 continue
 
-            positions = [byte["position"] for byte in message.get("data", [])] + [message[k] for k in ("secondsByte",) if k in message]
+            positions = [byte["position"] for byte in message.get("data", [])]
             positions += [14] if message.get("integrity") == "checksum" else []
 
             if len(positions) != len(set(positions)):
                 problems.append(f"fromHub keepAwake {key} fills a user data byte twice")
 
-            if not message.get("extended") and (positions or message.get("integrity", "none") != "none"):
+            if not message.get("extended") and positions:
                 problems.append(f"fromHub keepAwake {key} has user data, so it must be extended")
+
+    return problems
+
+
+def from_hub_command_set_problems(profile, command_sets):
+    """Reports fromHub names that aren't in every command set the profile uses: allGroupsWhen
+    flags, and keepAwake commands and flags; and raw keepAwake bytes where a command set entry
+    sends the same Set Operating Flags command."""
+    from_hub = profile.get("lifecycle", {}).get("fromHub")
+
+    if from_hub is None:
+        return []
+
+    problems = []
+    used = sorted({entry["commandSet"] for entry in profile.get("commandSets", []) if entry["commandSet"] in command_sets})
+
+    def flag(name):
+        return [command_sets[used_id] for used_id in used if not any(f["name"] == name and "on" in f and "off" in f for f in command_sets[used_id].get("operatingFlags", []))]
+
+    for index, leg in enumerate(from_hub["legs"], 1):
+        if "allGroupsWhen" in leg:
+            name = leg["allGroupsWhen"]["flag"]
+
+            if not used or not all(any(f["name"] == name for f in command_sets[used_id].get("operatingFlags", [])) for used_id in used):
+                problems.append(f"fromHub leg {index} depends on {name!r}, which not every command set the profile uses has")
+
+    for key in ("send", "release"):
+        message = from_hub.get("keepAwake", {}).get(key)
+
+        if message is None:
+            continue
+
+        if "command" in message:
+            names = lambda cs: {c["name"] for k in ("flagCommands", "standardCommands", "extendedCommands") for c in cs.get(k, [])}
+
+            if not used or not all(message["command"] in names(command_sets[used_id]) for used_id in used):
+                problems.append(f"fromHub keepAwake {key} names {message['command']!r}, which not every command set the profile uses has")
+        elif "flag" in message:
+            if not used or flag(message["flag"]):
+                problems.append(f"fromHub keepAwake {key} names the flag {message['flag']!r}, which not every command set the profile uses sets both ways")
+        elif message["command1"] == "0x20":
+            for used_id in used:
+                cs = command_sets[used_id]
+                sent = {c["command2"] for c in cs.get("flagCommands", [])} | {f[k] for f in cs.get("operatingFlags", []) for k in ("on", "off") if k in f}
+
+                if message["command2"] in sent:
+                    problems.append(f"fromHub keepAwake {key} gives raw bytes for a Set Operating Flags command {used_id} names; name it instead")
 
     return problems
 
@@ -202,6 +252,7 @@ def load_command_sets(profiles):
             if entry["commandSet"] not in ids:
                 errors.append(f"{profile['model']}.json: it names the command set {entry['commandSet']!r}, which doesn't exist")
 
+        errors += [f"{profile['model']}.json: {problem}" for problem in from_hub_command_set_problems(profile, {cs["id"]: cs for cs in command_sets})]
         entries = {entry["commandSet"] for entry in profile.get("commandSets", []) if entry["commandSet"] in ids}
         kinds = {capability["kind"] for capability in profile["capabilities"]}
 

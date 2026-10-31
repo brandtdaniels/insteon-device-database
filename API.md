@@ -181,17 +181,31 @@ follows without reading its steps:
 }
 ```
 
-- `legs` are the links to make, in order, one ALL-Linking session each. In each, the `modem` is
-  the `controller`, so the Hub can control the device, or the `responder`, so the Hub hears the
-  device's group; the controller goes into linking mode first. `modemGroup` is the group Start
-  ALL-Linking names; `deviceGroup`, one of the profile's groups, is the group Enter Linking Mode
-  names in cmd2. When the modem is the responder, the device controls `deviceGroup`, and the
-  modem's record holds that group, so the two are the same. The build checks each device group
-  against the profile's groups. Removing the product undoes each leg.
+- `legs` are the links to make, in order, one ALL-Linking session each:
+  - a leg with the `modem` as `controller`, so the Hub can control the device, where the device
+    has a group that responds;
+  - and a leg with the `modem` as `responder` for each group the device controls, so the Hub
+    hears every group it sends, such as each keypad button, each thermostat report group or a
+    smoke bridge's smoke, carbon monoxide, low battery, malfunction and heartbeat groups.
+- `modemGroup` is the group Start ALL-Linking names. `deviceGroup`, one of the profile's groups,
+  is the Enter Linking Mode cmd2. On a controller leg, it's the group whose responder record the
+  device writes, so it must respond; the build checks it has the role `responder` or `both`, and
+  allows a controller leg only where the profile has such a group. On a responder leg, the
+  device controls `deviceGroup`, and the modem's record holds that group, so `modemGroup` is the
+  same.
+- For each leg, the modem starts ALL-Linking first, with link code `0x01` as controller or
+  `0x00` as responder, and the device then goes into linking mode, from its SET button or from
+  Enter Linking Mode. This is the order seen on an I/O Module 2450 and an Outdoor On/Off Plug
+  2634-222 for both roles. The app waits for ALL-Linking Completed (`0x53`) before starting the
+  next leg. The build checks each device group against the profile's groups.
+- A leg's `allGroupsWhen` names an operating flag state under which the one link puts the
+  modem in every group the device controls, such as a sensor's Link to FF Group option
+  (`{ "flag": "linkToAllGroups", "set": true }`); otherwise the leg links `deviceGroup` alone,
+  and the other groups need links of their own.
 - `deviceFirst` is true when a person puts the device in linking mode with its own controls
   before the modem starts ALL-Linking for the first leg, as for a battery-powered sensor or
   remote; the first leg then has the modem as responder. False, the modem starts ALL-Linking
-  first and the device joins.
+  first for every leg and the device joins.
 - `remoteEnterLinkingMode.works` says whether the modem can put the device in linking mode for a
   leg with Enter Linking Mode (cmd1 `0x09`, cmd2 the leg's `deviceGroup`), as a standard message
   to an i2 device and an extended one with a checksum to an i2CS device, in place of its SET
@@ -199,22 +213,25 @@ follows without reading its steps:
   Insteon Engine Version (cmd1 `0x0D`), since i1 devices don't support Enter Linking Mode, and
   otherwise has a person use the device's controls.
 - `keepAwake`, for a battery-powered device, is the message that keeps it awake through the
-  session: `send` it `when` it's `beforeLinking`, once a person has woken the device, or
-  `afterStartAllLinking`, right after the modem starts ALL-Linking. `release`, where given,
-  lets it sleep again once linking is done, and `seconds` is how long `send` keeps it awake,
-  where that's fixed. A message gives `command1` and `command2`, and for an `extended` one its
-  fixed `data` bytes, the `secondsByte` the app fills with how long to stay awake, and its
+  session. Send it `when` it's `beforeLinking`, once a person has woken the device and before it
+  goes into linking mode, which needs the device's Insteon ID beforehand, such as from its
+  label or an earlier link; or `afterLinked`, right after ALL-Linking Completed gives the
+  device's ID, while it's still awake. `release`, where given, lets it sleep again once linking
+  is done, and `seconds` is how long `send` keeps it awake, where that's fixed.
+- A keepAwake message names a command set entry wherever one exists, so the command set gives
+  its bytes, its engine handling and its parameters, such as how many seconds to stay awake and
+  their range: `{ "command": "stayAwakeOn" }` for a flag, standard or extended command, or
+  `{ "flag": "stayAwake", "set": true }` for an operating flag. Only where no entry exists does
+  it give `command1`, `command2` and, for an `extended` one, its fixed `data` bytes and
   `integrity`:
 
   ```json
-  "keepAwake": { "when": "afterStartAllLinking", "send": {
-    "command1": "0x2E", "command2": "0x00", "extended": true,
-    "data": [{ "position": 1, "value": "0x01" }, { "position": 2, "value": "0x04" }],
-    "secondsByte": 3, "integrity": "checksum" } }
+  "keepAwake": { "when": "afterLinked", "send": { "command": "stayAwake" } }
   ```
 
-- `fromHub`, each leg, `remoteEnterLinkingMode` and `keepAwake` can carry a `verification`. No
-  document describes adding a product to a Hub, so most are `inferred`.
+- `fromHub`, each leg, `remoteEnterLinkingMode` and `keepAwake` can carry a `verification`. A
+  leg without one is as sure as `fromHub`'s `verification` says. No document describes adding a
+  product to a Hub, so most are `inferred`.
 
 ## Command sets
 

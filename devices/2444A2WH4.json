@@ -175,7 +175,10 @@
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
-          }
+          },
+          "notes": [
+            "Start from the button that sends group 1, as the steps say; the leg links that group."
+          ]
         }
       ]
     },
@@ -194,6 +197,21 @@
         "verification": {
           "status": "inferred",
           "note": "The device sleeps to save its battery and hears messages only while awake, and no document or observation says it answers Enter Linking Mode (cmd1 0x09); its linking steps put it in linking mode with its own controls."
+        }
+      },
+      "keepAwake": {
+        "when": "afterLinked",
+        "send": {
+          "flag": "stayAwake",
+          "set": true
+        },
+        "release": {
+          "flag": "stayAwake",
+          "set": false
+        },
+        "verification": {
+          "status": "inferred",
+          "note": "The RemoteLinc 2 Developer Notes give stay awake as Set Operating Flags cmd2 0x06 and 0x07, the command set's stayAwake flag. Sending it once ALL-Linking Completed gives the remote's Insteon ID, while it's still awake, is assembled from this profile's linking steps; no document describes adding this product to a Hub."
         }
       },
       "verification": {

@@ -370,15 +370,15 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
-              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
-              "action": "send",
-              "command": "Enter Linking Mode"
-            },
-            {
               "text": "Have the Hub start ALL-Linking as the responder.",
               "device": "other",
               "action": "send",
-              "command": "Start ALL-Linking",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1: as an extended message if Get Insteon Engine Version (cmd1 0x0D) says the device is i2CS, and as a standard message otherwise.",
+              "action": "send",
+              "command": "Enter Linking Mode",
               "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
             },
             {
@@ -391,7 +391,10 @@
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request, Enter Linking Mode and Ping; no document describes adding this product to a Hub. The EZIOxx Advanced Details give Enter Linking Mode (cmd1 0x09) with the group number in cmd2, but don't say whether it links an input as a controller, and neither the Quick Start Guide - EZIO8SA nor the Quick Start Guide - EZIO8SA & PLM Combo says how the EZIO8SA answers messages sent to its PLM."
-          }
+          },
+          "notes": [
+            "Link each further group the device controls the same way, with the modem starting ALL-Linking as the responder and then Enter Linking Mode naming that group in cmd2; fromHub lists every leg."
+          ]
         }
       ]
     },

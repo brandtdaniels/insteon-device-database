@@ -11,7 +11,7 @@
       "subcategory": "0x38",
       "verification": {
         "status": "observed",
-        "note": "Seen on a device: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, didn't answer Product Data Request, even when linked to a Hub 2245, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives. ALL-Linking Completed carried 0x02 0x38 0x42 as well; a Hub 2245 kept 0x01 0x38 0x42 as Data 1 to 3 of its controller record for the device, so Data 1 there isn't the category. The Outdoor ApplianceLinc with RF Developer Notes give 0x01/0x3A. The catalog uses 0x02/0x38, from ID Request.",
+        "note": "Seen on a device running firmware 0x42: an Outdoor On/Off Plug 2634-222 reported 0x02/0x38 with firmware 0x42 and no product key, didn't answer Product Data Request, even when linked to a Hub 2245, and answered Get Insteon Engine Version with i2CS, as the catalog's engine entry gives. ALL-Linking Completed carried 0x02 0x38 0x42 as well; a Hub 2245 kept 0x01 0x38 0x42 as Data 1 to 3 of its controller record for the device, so Data 1 there isn't the category. The Outdoor ApplianceLinc with RF Developer Notes give 0x01/0x3A. The catalog uses 0x02/0x38, from ID Request.",
         "firmware": [
           "0x42"
         ]
@@ -55,13 +55,20 @@
     }
   ],
   "radio": "dual",
-  "role": "responder",
+  "role": "both",
   "groups": [
     {
       "number": "0x01",
       "name": "Load",
-      "role": "responder",
-      "type": "load"
+      "role": "both",
+      "type": "load",
+      "verification": {
+        "status": "observed",
+        "note": "Seen on a device running firmware 0x42: with a Hub 2245 in Start ALL-Linking as the responder, Enter Linking Mode for group 1 linked the module as the Hub's controller of group 1, so group 1 controls as well as responds. The Outdoor On/Off Plug 2634-222 Owner's Manual also links the module as a controller.",
+        "firmware": [
+          "0x42"
+        ]
+      }
     }
   ],
   "capabilities": [
@@ -142,6 +149,18 @@
               "expect": "The device answers with its category, subcategory and firmware version"
             },
             {
+              "text": "Have the Hub start ALL-Linking as the responder.",
+              "device": "other",
+              "action": "send",
+              "command": "Start ALL-Linking"
+            },
+            {
+              "text": "Have the Hub send Enter Linking Mode (cmd1 0x09) with cmd2 0x01, for group 1, as an extended message: the device is i2CS.",
+              "action": "send",
+              "command": "Enter Linking Mode",
+              "expect": "The Hub reports ALL-Linking Completed with the device's Insteon ID"
+            },
+            {
               "text": "Have the Hub send Ping to confirm the link.",
               "action": "send",
               "command": "Ping",
@@ -168,6 +187,18 @@
           "verification": {
             "status": "observed",
             "note": "Seen on a device running firmware 0x42: with a Hub 2245 in Start ALL-Linking as the controller of group 0, the module linked as its responder both from its SET button and, with no link to the Hub before, from the extended Enter Linking Mode.",
+            "firmware": [
+              "0x42"
+            ]
+          }
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01",
+          "verification": {
+            "status": "observed",
+            "note": "Seen on a device running firmware 0x42: with a Hub 2245 in Start ALL-Linking as the responder, Enter Linking Mode for group 1 linked the module as the Hub's controller of group 1.",
             "firmware": [
               "0x42"
             ]
