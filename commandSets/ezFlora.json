@@ -1307,6 +1307,17 @@
       "name": "zone1",
       "label": "Zone 1",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x80",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1326,6 +1337,17 @@
       "name": "zone2",
       "label": "Zone 2",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x81",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1345,6 +1367,17 @@
       "name": "zone3",
       "label": "Zone 3",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x82",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1364,6 +1397,17 @@
       "name": "zone4",
       "label": "Zone 4",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x83",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1383,6 +1427,17 @@
       "name": "zone5",
       "label": "Zone 5",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x84",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1402,6 +1457,17 @@
       "name": "zone6",
       "label": "Zone 6",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x85",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1421,6 +1487,17 @@
       "name": "zone7",
       "label": "Zone 7",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x86",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",
@@ -1440,6 +1517,17 @@
       "name": "zone8",
       "label": "Zone 8",
       "kind": "relay",
+      "state": {
+        "command": "readValveStatus",
+        "onWhen": {
+          "mask": "0x87",
+          "value": "0x87",
+          "verification": {
+            "status": "inferred",
+            "note": "Read from the valve status byte as the EZFlora Insteon and X10 Messages/Commands give it: bits 0 to 2 the active valve and bit 7 whether a valve is on. That a zone is on only while it's the active valve and bit 7 is set is read from the byte naming one active valve; no document says so."
+          }
+        }
+      },
       "actions": [
         {
           "name": "on",

@@ -27,15 +27,17 @@ read the same everywhere. `scripts/build.py` fails on the forms it can check.
 
 ## Documents
 
-Cite each document by its own title, in `sources` and in notes. A product's owner's manual is
-cited as its name and model, then Owner's Manual: Hub Pro 2243 Owner's Manual.
+Cite each document by its own title, in `sources` and in notes. Insteon published several
+editions of the protocol guide and the command tables, so their citations carry the year of the
+edition the catalog uses. A product's owner's manual is cited as its name and model, then
+Owner's Manual: Hub Pro 2243 Owner's Manual.
 
 | Document | Cite as |
 | --- | --- |
-| The 2009 protocol guide | Insteon Developer's Guide |
+| The 2009 protocol guide | Insteon Developer's Guide (2009) |
 | The 2007 modem guide | Insteon Modem Developer's Guide |
 | The Hub 2242's guide | Insteon Hub Developer's Guide |
-| The 2007 command tables | Insteon Command Tables |
+| The 2007 command tables | Insteon Command Tables (2007) |
 | The device lists | Insteon Device Categories and Product Keys (October 2008), Insteon Device Categories (January 2014) |
 | The i2CS notes | Insteon Firmware Update i2CS Developer Notes |
 | A product's notes | Its title's subject, then Developer Notes: Leak Sensor Developer Notes |

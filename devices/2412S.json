@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x05"
+      "subcategory": "0x05",
+      "productKey": "0x00000C"
     },
     {
       "category": "0x03",
@@ -137,6 +138,7 @@
     "HouseLinc device catalog",
     "Insteon Device Categories (January 2014)",
     "HouseLinc Owner's Manual",
-    "Insteon Modem Developer's Guide"
+    "Insteon Modem Developer's Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

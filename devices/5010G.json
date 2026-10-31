@@ -9,7 +9,8 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x0D"
+      "subcategory": "0x0D",
+      "productKey": "0x000035"
     }
   ],
   "commandSets": [

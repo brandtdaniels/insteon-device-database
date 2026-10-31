@@ -208,15 +208,54 @@
               "command": "Set Operating Flags"
             }
           ],
-          "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's multi-linking and waking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01",
+          "allGroupsWhen": {
+            "flag": "linkToAllGroups",
+            "set": true
+          },
+          "verification": {
+            "status": "inferred",
+            "note": "The Hidden Door Sensor Developer Notes give the Link to FF Group option as bit 4 of the operating flags, and say one link with group 0xFF puts a device in every group. That a link made with the SET button covers every group the sensor controls while it's on is read from that; with it off, the button links group 1 only. No document describes adding this product to a Hub."
+          }
+        }
+      ],
+      "deviceFirst": true,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The device sleeps to save its battery and hears messages only while awake, and no document or observation says it answers Enter Linking Mode (cmd1 0x09); its linking steps put it in linking mode with its own controls."
+        }
+      },
+      "keepAwake": {
+        "when": "afterLinked",
+        "send": {
+          "command": "stayAwakeOn"
+        },
+        "release": {
+          "command": "stayAwakeOff"
+        },
+        "verification": {
+          "status": "inferred",
+          "note": "The Hidden Door Sensor Developer Notes give Set Operating Flags (cmd1 0x20) with cmd2 0x18 for stay awake on and 0x19 for off. Sending it once ALL-Linking Completed gives the device's Insteon ID, while it's still awake, is assembled from this profile's multi-linking and waking steps; no document describes adding this product to a Hub."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "multiLinking": {
       "steps": [

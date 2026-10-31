@@ -76,6 +76,14 @@ An identity can also carry a `firmware` range, `{ "from": "0x40", "through": "0x
 product reports the same category and subcategory with different behavior across firmware
 versions. Without one, the identity covers every version.
 
+An identity's `productKey`, where a source gives it, is the Insteon Product Key the product
+reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 `0x03`,
+cmd2 `0x00`), written `0x00001A`, D2 first. `none` means the product reports no key: Insteon's
+documents mark it Legacy, made before product keys, and such a product doesn't answer Product
+Data Request, so an app shouldn't wait for one. Where the catalog is surer or less sure of the
+key than of the identity, `productKeyVerification` says so, in the same form as any
+`verification`; without it, the identity's `verification` covers the key too.
+
 `engines` says which Insteon engine the product runs under each identity, where a source states
 it. Each entry names an `engine` (`i1`, `i2`, or `i2cs`, which rejects an extended message whose
 D14 checksum is wrong), an identity's `category` and `subcategory`, and optionally a `firmware`
@@ -157,6 +165,73 @@ out of service, so an app can guide a person through each, or do the steps it ca
   describes these procedures, so their `verification` says what each is assembled from.
 - `linkingTimeoutSeconds` is how long linking mode lasts, `awakeSeconds` how long a woken
   battery device stays awake, and `resetErases` what a factory reset clears.
+
+### Linking from a Hub, as data
+
+`lifecycle.fromHub` says the same as the From a Hub alternative to `linking`, in a form an app
+follows without reading its steps:
+
+```json
+"fromHub": {
+  "legs": [
+    { "modem": "controller", "modemGroup": "0x00", "deviceGroup": "0x01" },
+    { "modem": "responder", "modemGroup": "0x01", "deviceGroup": "0x01" } ],
+  "deviceFirst": false,
+  "remoteEnterLinkingMode": { "works": "yes" }
+}
+```
+
+- `legs` are the links to make, in order, one ALL-Linking session each:
+  - a leg with the `modem` as `controller`, so the Hub can control the device, where the device
+    has a group that responds;
+  - and a leg with the `modem` as `responder` for each group the device controls, so the Hub
+    hears every group it sends, such as each keypad button, each thermostat report group or a
+    smoke bridge's smoke, carbon monoxide, low battery, malfunction and heartbeat groups.
+- `modemGroup` is the group Start ALL-Linking names. `deviceGroup`, one of the profile's groups,
+  is the Enter Linking Mode cmd2. On a controller leg, it's the group whose responder record the
+  device writes, so it must respond; the build checks it has the role `responder` or `both`, and
+  allows a controller leg only where the profile has such a group. On a responder leg, the
+  device controls `deviceGroup`, and the modem's record holds that group, so `modemGroup` is the
+  same.
+- For each leg, the modem starts ALL-Linking first, with link code `0x01` as controller or
+  `0x00` as responder, and the device then goes into linking mode, from its SET button or from
+  Enter Linking Mode. This is the order seen on an I/O Module 2450 and an Outdoor On/Off Plug
+  2634-222 for both roles. The app waits for ALL-Linking Completed (`0x53`) before starting the
+  next leg. The build checks each device group against the profile's groups.
+- A leg's `allGroupsWhen` names an operating flag state under which the one link puts the
+  modem in every group the device controls, such as a sensor's Link to FF Group option
+  (`{ "flag": "linkToAllGroups", "set": true }`); otherwise the leg links `deviceGroup` alone,
+  and the other groups need links of their own.
+- `deviceFirst` is true when a person puts the device in linking mode with its own controls
+  before the modem starts ALL-Linking for the first leg, as for a battery-powered sensor or
+  remote; the first leg then has the modem as responder. False, the modem starts ALL-Linking
+  first for every leg and the device joins.
+- `remoteEnterLinkingMode.works` says whether the modem can put the device in linking mode for a
+  leg with Enter Linking Mode (cmd1 `0x09`, cmd2 the leg's `deviceGroup`), as a standard message
+  to an i2 device and an extended one with a checksum to an i2CS device, in place of its SET
+  button: `yes`, `no`, or `unknown`. For `unknown`, an app can ask the device's engine with Get
+  Insteon Engine Version (cmd1 `0x0D`), since i1 devices don't support Enter Linking Mode, and
+  otherwise has a person use the device's controls.
+- `keepAwake`, for a battery-powered device, is the message that keeps it awake through the
+  session. Send it `when` it's `beforeLinking`, once a person has woken the device and before it
+  goes into linking mode, which needs the device's Insteon ID beforehand, such as from its
+  label or an earlier link; or `afterLinked`, right after ALL-Linking Completed gives the
+  device's ID, while it's still awake. `release`, where given, lets it sleep again once linking
+  is done, and `seconds` is how long `send` keeps it awake, where that's fixed.
+- A keepAwake message names a command set entry wherever one exists, so the command set gives
+  its bytes, its engine handling and its parameters, such as how many seconds to stay awake and
+  their range: `{ "command": "stayAwakeOn" }` for a flag, standard or extended command, or
+  `{ "flag": "stayAwake", "set": true }` for an operating flag. Only where no entry exists does
+  it give `command1`, `command2` and, for an `extended` one, its fixed `data` bytes and
+  `integrity`:
+
+  ```json
+  "keepAwake": { "when": "afterLinked", "send": { "command": "stayAwake" } }
+  ```
+
+- `fromHub`, each leg, `remoteEnterLinkingMode` and `keepAwake` can carry a `verification`. A
+  leg without one is as sure as `fromHub`'s `verification` says. No document describes adding a
+  product to a Hub, so most are `inferred`.
 
 ## Command sets
 
@@ -267,10 +342,25 @@ names one in `type`, which every command set its identities use must have:
 ]
 ```
 
-- `kind` is `dimmer`, `relay`, `fan`, `sensor` or `button`.
+- `kind` is `dimmer`, `relay`, `fan`, `sensor`, `button`, `windowCovering`, for a window
+  covering or other motorized cover that opens and closes, `alarm` or `arming`.
 - `state` names the standard command whose acknowledgment carries the group's state in cmd2.
   With `bitPerGroup`, the reply holds one bit per group, group 1 in bit 0, as a keypad's LEDs or
-  a dual outlet's outlets do; `ranges` name ranges of the value, such as a fan's speeds.
+  a dual outlet's outlets do; `ranges` name ranges of the value, such as a fan's speeds. With
+  `onWhen`, the group is on when cmd2 ANDed with its `mask` equals its `value`, and off
+  otherwise, as an EZFlora zone is on when the valve status byte names it as the active valve
+  with a valve on: `{ "mask": "0x87", "value": "0x81" }` for zone 2.
+- `outputs` are parts of the group's load that one command can switch together, such as the
+  0-10V Ballast Dimmer 2475DA2's two relays while its `relayMode` flag is set (`activeWhen`).
+  Each action whose command takes a parameter, and gives no fixed `value`, selects outputs by
+  their `bits` in it: `on` with `0x03` turns both relays on, and `off` with `0x01` turns relay 1
+  off.
+- An `alarm` group sounds when a linked device triggers it while the device is armed in any of
+  its `armModes`, `home` or `away`, and an `arming` group arms the device in all of its
+  `armModes`. The Siren 2868-222's groups 1, 3 and 5 are alarms and 2, 4 and 6 arming groups: a
+  group On from a controller linked to an arming group arms the siren after a countdown, Fast On
+  arms it silently, and a group Off to any arming group disarms it, as its command set's notes
+  give.
 - `actions` are what an app can tell the group to do, for controls, scenes and schedules. Each
   names a standard or extended command and, when the command takes a parameter, either a fixed
   `value` (`0xFF` to switch a relay on) or nothing, for the caller to give, such as a dimmer's
@@ -306,6 +396,23 @@ database records for the group, so an app adding it to a scene writes the right 
 - A device linked with its SET button keeps its present state as the record's data, so a light
   should be at the level wanted when it's linked.
 
+A modem writes records of its own when it links, and its profile's `modem` capability can say
+what their Data 1 to 3 hold, in `linkData`, so an app that writes such a record by hand writes
+the same bytes:
+
+```json
+{ "kind": "modem", "linkData": { "controller": [
+  { "byte": 1, "name": "data1", "description": "Always 0x01 in the records seen.", "value": "0x01" },
+  { "byte": 2, "name": "subcategory", "description": "The responder's subcategory.", "identity": "subcategory" },
+  { "byte": 3, "name": "firmware", "description": "The responder's firmware version.", "identity": "firmware" } ] } }
+```
+
+- `controller` is for the records in which the modem is the controller, and `responder` for
+  those in which it's the responder.
+- Each byte gives either a fixed `value` or the `identity` byte it copies: the linked device's
+  `category`, `subcategory` or `firmware`, as ALL-Linking Completed reports them.
+- A byte a list leaves out isn't known.
+
 **Settings.** Operating flags, readings and extended settings values can carry:
 
 - `label`: what to call the setting, such as "Beep on button press".
@@ -330,6 +437,40 @@ The control follows from the setting:
   when it names the extended command that does in `write`; otherwise it's read-only.
 - A value is per group when the write that sets it is `perButton`; everything else is the whole
   device's.
+
+**Flags an app must guard.** Some operating flags can cut a device off or lock it, so their
+`guard` says how a write treats them:
+
+- `keep`: a write leaves the bit as it was read. Radio off, powerline off and checksum required
+  have it.
+- `keep` also covers the Thermostat Adapter 2441V's extended commands only flag: it changes
+  the message form the adapter accepts, as checksum required does, so an app that flips it
+  stops being understood.
+- `neverSet`: a write may clear the bit but never sets it. The programming lock has it.
+
+A Set Operating Flags command (cmd1 `0x20`) that turns radio off, powerline off, checksum
+required or the programming lock on has `guard` `never`, whether it's in `flagCommands`,
+`standardCommands` or `extendedCommands`: an app never sends it. The build finds these by name
+and by the cmd2 they send, matched against the command set's own flags and on-commands. And where an extended command writes operating flags as a `flags` parameter,
+such as the i3 products' `writeProperties`, each guarded bit carries the same `guard`, so an app
+fills it from the device's last report. The build requires these guards wherever those flags
+appear.
+
+Some extended settings values are the same byte as an operating flags reply, such as the
+Open/Close Sensor's `configuration` and the Hidden Door Sensor's `operatingFlags`. Such a value's
+`flagsQuery` names the Get Operating Flags query (cmd2) whose reply it is, `0x00` for both, and
+the command set's operating flags with that query name its bits. Before writing the value, an
+app reads it, and refuses a write that would change a `keep` bit or set a `neverSet` one.
+
+**Flags linking changes.** Linking can change an operating flag on its own. A command set's
+`linkingChanges` lists those flags, as an allowlist: a linking flow may read them before it
+links and set them back afterward with Set Operating Flags, and it changes no other flag. No
+flag with a `guard` is ever on the list. A flag goes on the list once a document or a
+device shows that linking changes it; until then a command set has no `linkingChanges`.
+
+```json
+"linkingChanges": [{ "flag": "exampleFlag" }]
+```
 
 ## Keeping a copy up to date
 

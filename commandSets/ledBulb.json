@@ -180,7 +180,8 @@
       "bit": "0x01",
       "on": "0x00",
       "off": "0x01",
-      "default": false
+      "default": false,
+      "guard": "neverSet"
     },
     {
       "name": "powerUpLastState",
@@ -221,7 +222,8 @@
       "verification": {
         "status": "inferred",
         "note": "The LED Bulb Developer Notes list bit 6 of the 0x00 reply as not used; it's read from the KeypadLinc code base the bulbs run."
-      }
+      },
+      "guard": "keep"
     },
     {
       "name": "powerLineOff",
@@ -236,7 +238,8 @@
       "verification": {
         "status": "inferred",
         "note": "The LED Bulb Developer Notes list bit 7 of the 0x00 reply as not used; it's read from the KeypadLinc code base the bulbs run."
-      }
+      },
+      "guard": "keep"
     },
     {
       "name": "applicationRetries",
@@ -311,7 +314,8 @@
       "verification": {
         "status": "inferred",
         "note": "The LED Bulb Developer Notes don't list it; it's read from the KeypadLinc code base the bulbs run."
-      }
+      },
+      "guard": "keep"
     }
   ],
   "readings": [

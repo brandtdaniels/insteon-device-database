@@ -12,7 +12,7 @@
       "region": "US and Canada",
       "verification": {
         "status": "observed",
-        "note": "Seen on a device: a Hub 2245 reported 0x03/0x33, with modem (PLM) firmware 0xA5 in its Get IM Info reply. Its Hub firmware was 1019, as the Get Info page of Insteon Connect shows it under Firmware, and its Hub software Hub2-V04-20140904.",
+        "note": "Seen on a device running modem firmware 0xA5: a Hub 2245 reported 0x03/0x33, with modem (PLM) firmware 0xA5 in its Get IM Info reply. Its Hub firmware was 1019, as the Get Info page of Insteon Connect shows it under Firmware, and its Hub software Hub2-V04-20140904.",
         "firmware": [
           "0xA5"
         ]
@@ -57,7 +57,50 @@
   "role": "both",
   "capabilities": [
     {
-      "kind": "modem"
+      "kind": "modem",
+      "linkData": {
+        "controller": [
+          {
+            "byte": 1,
+            "name": "data1",
+            "description": "Always 0x01 in the records seen; what it means isn't known.",
+            "value": "0x01",
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running modem firmware 0xA5: a Hub 2245's modem, linked with Start ALL-Linking as the controller of group 0, kept Data 1 to 3 of its controller record as 0x01, the responder's subcategory and its firmware version, as ALL-Linking Completed reported them, for an I/O Module 2450 (0x01 0x00 0x41), an Outdoor On/Off Plug 2634-222 (0x01 0x38 0x42) and an On/Off Plug 2635-222 (0x01 0x37 0x48). Data 1 isn't the responder's category, which was 0x07 or 0x02. No document says what the modem writes.",
+              "firmware": [
+                "0xA5"
+              ]
+            }
+          },
+          {
+            "byte": 2,
+            "name": "subcategory",
+            "description": "The responder's subcategory.",
+            "identity": "subcategory",
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running modem firmware 0xA5: a Hub 2245's modem, linked with Start ALL-Linking as the controller of group 0, kept Data 1 to 3 of its controller record as 0x01, the responder's subcategory and its firmware version, as ALL-Linking Completed reported them, for an I/O Module 2450 (0x01 0x00 0x41), an Outdoor On/Off Plug 2634-222 (0x01 0x38 0x42) and an On/Off Plug 2635-222 (0x01 0x37 0x48). Data 1 isn't the responder's category, which was 0x07 or 0x02. No document says what the modem writes.",
+              "firmware": [
+                "0xA5"
+              ]
+            }
+          },
+          {
+            "byte": 3,
+            "name": "firmware",
+            "description": "The responder's firmware version.",
+            "identity": "firmware",
+            "verification": {
+              "status": "observed",
+              "note": "Seen on a device running modem firmware 0xA5: a Hub 2245's modem, linked with Start ALL-Linking as the controller of group 0, kept Data 1 to 3 of its controller record as 0x01, the responder's subcategory and its firmware version, as ALL-Linking Completed reported them, for an I/O Module 2450 (0x01 0x00 0x41), an Outdoor On/Off Plug 2634-222 (0x01 0x38 0x42) and an On/Off Plug 2635-222 (0x01 0x37 0x48). Data 1 isn't the responder's category, which was 0x07 or 0x02. No document says what the modem writes.",
+              "firmware": [
+                "0xA5"
+              ]
+            }
+          }
+        ]
+      }
     },
     {
       "kind": "hub",

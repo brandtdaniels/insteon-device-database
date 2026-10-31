@@ -113,7 +113,8 @@
       "bit": "0x02",
       "on": "0x02",
       "off": "0x03",
-      "extendedWhen": "extendedCommandsOnly"
+      "extendedWhen": "extendedCommandsOnly",
+      "guard": "keep"
     },
     {
       "name": "humidityReportsOn",
@@ -161,7 +162,8 @@
       "name": "programmingLockOn",
       "description": "Locks out linking and programming from the adapter itself.",
       "command2": "0x04",
-      "extendedWhen": "extendedCommandsOnly"
+      "extendedWhen": "extendedCommandsOnly",
+      "guard": "never"
     },
     {
       "name": "programmingLockOff",

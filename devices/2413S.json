@@ -7,7 +7,12 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x11"
+      "subcategory": "0x11",
+      "productKey": "0x000045",
+      "productKeyVerification": {
+        "status": "conflicting",
+        "note": "Insteon Device Categories and Product Keys (October 2008) lists 0x000045 for this product and also for 0x02/0x14, the In-LineLinc Relay with Sense [2475S2]; product keys are meant to be assigned one per product. The catalog uses 0x000045 as the document lists it."
+      }
     }
   ],
   "engines": [
@@ -157,6 +162,7 @@
     "HouseLinc device catalog",
     "Serial Modem 2413S Quick Start Guide",
     "HouseLinc Owner's Manual",
-    "Insteon Modem Developer's Guide"
+    "Insteon Modem Developer's Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

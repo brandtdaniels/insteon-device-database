@@ -13,7 +13,8 @@ Each product has a profile in [`devices/`](devices), named by its model number. 
 - **Name, aliases and description:** the product's name, other names it's known by, and what
   it is.
 - **Identities:** the category and subcategory the product reports when asked to identify
-  itself, and the firmware versions they cover where those matter.
+  itself, the firmware versions they cover where those matter, and its product key where a
+  source gives one.
 - **Radio and role:** where a source states them, how it communicates (powerline, RF or both), and whether it can be an
   ALL-Link controller, a responder, or both.
 - **Groups:** its ALL-Link groups, and whether software must link a group.
@@ -79,12 +80,20 @@ ALL-Linking, are on the `other` device, and the commands the Hub sends the produ
 Linking Mode or Ping, are on `this` one. [API.md](API.md#a-products-lifecycle)
 lists every `action`.
 
+Give the same as data in `lifecycle.fromHub`: the links to make with the Hub's modem, in order,
+whether the product goes into linking mode first, whether the modem can put it there with Enter
+Linking Mode, and, for a battery-powered product, how to keep it awake. Keep a From a Hub note
+only where it says more than that data does. The build checks each link's device group against
+the profile's groups.
+
 ### How sure a value is
 
 A value with no `verification` is documented: an Insteon document gives it, and none of the
-catalog's sources disagree. Where that isn't so, give the profile, identity, engine, command set
-entry, group or lifecycle procedure, or the command set's flag, reading, value, write, field, command or direct
-message, value table, group type or link data byte, a `verification` with a `status` and a `note`:
+catalog's sources disagree. Where that isn't so, give the profile, identity, product key (`productKeyVerification`, where it differs from the identity's), engine, command set entry, group, lifecycle procedure, `fromHub` or its legs,
+remote Enter Linking Mode or keep-awake message, or modem link data byte, or the command set's
+flag, reading, value, write, field, command or direct message, value table, group type, state
+`onWhen`, outputs, link data byte or `linkingChanges` entry, a `verification` with a `status`
+and a `note`:
 
 | Status | Meaning | The note says |
 | --- | --- | --- |

@@ -54,6 +54,8 @@ def load_profiles():
             problems.append(f"{path.name}: a capability kind appears more than once")
 
         problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "engines", "engine")]
+        problems += [f"{path.name}: {problem}" for problem in modem_link_data_problems(profile)]
+        problems += [f"{path.name}: {problem}" for problem in from_hub_problems(profile)]
         problems += [f"{path.name}: {problem}" for problem in scoped_entry_problems(profile, "commandSets", "command set")]
 
         errors += problems
@@ -62,6 +64,125 @@ def load_profiles():
     errors += overlapping_identities(profiles)
 
     return profiles, errors
+
+
+def modem_link_data_problems(profile):
+    """Reports a modem's record data that names a byte twice, or a byte that gives neither or
+    both of a fixed value and an identity byte."""
+    problems = []
+
+    for capability in profile["capabilities"]:
+        for side, entries in capability.get("linkData", {}).items():
+            numbers = [entry["byte"] for entry in entries]
+
+            if len(numbers) != len(set(numbers)):
+                problems.append(f"the modem's {side} record data names a byte twice")
+
+            for entry in entries:
+                if ("value" in entry) == ("identity" in entry):
+                    problems.append(f"the modem's {side} record data {entry['name']} needs a value or an identity, not both")
+
+    return problems
+
+
+def from_hub_problems(profile):
+    """Reports a fromHub leg whose device group isn't one of the profile's groups, a controller leg
+    whose device group doesn't respond, a responder leg whose groups differ or whose device group
+    can't be a controller, a device-first start whose first leg doesn't have the device as
+    controller, and keepAwake on a device without batteries or with a raw message that's malformed."""
+    from_hub = profile.get("lifecycle", {}).get("fromHub")
+
+    if from_hub is None:
+        return []
+
+    problems = []
+    groups = {group["number"]: group for group in profile.get("groups", [])}
+
+    for index, leg in enumerate(from_hub["legs"], 1):
+        group = groups.get(leg["deviceGroup"])
+
+        if group is None:
+            problems.append(f"fromHub leg {index} names device group {leg['deviceGroup']}, which isn't one of the profile's groups")
+        elif leg["modem"] == "responder" and group["role"] == "responder":
+            problems.append(f"fromHub leg {index} has the device control group {leg['deviceGroup']}, which is only a responder")
+        elif leg["modem"] == "controller" and group["role"] == "controller":
+            problems.append(f"fromHub leg {index} has the modem control the device's group {leg['deviceGroup']}, the Enter Linking Mode cmd2, which is only a controller")
+
+        if leg["modem"] == "responder" and leg["modemGroup"] != leg["deviceGroup"]:
+            problems.append(f"fromHub leg {index}: the modem responds to the device's group, so its group must be {leg['deviceGroup']}")
+
+    if from_hub["deviceFirst"] and from_hub["legs"][0]["modem"] != "responder":
+        problems.append("fromHub starts with the device, so its first leg needs the modem as responder")
+
+    keep_awake = from_hub.get("keepAwake")
+
+    if keep_awake is not None:
+        if not profile.get("batteryPowered"):
+            problems.append("fromHub keeps the device awake, but it isn't battery-powered")
+
+        for key in ("send", "release"):
+            message = keep_awake.get(key)
+
+            if message is None or "command1" not in message:
+                continue
+
+            positions = [byte["position"] for byte in message.get("data", [])]
+            positions += [14] if message.get("integrity") == "checksum" else []
+
+            if len(positions) != len(set(positions)):
+                problems.append(f"fromHub keepAwake {key} fills a user data byte twice")
+
+            if not message.get("extended") and positions:
+                problems.append(f"fromHub keepAwake {key} has user data, so it must be extended")
+
+    return problems
+
+
+def from_hub_command_set_problems(profile, command_sets):
+    """Reports fromHub names that aren't in every command set the profile uses: allGroupsWhen
+    flags, and keepAwake commands and flags; and raw keepAwake bytes where a command set entry
+    sends the same Set Operating Flags command."""
+    from_hub = profile.get("lifecycle", {}).get("fromHub")
+
+    if from_hub is None:
+        return []
+
+    problems = []
+    used = sorted({entry["commandSet"] for entry in profile.get("commandSets", []) if entry["commandSet"] in command_sets})
+
+    def flag(name):
+        return [command_sets[used_id] for used_id in used if not any(f["name"] == name and "on" in f and "off" in f for f in command_sets[used_id].get("operatingFlags", []))]
+
+    for index, leg in enumerate(from_hub["legs"], 1):
+        if "allGroupsWhen" in leg:
+            name = leg["allGroupsWhen"]["flag"]
+
+            if not used or not all(any(f["name"] == name for f in command_sets[used_id].get("operatingFlags", [])) for used_id in used):
+                problems.append(f"fromHub leg {index} depends on {name!r}, which not every command set the profile uses has")
+
+    for key in ("send", "release"):
+        message = from_hub.get("keepAwake", {}).get(key)
+
+        if message is None:
+            continue
+
+        if "command" in message:
+            names = lambda cs: {c["name"] for k in ("flagCommands", "standardCommands", "extendedCommands") for c in cs.get(k, [])}
+
+            if not used or not all(message["command"] in names(command_sets[used_id]) for used_id in used):
+                problems.append(f"fromHub keepAwake {key} names {message['command']!r}, which not every command set the profile uses has")
+        elif "flag" in message:
+            if not used or flag(message["flag"]):
+                problems.append(f"fromHub keepAwake {key} names the flag {message['flag']!r}, which not every command set the profile uses sets both ways")
+        elif message["command1"] == "0x20":
+            for used_id in used:
+                cs = command_sets[used_id]
+                sent = {c["command2"] for c in cs.get("flagCommands", [])} | {f[k] for f in cs.get("operatingFlags", []) for k in ("on", "off") if k in f}
+
+                if message["command2"] in sent:
+                    problems.append(f"fromHub keepAwake {key} gives raw bytes for a Set Operating Flags command {used_id} names; name it instead")
+
+    return problems
 
 
 def selected_firmware(selection):
@@ -131,6 +252,7 @@ def load_command_sets(profiles):
             if entry["commandSet"] not in ids:
                 errors.append(f"{profile['model']}.json: it names the command set {entry['commandSet']!r}, which doesn't exist")
 
+        errors += [f"{profile['model']}.json: {problem}" for problem in from_hub_command_set_problems(profile, {cs["id"]: cs for cs in command_sets})]
         entries = {entry["commandSet"] for entry in profile.get("commandSets", []) if entry["commandSet"] in ids}
         kinds = {capability["kind"] for capability in profile["capabilities"]}
 
@@ -256,6 +378,32 @@ def presentation_problems(command_set):
             elif state.get("bitPerGroup") and replies[state["command"]].get("kind") != "flags":
                 problems.append(f"{label} reads one bit per group from a reply that isn't flags")
 
+        on_when = (state or {}).get("onWhen")
+
+        if on_when is not None:
+            if int(on_when["value"], 16) & ~int(on_when["mask"], 16):
+                problems.append(f"{label}'s onWhen value has bits outside its mask")
+
+            if state.get("bitPerGroup") or "ranges" in state:
+                problems.append(f"{label}'s state has onWhen with bitPerGroup or ranges")
+
+        if ("armModes" in group_type) != (group_type["kind"] in ("alarm", "arming")):
+            problems.append(f"{label} has armModes only if it's an alarm or arming group")
+
+        outputs = group_type.get("outputs")
+
+        if outputs is not None:
+            bits = outputs["bits"]
+
+            if any(int(bit["mask"], 16) == 0 for bit in bits) or len({bit["mask"] for bit in bits}) != len(bits) or len({bit["name"] for bit in bits}) != len(bits):
+                problems.append(f"{label}'s outputs must have distinct, nonzero masks and distinct names")
+
+            if "activeWhen" in outputs and outputs["activeWhen"]["flag"] not in {flag["name"] for flag in command_set.get("operatingFlags", [])}:
+                problems.append(f"{label}'s outputs depend on {outputs['activeWhen']['flag']!r}, which isn't an operating flag")
+
+            if not any(parameters.get(action["command"]) and "value" not in action for action in group_type.get("actions", [])):
+                problems.append(f"{label} has outputs, but no action takes a parameter to select them in")
+
         ranges = [(int(r["from"], 16), int(r["through"], 16)) for r in (state or {}).get("ranges", [])]
 
         if any(low > high for low, high in ranges) or any(a[1] >= b[0] for a, b in zip(sorted(ranges), sorted(ranges)[1:])):
@@ -331,6 +479,13 @@ def presentation_problems(command_set):
         if value.get("write") is not None and value["write"] not in extended:
             problems.append(f"{label} is written by {value['write']!r}, which isn't an extended command")
 
+        if "flagsQuery" in value:
+            if value["flagsQuery"] not in {flag["query"] for flag in command_set.get("operatingFlags", [])}:
+                problems.append(f"{label} is the operating flags byte for query {value['flagsQuery']}, which no operating flag reads")
+
+            if any(key in value for key in ("kind", "range", "table", "unit", "scale")):
+                problems.append(f"{label} is an operating flags byte, so it can't have a kind, range, table, unit or scale")
+
         if value.get("table") in tables and value.get("range"):
             bounds = value["range"]
 
@@ -338,6 +493,49 @@ def presentation_problems(command_set):
                 if not int(bounds["from"], 16) <= int(entry["value"], 16) <= int(bounds["through"], 16):
                     problems.append(f"{label}'s table has a value outside its range")
                     break
+
+    for flag in command_set.get("operatingFlags", []):
+        if flag["name"] in GUARDED_FLAGS and flag.get("guard") != GUARDED_FLAGS[flag["name"]]:
+            problems.append(f"the {flag['name']} flag needs guard {GUARDED_FLAGS[flag['name']]!r}")
+
+    # Set Operating Flags commands, found by the bytes they send: every flag command, and any
+    # standard or extended command with cmd1 0x20. One that turns a guarded flag on, by its name or
+    # by a cmd2 that the command set's own flags or named on-commands use for that, is never sent.
+    set_flags = [command for command in command_set.get("flagCommands", [])]
+    set_flags += [command for key in ("standardCommands", "extendedCommands") for command in command_set.get(key, []) if command["command1"] == "0x20" and "command2" in command]
+    dangerous = {flag["on"] for flag in command_set.get("operatingFlags", []) if flag["name"] in GUARDED_FLAGS and flag["name"] != "extendedCommandsOnly" and "on" in flag}
+    dangerous |= {command["command2"] for command in set_flags if command["name"] in NEVER_SENT}
+
+    for command in set_flags:
+        if (command["name"] in NEVER_SENT or command["command2"] in dangerous) and command.get("guard") != "never":
+            problems.append(f"the {command['name']} command turns a guarded flag on, so it needs guard 'never'")
+
+    for key in ("standardCommands", "extendedCommands"):
+        for command in command_set.get(key, []):
+            if command["name"] in NEVER_SENT and command["command1"] != "0x20" and command.get("guard") != "never":
+                problems.append(f"the {command['name']} command needs guard 'never'")
+
+    for command in command_set.get("extendedCommands", []):
+        for field in command.get("parameters", []):
+            for bit in field.get("bits", []):
+                if bit["name"] in GUARDED_FLAGS and bit.get("guard") != GUARDED_FLAGS[bit["name"]]:
+                    problems.append(f"the {command['name']} command's {bit['name']} bit needs guard {GUARDED_FLAGS[bit['name']]!r}")
+
+    flags = {flag["name"]: flag for flag in command_set.get("operatingFlags", [])}
+    changed = [entry["flag"] for entry in command_set.get("linkingChanges", [])]
+
+    if len(changed) != len(set(changed)):
+        problems.append("linkingChanges names a flag twice")
+
+    for name in changed:
+        flag = flags.get(name)
+
+        if flag is None:
+            problems.append(f"linkingChanges names {name!r}, which isn't an operating flag")
+        elif "guard" in flag:
+            problems.append(f"linkingChanges names {name!r}, which has a guard, so no linking flow may change it")
+        elif "on" not in flag or "off" not in flag:
+            problems.append(f"linkingChanges names {name!r}, which Set Operating Flags can't set both ways")
 
     for flag in command_set.get("operatingFlags", []):
         for key in ("onCommand", "offCommand"):
@@ -539,6 +737,20 @@ def overlapping_identities(profiles):
             claimed.setdefault(key, []).append((profile["model"], low, high))
 
     return errors
+
+
+# Operating flags that can cut a device off, lock it or change the message form it accepts, and
+# the guard each needs wherever an app can write it: as a flag, or as a bit of a flags parameter.
+GUARDED_FLAGS = {
+    "programmingLock": "neverSet",
+    "radioOff": "keep",
+    "powerLineOff": "keep",
+    "checksumRequired": "keep",
+    "extendedCommandsOnly": "keep",
+}
+
+# Set Operating Flags commands that turn one of those on, which an app never sends.
+NEVER_SENT = {"programmingLockOn", "radioOff", "powerLineOff", "checksumOn"}
 
 
 # Forms CONVENTIONS.md rules out of the catalog's prose, and what to write instead.

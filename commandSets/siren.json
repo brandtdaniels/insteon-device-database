@@ -12,7 +12,8 @@
       "bit": "0x01",
       "on": "0x00",
       "off": "0x01",
-      "default": false
+      "default": false,
+      "guard": "neverSet"
     },
     {
       "name": "blinkOnTraffic",
@@ -222,6 +223,74 @@
         "status": "documented",
         "note": "The Siren Module Developer Notes don't give the mode values; their example arms with 0x01."
       }
+    }
+  ],
+  "groupTypes": [
+    {
+      "name": "soundAway",
+      "label": "Sound when armed away",
+      "kind": "alarm",
+      "armModes": [
+        "away"
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "name": "armAway",
+      "label": "Arm away",
+      "kind": "arming",
+      "armModes": [
+        "away"
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "name": "soundHome",
+      "label": "Sound when armed home",
+      "kind": "alarm",
+      "armModes": [
+        "home"
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "name": "armHome",
+      "label": "Arm home",
+      "kind": "arming",
+      "armModes": [
+        "home"
+      ],
+      "verification": {
+        "status": "conflicting",
+        "note": "The Siren Module Developer Notes' introduction swaps home and away for groups 1 to 4; their group table, used here, doesn't."
+      }
+    },
+    {
+      "name": "soundArmed",
+      "label": "Sound when armed",
+      "kind": "alarm",
+      "armModes": [
+        "home",
+        "away"
+      ]
+    },
+    {
+      "name": "armHomeAndAway",
+      "label": "Arm home and away",
+      "kind": "arming",
+      "armModes": [
+        "home",
+        "away"
+      ]
     }
   ],
   "notes": [

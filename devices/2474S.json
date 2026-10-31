@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x02",
-      "subcategory": "0x12"
+      "subcategory": "0x12",
+      "productKey": "0x00003E"
     }
   ],
   "commandSets": [
@@ -83,16 +84,33 @@
               "expect": "The device acknowledges the Ping"
             }
           ],
-          "notes": [
-            "This links the Hub's group 0 to the device as a responder; the device makes no link back to the Hub, since this profile lists no group it controls.",
-            "To add the device without its SET button, have the Hub send it Enter Linking Mode (cmd1 0x09, cmd2 0x01; extended for an i2CS device) right after it starts ALL-Linking, in place of the SET button step."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The Insteon Developer's Guide (2009) says i1 devices don't support Enter Linking Mode (cmd1 0x09), and the catalog doesn't know the engine of every version of this product. An i2 or i2CS version takes it; ask the device with Get Insteon Engine Version (cmd1 0x0D) first."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "removal": {
       "steps": [
@@ -141,6 +159,8 @@
     }
   },
   "sources": [
-    "HouseLinc device catalog"
+    "HouseLinc device catalog",
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

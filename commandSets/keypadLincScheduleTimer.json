@@ -191,7 +191,8 @@
       "section": "Linking",
       "description": "Linking and programming from the device itself are locked out.",
       "query": "0x00",
-      "bit": "0x01"
+      "bit": "0x01",
+      "guard": "neverSet"
     },
     {
       "name": "ledOnTransmit",
@@ -239,7 +240,8 @@
     {
       "name": "programmingLockOn",
       "description": "Turns the programming lock on: linking and programming from the keypad are locked out.",
-      "command2": "0x00"
+      "command2": "0x00",
+      "guard": "never"
     },
     {
       "name": "programmingLockOff",

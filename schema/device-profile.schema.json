@@ -112,6 +112,57 @@
           "type": "number",
           "exclusiveMinimum": 0
         },
+        "fromHub": {
+          "description": "Linking the product to a Hub or modem as data an app can follow on its own: the links to make, in order, who starts, whether the modem can put the device in linking mode, and how to keep a battery-powered device awake. The linking procedure's From a Hub alternative gives the same as steps a person reads, with notes on what the data doesn't say. Removing the product from the Hub undoes each leg.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "legs",
+            "deviceFirst",
+            "remoteEnterLinkingMode"
+          ],
+          "properties": {
+            "legs": {
+              "description": "The links to make between the modem and the device, in order, one ALL-Linking session each: a leg with the modem as controller, so the Hub can control the device, where the device has a group that responds, and a leg with the modem as responder for each group the device controls, so the Hub hears every group it sends. For each leg the modem starts ALL-Linking first, with link code 0x01 as controller or 0x00 as responder, and the device then goes into linking mode; the app waits for ALL-Linking Completed (0x53) before the next leg. With deviceFirst, a person puts the device in linking mode before the first leg's Start ALL-Linking instead.",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/hubLeg"
+              }
+            },
+            "deviceFirst": {
+              "description": "Whether a person puts the device in linking mode with its own controls before the modem starts ALL-Linking for the first leg, as for a battery-powered controller; then the first leg's modem is the responder. False when the modem starts ALL-Linking first for every leg and the device then joins, from its SET button or from Enter Linking Mode.",
+              "type": "boolean"
+            },
+            "remoteEnterLinkingMode": {
+              "description": "Whether the modem can put the device in linking mode for a leg by sending it Enter Linking Mode (cmd1 0x09) with the leg's deviceGroup in cmd2, in place of a person using its SET button.",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "works"
+              ],
+              "properties": {
+                "works": {
+                  "description": "yes: it works, as a standard message to an i2 device and an extended one with a checksum to an i2CS device. no: it doesn't, and a person uses the device's controls. unknown: the catalog can't say; an app can ask the device's engine with Get Insteon Engine Version (cmd1 0x0D), since the Insteon Developer's Guide says i1 devices don't support Enter Linking Mode, and otherwise has a person use the device's controls.",
+                  "enum": [
+                    "yes",
+                    "no",
+                    "unknown"
+                  ]
+                },
+                "verification": {
+                  "$ref": "#/$defs/verification"
+                }
+              }
+            },
+            "keepAwake": {
+              "$ref": "#/$defs/keepAwake"
+            },
+            "verification": {
+              "$ref": "#/$defs/verification"
+            }
+          }
+        },
         "multiLinking": {
           "$ref": "#/$defs/procedure",
           "description": "Linking several devices in one session."
@@ -189,6 +240,22 @@
         },
         "subcategory": {
           "$ref": "#/$defs/byte"
+        },
+        "productKey": {
+          "description": "The Insteon Product Key the product reports in D2 to D4 of the Product Data Response that answers Product Data Request (cmd1 0x03, cmd2 0x00): 0x and six uppercase hexadecimal digits, D2 first. none means the product reports no key: Insteon's documents mark it Legacy, made before product keys, and such a product doesn't answer Product Data Request. Omitted when no source gives it. Its own certainty is productKeyVerification's; without one, it's the identity's.",
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^0x[0-9A-F]{6}$"
+            },
+            {
+              "const": "none"
+            }
+          ]
+        },
+        "productKeyVerification": {
+          "description": "How the catalog knows the product key, where that differs from how it knows the identity, such as a key whose document lists another model for the same category and subcategory.",
+          "$ref": "#/$defs/verification"
         },
         "firmware": {
           "description": "The firmware versions this identity covers, inclusive. Omitted, it covers every version.",
@@ -305,6 +372,30 @@
           "properties": {
             "kind": {
               "const": "modem"
+            },
+            "linkData": {
+              "description": "What Data 1 to 3 hold in the ALL-Link database records the modem writes itself when it links with Start ALL-Linking, so an app writing such a record by hand writes the same bytes: controller, the records in which the modem is the controller; responder, those in which it's the responder. A byte a list leaves out isn't known.",
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "controller": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 3,
+                  "items": {
+                    "$ref": "#/$defs/modemLinkDataByte"
+                  }
+                },
+                "responder": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 3,
+                  "items": {
+                    "$ref": "#/$defs/modemLinkDataByte"
+                  }
+                }
+              }
             }
           }
         },
@@ -423,6 +514,48 @@
           }
         }
       ]
+    },
+    "modemLinkDataByte": {
+      "description": "What one data byte of a record a modem writes holds: a fixed value, or a byte of the linked device's identity as the device reported it in ALL-Linking Completed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "byte",
+        "name",
+        "description"
+      ],
+      "properties": {
+        "byte": {
+          "description": "Data 1, 2 or 3 of the record.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "name": {
+          "description": "A name for code to refer to, in lower camel case.",
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/byte",
+          "description": "The byte the modem writes, when it's always the same."
+        },
+        "identity": {
+          "description": "The linked device's category, subcategory or firmware version, when the byte holds it.",
+          "enum": [
+            "category",
+            "subcategory",
+            "firmware"
+          ]
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
     },
     "firmwareSelection": {
       "description": "Firmware versions: only the versions listed, or every version except them.",
@@ -652,6 +785,178 @@
           "items": {
             "$ref": "#/$defs/procedure"
           }
+        }
+      }
+    },
+    "hubLeg": {
+      "description": "One link between the modem and the device, made in one ALL-Linking session.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modem",
+        "modemGroup",
+        "deviceGroup"
+      ],
+      "properties": {
+        "modem": {
+          "description": "The modem's role in the link: controller, so the Hub can control the device, with Start ALL-Linking link code 0x01; or responder, so the Hub hears the device's group, with link code 0x00.",
+          "enum": [
+            "controller",
+            "responder"
+          ]
+        },
+        "modemGroup": {
+          "description": "The ALL-Link group Start ALL-Linking names, which the modem's record holds. When the modem is the responder, its record holds the device's group, so this is the same as deviceGroup.",
+          "$ref": "#/$defs/byte"
+        },
+        "deviceGroup": {
+          "description": "The device's group for the link, one of the profile's groups, which Enter Linking Mode names in cmd2. When the modem is the controller, it's the group whose responder record the device writes, so it responds; when the modem is the responder, the device is the controller of this group.",
+          "$ref": "#/$defs/byte"
+        },
+        "allGroupsWhen": {
+          "description": "An operating flag state, in the command sets the profile uses, under which this one link puts the modem in every group the device controls, such as a sensor's Link to FF Group option; otherwise it links deviceGroup alone, and the other groups need links of their own.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "flag",
+            "set"
+          ],
+          "properties": {
+            "flag": {
+              "type": "string",
+              "pattern": "^[a-z][A-Za-z0-9]*$"
+            },
+            "set": {
+              "type": "boolean"
+            }
+          }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification",
+          "description": "How the catalog knows the leg. Without one, the leg is as sure as fromHub's verification says."
+        }
+      }
+    },
+    "hubMessage": {
+      "description": "A direct message the modem sends the device: a command set entry by name, so the command set gives its bytes, engine handling and parameters; an operating flag to set or clear with Set Operating Flags; or, only where no command set entry exists, its bytes.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command"
+          ],
+          "properties": {
+            "command": {
+              "description": "A flag command, standard command or extended command in every command set the profile uses. The app fills its parameters, such as how many seconds to stay awake, within their ranges.",
+              "type": "string",
+              "pattern": "^[a-z][A-Za-z0-9]*$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "flag",
+            "set"
+          ],
+          "properties": {
+            "flag": {
+              "description": "An operating flag with on and off, in every command set the profile uses.",
+              "type": "string",
+              "pattern": "^[a-z][A-Za-z0-9]*$"
+            },
+            "set": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "command1",
+            "command2"
+          ],
+          "properties": {
+            "command1": {
+              "$ref": "#/$defs/byte"
+            },
+            "command2": {
+              "$ref": "#/$defs/byte"
+            },
+            "extended": {
+              "description": "Whether it's an extended message. Its user data bytes are 0x00 apart from data and integrity.",
+              "type": "boolean",
+              "default": false
+            },
+            "data": {
+              "description": "Fixed user data bytes of an extended message.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "position",
+                  "value"
+                ],
+                "properties": {
+                  "position": {
+                    "description": "D1 through D14.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 14
+                  },
+                  "value": {
+                    "$ref": "#/$defs/byte"
+                  }
+                }
+              }
+            },
+            "integrity": {
+              "description": "How an extended message's user data is protected: none, or a checksum in D14, the two's complement of the sum of cmd1, cmd2 and D1 through D13.",
+              "enum": [
+                "none",
+                "checksum"
+              ],
+              "default": "none"
+            }
+          }
+        }
+      ]
+    },
+    "keepAwake": {
+      "description": "How the modem keeps a battery-powered device awake while it links, so the device hears the rest of the session, such as a Ping that confirms the link.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "when",
+        "send"
+      ],
+      "properties": {
+        "when": {
+          "description": "When to send it: beforeLinking, once a person has woken the device and before it goes into linking mode, which needs the device's Insteon ID beforehand, such as from its label or an earlier link; or afterLinked, right after ALL-Linking Completed (0x53) gives the device's ID, while it's still awake.",
+          "enum": [
+            "beforeLinking",
+            "afterLinked"
+          ]
+        },
+        "send": {
+          "description": "The message that keeps the device awake.",
+          "$ref": "#/$defs/hubMessage"
+        },
+        "release": {
+          "description": "The message that lets the device sleep again once linking is done. Omitted, it sleeps on its own.",
+          "$ref": "#/$defs/hubMessage"
+        },
+        "seconds": {
+          "description": "How long send keeps the device awake, when it's fixed.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
         }
       }
     }

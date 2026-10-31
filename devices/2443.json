@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x00",
-      "subcategory": "0x0B"
+      "subcategory": "0x0B",
+      "productKey": "0x000022"
     }
   ],
   "radio": "dual",
@@ -63,6 +64,7 @@
     "HouseLinc device catalog",
     "Insteon Developer's Guide (2009)",
     "Access Point 2443 Owner's Manual",
-    "Access Point 2443 Quick Start Guide"
+    "Access Point 2443 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }

@@ -164,18 +164,38 @@
               "expect": "Double beep; LED turns off"
             }
           ],
-          "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device.",
-            "Starting from the button that sends group 1 links the remote's group 1 to the Hub."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's multi-linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
-          }
+          },
+          "notes": [
+            "Start from the button that sends group 1, as the steps say; the leg links that group."
+          ]
         }
       ]
     },
     "linkingTimeoutSeconds": 180,
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": true,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The device sleeps to save its battery and hears messages only while awake, and no document or observation says it answers Enter Linking Mode (cmd1 0x09); its linking steps put it in linking mode with its own controls."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
+    },
     "multiLinking": {
       "steps": [
         {

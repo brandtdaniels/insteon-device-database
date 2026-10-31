@@ -6,6 +6,11 @@
     {
       "category": "0x10",
       "subcategory": "0x01",
+      "productKey": "0x00004A",
+      "productKeyVerification": {
+        "status": "inferred",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives this category and subcategory's key to the Motion Sensor [2420M], not to this model; that this product reports the same key is read from its sharing the identity."
+      },
       "region": "US"
     },
     {
@@ -184,15 +189,33 @@
               "expect": "LED stops blinking"
             }
           ],
-          "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": true,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The device sleeps to save its battery and hears messages only while awake, and no document or observation says it answers Enter Linking Mode (cmd1 0x09); its linking steps put it in linking mode with its own controls."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [
@@ -316,7 +339,8 @@
   "sources": [
     "HouseLinc device catalog",
     "Motion Sensor 2842 Owner's Manual",
-    "Motion Sensor 2842 Quick Start Guide"
+    "Motion Sensor 2842 Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ],
   "notes": [
     "HouseLinc also lists its US identity under the 2420M.",

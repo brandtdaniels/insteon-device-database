@@ -214,15 +214,71 @@
               "command": "Set Operating Flags"
             }
           ],
-          "notes": [
-            "Put the device in linking mode before the Hub starts ALL-Linking. This links the device to the Hub as a controller, with the Hub as the responder, so the Hub receives the device's reports; the Hub makes no link to the device."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's waking and linking steps and the standard Insteon commands Start ALL-Linking and Ping; no document describes adding this product to a Hub."
-          }
+          },
+          "notes": [
+            "Make one leg for each group in fromHub, choosing its group with the Up or Down arrow before holding the SET button: 1 cooling, 2 heating, 3 dehumidification, 4 humidification."
+          ]
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "responder",
+          "modemGroup": "0x01",
+          "deviceGroup": "0x01"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x02",
+          "deviceGroup": "0x02"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x03",
+          "deviceGroup": "0x03"
+        },
+        {
+          "modem": "responder",
+          "modemGroup": "0x04",
+          "deviceGroup": "0x04"
+        }
+      ],
+      "deviceFirst": true,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The device sleeps to save its battery and hears messages only while awake, and no document or observation says it answers Enter Linking Mode (cmd1 0x09); its linking steps put it in linking mode with its own controls."
+        }
+      },
+      "keepAwake": {
+        "when": "beforeLinking",
+        "send": {
+          "command1": "0x20",
+          "command2": "0x06",
+          "extended": true,
+          "integrity": "checksum"
+        },
+        "release": {
+          "command1": "0x20",
+          "command2": "0x07",
+          "extended": true,
+          "integrity": "checksum"
+        },
+        "seconds": 240,
+        "verification": {
+          "status": "inferred",
+          "note": "The Wireless Thermostat Developer Notes give Set Operating Flags (cmd1 0x20) as an extended message with a checksum, cmd2 0x06 to stay awake for 4 minutes and cmd2 0x07 to sleep in 3 seconds. Sending it once a person has woken the thermostat and before linking is assembled from this profile's waking and linking steps; no document describes adding this product to a Hub. Sending it before linking needs the thermostat's Insteon ID beforehand, such as from its label."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [

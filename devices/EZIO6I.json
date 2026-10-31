@@ -6,6 +6,11 @@
     {
       "category": "0x07",
       "subcategory": "0x07",
+      "productKey": "0x000039",
+      "productKeyVerification": {
+        "status": "documented",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives the key in the model's own row; the identity's conflict is only over the subcategory the EZIOxx Advanced Details give."
+      },
       "verification": {
         "status": "conflicting",
         "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x07 to the EZIO6I (6 inputs); the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x07, the model's own entry."

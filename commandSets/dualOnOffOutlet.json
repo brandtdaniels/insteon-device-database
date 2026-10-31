@@ -29,7 +29,8 @@
       "query": "0x00",
       "bit": "0x01",
       "on": "0x00",
-      "off": "0x01"
+      "off": "0x01",
+      "guard": "neverSet"
     },
     {
       "name": "ledOnTransmit",
@@ -94,7 +95,8 @@
       "query": "0x00",
       "bit": "0x40",
       "on": "0x0C",
-      "off": "0x0D"
+      "off": "0x0D",
+      "guard": "keep"
     },
     {
       "name": "powerLineOff",
@@ -105,7 +107,8 @@
       "query": "0x00",
       "bit": "0x80",
       "on": "0x0E",
-      "off": "0x0F"
+      "off": "0x0F",
+      "guard": "keep"
     },
     {
       "name": "x10Off",

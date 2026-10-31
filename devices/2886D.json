@@ -4,7 +4,8 @@
   "identities": [
     {
       "category": "0x01",
-      "subcategory": "0x0A"
+      "subcategory": "0x0A",
+      "productKey": "none"
     }
   ],
   "capabilities": [],
@@ -117,6 +118,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Insteon Device Categories (January 2014)",
-    "Insteon Device Categories and Product Keys (October 2008)"
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

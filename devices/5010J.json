@@ -6,6 +6,11 @@
     {
       "category": "0x07",
       "subcategory": "0x08",
+      "productKey": "0x00003A",
+      "productKeyVerification": {
+        "status": "documented",
+        "note": "Insteon Device Categories and Product Keys (October 2008) gives the key in the model's own row; the identity's conflict is only over the subcategory the EZIOxx Advanced Details give."
+      },
       "verification": {
         "status": "conflicting",
         "note": "Insteon Device Categories and Product Keys (October 2008) assigns 0x07/0x08 to the EZIO4O; the EZIOxx Advanced Details give 0x07/0x02 for EZIO as a whole. The catalog uses 0x07/0x08, the model's own entry."
@@ -194,15 +199,33 @@
               "expect": "The device acknowledges the Ping"
             }
           ],
-          "notes": [
-            "This links the Hub's group 0 to the device as a responder, for relay 1; the device makes no link back to the Hub, since this profile lists no group it controls."
-          ],
           "verification": {
             "status": "inferred",
             "note": "Assembled from this profile's linking steps and the standard Insteon commands Start ALL-Linking, ID Request and Ping; no document describes adding this product to a Hub."
           }
         }
       ]
+    },
+    "fromHub": {
+      "legs": [
+        {
+          "modem": "controller",
+          "modemGroup": "0x00",
+          "deviceGroup": "0x01"
+        }
+      ],
+      "deviceFirst": false,
+      "remoteEnterLinkingMode": {
+        "works": "unknown",
+        "verification": {
+          "status": "inferred",
+          "note": "The Insteon Developer's Guide (2009) says i1 devices don't support Enter Linking Mode (cmd1 0x09), and the catalog doesn't know the engine of every version of this product. An i2 or i2CS version takes it; ask the device with Get Insteon Engine Version (cmd1 0x0D) first."
+        }
+      },
+      "verification": {
+        "status": "inferred",
+        "note": "Read from the From a Hub alternative to this profile's linking, whose steps are assembled from its own linking steps and standard Insteon commands; no document describes adding this product to a Hub."
+      }
     },
     "unlinking": {
       "steps": [
@@ -285,6 +308,7 @@
   "sources": [
     "Quick-Start Guide EZIO4O—Model #5010J—4-Relay Load Controller",
     "EZIOxx Advanced Details",
-    "Insteon Device Categories and Product Keys (October 2008)"
+    "Insteon Device Categories and Product Keys (October 2008)",
+    "Insteon Developer's Guide (2009)"
   ]
 }

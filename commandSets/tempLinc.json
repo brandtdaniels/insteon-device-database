@@ -561,7 +561,8 @@
           "bits": [
             {
               "mask": "0x01",
-              "name": "programmingLock"
+              "name": "programmingLock",
+              "guard": "neverSet"
             },
             {
               "mask": "0x02",
@@ -787,7 +788,8 @@
       "description": "Locks out linking and programming from the thermostat itself. A Set Operating Flags command.",
       "command1": "0x20",
       "command2": "0x00",
-      "integrity": "checksum"
+      "integrity": "checksum",
+      "guard": "never"
     },
     {
       "name": "programmingLockOff",

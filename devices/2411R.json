@@ -7,7 +7,8 @@
   "identities": [
     {
       "category": "0x03",
-      "subcategory": "0x06"
+      "subcategory": "0x06",
+      "productKey": "0x000016"
     }
   ],
   "engines": [
@@ -232,6 +233,7 @@
   "sources": [
     "HouseLinc device catalog",
     "Infrared Receiver 2411R Owner's Manual",
-    "Infrared Receiver 2411R Quick Start Guide"
+    "Infrared Receiver 2411R Quick Start Guide",
+    "Insteon Device Categories and Product Keys (October 2008)"
   ]
 }
